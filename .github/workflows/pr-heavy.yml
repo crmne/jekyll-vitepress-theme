@@ -2,7 +2,7 @@ name: PR Heavy
 
 on:
   pull_request:
-    branches: ["main"]
+    branches: ["main", "master"]
     paths:
       - "_**/**"
       - "_config.yml"
