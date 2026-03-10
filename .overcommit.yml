@@ -62,5 +62,5 @@ PrePush:
   Verify:
     enabled: true
     required_executable: "bundle"
-    command: ["bundle", "exec", "rake", "verify"]
+    command: ["bash", "-lc", "bundle exec rake verify"]
     pass_filenames: false
