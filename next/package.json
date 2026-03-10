@@ -1,0 +1,21 @@
+{
+  "name": "jekyll-vitepress-theme-tooling",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Local lint tooling for jekyll-vitepress-theme.",
+  "scripts": {
+    "build:social-icons": "node scripts/generate_social_icons.cjs",
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:md",
+    "lint:js": "eslint \"assets/js/**/*.js\"",
+    "lint:css": "stylelint \"assets/css/**/*.css\"",
+    "lint:md": "markdownlint-cli2 \"**/*.md\" \"#_site/**\" \"#node_modules/**\""
+  },
+  "devDependencies": {
+    "@iconify-json/simple-icons": "^1.2.73",
+    "eslint": "^9.23.0",
+    "globals": "^16.0.0",
+    "markdownlint-cli2": "^0.18.1",
+    "stylelint": "^16.16.0",
+    "stylelint-config-standard": "^37.0.0"
+  }
+}

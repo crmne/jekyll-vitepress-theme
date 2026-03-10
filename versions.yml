@@ -1,0 +1,12 @@
+---
+current: next
+latest:
+items:
+- id: next
+  text: next (unreleased)
+  link: "/jekyll-vitepress-theme/next/"
+- id: changelog
+  text: Changelog
+  link: https://github.com/crmne/jekyll-vitepress-theme/releases
+  external: true
+updated_at: '2026-03-10T22:36:31Z'
