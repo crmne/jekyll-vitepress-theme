@@ -8,7 +8,7 @@
     "lint": "npm run lint:js && npm run lint:css && npm run lint:md",
     "lint:js": "eslint \"assets/js/**/*.js\"",
     "lint:css": "stylelint \"assets/css/**/*.css\"",
-    "lint:md": "markdownlint-cli2 \"**/*.md\" \"#_site/**\" \"#node_modules/**\""
+    "lint:md": "markdownlint-cli2 \"**/*.md\" \"#_site/**\" \"#node_modules/**\" \"#vendor/**\" \"#.bundle/**\""
   },
   "devDependencies": {
     "@iconify-json/simple-icons": "^1.2.73",
