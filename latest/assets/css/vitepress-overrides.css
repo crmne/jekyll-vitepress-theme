@@ -15,7 +15,8 @@ body {
   pointer-events: auto;
 }
 
-body.vp-nav-screen-open {
+body.vp-nav-screen-open,
+body.vp-sidebar-open {
   overflow: hidden;
 }
 
