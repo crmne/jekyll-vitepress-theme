@@ -880,10 +880,9 @@
 <ol>
   <li>Builds Jekyll once at the repository base path.</li>
   <li>Publishes the build to <code class="language-plaintext highlighter-rouge">gh-pages</code> root.</li>
-  <li>Maintains compatibility redirects from <code class="language-plaintext highlighter-rouge">/latest/</code> and <code class="language-plaintext highlighter-rouge">/v/0.9.0/</code> back to <code class="language-plaintext highlighter-rouge">/</code>.</li>
 </ol>
 
-<p>This keeps CI and maintenance simple while preserving old links.</p>
+<p>This keeps CI and maintenance simple.</p>
 
 <h2 id="optional-multi-version-docs">Optional: multi-version docs</h2>
 
@@ -898,6 +897,14 @@
     </ul>
   </li>
 </ul>
+
+<p>Typical flow:</p>
+
+<ol>
+  <li>On every push to <code class="language-plaintext highlighter-rouge">main</code>, build docs with baseurl <code class="language-plaintext highlighter-rouge">/next</code> and publish with <code class="language-plaintext highlighter-rouge">publish_gh_pages.sh next</code>.</li>
+  <li>On release, build docs for <code class="language-plaintext highlighter-rouge">/v/x.y.z</code> and <code class="language-plaintext highlighter-rouge">/latest</code>, then publish with <code class="language-plaintext highlighter-rouge">publish_gh_pages.sh release</code>.</li>
+  <li>Keep <code class="language-plaintext highlighter-rouge">versions.yml</code> in <code class="language-plaintext highlighter-rouge">gh-pages</code> as the selector source of truth.</li>
+</ol>
 
 <p>When <code class="language-plaintext highlighter-rouge">/_data/versions.yml</code> is present, it overrides <code class="language-plaintext highlighter-rouge">vp_theme.version</code> in nav.</p>
 
@@ -980,7 +987,7 @@
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-03-11T10:16:40+00:00" lang="en-US">11 Mar 2026, 10:16</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-03-11T10:24:05+00:00" lang="en-US">11 Mar 2026, 10:24</time></p>
           </div>
         
       </div>

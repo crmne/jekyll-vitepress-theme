@@ -70,7 +70,7 @@ bundle exec overcommit --run
 ## Docs deployment (this repo)
 
 - `main` deploys a single docs site at `/`
-- Compatibility redirects keep `/latest/` and `/v/0.9.0/` pointing at `/`
+- No secondary version paths are published in default mode (`/latest/`, `/v/*`, `/next/`)
 - Optional multi-version deployment is documented in [_advanced/deployment.md](_advanced/deployment.md)
 
 ## Theme configuration
