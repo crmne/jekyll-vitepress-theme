@@ -80,119 +80,12 @@ if [[ -f "${WORKTREE_DIR}/latest/index.html" ]]; then
   TARGET_DIR="latest"
 fi
 
-cat > "${WORKTREE_DIR}/index.html" <<HTML
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="refresh" content="3; url=./${TARGET_DIR}/">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Opening docs…</title>
-    <style>
-      :root {
-        color-scheme: light dark;
-        --bg: #f6f7fb;
-        --bg-soft: #eef1f8;
-        --text: #1f2328;
-        --text-soft: #5b6475;
-        --brand: #3451b2;
-        --brand-soft: rgba(52, 81, 178, 0.16);
-        --card: rgba(255, 255, 255, 0.88);
-        --border: rgba(17, 24, 39, 0.1);
-      }
-      :root.dark {
-        --bg: #0f1118;
-        --bg-soft: #181b26;
-        --text: #e5e8ef;
-        --text-soft: #a8b0c2;
-        --brand: #8ea8ff;
-        --brand-soft: rgba(142, 168, 255, 0.24);
-        --card: rgba(23, 27, 39, 0.78);
-        --border: rgba(226, 232, 240, 0.14);
-      }
-      * { box-sizing: border-box; }
-      html, body {
-        margin: 0;
-        min-height: 100%;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      }
-      body {
-        display: grid;
-        place-items: center;
-        padding: 24px;
-        color: var(--text);
-        background:
-          radial-gradient(1200px 600px at 20% 10%, var(--brand-soft), transparent 60%),
-          radial-gradient(900px 420px at 80% 100%, rgba(77, 124, 255, 0.08), transparent 55%),
-          linear-gradient(180deg, var(--bg), var(--bg-soft));
-      }
-      .card {
-        width: min(560px, 100%);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 28px 24px;
-        text-align: center;
-        background: var(--card);
-        backdrop-filter: blur(8px);
-        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.16);
-      }
-      .spinner {
-        width: 44px;
-        height: 44px;
-        margin: 0 auto 18px;
-        border-radius: 999px;
-        border: 3px solid var(--brand-soft);
-        border-top-color: var(--brand);
-        animation: spin 0.9s linear infinite;
-      }
-      h1 {
-        margin: 0 0 8px;
-        font-size: 24px;
-        line-height: 1.2;
-      }
-      p {
-        margin: 0;
-        color: var(--text-soft);
-        font-size: 15px;
-        line-height: 1.6;
-      }
-      a {
-        color: var(--brand);
-        text-decoration: none;
-      }
-      a:hover { text-decoration: underline; }
-      @keyframes spin { to { transform: rotate(360deg); } }
-      @media (prefers-reduced-motion: reduce) {
-        .spinner { animation: none; }
-      }
-    </style>
-    <script>
-      (function() {
-        var target = "./${TARGET_DIR}/";
-        var storageKey = "vitepress-theme-appearance";
-        var mode = "auto";
-        try {
-          mode = localStorage.getItem(storageKey) || "auto";
-        } catch (e) {}
-        var isDark = mode === "dark" || (mode !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-        document.documentElement.classList.add(isDark ? "dark" : "light");
-        window.addEventListener("load", function() {
-          window.setTimeout(function() {
-            window.location.replace(target);
-          }, 180);
-        });
-      })();
-    </script>
-  </head>
-  <body>
-    <main class="card">
-      <div class="spinner" aria-hidden="true"></div>
-      <h1>Opening ${TARGET_DIR} docs</h1>
-      <p>Taking you to <a href="./${TARGET_DIR}/">${TARGET_DIR}</a>…</p>
-    </main>
-  </body>
-</html>
-HTML
+REDIRECT_TEMPLATE="scripts/templates/gh_pages_redirect.html"
+if [[ ! -f "${REDIRECT_TEMPLATE}" ]]; then
+  echo "Missing ${REDIRECT_TEMPLATE}"
+  exit 1
+fi
+sed "s|__TARGET_DIR__|${TARGET_DIR}|g" "${REDIRECT_TEMPLATE}" > "${WORKTREE_DIR}/index.html"
 
 touch "${WORKTREE_DIR}/.nojekyll"
 
