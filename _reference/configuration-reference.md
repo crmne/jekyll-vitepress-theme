@@ -56,7 +56,7 @@ vp_theme:
       collections: [reference]
 
   version:
-    current: v0.9.0
+    current: auto
     items:
       - text: v0.9.0 (current)
         link: /
@@ -81,6 +81,8 @@ vp_theme:
 
 If `/_data/versions.yml` exists, it becomes the source of truth for the version selector and overrides `vp_theme.version`.
 This is intended for optional multi-version docs setups.
+
+`vp_theme.version.current: auto` resolves to `v#{Jekyll::VitePressTheme::VERSION}` at build time.
 
 Built-in icon slugs are:
 `github`, `gitlab`, `bitbucket`, `discord`, `slack`, `x`, `twitter`,

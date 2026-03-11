@@ -19,7 +19,7 @@ vp_theme:
       collections: [getting_started, core_features, advanced]
 
   version:
-    current: v1.0.0
+    current: auto
     items:
       - text: v1.0.0 (current)
         link: /
@@ -55,3 +55,5 @@ Create `_includes/vp_slots/head.html` in your site and add your tags there.
 
 If `/_data/versions.yml` exists, it overrides `vp_theme.version` and drives the version selector.
 Use this only for advanced multi-version docs setups.
+
+`vp_theme.version.current` can be set to `auto` to use the gem version from `Jekyll::VitePressTheme::VERSION`.

@@ -53,7 +53,7 @@ if [[ "${MODE}" == "single" ]]; then
     exit 1
   fi
 
-  rsync -a --delete --exclude='.git' "${SITE_ROOT_DIR}/" "${WORKTREE_DIR}/"
+  rsync -a --delete --checksum --exclude='.git' "${SITE_ROOT_DIR}/" "${WORKTREE_DIR}/"
 
   if [[ -n "${EXISTING_CNAME}" && ! -f "${WORKTREE_DIR}/CNAME" ]]; then
     printf '%s\n' "${EXISTING_CNAME}" > "${WORKTREE_DIR}/CNAME"
@@ -66,7 +66,7 @@ if [[ "${MODE}" == "next" ]]; then
     exit 1
   fi
   mkdir -p "${WORKTREE_DIR}/next"
-  rsync -a --delete "${SITE_NEXT_DIR}/" "${WORKTREE_DIR}/next/"
+  rsync -a --delete --checksum "${SITE_NEXT_DIR}/" "${WORKTREE_DIR}/next/"
 fi
 
 if [[ "${MODE}" == "release" ]]; then
@@ -84,8 +84,8 @@ if [[ "${MODE}" == "release" ]]; then
   fi
 
   mkdir -p "${WORKTREE_DIR}/v/${RELEASE_VERSION}" "${WORKTREE_DIR}/latest"
-  rsync -a --delete "${SITE_RELEASE_DIR}/" "${WORKTREE_DIR}/v/${RELEASE_VERSION}/"
-  rsync -a --delete "${SITE_LATEST_DIR}/" "${WORKTREE_DIR}/latest/"
+  rsync -a --delete --checksum "${SITE_RELEASE_DIR}/" "${WORKTREE_DIR}/v/${RELEASE_VERSION}/"
+  rsync -a --delete --checksum "${SITE_LATEST_DIR}/" "${WORKTREE_DIR}/latest/"
 fi
 
 if [[ "${MODE}" != "single" ]]; then

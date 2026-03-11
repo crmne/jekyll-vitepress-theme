@@ -89,10 +89,36 @@ module Jekyll
         ].join("\n")
       end
     end
+
+    module VersionLabel
+      module_function
+
+      AUTO_VALUE = 'auto'.freeze
+
+      def apply(site)
+        vp_theme = site.config['vp_theme']
+        return unless vp_theme.is_a?(Hash)
+
+        version_config = vp_theme['version']
+        return unless version_config.is_a?(Hash)
+
+        current_value = version_config['current'] || version_config[:current]
+        return unless auto_value?(current_value)
+
+        version_config['current'] = "v#{Jekyll::VitePressTheme::VERSION}"
+      rescue StandardError => e
+        Jekyll.logger.warn('jekyll-vitepress-theme', "Version label resolution failed: #{e.message}")
+      end
+
+      def auto_value?(value)
+        value.to_s.strip.casecmp(AUTO_VALUE).zero?
+      end
+    end
   end
 end
 
 Jekyll::Hooks.register :site, :after_reset do |site|
+  Jekyll::VitePressTheme::VersionLabel.apply(site)
   Jekyll::VitePressTheme::RougeStyles.apply(site)
 end
 
