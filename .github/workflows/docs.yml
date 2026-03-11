@@ -8,6 +8,7 @@ on:
       - '_**/**'
       - '_config.yml'
       - 'assets/**'
+      - 'docs/**'
       - 'lib/**'
       - 'scripts/**'
       - '*.md'

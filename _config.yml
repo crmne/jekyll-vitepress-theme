@@ -2,6 +2,8 @@ title: Jekyll VitePress Theme
 description: VitePress-style documentation theme for Jekyll.
 lang: en-US
 timezone: UTC
+# This repo's docs site keeps its own include overrides outside gem payload.
+includes_dir: docs/_includes
 
 markdown: kramdown
 kramdown:
