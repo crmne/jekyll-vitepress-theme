@@ -16,6 +16,7 @@ on:
 
 permissions:
   contents: write
+  pages: write
 
 concurrency:
   group: gh-pages-publish
@@ -37,21 +38,9 @@ jobs:
           ruby-version: '3.3'
           bundler-cache: true
 
-      - name: Derive Pages metadata
-        id: meta
-        shell: bash
-        run: |
-          set -euo pipefail
-          OWNER="${GITHUB_REPOSITORY_OWNER}"
-          REPO="${GITHUB_REPOSITORY#*/}"
-          if [[ "${REPO}" == "${OWNER}.github.io" ]]; then
-            BASE_PATH=""
-          else
-            BASE_PATH="/${REPO}"
-          fi
-          SHORT_SHA="${GITHUB_SHA::7}"
-          echo "base_path=${BASE_PATH}" >> "$GITHUB_OUTPUT"
-          echo "short_sha=${SHORT_SHA}" >> "$GITHUB_OUTPUT"
+      - name: Setup Pages metadata
+        id: pages
+        uses: actions/configure-pages@v5
 
       - name: Load existing versions manifest from gh-pages
         shell: bash
@@ -67,7 +56,7 @@ jobs:
         run: |
           ruby scripts/version_manifest.rb \
             --mode next \
-            --base-path "${{ steps.meta.outputs.base_path }}" \
+            --base-path "${{ steps.pages.outputs.base_path }}" \
             --manifest-in .tmp/versions-in.yml \
             --manifest-out _data/versions.yml \
             --repository "${{ github.repository }}"
@@ -75,7 +64,7 @@ jobs:
       - name: Build next docs
         run: |
           bundle exec jekyll build \
-            --baseurl "${{ steps.meta.outputs.base_path }}/next" \
+            --baseurl "${{ steps.pages.outputs.base_path }}/next" \
             --destination _site_next
         env:
           JEKYLL_ENV: production

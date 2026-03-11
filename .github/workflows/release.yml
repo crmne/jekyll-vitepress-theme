@@ -5,6 +5,7 @@ on:
 
 permissions:
   contents: write
+  pages: write
 
 concurrency:
   group: gh-pages-publish
@@ -63,22 +64,10 @@ jobs:
             echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Resolve Pages metadata
+      - name: Setup Pages metadata
         if: steps.check_version.outputs.version_changed == 'true'
-        id: meta
-        shell: bash
-        run: |
-          set -euo pipefail
-          OWNER="${GITHUB_REPOSITORY_OWNER}"
-          REPO="${GITHUB_REPOSITORY#*/}"
-
-          if [[ "${REPO}" == "${OWNER}.github.io" ]]; then
-            BASE_PATH=""
-          else
-            BASE_PATH="/${REPO}"
-          fi
-
-          echo "base_path=${BASE_PATH}" >> "$GITHUB_OUTPUT"
+        id: pages
+        uses: actions/configure-pages@v5
 
       - name: Load existing versions manifest from gh-pages
         if: steps.check_version.outputs.version_changed == 'true'
@@ -97,7 +86,7 @@ jobs:
           ruby scripts/version_manifest.rb \
             --mode release \
             --version "${{ steps.check_version.outputs.version }}" \
-            --base-path "${{ steps.meta.outputs.base_path }}" \
+            --base-path "${{ steps.pages.outputs.base_path }}" \
             --manifest-in .tmp/versions-in.yml \
             --manifest-out _data/versions.yml \
             --repository "${{ github.repository }}"
@@ -106,7 +95,7 @@ jobs:
         if: steps.check_version.outputs.version_changed == 'true'
         run: |
           bundle exec jekyll build \
-            --baseurl "${{ steps.meta.outputs.base_path }}/v/${{ steps.check_version.outputs.version }}" \
+            --baseurl "${{ steps.pages.outputs.base_path }}/v/${{ steps.check_version.outputs.version }}" \
             --destination _site_release
         env:
           JEKYLL_ENV: production
@@ -115,7 +104,7 @@ jobs:
         if: steps.check_version.outputs.version_changed == 'true'
         run: |
           bundle exec jekyll build \
-            --baseurl "${{ steps.meta.outputs.base_path }}/latest" \
+            --baseurl "${{ steps.pages.outputs.base_path }}/latest" \
             --destination _site_latest
         env:
           JEKYLL_ENV: production
