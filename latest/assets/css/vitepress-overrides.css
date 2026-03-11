@@ -19,6 +19,11 @@ body.vp-nav-screen-open {
   overflow: hidden;
 }
 
+body.vp-nav-screen-open .VPNav {
+  z-index: calc(var(--vp-z-index-backdrop) + 1);
+  pointer-events: auto;
+}
+
 .VPNavBar > .wrapper > .container > .title,
 .VPNavBar > .wrapper > .container > .content > .content-body,
 .vp-doc div[class*='language-'],
