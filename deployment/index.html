@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Home | Jekyll VitePress Theme</title>
-  <meta name="description" content="VitePress-style docs for Jekyll.">
+  <title>Deployment | Jekyll VitePress Theme</title>
+  <meta name="description" content="Deploy a single docs site by default, with optional multi-version mode.">
   <link rel="icon" href="/assets/images/theme/vitepress-logo-mini.svg">
   
   
@@ -329,11 +329,11 @@
 
 
 <header class="VPNav">
-  <div class="VPNavBar home top" id="vp-nav-bar">
+  <div class="VPNavBar has-sidebar top" id="vp-nav-bar">
     <div class="wrapper">
       <div class="container">
         <div class="title">
-          <div class="VPNavBarTitle">
+          <div class="VPNavBarTitle has-sidebar">
             <a class="title" href="/">
               
               
@@ -372,7 +372,7 @@
               
                 
                 
-                <a class="VPLink link VPNavBarMenuLink" href="/what-is-jekyll-vitepress-theme/">
+                <a class="VPLink link VPNavBarMenuLink active" href="/what-is-jekyll-vitepress-theme/">
                   <span>Guide</span>
                 </a>
               
@@ -478,7 +478,7 @@
         
           
           
-          <a class="VPLink link VPNavScreenMenuLink" href="/what-is-jekyll-vitepress-theme/">
+          <a class="VPLink link VPNavScreenMenuLink active" href="/what-is-jekyll-vitepress-theme/">
             <span>Guide</span>
           </a>
         
@@ -574,286 +574,450 @@
 </div>
 
         
+          <div class="VPLocalNav has-sidebar" id="vp-local-nav">
+  <div class="container">
+    <button class="menu" aria-expanded="false" aria-controls="VPSidebarNav" id="vp-local-menu-button">
+      <span class="vpi-align-left menu-icon"></span>
+      <span class="menu-text">Menu</span>
+    </button>
 
-        <div class="VPContent is-home" id="VPContent">
-          
-            
+    <div class="VPLocalNavOutlineDropdown" id="vp-local-outline-dropdown">
+      <button type="button" id="vp-local-outline-button">
+        <span class="menu-text">On this page</span>
+        <span class="vpi-chevron-right icon"></span>
+      </button>
+      <div class="items" hidden>
+        <div class="header">
+          <a class="top-link" href="#top" id="vp-local-top-link">Return to top</a>
+        </div>
+        <div class="outline">
+          <ul class="VPDocOutlineItem"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+          <aside class="VPSidebar" id="vp-sidebar">
+  <div class="curtain"></div>
+  <nav class="nav" id="VPSidebarNav" aria-labelledby="sidebar-aria-label" tabindex="-1">
+    <span class="visually-hidden" id="sidebar-aria-label">Sidebar Navigation</span>
 
-
-<div class="VPHome">
-  
     
-    <div class="VPHero has-image">
-      <div class="container">
-        <div class="main">
-          
+      
+      
+        
+        
 
-          
-            <h1 class="heading">
-              
-                <span class="name clip">Jekyll VitePress</span>
-              
-              
-                <span class="text">VitePress-Style Docs for Jekyll</span>
-              
-            </h1>
-          
+        <div class="group no-transition">
+          <section class="VPSidebarItem level-0 collapsible">
+            <div class="item" role="button" tabindex="0">
+              <div class="indicator"></div>
+              <h2 class="text">Introduction</h2>
+              <div class="caret" role="button" aria-label="toggle section" tabindex="0">
+                <span class="vpi-chevron-right caret-icon"></span>
+              </div>
+            </div>
 
-          
-            <p class="tagline">Markdown to beautiful documents without leaving Ruby</p>
-          
-
-          
-            <div class="actions">
+            <div class="items">
               
                 
                 
-                
-                
-                
-                
-                
-                
-                
-                <div class="action">
-                  <a
-                    class="VPButton medium brand"
-                    href="/what-is-jekyll-vitepress-theme/"
-                    
-                    
-                  >
-                    What Is This Theme?
-                  </a>
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/what-is-jekyll-vitepress-theme/">
+                      <p class="text">What Is Jekyll VitePress Theme?</p>
+                    </a>
+                  </div>
                 </div>
               
                 
                 
-                
-                
-                
-                
-                
-                
-                
-                <div class="action">
-                  <a
-                    class="VPButton medium alt"
-                    href="/getting-started/"
-                    
-                    
-                  >
-                    Getting Started
-                  </a>
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/getting-started/">
+                      <p class="text">Getting Started</p>
+                    </a>
+                  </div>
                 </div>
               
                 
                 
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/configuration/">
+                      <p class="text">Configuration</p>
+                    </a>
+                  </div>
+                </div>
+              
                 
                 
-                
-                
-                
-                
-                
-                <div class="action">
-                  <a
-                    class="VPButton medium alt"
-                    href="https://github.com/crmne/jekyll-vitepress-theme"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    GitHub
-                  </a>
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/overview/">
+                      <p class="text">Overview</p>
+                    </a>
+                  </div>
                 </div>
               
             </div>
-          
+          </section>
         </div>
+      
+    
+      
+      
+        
+        
+
+        <div class="group no-transition">
+          <section class="VPSidebarItem level-0 collapsible">
+            <div class="item" role="button" tabindex="0">
+              <div class="indicator"></div>
+              <h2 class="text">Core Features</h2>
+              <div class="caret" role="button" aria-label="toggle section" tabindex="0">
+                <span class="vpi-chevron-right caret-icon"></span>
+              </div>
+            </div>
+
+            <div class="items">
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/navigation-layout/">
+                      <p class="text">Navigation and Layout</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/code-blocks/">
+                      <p class="text">Code Blocks</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/search-and-outline/">
+                      <p class="text">Search and Outline</p>
+                    </a>
+                  </div>
+                </div>
+              
+            </div>
+          </section>
+        </div>
+      
+    
+      
+      
+        
+        
+
+        <div class="group no-transition">
+          <section class="VPSidebarItem level-0 collapsible has-active">
+            <div class="item" role="button" tabindex="0">
+              <div class="indicator"></div>
+              <h2 class="text">Advanced</h2>
+              <div class="caret" role="button" aria-label="toggle section" tabindex="0">
+                <span class="vpi-chevron-right caret-icon"></span>
+              </div>
+            </div>
+
+            <div class="items">
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/customizing-styles/">
+                      <p class="text">Customizing Styles</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/extending-behavior/">
+                      <p class="text">Extending Behavior</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link is-active">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/deployment/">
+                      <p class="text">Deployment</p>
+                    </a>
+                  </div>
+                </div>
+              
+            </div>
+          </section>
+        </div>
+      
+    
+      
+      
+        
+        
+
+        <div class="group no-transition">
+          <section class="VPSidebarItem level-0 collapsible">
+            <div class="item" role="button" tabindex="0">
+              <div class="indicator"></div>
+              <h2 class="text">Reference</h2>
+              <div class="caret" role="button" aria-label="toggle section" tabindex="0">
+                <span class="vpi-chevron-right caret-icon"></span>
+              </div>
+            </div>
+
+            <div class="items">
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/configuration-reference/">
+                      <p class="text">Configuration Reference</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/frontmatter-reference/">
+                      <p class="text">Frontmatter Reference</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/troubleshooting/">
+                      <p class="text">Troubleshooting</p>
+                    </a>
+                  </div>
+                </div>
+              
+            </div>
+          </section>
+        </div>
+      
+    
+  </nav>
+</aside>
 
         
-          <div class="image">
-            <div class="image-container">
-              <div class="image-bg"></div>
-              
-              
-              
-              
-              
-              
-              
 
-              
-                
-                
-                <img class="VPImage image-src" src="/assets/images/theme/vitepress-logo-large.svg" alt="Jekyll VitePress Theme" width="320" height="320">
-              
-            </div>
+        <div class="VPContent has-sidebar" id="VPContent">
+          
+            <div class="VPDoc has-sidebar has-aside">
+              <div class="container">
+                <div class="aside">
+                  <div class="aside-curtain"></div>
+                  <div class="aside-container">
+                    <div class="aside-content">
+                      <div class="VPDocAside">
+                        <nav aria-labelledby="doc-outline-aria-label" class="VPDocAsideOutline has-outline" id="vp-doc-outline">
+                          <div class="content">
+                            <div class="outline-marker" id="vp-outline-marker"></div>
+                            <div aria-level="2" class="outline-title" id="doc-outline-aria-label" role="heading">On this page</div>
+                            <ul class="VPDocOutlineItem root"></ul>
+                          </div>
+                        </nav>
+                        <div class="spacer"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="content">
+                  <div class="content-container">
+                    <main class="main">
+                      <div class="vp-doc _deployment_">
+                        
+                        
+                        
+                          <h1>Deployment</h1>
+                        
+                        <h2 id="default-recommended-single-docs-site">Default (recommended): single docs site</h2>
+
+<p>This repository deploys one canonical docs site at <code class="language-plaintext highlighter-rouge">/</code> from <code class="language-plaintext highlighter-rouge">main</code>.</p>
+
+<p>The docs workflow:</p>
+
+<ol>
+  <li>Builds Jekyll once at the repository base path.</li>
+  <li>Publishes the build to <code class="language-plaintext highlighter-rouge">gh-pages</code> root.</li>
+  <li>Maintains compatibility redirects from <code class="language-plaintext highlighter-rouge">/latest/</code> and <code class="language-plaintext highlighter-rouge">/v/0.9.0/</code> back to <code class="language-plaintext highlighter-rouge">/</code>.</li>
+</ol>
+
+<p>This keeps CI and maintenance simple while preserving old links.</p>
+
+<h2 id="optional-multi-version-docs">Optional: multi-version docs</h2>
+
+<p>If your project needs versioned docs (<code class="language-plaintext highlighter-rouge">/next/</code>, <code class="language-plaintext highlighter-rouge">/latest/</code>, <code class="language-plaintext highlighter-rouge">/v/x.y.z/</code>), this theme includes an advanced pattern:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">scripts/version_manifest.rb</code> to generate <code class="language-plaintext highlighter-rouge">/_data/versions.yml</code></li>
+  <li><code class="language-plaintext highlighter-rouge">scripts/publish_gh_pages.sh</code> modes:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">next</code></li>
+      <li><code class="language-plaintext highlighter-rouge">release</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p>When <code class="language-plaintext highlighter-rouge">/_data/versions.yml</code> is present, it overrides <code class="language-plaintext highlighter-rouge">vp_theme.version</code> in nav.</p>
+
+<p>Use this mode only when you need immutable version snapshots. It adds operational complexity and more edge cases (caching, legacy paths, rebuilds).</p>
+
+<p>In repository settings, configure GitHub Pages to serve from branch <code class="language-plaintext highlighter-rouge">gh-pages</code> (root).</p>
+
+                      </div>
+                    </main>
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <footer class="VPDocFooter">
+    
+      <div class="edit-info">
+        
+          <div class="edit-link">
+            <a class="VPLink link vp-external-link-icon no-icon edit-link-button" href="https://github.com/crmne/jekyll-vitepress-theme/edit/main/_advanced/deployment.md" target="_blank" rel="noreferrer">
+              <span class="vpi-square-pen edit-link-icon"></span>
+              Edit this page on GitHub
+            </a>
+          </div>
+        
+        
+          <div class="last-updated">
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-03-11T10:16:40+00:00" lang="en-US">11 Mar 2026, 10:16</time></p>
           </div>
         
       </div>
-    </div>
-  
-
-  
-    
-    
-    
     
 
-    <div class="VPFeatures VPHomeFeatures">
-      <div class="container">
-        <div class="items">
+    
+      <nav class="prev-next" aria-labelledby="doc-footer-aria-label">
+        <span class="visually-hidden" id="doc-footer-aria-label">Pager</span>
+
+        <div class="pager">
           
-            <div class="item grid-4">
-              
-
-              
-                <div class="VPFeature">
-                  
-                <article class="box">
-                  
-                    
-                    
-                    
-
-                    
-                      <div class="icon">⚡</div>
-                    
-                  
-
-                  <h2 class="title">Familiar VitePress UX</h2>
-                  
-                    <p class="details">Top nav, left sidebar, right outline, and doc footer pager with high visual parity.</p>
-                  
-                  
-                </article>
-              
-                </div>
-              
-            </div>
-          
-            <div class="item grid-4">
-              
-
-              
-                <div class="VPFeature">
-                  
-                <article class="box">
-                  
-                    
-                    
-                    
-
-                    
-                      <div class="icon">🧩</div>
-                    
-                  
-
-                  <h2 class="title">Jekyll-Native Config</h2>
-                  
-                    <p class="details">Configure nav, sidebars, edit links, labels, colors, fonts, and more in `_config.yml`.</p>
-                  
-                  
-                </article>
-              
-                </div>
-              
-            </div>
-          
-            <div class="item grid-4">
-              
-
-              
-                <div class="VPFeature">
-                  
-                <article class="box">
-                  
-                    
-                    
-                    
-
-                    
-                      <div class="icon">🎨</div>
-                    
-                  
-
-                  <h2 class="title">Rouge + Theme Tokens</h2>
-                  
-                    <p class="details">Use Rouge-native light/dark themes and override CSS variables for branding and polish.</p>
-                  
-                  
-                </article>
-              
-                </div>
-              
-            </div>
-          
-            <div class="item grid-4">
-              
-
-              
-                <div class="VPFeature">
-                  
-                <article class="box">
-                  
-                    
-                    
-                    
-
-                    
-                      <div class="icon">🔍</div>
-                    
-                  
-
-                  <h2 class="title">Built-In Local Search</h2>
-                  
-                    <p class="details">Fast docs search with `/` and `Ctrl/Cmd+K`, powered by a generated `search.json` index.</p>
-                  
-                  
-                </article>
-              
-                </div>
-              
-            </div>
+            <a class="VPLink link pager-link prev" href="/extending-behavior/">
+              <span class="desc">Previous page</span>
+              <span class="title">Extending Behavior</span>
+            </a>
           
         </div>
-      </div>
-    </div>
-  
 
-  
-    
-      <div class="VPHomeContent">
-        <div class="vp-doc container">
-          <h2 id="build-docs-like-vitepress-ship-docs-like-jekyll">Build docs like VitePress, ship docs like Jekyll</h2>
-
-<p>Start with <a href="/getting-started/">Getting Started</a>, then tune the theme in <a href="/configuration-reference/">Configuration Reference</a>.</p>
-
-
+        <div class="pager">
+          
         </div>
-      </div>
+      </nav>
     
-  
-</div>
+  </footer>
 
+
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
           
         </div>
 
         
         
 
-        
-          <footer class="VPFooter">
-            <div class="container">
-              
-                <p class="message">Brought to you by <a href="https://paolino.me">Carmine Paolino</a>, maker of</p>
-              
-              
-                <p class="copyright"><span class="footer-brand-links"><a href="https://chatwithwork.com" class="footer-chatwithwork-link"><img class="footer-chatwithwork-logo" src="https://chatwithwork.com/logotype.svg" alt="Chat with Work"></a><a href="https://rubyllm.com" class="footer-rubyllm-link"><img class="footer-rubyllm-logo theme-image light" src="https://rubyllm.com/assets/images/logotype.svg" alt="RubyLLM"><img class="footer-rubyllm-logo theme-image dark" src="https://rubyllm.com/assets/images/logotype_dark.svg" alt="RubyLLM"></a></span></p>
-              
-            </div>
-          </footer>
         
 
         
