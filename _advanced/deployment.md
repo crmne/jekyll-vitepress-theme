@@ -12,9 +12,8 @@ The docs workflow:
 
 1. Builds Jekyll once at the repository base path.
 2. Publishes the build to `gh-pages` root.
-3. Maintains compatibility redirects from `/latest/` and `/v/0.9.0/` back to `/`.
 
-This keeps CI and maintenance simple while preserving old links.
+This keeps CI and maintenance simple.
 
 ## Optional: multi-version docs
 
@@ -24,6 +23,12 @@ If your project needs versioned docs (`/next/`, `/latest/`, `/v/x.y.z/`), this t
 - `scripts/publish_gh_pages.sh` modes:
   - `next`
   - `release`
+
+Typical flow:
+
+1. On every push to `main`, build docs with baseurl `/next` and publish with `publish_gh_pages.sh next`.
+2. On release, build docs for `/v/x.y.z` and `/latest`, then publish with `publish_gh_pages.sh release`.
+3. Keep `versions.yml` in `gh-pages` as the selector source of truth.
 
 When `/_data/versions.yml` is present, it overrides `vp_theme.version` in nav.
 

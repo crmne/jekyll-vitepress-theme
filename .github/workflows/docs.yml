@@ -54,8 +54,6 @@ jobs:
       - name: Publish docs to gh-pages
         env:
           SITE_ROOT_DIR: _site
-          DOCS_BASE_PATH: ${{ steps.pages.outputs.base_path }}
-          LEGACY_VERSION_REDIRECTS: "0.9.0"
         run: |
           export COMMIT_MESSAGE="docs: publish site (${GITHUB_SHA::7})"
           bash scripts/publish_gh_pages.sh single

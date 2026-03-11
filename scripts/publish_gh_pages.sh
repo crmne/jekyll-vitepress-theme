@@ -20,42 +20,7 @@ SITE_NEXT_DIR="${SITE_NEXT_DIR:-_site_next}"
 SITE_LATEST_DIR="${SITE_LATEST_DIR:-_site_latest}"
 SITE_RELEASE_DIR="${SITE_RELEASE_DIR:-_site_release}"
 RELEASE_VERSION="${RELEASE_VERSION:-}"
-DOCS_BASE_PATH="${DOCS_BASE_PATH:-}"
-LEGACY_VERSION_REDIRECTS="${LEGACY_VERSION_REDIRECTS:-0.9.0}"
 COMMIT_MESSAGE="${COMMIT_MESSAGE:-docs: publish ${MODE}}"
-
-normalize_base_path() {
-  local raw="${1:-}"
-  local trimmed="${raw//[[:space:]]/}"
-  if [[ -z "${trimmed}" || "${trimmed}" == "/" ]]; then
-    echo ""
-    return
-  fi
-  if [[ "${trimmed}" != /* ]]; then
-    trimmed="/${trimmed}"
-  fi
-  echo "${trimmed%/}"
-}
-
-write_redirect_file() {
-  local output_path="${1}"
-  local target_path="${2}"
-  cat > "${output_path}" <<HTML
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="refresh" content="0; url=${target_path}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Redirecting…</title>
-    <script>window.location.replace("${target_path}");</script>
-  </head>
-  <body>
-    <p>Redirecting to <a href="${target_path}">${target_path}</a>…</p>
-  </body>
-</html>
-HTML
-}
 
 cleanup() {
   set +e
@@ -82,12 +47,6 @@ if [[ -f "${WORKTREE_DIR}/CNAME" ]]; then
   EXISTING_CNAME="$(cat "${WORKTREE_DIR}/CNAME")"
 fi
 
-BASE_PATH="$(normalize_base_path "${DOCS_BASE_PATH}")"
-ROOT_TARGET="${BASE_PATH}/"
-if [[ -z "${BASE_PATH}" ]]; then
-  ROOT_TARGET="/"
-fi
-
 if [[ "${MODE}" == "single" ]]; then
   if [[ ! -d "${SITE_ROOT_DIR}" ]]; then
     echo "Missing ${SITE_ROOT_DIR}"
@@ -99,18 +58,6 @@ if [[ "${MODE}" == "single" ]]; then
   if [[ -n "${EXISTING_CNAME}" && ! -f "${WORKTREE_DIR}/CNAME" ]]; then
     printf '%s\n' "${EXISTING_CNAME}" > "${WORKTREE_DIR}/CNAME"
   fi
-
-  mkdir -p "${WORKTREE_DIR}/latest"
-  write_redirect_file "${WORKTREE_DIR}/latest/index.html" "${ROOT_TARGET}"
-
-  IFS=', ' read -r -a LEGACY_VERSIONS <<< "${LEGACY_VERSION_REDIRECTS}"
-  for legacy_version in "${LEGACY_VERSIONS[@]}"; do
-    if [[ -z "${legacy_version}" ]]; then
-      continue
-    fi
-    mkdir -p "${WORKTREE_DIR}/v/${legacy_version}"
-    write_redirect_file "${WORKTREE_DIR}/v/${legacy_version}/index.html" "${ROOT_TARGET}"
-  done
 fi
 
 if [[ "${MODE}" == "next" ]]; then
