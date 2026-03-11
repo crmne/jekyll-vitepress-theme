@@ -387,7 +387,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v0.9.0</span>
+                      <span>v0.9.1</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -492,7 +492,7 @@
 
       
         <div class="VPNavScreenVersion version">
-          <p class="text">v0.9.0</p>
+          <p class="text">v0.9.1</p>
           
             
             
@@ -922,7 +922,7 @@
       <span class="na">collections</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">reference</span><span class="pi">]</span>
 
   <span class="na">version</span><span class="pi">:</span>
-    <span class="na">current</span><span class="pi">:</span> <span class="s">v0.9.0</span>
+    <span class="na">current</span><span class="pi">:</span> <span class="s">auto</span>
     <span class="na">items</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="na">text</span><span class="pi">:</span> <span class="s">v0.9.0 (current)</span>
         <span class="na">link</span><span class="pi">:</span> <span class="s">/</span>
@@ -946,6 +946,8 @@
 
 <p>If <code class="language-plaintext highlighter-rouge">/_data/versions.yml</code> exists, it becomes the source of truth for the version selector and overrides <code class="language-plaintext highlighter-rouge">vp_theme.version</code>.
 This is intended for optional multi-version docs setups.</p>
+
+<p><code class="language-plaintext highlighter-rouge">vp_theme.version.current: auto</code> resolves to <code class="language-plaintext highlighter-rouge">v#{Jekyll::VitePressTheme::VERSION}</code> at build time.</p>
 
 <p>Built-in icon slugs are:
 <code class="language-plaintext highlighter-rouge">github</code>, <code class="language-plaintext highlighter-rouge">gitlab</code>, <code class="language-plaintext highlighter-rouge">bitbucket</code>, <code class="language-plaintext highlighter-rouge">discord</code>, <code class="language-plaintext highlighter-rouge">slack</code>, <code class="language-plaintext highlighter-rouge">x</code>, <code class="language-plaintext highlighter-rouge">twitter</code>,
@@ -1176,7 +1178,7 @@ Set <code class="language-plaintext highlighter-rouge">footer.show_on_docs: true
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-03-11T15:24:07+00:00" lang="en-US">11 Mar 2026, 15:24</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-03-11T16:16:38+00:00" lang="en-US">11 Mar 2026, 16:16</time></p>
           </div>
         
       </div>
