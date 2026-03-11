@@ -78,7 +78,7 @@ vp_theme:
       collections:
         - reference
   version:
-    current: v0.9.0
+    current: v0.9.1
     items:
       - text: Changelog
         link: https://github.com/crmne/jekyll-vitepress-theme/releases
