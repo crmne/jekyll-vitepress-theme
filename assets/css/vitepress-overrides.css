@@ -5,6 +5,27 @@ body {
   overflow-x: hidden;
 }
 
+/* Keep appearance transitions visually consistent across key UI surfaces. */
+.VPNavBar > .wrapper > .container > .title,
+.VPNavBar > .wrapper > .container > .content > .content-body,
+.VPButton,
+.VPFeature,
+.VPFeature .icon,
+.vp-doc [class*='language-'] code,
+.vp-doc [class*='language-'] code .highlighted,
+.vp-doc [class*='language-'] code .diff,
+.vp-doc .vp-code-block-title-bar {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Avoid flash/desync when toggling dark/light mode. */
+html.vp-appearance-switching *,
+html.vp-appearance-switching *::before,
+html.vp-appearance-switching *::after {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}
+
 .VPBackdrop {
   opacity: 0;
   pointer-events: none;
@@ -43,57 +64,65 @@ body.vp-nav-screen-open .VPNav {
 .VPVersionSelector {
   position: relative;
   display: none;
+  margin-right: -12px;
 }
 
 @media (min-width: 768px) {
   .VPVersionSelector {
-    display: flex;
-    align-items: center;
+    display: block;
   }
 }
 
 .VPVersionSelector .button {
   display: flex;
   align-items: center;
-  height: var(--vp-nav-height);
   padding: 0 12px;
-  line-height: var(--vp-nav-height);
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--vp-c-text-2);
-  transition: color 0.25s;
+  height: var(--vp-nav-height);
+  color: var(--vp-c-text-1);
+  transition: color 0.5s;
 }
 
 .VPVersionSelector .button:hover {
-  color: var(--vp-c-text-1);
+  color: var(--vp-c-brand-1);
 }
 
 .VPVersionSelector .text {
   display: flex;
   align-items: center;
-  gap: 2px;
+  line-height: var(--vp-nav-height);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--vp-c-text-1);
+  transition: color 0.25s;
 }
 
 .VPVersionSelector .text-icon {
+  margin-left: 4px;
   font-size: 14px;
-  transition: transform 0.25s;
 }
 
-.VPVersionSelector.open .text-icon {
-  transform: rotate(270deg);
+.VPVersionSelector.open .text {
+  color: var(--vp-c-brand-1);
+}
+
+.VPVersionSelector.open .button:hover .text {
+  color: var(--vp-c-brand-2);
 }
 
 .VPVersionSelector .menu {
   position: absolute;
-  top: calc(100% - 12px);
+  top: calc(var(--vp-nav-height) / 2 + 20px);
   right: 0;
   z-index: calc(var(--vp-z-index-nav) + 1);
-  min-width: 192px;
+  min-width: 128px;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  padding: 6px;
-  background: var(--vp-c-bg-elv);
+  border-radius: 12px;
+  padding: 12px;
+  background-color: var(--vp-c-bg-elv);
   box-shadow: var(--vp-shadow-3);
+  max-height: calc(100vh - var(--vp-nav-height));
+  overflow-y: auto;
+  transition: background-color 0.5s;
 }
 
 .VPVersionSelector .menu[hidden] {
@@ -103,16 +132,19 @@ body.vp-nav-screen-open .VPNav {
 .VPVersionSelector .menu .VPLink {
   display: block;
   border-radius: 6px;
-  padding: 0 10px;
+  padding: 0 12px;
   line-height: 32px;
-  font-size: 13px;
+  font-size: 14px;
+  font-weight: 500;
   color: var(--vp-c-text-1);
-  transition: color 0.25s, background-color 0.25s;
+  text-align: left;
+  white-space: nowrap;
+  transition: background-color 0.25s, color 0.25s;
 }
 
 .VPVersionSelector .menu .VPLink:hover {
   color: var(--vp-c-brand-1);
-  background: var(--vp-c-default-soft);
+  background-color: var(--vp-c-default-soft);
 }
 
 .VPNavScreen .menu + .version {
@@ -120,19 +152,72 @@ body.vp-nav-screen-open .VPNav {
 }
 
 .VPNavScreen .version + .appearance {
-  margin-top: 24px;
+  margin-top: 28px;
 }
 
-.VPNavScreenVersion .text {
-  margin: 0;
+.VPNavScreenMenuGroup {
+  border-bottom: 1px solid var(--vp-c-divider);
+  height: 48px;
+  overflow: hidden;
+  transition: border-color 0.5s;
+}
+
+.VPNavScreenMenuGroup > .items {
+  visibility: hidden;
+}
+
+.VPNavScreenMenuGroup.open > .items {
+  visibility: visible;
+}
+
+.VPNavScreenMenuGroup.open {
+  padding-bottom: 10px;
+  height: auto;
+}
+
+.VPNavScreenMenuGroup.open > .button {
+  padding-bottom: 6px;
+  color: var(--vp-c-brand-1);
+}
+
+.VPNavScreenMenuGroup.open > .button .button-icon {
+  transform: rotate(45deg);
+}
+
+.VPNavScreenMenuGroup > .button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 4px 11px 0;
+  width: 100%;
   line-height: 24px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--vp-c-text-2);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--vp-c-text-1);
+  transition: color 0.25s;
 }
 
-.VPNavScreenVersion .version-link:last-child {
-  border-bottom: 0;
+.VPNavScreenMenuGroup > .button:hover {
+  color: var(--vp-c-brand-1);
+}
+
+.VPNavScreenMenuGroup > .button .button-icon {
+  transition: transform 0.25s;
+}
+
+.VPNavScreenVersionLink {
+  display: block;
+  margin-left: 12px;
+  line-height: 32px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--vp-c-text-1);
+  transition: color 0.25s;
+}
+
+.VPNavScreenVersionLink:hover,
+.VPNavScreenVersionLink.active {
+  color: var(--vp-c-brand-1);
 }
 
 #vp-local-outline-dropdown .items[hidden] {
@@ -153,15 +238,268 @@ body.vp-nav-screen-open .VPNav {
   cursor: pointer;
 }
 
+.VPNavBar .VPNavBarSocialLinks {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .VPNavBar .VPNavBarSocialLinks {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.VPNavBarExtra {
+  display: none;
+  margin-right: -12px;
+}
+
 @media (min-width: 768px) {
-  .VPNavBarSearchButton {
-    border: 1px solid var(--vp-c-border);
-    background-color: var(--vp-c-bg-soft);
+  .VPNavBarExtra {
+    display: block;
+  }
+}
+
+@media (min-width: 1280px) {
+  .VPNavBarExtra {
+    display: none;
+  }
+}
+
+.VPNavBarStar {
+  display: flex;
+  align-items: center;
+}
+
+.VPNavBarStarLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  color: var(--vp-c-text-2);
+  text-decoration: none !important;
+  transition: color 0.5s;
+}
+
+.VPNavBarStarLink:hover {
+  color: var(--vp-c-text-1);
+  transition: color 0.25s;
+}
+
+.VPNavBarStarLink .vpi-social-github {
+  width: 20px;
+  height: 20px;
+  color: currentcolor;
+}
+
+.VPNavBarStarText,
+.VPNavBarStarCount {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .VPNavBarStar {
+    margin-right: 6px;
   }
 
-  .VPNavBarSearchButton .keys {
-    background-color: var(--vp-c-bg);
+  .VPNavBarStarLink {
+    display: inline-flex;
+    gap: 6px;
+    width: auto;
+    height: 28px;
+    border: 1px solid var(--vp-c-divider);
+    border-radius: 999px;
+    padding: 0 10px;
+    line-height: 1;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--vp-c-bg-soft);
+    white-space: nowrap;
+    transition: color 0.25s, border-color 0.25s, background-color 0.25s;
   }
+
+  .VPNavBarStarLink:hover {
+    border-color: var(--vp-c-brand-1);
+    background: var(--vp-c-bg-elv);
+  }
+
+  .VPNavBarStarLink .vpi-social-github {
+    width: 14px;
+    height: 14px;
+  }
+
+  .VPNavBarStarText {
+    display: inline;
+  }
+
+  .VPNavBarStarCount {
+    display: inline;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .VPNavBarStarCount[hidden] {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .VPNavBarExtra {
+    position: relative;
+  }
+
+  .VPNavBarExtra .button {
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    height: var(--vp-nav-height);
+    color: var(--vp-c-text-1);
+    transition: color 0.5s;
+  }
+
+  .VPNavBarExtra .icon {
+    font-size: 20px;
+    color: var(--vp-c-text-1);
+    transition: color 0.25s;
+  }
+
+  .VPNavBarExtra:hover .icon,
+  .VPNavBarExtra.open .icon {
+    color: var(--vp-c-text-2);
+  }
+
+  .VPNavBarExtra .menu {
+    position: absolute;
+    top: calc(var(--vp-nav-height) / 2 + 20px);
+    right: 0;
+    z-index: calc(var(--vp-z-index-nav) + 1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(0);
+    transition: opacity 0.25s, visibility 0.25s, transform 0.25s;
+  }
+
+  .VPNavBarExtra:hover .menu,
+  .VPNavBarExtra.open .menu {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .VPNavBarExtra .VPMenu {
+    border-radius: 12px;
+    padding: 12px;
+    min-width: 128px;
+    border: 1px solid var(--vp-c-divider);
+    background-color: var(--vp-c-bg-elv);
+    box-shadow: var(--vp-shadow-3);
+    transition: background-color 0.5s;
+    max-height: calc(100vh - var(--vp-nav-height));
+    overflow-y: auto;
+  }
+
+  .VPNavBarExtra .group {
+    margin: 0 -12px;
+    padding: 0 12px 12px;
+  }
+
+  .VPNavBarExtra .group + .group {
+    border-top: 1px solid var(--vp-c-divider);
+    padding: 11px 12px 12px;
+  }
+
+  .VPNavBarExtra .group:last-child {
+    padding-bottom: 0;
+  }
+
+  .VPNavBarExtra .item {
+    padding: 0 16px;
+    white-space: nowrap;
+  }
+
+  .VPNavBarExtra .item.appearance,
+  .VPNavBarExtra .item.social-links {
+    display: flex;
+    align-items: center;
+  }
+
+  .VPNavBarExtra .item.appearance {
+    min-width: 176px;
+  }
+
+  .VPNavBarExtra .label {
+    flex-grow: 1;
+    margin: 0;
+    line-height: 28px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--vp-c-text-2);
+    transition: color 0.5s;
+  }
+
+  .VPNavBarExtra .action {
+    padding-left: 24px;
+  }
+
+  .VPNavBarExtra .appearance-action {
+    margin-right: -2px;
+  }
+
+  .VPNavBarExtra .social-links-list {
+    margin: -4px -8px;
+    justify-content: center;
+  }
+
+  .VPNavBarExtra .social-links-list .VPNavBarStar {
+    margin-right: 2px;
+  }
+}
+
+.VPNavScreenSocialLinks {
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.VPNavScreenSocialLinks .VPNavScreenStar {
+  margin-right: 8px;
+}
+
+.VPNavScreenSocialLinks .VPNavScreenStarLink {
+  display: inline-flex;
+  gap: 6px;
+  width: auto;
+  height: 28px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+  padding: 0 10px;
+  line-height: 1;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--vp-c-bg-soft);
+  white-space: nowrap;
+  transition: color 0.25s, border-color 0.25s, background-color 0.25s;
+}
+
+.VPNavScreenSocialLinks .VPNavScreenStarLink:hover {
+  border-color: var(--vp-c-brand-1);
+  background: var(--vp-c-bg-elv);
+}
+
+.VPNavScreenSocialLinks .VPNavScreenStarLink .vpi-social-github {
+  width: 14px;
+  height: 14px;
+}
+
+.VPNavScreenSocialLinks .VPNavBarStarText,
+.VPNavScreenSocialLinks .VPNavBarStarCount {
+  display: inline;
+}
+
+.VPNavScreenSocialLinks .VPNavBarStarCount {
+  font-variant-numeric: tabular-nums;
+}
+
+.VPNavScreenSocialLinks .VPNavBarStarCount[hidden] {
+  display: none !important;
 }
 
 body.vp-search-open {
@@ -287,37 +625,17 @@ body.vp-search-open {
   color: var(--vp-c-text-1);
 }
 
-.VPFooter .copyright a {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.VPFooter .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  text-align: center;
-}
-
-.VPFooter .message,
-.VPFooter .copyright {
-  margin: 0;
-  line-height: 28px;
-  font-size: 16px;
-  font-weight: 500;
-}
-
 .VPFooter .footer-brand-links {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   gap: 16px;
+  margin-left: 10px;
 }
 
-.VPFooter .footer-chatwithwork-link {
+.VPFooter .footer-chatwithwork-link,
+.VPFooter .footer-rubyllm-link {
   display: inline-flex;
   align-items: center;
   vertical-align: middle;
@@ -331,14 +649,6 @@ body.vp-search-open {
   height: 32px;
 }
 
-.VPFooter .footer-rubyllm-link {
-  display: inline-flex;
-  align-items: center;
-  vertical-align: middle;
-  white-space: nowrap;
-  text-decoration: none;
-}
-
 .VPFooter .footer-rubyllm-logo {
   display: block;
   width: auto;
@@ -350,12 +660,6 @@ body.vp-search-open {
 }
 
 @media (min-width: 640px) {
-  .VPFooter .message,
-  .VPFooter .copyright {
-    line-height: 28px;
-    font-size: 16px;
-  }
-
   .VPDocFooter .last-updated {
     margin-top: 0;
   }

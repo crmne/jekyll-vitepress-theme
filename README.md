@@ -7,10 +7,11 @@ A reusable Jekyll theme gem that reproduces the VitePress default docs experienc
 - VitePress-style layout structure (top nav, sidebar, outline, doc footer)
 - Appearance toggle with `auto -> dark -> light`
 - Local search modal (`/`, `Ctrl/Cmd+K`, `Cmd+K`)
+- Optional GitHub star button with live count (`jekyll_vitepress.github_star`)
 - Code block copy button, language labels, file-title bars and icons
-- Rouge-native syntax theme config (`vp_theme.rouge_theme.light/dark`)
+- Rouge-native syntax theme config (`jekyll_vitepress.syntax.light_theme/dark_theme`)
 - Last-updated hook via plugin
-- Slot includes for lightweight theme extension (`_includes/vp_slots/head.html`, `doc_footer.html`, `layout_bottom.html`)
+- Jekyll-native extension hooks (`_includes/jekyll_vitepress/head_end.html`, `doc_footer_end.html`, `layout_end.html`)
 
 ## Installation
 
@@ -28,17 +29,30 @@ plugins:
   - jekyll-vitepress-theme
 ```
 
-3. Add `vp_theme` configuration:
+3. Add theme behavior config in `_config.yml`:
 
 ```yaml
-vp_theme:
-  nav:
-    - text: Guide
-      link: /what-is-jekyll-vitepress-theme/
-      collections: [getting_started, core_features, advanced]
-  sidebar_collections:
-    - id: getting_started
-      text: Introduction
+jekyll_vitepress:
+  branding:
+    site_title: My Docs
+  syntax:
+    light_theme: github
+    dark_theme: github.dark
+```
+
+4. Add navigation and sidebar data files:
+
+```yaml
+# _data/navigation.yml
+- title: Guide
+  url: /getting-started/
+  collections: [introduction, core_features, advanced]
+```
+
+```yaml
+# _data/sidebar.yml
+- title: Getting Started
+  collection: introduction
 ```
 
 ## Local development (this repo)
@@ -80,6 +94,7 @@ See docs pages:
 - [Getting Started](/getting-started/)
 - [Configuration Reference](/configuration-reference/)
 - [Frontmatter Reference](/frontmatter-reference/)
+- [VitePress Parity and Extensions](/vitepress-parity-and-extensions/)
 
 ## Release a gem
 

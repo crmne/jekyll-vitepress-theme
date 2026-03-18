@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Deployment | Jekyll VitePress Theme</title>
-  <meta name="description" content="Deploy a single docs site by default, with optional multi-version mode.">
+  <title>VitePress Parity and Extensions | Jekyll VitePress Theme</title>
+  <meta name="description" content="What this theme mirrors from VitePress and what it adds on top.">
 
   
   
@@ -394,13 +394,13 @@
               
                 
                 
-                <a class="VPLink link VPNavBarMenuLink active" href="/what-is-jekyll-vitepress-theme/">
+                <a class="VPLink link VPNavBarMenuLink" href="/what-is-jekyll-vitepress-theme/">
                   <span>Guide</span>
                 </a>
               
                 
                 
-                <a class="VPLink link VPNavBarMenuLink" href="/configuration-reference/">
+                <a class="VPLink link VPNavBarMenuLink active" href="/configuration-reference/">
                   <span>Reference</span>
                 </a>
               
@@ -563,13 +563,13 @@
         
           
           
-          <a class="VPLink link VPNavScreenMenuLink active" href="/what-is-jekyll-vitepress-theme/">
+          <a class="VPLink link VPNavScreenMenuLink" href="/what-is-jekyll-vitepress-theme/">
             <span>Guide</span>
           </a>
         
           
           
-          <a class="VPLink link VPNavScreenMenuLink" href="/configuration-reference/">
+          <a class="VPLink link VPNavScreenMenuLink active" href="/configuration-reference/">
             <span>Reference</span>
           </a>
         
@@ -825,7 +825,7 @@
         
 
         <div class="group no-transition">
-          <section class="VPSidebarItem level-0 collapsible has-active">
+          <section class="VPSidebarItem level-0 collapsible">
             <div class="item" role="button" tabindex="0">
               <div class="indicator"></div>
               <h2 class="text">Advanced</h2>
@@ -860,7 +860,7 @@
               
                 
                 
-                <div class="VPSidebarItem level-1 is-link is-active">
+                <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
                     <a class="VPLink link link" href="/deployment/">
@@ -880,7 +880,7 @@
         
 
         <div class="group no-transition">
-          <section class="VPSidebarItem level-0 collapsible">
+          <section class="VPSidebarItem level-0 collapsible has-active">
             <div class="item" role="button" tabindex="0">
               <div class="indicator"></div>
               <h2 class="text">Reference</h2>
@@ -915,7 +915,7 @@
               
                 
                 
-                <div class="VPSidebarItem level-1 is-link">
+                <div class="VPSidebarItem level-1 is-link is-active">
                   <div class="item">
                     <div class="indicator"></div>
                     <a class="VPLink link link" href="/vitepress-parity-and-extensions/">
@@ -970,52 +970,60 @@
                 <div class="content">
                   <div class="content-container">
                     <main class="main">
-                      <div class="vp-doc _deployment_">
+                      <div class="vp-doc _vitepress-parity-and-extensions_">
                         
                         
                         
-                          <h1>Deployment</h1>
+                          <h1>VitePress Parity and Extensions</h1>
                         
-                        <h2 id="default-recommended-single-docs-site">Default (recommended): single docs site</h2>
+                        <p>This project targets high visual and interaction parity with <a href="https://vitepress.dev/">VitePress</a>, while keeping configuration and authoring idiomatic to <a href="https://jekyllrb.com/">Jekyll</a>.</p>
 
-<p>This repository deploys one canonical docs site at <code class="language-plaintext highlighter-rouge">/</code> from <code class="language-plaintext highlighter-rouge">main</code>.</p>
+<h2 id="vitepress-parity-targets">VitePress parity targets</h2>
 
-<p>The docs workflow:</p>
-
-<ol>
-  <li>Builds Jekyll once at the repository base path.</li>
-  <li>Publishes the build to <code class="language-plaintext highlighter-rouge">gh-pages</code> root.</li>
-</ol>
-
-<p>This keeps CI and maintenance simple.</p>
-
-<h2 id="optional-multi-version-docs">Optional: multi-version docs</h2>
-
-<p>If your project needs versioned docs (<code class="language-plaintext highlighter-rouge">/next/</code>, <code class="language-plaintext highlighter-rouge">/latest/</code>, <code class="language-plaintext highlighter-rouge">/v/x.y.z/</code>), this theme includes an advanced pattern:</p>
+<p>The theme intentionally mirrors:</p>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">scripts/version_manifest.rb</code> to generate <code class="language-plaintext highlighter-rouge">/_data/versions.yml</code></li>
-  <li><code class="language-plaintext highlighter-rouge">scripts/publish_gh_pages.sh</code> modes:
+  <li>top nav, mobile nav screen, and social links</li>
+  <li>left sidebar + right outline behavior</li>
+  <li>home layout structure (hero + feature cards)</li>
+  <li>doc footer behavior (edit link, previous/next pager, last-updated label)</li>
+  <li>appearance switcher (<code class="language-plaintext highlighter-rouge">auto -&gt; dark -&gt; light</code>)</li>
+  <li>search trigger UX (<code class="language-plaintext highlighter-rouge">/</code>, <code class="language-plaintext highlighter-rouge">Ctrl/Cmd+K</code>, <code class="language-plaintext highlighter-rouge">Cmd+K</code>)</li>
+  <li>code block UX (copy buttons, language labels, file title bars/icons)</li>
+</ul>
+
+<h2 id="jekyll-first-differences-intentional">Jekyll-first differences (intentional)</h2>
+
+<p>These are deliberate departures from VitePress internals:</p>
+
+<ul>
+  <li>configuration lives in <code class="language-plaintext highlighter-rouge">_config.yml</code> under <code class="language-plaintext highlighter-rouge">jekyll_vitepress</code></li>
+  <li>nav/sidebar/social/version data live in <code class="language-plaintext highlighter-rouge">_data/*.yml</code></li>
+  <li>syntax highlighting uses Rouge themes (<code class="language-plaintext highlighter-rouge">jekyll_vitepress.syntax.*</code>)</li>
+  <li>last-updated timestamps are filled via Jekyll plugin hooks</li>
+  <li>extension points are include hooks instead of Vue slots:
     <ul>
-      <li><code class="language-plaintext highlighter-rouge">next</code></li>
-      <li><code class="language-plaintext highlighter-rouge">release</code></li>
+      <li><code class="language-plaintext highlighter-rouge">_includes/jekyll_vitepress/head_end.html</code></li>
+      <li><code class="language-plaintext highlighter-rouge">_includes/jekyll_vitepress/doc_footer_end.html</code></li>
+      <li><code class="language-plaintext highlighter-rouge">_includes/jekyll_vitepress/layout_end.html</code></li>
     </ul>
   </li>
 </ul>
 
-<p>Typical flow:</p>
+<h2 id="extras-added-on-top">Extras added on top</h2>
 
-<ol>
-  <li>On every push to <code class="language-plaintext highlighter-rouge">main</code>, build docs with baseurl <code class="language-plaintext highlighter-rouge">/next</code> and publish with <code class="language-plaintext highlighter-rouge">publish_gh_pages.sh next</code>.</li>
-  <li>On release, build docs for <code class="language-plaintext highlighter-rouge">/v/x.y.z</code> and <code class="language-plaintext highlighter-rouge">/latest</code>, then publish with <code class="language-plaintext highlighter-rouge">publish_gh_pages.sh release</code>.</li>
-  <li>Keep <code class="language-plaintext highlighter-rouge">versions.yml</code> in <code class="language-plaintext highlighter-rouge">gh-pages</code> as the selector source of truth.</li>
-</ol>
+<p>This theme includes optional extras that are not baseline VitePress core behavior:</p>
 
-<p>When <code class="language-plaintext highlighter-rouge">/_data/versions.yml</code> is present, it is used as the version selector source.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.github_star</code> navbar GitHub star widget with live star count</li>
+  <li>simple local-search index from <code class="language-plaintext highlighter-rouge">search.json</code> generated by Jekyll content</li>
+  <li>data-driven version selector from <code class="language-plaintext highlighter-rouge">_data/versions.yml</code> (<code class="language-plaintext highlighter-rouge">current: auto</code> supported)</li>
+</ul>
 
-<p>Use this mode only when you need immutable version snapshots. It adds operational complexity and more edge cases (caching, legacy paths, rebuilds).</p>
+<h2 id="practical-guidance">Practical guidance</h2>
 
-<p>In repository settings, configure GitHub Pages to serve from branch <code class="language-plaintext highlighter-rouge">gh-pages</code> (root).</p>
+<p>If you want strict VitePress-like output, keep optional extras disabled and rely on default structure/styling.
+If you want productized docs behavior, enable extras case by case in <code class="language-plaintext highlighter-rouge">_config.yml</code>.</p>
 
                       </div>
                     </main>
@@ -1098,7 +1106,7 @@
       <div class="edit-info">
         
           <div class="edit-link">
-            <a class="VPLink link vp-external-link-icon no-icon edit-link-button" href="https://github.com/crmne/jekyll-vitepress-theme/edit/master/_advanced/deployment.md" target="_blank" rel="noreferrer">
+            <a class="VPLink link vp-external-link-icon no-icon edit-link-button" href="https://github.com/crmne/jekyll-vitepress-theme/edit/master/_reference/vitepress-parity-and-extensions.md" target="_blank" rel="noreferrer">
               <span class="vpi-square-pen edit-link-icon"></span>
               Edit this page on GitHub
             </a>
@@ -1114,14 +1122,19 @@
 
         <div class="pager">
           
-            <a class="VPLink link pager-link prev" href="/extending-behavior/">
+            <a class="VPLink link pager-link prev" href="/frontmatter-reference/">
               <span class="desc">Previous page</span>
-              <span class="title">Extending Behavior</span>
+              <span class="title">Frontmatter Reference</span>
             </a>
           
         </div>
 
         <div class="pager">
+          
+            <a class="VPLink link pager-link next" href="/troubleshooting/">
+              <span class="desc">Next page</span>
+              <span class="title">Troubleshooting</span>
+            </a>
           
         </div>
       </nav>

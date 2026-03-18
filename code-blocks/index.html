@@ -6,7 +6,13 @@
   
   <title>Code Blocks | Jekyll VitePress Theme</title>
   <meta name="description" content="Copy buttons, language labels, syntax palettes, and file-title icons.">
+
+  
+  
+  
   <link rel="icon" href="/assets/images/theme/vitepress-logo-mini.svg">
+
+  
   
   
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -310,6 +316,9 @@
   <script src="/assets/js/vitepress-theme.js" defer></script>
 </head>
 
+  
+  
+  
   <body data-vp-scroll-offset="134">
     
     
@@ -325,6 +334,19 @@
         <div class="VPBackdrop backdrop" id="vp-backdrop"></div>
 
         
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -387,7 +409,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v0.9.1</span>
+                      <span>v0.10.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -407,6 +429,71 @@
               
             </nav>
 
+            <div class="VPNavBarExtra extra" id="vp-nav-extra">
+              <button type="button" class="button" id="vp-nav-extra-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-nav-extra-menu" aria-label="extra navigation">
+                <span class="vpi-more-horizontal icon" aria-hidden="true"></span>
+              </button>
+              <div class="menu" id="vp-nav-extra-menu" aria-hidden="true">
+                <div class="VPMenu">
+                  <div class="group">
+                    <div class="item appearance">
+                      <p class="label">Appearance</p>
+                      <div class="action appearance-action">
+                        <button class="VPSwitch VPSwitchAppearance theme-toggle" type="button" role="switch" aria-checked="false" title="Switch to dark theme">
+                          <span class="check">
+                            <span class="icon">
+                              <span class="vpi-sun sun"></span>
+                              <span class="vpi-moon moon"></span>
+                            </span>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="group">
+                    <div class="item social-links">
+                      <div class="VPSocialLinks VPNavBarExtraSocialLinks social-links-list">
+                        
+                          <div class="VPNavBarStar">
+                            <a class="VPLink link no-icon VPNavBarStarLink" href="https://github.com/crmne/jekyll-vitepress-theme" aria-label="Star crmne/jekyll-vitepress-theme on GitHub" target="_blank" rel="noreferrer noopener" data-github-star-repo="crmne/jekyll-vitepress-theme" data-github-star-show-count="true">
+                              <span class="vpi-social-github" aria-hidden="true"></span>
+                              <span class="VPNavBarStarText">Star</span>
+                              <span class="VPNavBarStarCount" aria-hidden="true">...</span>
+                            </a>
+                          </div>
+                        
+
+                        
+                          
+                          
+                          
+                          
+                          
+                          <a class="VPSocialLink no-icon" href="https://x.com/paolino" aria-label="X" target="_blank" rel="me noopener">
+                            
+                              <span class="vpi-social-x"></span>
+                            
+                          </a>
+                        
+                          
+                          
+                          
+                          
+                          
+                          <a class="VPSocialLink no-icon" href="https://paolino.me" aria-label="Blog" target="_blank" rel="me noopener">
+                            
+                              <span class="vpi-social-blog"></span>
+                            
+                          </a>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="VPNavBarAppearance appearance">
               <button class="VPSwitch VPSwitchAppearance theme-toggle" type="button" role="switch" aria-checked="false" title="Switch to dark theme">
                 <span class="check">
@@ -420,16 +507,14 @@
 
             <div class="VPSocialLinks VPNavBarSocialLinks social-links">
               
-                
-                
-                
-                
-                
-                <a class="VPSocialLink no-icon" href="https://github.com/crmne/jekyll-vitepress-theme" aria-label="GitHub" target="_blank" rel="me noopener">
-                  
-                    <span class="vpi-social-github"></span>
-                  
-                </a>
+                <div class="VPNavBarStar" id="vp-nav-star">
+                  <a class="VPLink link no-icon VPNavBarStarLink" href="https://github.com/crmne/jekyll-vitepress-theme" aria-label="Star crmne/jekyll-vitepress-theme on GitHub" target="_blank" rel="noreferrer noopener" data-github-star-repo="crmne/jekyll-vitepress-theme" data-github-star-show-count="true">
+                    <span class="vpi-social-github" aria-hidden="true"></span>
+                    <span class="VPNavBarStarText">Star</span>
+                    <span class="VPNavBarStarCount" aria-hidden="true">...</span>
+                  </a>
+                </div>
+              
               
                 
                 
@@ -491,18 +576,27 @@
       </nav>
 
       
-        <div class="VPNavScreenVersion version">
-          <p class="text">v0.9.1</p>
-          
+        <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
+          <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
+            <span class="button-text">v0.10.0</span>
+            <span class="vpi-plus button-icon" aria-hidden="true"></span>
+          </button>
+          <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
             
+              
+              
+              
+              
+              
+              
+              
+              <div class="item">
+                <a class="VPLink link VPNavScreenVersionLink vp-external-link-icon" href="https://github.com/crmne/jekyll-vitepress-theme/releases" target="_blank" rel="noreferrer">
+                  <span>Changelog</span>
+                </a>
+              </div>
             
-            
-            
-            
-            <a class="VPLink link VPNavScreenMenuLink version-link" href="https://github.com/crmne/jekyll-vitepress-theme/releases" target="_blank" rel="noreferrer">
-              <span>Changelog</span>
-            </a>
-          
+          </div>
         </div>
       
 
@@ -520,16 +614,14 @@
 
       <div class="VPSocialLinks VPNavScreenSocialLinks social-links">
         
-          
-          
-          
-          
-          
-          <a class="VPSocialLink no-icon" href="https://github.com/crmne/jekyll-vitepress-theme" aria-label="GitHub" target="_blank" rel="me noopener">
-            
-              <span class="vpi-social-github"></span>
-            
-          </a>
+          <div class="VPNavBarStar VPNavScreenStar">
+            <a class="VPLink link no-icon VPNavBarStarLink VPNavScreenStarLink" href="https://github.com/crmne/jekyll-vitepress-theme" aria-label="Star crmne/jekyll-vitepress-theme on GitHub" target="_blank" rel="noreferrer noopener" data-github-star-repo="crmne/jekyll-vitepress-theme" data-github-star-show-count="true">
+              <span class="vpi-social-github" aria-hidden="true"></span>
+              <span class="VPNavBarStarText">Star</span>
+              <span class="VPNavBarStarCount" aria-hidden="true">...</span>
+            </a>
+          </div>
+        
         
           
           
@@ -574,7 +666,8 @@
 </div>
 
         
-          <div class="VPLocalNav has-sidebar" id="vp-local-nav">
+          
+<div class="VPLocalNav has-sidebar" id="vp-local-nav">
   <div class="container">
     <button class="menu" aria-expanded="false" aria-controls="VPSidebarNav" id="vp-local-menu-button">
       <span class="vpi-align-left menu-icon"></span>
@@ -603,6 +696,7 @@
   <nav class="nav" id="VPSidebarNav" aria-labelledby="sidebar-aria-label" tabindex="-1">
     <span class="visually-hidden" id="sidebar-aria-label">Sidebar Navigation</span>
 
+    
     
       
       
@@ -824,6 +918,17 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
+                    <a class="VPLink link link" href="/vitepress-parity-and-extensions/">
+                      <p class="text">VitePress Parity and Extensions</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
                     <a class="VPLink link link" href="/troubleshooting/">
                       <p class="text">Troubleshooting</p>
                     </a>
@@ -882,10 +987,10 @@
 
 <p>Syntax colors come from Rouge themes configured in <code class="language-plaintext highlighter-rouge">_config.yml</code>:</p>
 
-<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">vp_theme</span><span class="pi">:</span>
-  <span class="na">rouge_theme</span><span class="pi">:</span>
-    <span class="na">light</span><span class="pi">:</span> <span class="s">github</span>
-    <span class="na">dark</span><span class="pi">:</span> <span class="s">github.dark</span>
+<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
+  <span class="na">syntax</span><span class="pi">:</span>
+    <span class="na">light_theme</span><span class="pi">:</span> <span class="s">github</span>
+    <span class="na">dark_theme</span><span class="pi">:</span> <span class="s">github.dark</span>
 </code></pre></div></div>
 
 <h2 id="titled-block-example">Titled block example</h2>
@@ -902,11 +1007,25 @@
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">light</code> and <code class="language-plaintext highlighter-rouge">dark</code> accept any installed Rouge theme name.</p>
+<p><code class="language-plaintext highlighter-rouge">light_theme</code> and <code class="language-plaintext highlighter-rouge">dark_theme</code> accept any installed Rouge theme name.</p>
 
                       </div>
                     </main>
                     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -978,10 +1097,6 @@
           </div>
         
         
-          <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-03-11T16:16:38+00:00" lang="en-US">11 Mar 2026, 16:16</time></p>
-          </div>
-        
       </div>
     
 
@@ -1008,16 +1123,21 @@
         </div>
       </nav>
     
+
+    
   </footer>
 
 
-                    
                   </div>
                 </div>
               </div>
             </div>
           
         </div>
+
+        
+        
+        
 
         
         

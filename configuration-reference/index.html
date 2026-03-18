@@ -5,8 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Configuration Reference | Jekyll VitePress Theme</title>
-  <meta name="description" content="Complete `vp_theme` key reference with practical examples.">
+  <meta name="description" content="Complete `jekyll_vitepress` and `_data/*` reference with practical examples.">
+
+  
+  
+  
   <link rel="icon" href="/assets/images/theme/vitepress-logo-mini.svg">
+
+  
   
   
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -310,6 +316,9 @@
   <script src="/assets/js/vitepress-theme.js" defer></script>
 </head>
 
+  
+  
+  
   <body data-vp-scroll-offset="134">
     
     
@@ -325,6 +334,19 @@
         <div class="VPBackdrop backdrop" id="vp-backdrop"></div>
 
         
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -387,7 +409,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v0.9.1</span>
+                      <span>v0.10.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -407,6 +429,71 @@
               
             </nav>
 
+            <div class="VPNavBarExtra extra" id="vp-nav-extra">
+              <button type="button" class="button" id="vp-nav-extra-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-nav-extra-menu" aria-label="extra navigation">
+                <span class="vpi-more-horizontal icon" aria-hidden="true"></span>
+              </button>
+              <div class="menu" id="vp-nav-extra-menu" aria-hidden="true">
+                <div class="VPMenu">
+                  <div class="group">
+                    <div class="item appearance">
+                      <p class="label">Appearance</p>
+                      <div class="action appearance-action">
+                        <button class="VPSwitch VPSwitchAppearance theme-toggle" type="button" role="switch" aria-checked="false" title="Switch to dark theme">
+                          <span class="check">
+                            <span class="icon">
+                              <span class="vpi-sun sun"></span>
+                              <span class="vpi-moon moon"></span>
+                            </span>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="group">
+                    <div class="item social-links">
+                      <div class="VPSocialLinks VPNavBarExtraSocialLinks social-links-list">
+                        
+                          <div class="VPNavBarStar">
+                            <a class="VPLink link no-icon VPNavBarStarLink" href="https://github.com/crmne/jekyll-vitepress-theme" aria-label="Star crmne/jekyll-vitepress-theme on GitHub" target="_blank" rel="noreferrer noopener" data-github-star-repo="crmne/jekyll-vitepress-theme" data-github-star-show-count="true">
+                              <span class="vpi-social-github" aria-hidden="true"></span>
+                              <span class="VPNavBarStarText">Star</span>
+                              <span class="VPNavBarStarCount" aria-hidden="true">...</span>
+                            </a>
+                          </div>
+                        
+
+                        
+                          
+                          
+                          
+                          
+                          
+                          <a class="VPSocialLink no-icon" href="https://x.com/paolino" aria-label="X" target="_blank" rel="me noopener">
+                            
+                              <span class="vpi-social-x"></span>
+                            
+                          </a>
+                        
+                          
+                          
+                          
+                          
+                          
+                          <a class="VPSocialLink no-icon" href="https://paolino.me" aria-label="Blog" target="_blank" rel="me noopener">
+                            
+                              <span class="vpi-social-blog"></span>
+                            
+                          </a>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="VPNavBarAppearance appearance">
               <button class="VPSwitch VPSwitchAppearance theme-toggle" type="button" role="switch" aria-checked="false" title="Switch to dark theme">
                 <span class="check">
@@ -420,16 +507,14 @@
 
             <div class="VPSocialLinks VPNavBarSocialLinks social-links">
               
-                
-                
-                
-                
-                
-                <a class="VPSocialLink no-icon" href="https://github.com/crmne/jekyll-vitepress-theme" aria-label="GitHub" target="_blank" rel="me noopener">
-                  
-                    <span class="vpi-social-github"></span>
-                  
-                </a>
+                <div class="VPNavBarStar" id="vp-nav-star">
+                  <a class="VPLink link no-icon VPNavBarStarLink" href="https://github.com/crmne/jekyll-vitepress-theme" aria-label="Star crmne/jekyll-vitepress-theme on GitHub" target="_blank" rel="noreferrer noopener" data-github-star-repo="crmne/jekyll-vitepress-theme" data-github-star-show-count="true">
+                    <span class="vpi-social-github" aria-hidden="true"></span>
+                    <span class="VPNavBarStarText">Star</span>
+                    <span class="VPNavBarStarCount" aria-hidden="true">...</span>
+                  </a>
+                </div>
+              
               
                 
                 
@@ -491,18 +576,27 @@
       </nav>
 
       
-        <div class="VPNavScreenVersion version">
-          <p class="text">v0.9.1</p>
-          
+        <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
+          <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
+            <span class="button-text">v0.10.0</span>
+            <span class="vpi-plus button-icon" aria-hidden="true"></span>
+          </button>
+          <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
             
+              
+              
+              
+              
+              
+              
+              
+              <div class="item">
+                <a class="VPLink link VPNavScreenVersionLink vp-external-link-icon" href="https://github.com/crmne/jekyll-vitepress-theme/releases" target="_blank" rel="noreferrer">
+                  <span>Changelog</span>
+                </a>
+              </div>
             
-            
-            
-            
-            <a class="VPLink link VPNavScreenMenuLink version-link" href="https://github.com/crmne/jekyll-vitepress-theme/releases" target="_blank" rel="noreferrer">
-              <span>Changelog</span>
-            </a>
-          
+          </div>
         </div>
       
 
@@ -520,16 +614,14 @@
 
       <div class="VPSocialLinks VPNavScreenSocialLinks social-links">
         
-          
-          
-          
-          
-          
-          <a class="VPSocialLink no-icon" href="https://github.com/crmne/jekyll-vitepress-theme" aria-label="GitHub" target="_blank" rel="me noopener">
-            
-              <span class="vpi-social-github"></span>
-            
-          </a>
+          <div class="VPNavBarStar VPNavScreenStar">
+            <a class="VPLink link no-icon VPNavBarStarLink VPNavScreenStarLink" href="https://github.com/crmne/jekyll-vitepress-theme" aria-label="Star crmne/jekyll-vitepress-theme on GitHub" target="_blank" rel="noreferrer noopener" data-github-star-repo="crmne/jekyll-vitepress-theme" data-github-star-show-count="true">
+              <span class="vpi-social-github" aria-hidden="true"></span>
+              <span class="VPNavBarStarText">Star</span>
+              <span class="VPNavBarStarCount" aria-hidden="true">...</span>
+            </a>
+          </div>
+        
         
           
           
@@ -574,7 +666,8 @@
 </div>
 
         
-          <div class="VPLocalNav has-sidebar" id="vp-local-nav">
+          
+<div class="VPLocalNav has-sidebar" id="vp-local-nav">
   <div class="container">
     <button class="menu" aria-expanded="false" aria-controls="VPSidebarNav" id="vp-local-menu-button">
       <span class="vpi-align-left menu-icon"></span>
@@ -603,6 +696,7 @@
   <nav class="nav" id="VPSidebarNav" aria-labelledby="sidebar-aria-label" tabindex="-1">
     <span class="visually-hidden" id="sidebar-aria-label">Sidebar Navigation</span>
 
+    
     
       
       
@@ -824,6 +918,17 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
+                    <a class="VPLink link link" href="/vitepress-parity-and-extensions/">
+                      <p class="text">VitePress Parity and Extensions</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
                     <a class="VPLink link link" href="/troubleshooting/">
                       <p class="text">Troubleshooting</p>
                     </a>
@@ -871,212 +976,76 @@
                         
                           <h1>Configuration Reference</h1>
                         
-                        <p>All theme configuration lives in your site root <code class="language-plaintext highlighter-rouge">_config.yml</code>, under the <code class="language-plaintext highlighter-rouge">vp_theme</code> key.</p>
+                        <p>This theme follows a Jekyll-native split:</p>
+
+<ul>
+  <li>Behavior and rendering options in <code class="language-plaintext highlighter-rouge">_config.yml</code> under <code class="language-plaintext highlighter-rouge">jekyll_vitepress</code></li>
+  <li>Navigation/social/version/sidebar content in <code class="language-plaintext highlighter-rouge">_data/*.yml</code></li>
+</ul>
+
+<p>For parity notes and optional extras compared to VitePress core, see <a href="/vitepress-parity-and-extensions/">VitePress Parity and Extensions</a>.</p>
 
 <h2 id="minimal-setup">Minimal setup</h2>
 
-<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">vp_theme</span><span class="pi">:</span>
-  <span class="na">logo</span><span class="pi">:</span> <span class="s">/assets/images/theme/vitepress-logo-mini.svg</span>
-  <span class="na">site_title</span><span class="pi">:</span> <span class="s">My Docs</span>
-  <span class="na">nav</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="na">text</span><span class="pi">:</span> <span class="s">Guide</span>
-      <span class="na">link</span><span class="pi">:</span> <span class="s">/what-is-jekyll-vitepress-theme/</span>
-      <span class="na">collections</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">getting_started</span><span class="pi">,</span> <span class="nv">core_features</span><span class="pi">,</span> <span class="nv">advanced</span><span class="pi">]</span>
-  <span class="na">sidebar_collections</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s">getting_started</span>
-      <span class="na">text</span><span class="pi">:</span> <span class="s">Introduction</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _config.yml</span>
+<span class="na">jekyll_vitepress</span><span class="pi">:</span>
+  <span class="na">branding</span><span class="pi">:</span>
+    <span class="na">site_title</span><span class="pi">:</span> <span class="s">My Docs</span>
 </code></pre></div></div>
 
-<h2 id="branding">Branding</h2>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">logo</code>, <code class="language-plaintext highlighter-rouge">logo_light</code>, <code class="language-plaintext highlighter-rouge">logo_dark</code></li>
-  <li><code class="language-plaintext highlighter-rouge">logo_width</code>, <code class="language-plaintext highlighter-rouge">logo_height</code>, <code class="language-plaintext highlighter-rouge">logo_alt</code></li>
-  <li><code class="language-plaintext highlighter-rouge">site_title</code></li>
-</ul>
-
-<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">vp_theme</span><span class="pi">:</span>
-  <span class="na">logo_light</span><span class="pi">:</span> <span class="s">/assets/images/theme/vitepress-logo-mini.svg</span>
-  <span class="na">logo_dark</span><span class="pi">:</span> <span class="s">/assets/images/theme/vitepress-logo-mini.svg</span>
-  <span class="na">logo_width</span><span class="pi">:</span> <span class="m">24</span>
-  <span class="na">logo_height</span><span class="pi">:</span> <span class="m">24</span>
-  <span class="na">logo_alt</span><span class="pi">:</span> <span class="s">My Project</span>
-  <span class="na">site_title</span><span class="pi">:</span> <span class="s">My Project</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _data/navigation.yml</span>
+<span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Guide</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">/getting-started/</span>
+  <span class="na">collections</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">introduction</span><span class="pi">,</span> <span class="nv">core_features</span><span class="pi">,</span> <span class="nv">advanced</span><span class="pi">]</span>
 </code></pre></div></div>
 
-<h2 id="navigation">Navigation</h2>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">nav</code>: top navbar links</li>
-  <li><code class="language-plaintext highlighter-rouge">version</code>: fallback version selector config</li>
-  <li><code class="language-plaintext highlighter-rouge">social_links</code>: right-side social links</li>
-</ul>
-
-<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">vp_theme</span><span class="pi">:</span>
-  <span class="na">nav</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="na">text</span><span class="pi">:</span> <span class="s">Guide</span>
-      <span class="na">link</span><span class="pi">:</span> <span class="s">/what-is-jekyll-vitepress-theme/</span>
-      <span class="na">collections</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">getting_started</span><span class="pi">,</span> <span class="nv">core_features</span><span class="pi">,</span> <span class="nv">advanced</span><span class="pi">]</span>
-    <span class="pi">-</span> <span class="na">text</span><span class="pi">:</span> <span class="s">Reference</span>
-      <span class="na">link</span><span class="pi">:</span> <span class="s">/configuration-reference/</span>
-      <span class="na">collections</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">reference</span><span class="pi">]</span>
-
-  <span class="na">version</span><span class="pi">:</span>
-    <span class="na">current</span><span class="pi">:</span> <span class="s">auto</span>
-    <span class="na">items</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="na">text</span><span class="pi">:</span> <span class="s">v0.9.0 (current)</span>
-        <span class="na">link</span><span class="pi">:</span> <span class="s">/</span>
-      <span class="pi">-</span> <span class="na">text</span><span class="pi">:</span> <span class="s">Changelog</span>
-        <span class="na">link</span><span class="pi">:</span> <span class="s">https://github.com/you/project/releases</span>
-        <span class="na">external</span><span class="pi">:</span> <span class="kc">true</span>
-
-  <span class="na">social_links</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="na">icon</span><span class="pi">:</span> <span class="s">github</span>
-      <span class="na">link</span><span class="pi">:</span> <span class="s">https://github.com/you/project</span>
-      <span class="na">aria_label</span><span class="pi">:</span> <span class="s">GitHub</span>
-    <span class="pi">-</span> <span class="na">icon</span><span class="pi">:</span> <span class="s">x</span>
-      <span class="na">link</span><span class="pi">:</span> <span class="s">https://x.com/you</span>
-      <span class="na">aria_label</span><span class="pi">:</span> <span class="s">X</span>
-    <span class="pi">-</span> <span class="na">icon</span><span class="pi">:</span>
-        <span class="na">title</span><span class="pi">:</span> <span class="s">Bluesky</span>
-        <span class="na">svg</span><span class="pi">:</span> <span class="s1">'</span><span class="s">&lt;svg</span><span class="nv"> </span><span class="s">role="img"</span><span class="nv"> </span><span class="s">viewBox="0</span><span class="nv"> </span><span class="s">0</span><span class="nv"> </span><span class="s">24</span><span class="nv"> </span><span class="s">24"</span><span class="nv"> </span><span class="s">xmlns="http://www.w3.org/2000/svg"&gt;&lt;path</span><span class="nv"> </span><span class="s">d="M12</span><span class="nv"> </span><span class="s">11.388c0-.756</span><span class="nv"> </span><span class="s">1.676-3.35</span><span class="nv"> </span><span class="s">3.43-4.594</span><span class="nv"> </span><span class="s">2.296-1.627</span><span class="nv"> </span><span class="s">3.726-1.348</span><span class="nv"> </span><span class="s">4.3-.225.672</span><span class="nv"> </span><span class="s">1.316-.53</span><span class="nv"> </span><span class="s">4.77-2.257</span><span class="nv"> </span><span class="s">6.48-.958.949-1.786</span><span class="nv"> </span><span class="s">1.433-2.84</span><span class="nv"> </span><span class="s">1.356-.67-.05-1.167-.35-1.586-.824-.49-.554-.732-1.346-1.047-2.193-.315.847-.557</span><span class="nv"> </span><span class="s">1.64-1.047</span><span class="nv"> </span><span class="s">2.193-.419.474-.916.775-1.586.824-1.054.077-1.882-.407-2.84-1.356C5.8</span><span class="nv"> </span><span class="s">11.339</span><span class="nv"> </span><span class="s">4.6</span><span class="nv"> </span><span class="s">7.885</span><span class="nv"> </span><span class="s">5.271</span><span class="nv"> </span><span class="s">6.57c.574-1.124</span><span class="nv"> </span><span class="s">2.004-1.402</span><span class="nv"> </span><span class="s">4.3.225</span><span class="nv"> </span><span class="s">1.754</span><span class="nv"> </span><span class="s">1.243</span><span class="nv"> </span><span class="s">3.43</span><span class="nv"> </span><span class="s">3.838</span><span class="nv"> </span><span class="s">3.43</span><span class="nv"> </span><span class="s">4.594Z"/&gt;&lt;/svg&gt;'</span>
-      <span class="na">link</span><span class="pi">:</span> <span class="s">https://bsky.app/profile/you</span>
-      <span class="na">aria_label</span><span class="pi">:</span> <span class="s">Bluesky</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _data/sidebar.yml</span>
+<span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Getting Started</span>
+  <span class="na">collection</span><span class="pi">:</span> <span class="s">introduction</span>
 </code></pre></div></div>
 
-<p>If <code class="language-plaintext highlighter-rouge">/_data/versions.yml</code> exists, it becomes the source of truth for the version selector and overrides <code class="language-plaintext highlighter-rouge">vp_theme.version</code>.
-This is intended for optional multi-version docs setups.</p>
+<h2 id="_configyml-jekyll_vitepress"><code class="language-plaintext highlighter-rouge">_config.yml</code> (<code class="language-plaintext highlighter-rouge">jekyll_vitepress</code>)</h2>
 
-<p><code class="language-plaintext highlighter-rouge">vp_theme.version.current: auto</code> resolves to <code class="language-plaintext highlighter-rouge">v#{Jekyll::VitePressTheme::VERSION}</code> at build time.</p>
-
-<p>Built-in icon slugs are:
-<code class="language-plaintext highlighter-rouge">github</code>, <code class="language-plaintext highlighter-rouge">gitlab</code>, <code class="language-plaintext highlighter-rouge">bitbucket</code>, <code class="language-plaintext highlighter-rouge">discord</code>, <code class="language-plaintext highlighter-rouge">slack</code>, <code class="language-plaintext highlighter-rouge">x</code>, <code class="language-plaintext highlighter-rouge">twitter</code>,
-<code class="language-plaintext highlighter-rouge">mastodon</code>, <code class="language-plaintext highlighter-rouge">linkedin</code>, <code class="language-plaintext highlighter-rouge">youtube</code>, <code class="language-plaintext highlighter-rouge">facebook</code>, <code class="language-plaintext highlighter-rouge">instagram</code>, <code class="language-plaintext highlighter-rouge">reddit</code>,
-<code class="language-plaintext highlighter-rouge">bluesky</code>, <code class="language-plaintext highlighter-rouge">telegram</code>, <code class="language-plaintext highlighter-rouge">twitch</code>, <code class="language-plaintext highlighter-rouge">npm</code>, <code class="language-plaintext highlighter-rouge">medium</code>, <code class="language-plaintext highlighter-rouge">devdotto</code>, <code class="language-plaintext highlighter-rouge">dribbble</code>,
-<code class="language-plaintext highlighter-rouge">stackoverflow</code>, <code class="language-plaintext highlighter-rouge">rss</code>, and <code class="language-plaintext highlighter-rouge">blog</code> (alias of <code class="language-plaintext highlighter-rouge">rss</code>).</p>
-
-<p>For anything else, pass a custom inline SVG via <code class="language-plaintext highlighter-rouge">icon.svg</code> (VitePress-style).</p>
-
-<h2 id="sidebar">Sidebar</h2>
+<h3 id="branding">Branding</h3>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">sidebar_collections</code>: controls left sidebar groups and ordering</li>
+  <li><code class="language-plaintext highlighter-rouge">branding.site_title</code></li>
+  <li><code class="language-plaintext highlighter-rouge">branding.logo.default</code></li>
+  <li><code class="language-plaintext highlighter-rouge">branding.logo.light</code></li>
+  <li><code class="language-plaintext highlighter-rouge">branding.logo.dark</code></li>
+  <li><code class="language-plaintext highlighter-rouge">branding.logo.alt</code></li>
+  <li><code class="language-plaintext highlighter-rouge">branding.logo.width</code></li>
+  <li><code class="language-plaintext highlighter-rouge">branding.logo.height</code></li>
 </ul>
 
-<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">vp_theme</span><span class="pi">:</span>
-  <span class="na">sidebar_collections</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s">getting_started</span>
-      <span class="na">text</span><span class="pi">:</span> <span class="s">Introduction</span>
-    <span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s">core_features</span>
-      <span class="na">text</span><span class="pi">:</span> <span class="s">Core Features</span>
-    <span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s">advanced</span>
-      <span class="na">text</span><span class="pi">:</span> <span class="s">Advanced</span>
-    <span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s">reference</span>
-      <span class="na">text</span><span class="pi">:</span> <span class="s">Reference</span>
+<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
+  <span class="na">branding</span><span class="pi">:</span>
+    <span class="na">site_title</span><span class="pi">:</span> <span class="s">My Project</span>
+    <span class="na">logo</span><span class="pi">:</span>
+      <span class="na">default</span><span class="pi">:</span> <span class="s">/assets/images/logo.svg</span>
+      <span class="na">light</span><span class="pi">:</span> <span class="s">/assets/images/logo-light.svg</span>
+      <span class="na">dark</span><span class="pi">:</span> <span class="s">/assets/images/logo-dark.svg</span>
+      <span class="na">alt</span><span class="pi">:</span> <span class="s">My Project</span>
+      <span class="na">width</span><span class="pi">:</span> <span class="m">24</span>
+      <span class="na">height</span><span class="pi">:</span> <span class="m">24</span>
 </code></pre></div></div>
 
-<h2 id="footer-and-doc-footer">Footer and Doc Footer</h2>
+<h3 id="typography-and-tokens">Typography and Tokens</h3>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">footer.message</code>, <code class="language-plaintext highlighter-rouge">footer.copyright</code></li>
-  <li><code class="language-plaintext highlighter-rouge">footer.show_on_docs</code> (defaults to <code class="language-plaintext highlighter-rouge">false</code> to match VitePress behavior)</li>
-  <li><code class="language-plaintext highlighter-rouge">doc_footer.prev</code>, <code class="language-plaintext highlighter-rouge">doc_footer.next</code> (or <code class="language-plaintext highlighter-rouge">doc_footer: false</code>)</li>
-  <li><code class="language-plaintext highlighter-rouge">edit_link</code> and <code class="language-plaintext highlighter-rouge">last_updated</code> are independent from <code class="language-plaintext highlighter-rouge">doc_footer</code></li>
+  <li><code class="language-plaintext highlighter-rouge">typography.body_font_family</code></li>
+  <li><code class="language-plaintext highlighter-rouge">typography.code_font_family</code></li>
+  <li><code class="language-plaintext highlighter-rouge">typography.google_fonts_url</code> (<code class="language-plaintext highlighter-rouge">false</code> disables external font loading)</li>
+  <li><code class="language-plaintext highlighter-rouge">tokens.light</code></li>
+  <li><code class="language-plaintext highlighter-rouge">tokens.dark</code></li>
 </ul>
 
-<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">vp_theme</span><span class="pi">:</span>
-  <span class="na">footer</span><span class="pi">:</span>
-    <span class="na">message</span><span class="pi">:</span> <span class="s">Released under the MIT License.</span>
-    <span class="na">copyright</span><span class="pi">:</span> <span class="s">© 2026-present You</span>
-    <span class="na">show_on_docs</span><span class="pi">:</span> <span class="kc">false</span>
-  <span class="na">doc_footer</span><span class="pi">:</span>
-    <span class="na">prev</span><span class="pi">:</span> <span class="s">Previous page</span>
-    <span class="na">next</span><span class="pi">:</span> <span class="s">Next page</span>
-</code></pre></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">footer</code> is shown on pages without a sidebar by default (VitePress parity).
-Set <code class="language-plaintext highlighter-rouge">footer.show_on_docs: true</code> if you want it on docs pages as well.</p>
-
-<h2 id="edit-link-and-last-updated">Edit Link and Last Updated</h2>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">edit_link.pattern</code>, <code class="language-plaintext highlighter-rouge">edit_link.text</code></li>
-  <li><code class="language-plaintext highlighter-rouge">last_updated.text</code>, <code class="language-plaintext highlighter-rouge">last_updated.format</code></li>
-</ul>
-
-<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">vp_theme</span><span class="pi">:</span>
-  <span class="na">edit_link</span><span class="pi">:</span>
-    <span class="na">pattern</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://github.com/you/project/edit/main/docs/:path"</span>
-    <span class="na">text</span><span class="pi">:</span> <span class="s">Edit this page on GitHub</span>
-  <span class="na">last_updated</span><span class="pi">:</span>
-    <span class="na">text</span><span class="pi">:</span> <span class="s">Last updated</span>
-    <span class="na">format</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%-d</span><span class="nv"> </span><span class="s">%b</span><span class="nv"> </span><span class="s">%Y,</span><span class="nv"> </span><span class="s">%H:%M"</span>
-</code></pre></div></div>
-
-<h2 id="appearance-labels-and-behavior">Appearance Labels and Behavior</h2>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">outline_title</code></li>
-  <li><code class="language-plaintext highlighter-rouge">scroll_offset</code></li>
-  <li><code class="language-plaintext highlighter-rouge">sidebar_menu_label</code></li>
-  <li><code class="language-plaintext highlighter-rouge">return_to_top_label</code></li>
-  <li><code class="language-plaintext highlighter-rouge">skip_to_content_label</code></li>
-  <li><code class="language-plaintext highlighter-rouge">dark_mode_switch_label</code></li>
-  <li><code class="language-plaintext highlighter-rouge">dark_mode_switch_title</code></li>
-  <li><code class="language-plaintext highlighter-rouge">light_mode_switch_title</code></li>
-</ul>
-
-<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">vp_theme</span><span class="pi">:</span>
-  <span class="na">outline_title</span><span class="pi">:</span> <span class="s">On this page</span>
-  <span class="na">scroll_offset</span><span class="pi">:</span> <span class="m">134</span>
-  <span class="na">sidebar_menu_label</span><span class="pi">:</span> <span class="s">Menu</span>
-  <span class="na">return_to_top_label</span><span class="pi">:</span> <span class="s">Return to top</span>
-  <span class="na">skip_to_content_label</span><span class="pi">:</span> <span class="s">Skip to content</span>
-  <span class="na">dark_mode_switch_label</span><span class="pi">:</span> <span class="s">Appearance</span>
-  <span class="na">dark_mode_switch_title</span><span class="pi">:</span> <span class="s">Switch to dark theme</span>
-  <span class="na">light_mode_switch_title</span><span class="pi">:</span> <span class="s">Switch to light theme</span>
-</code></pre></div></div>
-
-<h2 id="typography">Typography</h2>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">font_family_base</code></li>
-  <li><code class="language-plaintext highlighter-rouge">font_family_mono</code></li>
-  <li><code class="language-plaintext highlighter-rouge">google_fonts_url</code> (set to <code class="language-plaintext highlighter-rouge">false</code> to disable external font loading)</li>
-</ul>
-
-<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">vp_theme</span><span class="pi">:</span>
-  <span class="na">font_family_base</span><span class="pi">:</span> <span class="s2">"</span><span class="s">'Inter',</span><span class="nv"> </span><span class="s">ui-sans-serif,</span><span class="nv"> </span><span class="s">system-ui,</span><span class="nv"> </span><span class="s">sans-serif"</span>
-  <span class="na">font_family_mono</span><span class="pi">:</span> <span class="s2">"</span><span class="s">'JetBrains</span><span class="nv"> </span><span class="s">Mono',</span><span class="nv"> </span><span class="s">ui-monospace,</span><span class="nv"> </span><span class="s">monospace"</span>
-  <span class="na">google_fonts_url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap"</span>
-</code></pre></div></div>
-
-<h2 id="syntax-highlighting-rouge">Syntax Highlighting (Rouge)</h2>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">rouge_theme.light</code></li>
-  <li><code class="language-plaintext highlighter-rouge">rouge_theme.dark</code></li>
-</ul>
-
-<p>These values map directly to installed Rouge theme names.</p>
-
-<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">vp_theme</span><span class="pi">:</span>
-  <span class="na">rouge_theme</span><span class="pi">:</span>
-    <span class="na">light</span><span class="pi">:</span> <span class="s">github</span>
-    <span class="na">dark</span><span class="pi">:</span> <span class="s">github.dark</span>
-</code></pre></div></div>
-
-<h2 id="css-variables">CSS Variables</h2>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">css_vars.light</code></li>
-  <li><code class="language-plaintext highlighter-rouge">css_vars.dark</code></li>
-</ul>
-
-<p>Use this to override any VitePress token variable in a Jekyll-friendly way.</p>
-
-<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">vp_theme</span><span class="pi">:</span>
-  <span class="na">css_vars</span><span class="pi">:</span>
+<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
+  <span class="na">typography</span><span class="pi">:</span>
+    <span class="na">body_font_family</span><span class="pi">:</span> <span class="s2">"</span><span class="s">'Inter',</span><span class="nv"> </span><span class="s">ui-sans-serif,</span><span class="nv"> </span><span class="s">system-ui,</span><span class="nv"> </span><span class="s">sans-serif"</span>
+    <span class="na">code_font_family</span><span class="pi">:</span> <span class="s2">"</span><span class="s">'JetBrains</span><span class="nv"> </span><span class="s">Mono',</span><span class="nv"> </span><span class="s">ui-monospace,</span><span class="nv"> </span><span class="s">monospace"</span>
+    <span class="na">google_fonts_url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap"</span>
+  <span class="na">tokens</span><span class="pi">:</span>
     <span class="na">light</span><span class="pi">:</span>
       <span class="na">--vp-c-brand-1</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#3451b2"</span>
       <span class="na">--vp-c-brand-2</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#3a5ccc"</span>
@@ -1085,19 +1054,185 @@ Set <code class="language-plaintext highlighter-rouge">footer.show_on_docs: true
       <span class="na">--vp-c-brand-2</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#bac2ff"</span>
 </code></pre></div></div>
 
-<h2 id="theme-slots-jekyll-style-extension-points">Theme Slots (Jekyll-style extension points)</h2>
+<h3 id="syntax-highlighting-rouge">Syntax Highlighting (Rouge)</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">syntax.light_theme</code></li>
+  <li><code class="language-plaintext highlighter-rouge">syntax.dark_theme</code></li>
+</ul>
+
+<p>These values map directly to installed Rouge theme names.</p>
+
+<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
+  <span class="na">syntax</span><span class="pi">:</span>
+    <span class="na">light_theme</span><span class="pi">:</span> <span class="s">github</span>
+    <span class="na">dark_theme</span><span class="pi">:</span> <span class="s">github.dark</span>
+</code></pre></div></div>
+
+<h3 id="footer-and-doc-footer">Footer and Doc Footer</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">footer.enabled</code></li>
+  <li><code class="language-plaintext highlighter-rouge">footer.show_on_docs</code> (defaults to <code class="language-plaintext highlighter-rouge">false</code> behavior when omitted)</li>
+  <li><code class="language-plaintext highlighter-rouge">footer.message</code></li>
+  <li><code class="language-plaintext highlighter-rouge">footer.copyright</code></li>
+  <li><code class="language-plaintext highlighter-rouge">doc_footer.enabled</code></li>
+  <li><code class="language-plaintext highlighter-rouge">doc_footer.previous_label</code></li>
+  <li><code class="language-plaintext highlighter-rouge">doc_footer.next_label</code></li>
+</ul>
+
+<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
+  <span class="na">footer</span><span class="pi">:</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">message</span><span class="pi">:</span> <span class="s">Released under the MIT License.</span>
+    <span class="na">copyright</span><span class="pi">:</span> <span class="s">© 2026-present You</span>
+    <span class="na">show_on_docs</span><span class="pi">:</span> <span class="kc">false</span>
+  <span class="na">doc_footer</span><span class="pi">:</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">previous_label</span><span class="pi">:</span> <span class="s">Previous page</span>
+    <span class="na">next_label</span><span class="pi">:</span> <span class="s">Next page</span>
+</code></pre></div></div>
+
+<h3 id="edit-link-last-updated-and-github-star">Edit Link, Last Updated, and GitHub Star</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">edit_link.enabled</code></li>
+  <li><code class="language-plaintext highlighter-rouge">edit_link.pattern</code></li>
+  <li><code class="language-plaintext highlighter-rouge">edit_link.text</code></li>
+  <li><code class="language-plaintext highlighter-rouge">last_updated.enabled</code></li>
+  <li><code class="language-plaintext highlighter-rouge">last_updated.text</code></li>
+  <li><code class="language-plaintext highlighter-rouge">last_updated.format</code></li>
+  <li><code class="language-plaintext highlighter-rouge">github_star.enabled</code></li>
+  <li><code class="language-plaintext highlighter-rouge">github_star.repository</code> (<code class="language-plaintext highlighter-rouge">owner/repo</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">github_star.text</code></li>
+  <li><code class="language-plaintext highlighter-rouge">github_star.show_count</code></li>
+</ul>
+
+<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
+  <span class="na">edit_link</span><span class="pi">:</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">pattern</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://github.com/you/project/edit/main/docs/:path"</span>
+    <span class="na">text</span><span class="pi">:</span> <span class="s">Edit this page on GitHub</span>
+  <span class="na">last_updated</span><span class="pi">:</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">text</span><span class="pi">:</span> <span class="s">Last updated</span>
+    <span class="na">format</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%-d</span><span class="nv"> </span><span class="s">%b</span><span class="nv"> </span><span class="s">%Y,</span><span class="nv"> </span><span class="s">%H:%M"</span>
+  <span class="na">github_star</span><span class="pi">:</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">repository</span><span class="pi">:</span> <span class="s">you/project</span>
+    <span class="na">text</span><span class="pi">:</span> <span class="s">Star</span>
+    <span class="na">show_count</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+
+<h3 id="labels-and-behavior">Labels and Behavior</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">labels.outline</code></li>
+  <li><code class="language-plaintext highlighter-rouge">labels.sidebar_menu</code></li>
+  <li><code class="language-plaintext highlighter-rouge">labels.return_to_top</code></li>
+  <li><code class="language-plaintext highlighter-rouge">labels.skip_to_content</code></li>
+  <li><code class="language-plaintext highlighter-rouge">labels.appearance_menu</code></li>
+  <li><code class="language-plaintext highlighter-rouge">labels.switch_to_dark</code></li>
+  <li><code class="language-plaintext highlighter-rouge">labels.switch_to_light</code></li>
+  <li><code class="language-plaintext highlighter-rouge">behavior.scroll_offset</code></li>
+</ul>
+
+<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="na">outline</span><span class="pi">:</span> <span class="s">On this page</span>
+    <span class="na">sidebar_menu</span><span class="pi">:</span> <span class="s">Menu</span>
+    <span class="na">return_to_top</span><span class="pi">:</span> <span class="s">Return to top</span>
+    <span class="na">skip_to_content</span><span class="pi">:</span> <span class="s">Skip to content</span>
+    <span class="na">appearance_menu</span><span class="pi">:</span> <span class="s">Appearance</span>
+    <span class="na">switch_to_dark</span><span class="pi">:</span> <span class="s">Switch to dark theme</span>
+    <span class="na">switch_to_light</span><span class="pi">:</span> <span class="s">Switch to light theme</span>
+  <span class="na">behavior</span><span class="pi">:</span>
+    <span class="na">scroll_offset</span><span class="pi">:</span> <span class="m">134</span>
+</code></pre></div></div>
+
+<h2 id="_data-files"><code class="language-plaintext highlighter-rouge">_data</code> files</h2>
+
+<h3 id="navigation-_datanavigationyml">Navigation (<code class="language-plaintext highlighter-rouge">_data/navigation.yml</code>)</h3>
+
+<p>Top navbar links:</p>
+
+<div data-title="_data/navigation.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Guide</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">/what-is-jekyll-vitepress-theme/</span>
+  <span class="na">collections</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">introduction</span><span class="pi">,</span> <span class="nv">core_features</span><span class="pi">,</span> <span class="nv">advanced</span><span class="pi">]</span>
+<span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Reference</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">/configuration-reference/</span>
+  <span class="na">collections</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">reference</span><span class="pi">]</span>
+</code></pre></div></div>
+
+<h3 id="sidebar-_datasidebaryml">Sidebar (<code class="language-plaintext highlighter-rouge">_data/sidebar.yml</code>)</h3>
+
+<p>Collection-driven sidebar groups:</p>
+
+<div data-title="_data/sidebar.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Introduction</span>
+  <span class="na">collection</span><span class="pi">:</span> <span class="s">introduction</span>
+<span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Core Features</span>
+  <span class="na">collection</span><span class="pi">:</span> <span class="s">core_features</span>
+<span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Advanced</span>
+  <span class="na">collection</span><span class="pi">:</span> <span class="s">advanced</span>
+<span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Reference</span>
+  <span class="na">collection</span><span class="pi">:</span> <span class="s">reference</span>
+</code></pre></div></div>
+
+<h3 id="social-links-_datasocial_linksyml">Social links (<code class="language-plaintext highlighter-rouge">_data/social_links.yml</code>)</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">icon</code>: built-in icon slug</li>
+  <li><code class="language-plaintext highlighter-rouge">url</code>: link target</li>
+  <li><code class="language-plaintext highlighter-rouge">label</code>: aria label</li>
+  <li><code class="language-plaintext highlighter-rouge">icon_svg</code>: optional custom inline SVG</li>
+</ul>
+
+<div data-title="_data/social_links.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">icon</span><span class="pi">:</span> <span class="s">github</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">https://github.com/you/project</span>
+  <span class="na">label</span><span class="pi">:</span> <span class="s">GitHub</span>
+<span class="pi">-</span> <span class="na">icon</span><span class="pi">:</span> <span class="s">x</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">https://x.com/you</span>
+  <span class="na">label</span><span class="pi">:</span> <span class="s">X</span>
+<span class="pi">-</span> <span class="na">icon</span><span class="pi">:</span> <span class="s">custom</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">https://bsky.app/profile/you</span>
+  <span class="na">label</span><span class="pi">:</span> <span class="s">Bluesky</span>
+  <span class="na">icon_svg</span><span class="pi">:</span> <span class="s1">'</span><span class="s">&lt;svg</span><span class="nv"> </span><span class="s">role="img"</span><span class="nv"> </span><span class="s">viewBox="0</span><span class="nv"> </span><span class="s">0</span><span class="nv"> </span><span class="s">24</span><span class="nv"> </span><span class="s">24"</span><span class="nv"> </span><span class="s">xmlns="http://www.w3.org/2000/svg"&gt;&lt;path</span><span class="nv"> </span><span class="s">d="M12</span><span class="nv"> </span><span class="s">11.388c0-.756</span><span class="nv"> </span><span class="s">1.676-3.35</span><span class="nv"> </span><span class="s">3.43-4.594</span><span class="nv"> </span><span class="s">2.296-1.627</span><span class="nv"> </span><span class="s">3.726-1.348</span><span class="nv"> </span><span class="s">4.3-.225.672</span><span class="nv"> </span><span class="s">1.316-.53</span><span class="nv"> </span><span class="s">4.77-2.257</span><span class="nv"> </span><span class="s">6.48-.958.949-1.786</span><span class="nv"> </span><span class="s">1.433-2.84</span><span class="nv"> </span><span class="s">1.356-.67-.05-1.167-.35-1.586-.824-.49-.554-.732-1.346-1.047-2.193-.315.847-.557</span><span class="nv"> </span><span class="s">1.64-1.047</span><span class="nv"> </span><span class="s">2.193-.419.474-.916.775-1.586.824-1.054.077-1.882-.407-2.84-1.356C5.8</span><span class="nv"> </span><span class="s">11.339</span><span class="nv"> </span><span class="s">4.6</span><span class="nv"> </span><span class="s">7.885</span><span class="nv"> </span><span class="s">5.271</span><span class="nv"> </span><span class="s">6.57c.574-1.124</span><span class="nv"> </span><span class="s">2.004-1.402</span><span class="nv"> </span><span class="s">4.3.225</span><span class="nv"> </span><span class="s">1.754</span><span class="nv"> </span><span class="s">1.243</span><span class="nv"> </span><span class="s">3.43</span><span class="nv"> </span><span class="s">3.838</span><span class="nv"> </span><span class="s">3.43</span><span class="nv"> </span><span class="s">4.594Z"/&gt;&lt;/svg&gt;'</span>
+</code></pre></div></div>
+
+<p>Built-in icon slugs are:
+<code class="language-plaintext highlighter-rouge">github</code>, <code class="language-plaintext highlighter-rouge">gitlab</code>, <code class="language-plaintext highlighter-rouge">bitbucket</code>, <code class="language-plaintext highlighter-rouge">discord</code>, <code class="language-plaintext highlighter-rouge">slack</code>, <code class="language-plaintext highlighter-rouge">x</code>, <code class="language-plaintext highlighter-rouge">twitter</code>,
+<code class="language-plaintext highlighter-rouge">mastodon</code>, <code class="language-plaintext highlighter-rouge">linkedin</code>, <code class="language-plaintext highlighter-rouge">youtube</code>, <code class="language-plaintext highlighter-rouge">facebook</code>, <code class="language-plaintext highlighter-rouge">instagram</code>, <code class="language-plaintext highlighter-rouge">reddit</code>,
+<code class="language-plaintext highlighter-rouge">bluesky</code>, <code class="language-plaintext highlighter-rouge">telegram</code>, <code class="language-plaintext highlighter-rouge">twitch</code>, <code class="language-plaintext highlighter-rouge">npm</code>, <code class="language-plaintext highlighter-rouge">medium</code>, <code class="language-plaintext highlighter-rouge">devdotto</code>, <code class="language-plaintext highlighter-rouge">dribbble</code>,
+<code class="language-plaintext highlighter-rouge">stackoverflow</code>, <code class="language-plaintext highlighter-rouge">rss</code>, and <code class="language-plaintext highlighter-rouge">blog</code> (alias of <code class="language-plaintext highlighter-rouge">rss</code>).</p>
+
+<h3 id="versions-_dataversionsyml">Versions (<code class="language-plaintext highlighter-rouge">_data/versions.yml</code>)</h3>
+
+<p>If this file exists, it drives the version selector:</p>
+
+<div data-title="_data/versions.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">current</span><span class="pi">:</span> <span class="s">auto</span>
+<span class="na">items</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">v1.0.0 (current)</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">/</span>
+  <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Changelog</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">https://github.com/you/project/releases</span>
+    <span class="na">external</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">current: auto</code> resolves to <code class="language-plaintext highlighter-rouge">v#{Jekyll::VitePressTheme::VERSION}</code> at build time.</p>
+
+<h2 id="theme-hooks-jekyll-include-overrides">Theme hooks (Jekyll include overrides)</h2>
 
 <p>Use these optional include files to inject custom markup without forking layouts:</p>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">_includes/vp_slots/head.html</code>: rendered at the end of <code class="language-plaintext highlighter-rouge">&lt;head&gt;</code> (fonts, analytics, custom meta tags).</li>
-  <li><code class="language-plaintext highlighter-rouge">_includes/vp_slots/doc_footer.html</code>: rendered after doc footer on docs pages.</li>
-  <li><code class="language-plaintext highlighter-rouge">_includes/vp_slots/layout_bottom.html</code>: rendered at the bottom of the main layout.</li>
+  <li><code class="language-plaintext highlighter-rouge">_includes/jekyll_vitepress/head_end.html</code></li>
+  <li><code class="language-plaintext highlighter-rouge">_includes/jekyll_vitepress/doc_footer_end.html</code></li>
+  <li><code class="language-plaintext highlighter-rouge">_includes/jekyll_vitepress/layout_end.html</code></li>
 </ul>
 
 <p>If the files are absent in your site, the theme’s empty defaults are used.</p>
 
-<div data-title="_includes/vp_slots/doc_footer.html" class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- _includes/vp_slots/doc_footer.html --&gt;</span>
+<div data-title="_includes/jekyll_vitepress/doc_footer_end.html" class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- _includes/jekyll_vitepress/doc_footer_end.html --&gt;</span>
 <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"my-doc-footer"</span><span class="nt">&gt;</span>
   Need help? <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/support/"</span><span class="nt">&gt;</span>Contact support<span class="nt">&lt;/a&gt;</span>.
 <span class="nt">&lt;/div&gt;</span>
@@ -1106,6 +1241,20 @@ Set <code class="language-plaintext highlighter-rouge">footer.show_on_docs: true
                       </div>
                     </main>
                     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1177,10 +1326,6 @@ Set <code class="language-plaintext highlighter-rouge">footer.show_on_docs: true
           </div>
         
         
-          <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-03-11T16:16:38+00:00" lang="en-US">11 Mar 2026, 16:16</time></p>
-          </div>
-        
       </div>
     
 
@@ -1202,16 +1347,21 @@ Set <code class="language-plaintext highlighter-rouge">footer.show_on_docs: true
         </div>
       </nav>
     
+
+    
   </footer>
 
 
-                    
                   </div>
                 </div>
               </div>
             </div>
           
         </div>
+
+        
+        
+        
 
         
         
