@@ -62,6 +62,17 @@
     window.dispatchEvent(new CustomEvent('vp:appearance-change', { detail: { dark: dark, mode: normalizedMode } }));
   }
 
+  function applyModeWithoutTransitions(mode) {
+    root.classList.add('vp-appearance-switching');
+    applyMode(mode);
+
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        root.classList.remove('vp-appearance-switching');
+      });
+    });
+  }
+
   var mode = readMode();
   applyMode(mode);
 
@@ -74,7 +85,7 @@
       mode = 'auto';
     }
     writeMode(mode);
-    applyMode(mode);
+    applyModeWithoutTransitions(mode);
   }
 
   document.querySelectorAll('.theme-toggle').forEach(function (toggle) {
@@ -82,7 +93,7 @@
       if (event.altKey) {
         mode = 'auto';
         writeMode(mode);
-        applyMode(mode);
+        applyModeWithoutTransitions(mode);
         return;
       }
 
@@ -93,7 +104,7 @@
   if (typeof mediaQuery.addEventListener === 'function') {
     mediaQuery.addEventListener('change', function () {
       if (mode === 'auto') {
-        applyMode('auto');
+        applyModeWithoutTransitions('auto');
       }
     });
   }
@@ -105,12 +116,12 @@
     setMode: function (nextMode) {
       mode = normalizeMode(nextMode);
       writeMode(mode);
-      applyMode(mode);
+      applyModeWithoutTransitions(mode);
     },
     clearMode: function () {
       mode = 'auto';
       writeMode(mode);
-      applyMode(mode);
+      applyModeWithoutTransitions(mode);
     }
   };
 
@@ -123,10 +134,18 @@
   var versionSelector = document.getElementById('vp-version-selector');
   var versionButton = document.getElementById('vp-version-button');
   var versionMenu = document.getElementById('vp-version-menu');
+  var navScreenVersionGroup = document.getElementById('vp-nav-screen-version-group');
+  var navScreenVersionButton = document.getElementById('vp-nav-screen-version-button');
+  var navScreenVersionItems = document.getElementById('vp-nav-screen-version-items');
+  var extra = document.getElementById('vp-nav-extra');
+  var extraButton = document.getElementById('vp-nav-extra-button');
+  var extraMenu = document.getElementById('vp-nav-extra-menu');
 
   var navScreenOpen = false;
   var sidebarOpen = false;
+  var navScreenVersionOpen = false;
   var versionOpen = false;
+  var extraOpen = false;
 
   function setVersionOpen(open) {
     if (!versionSelector || !versionButton || !versionMenu) {
@@ -140,10 +159,37 @@
     versionMenu.hidden = !open;
   }
 
+  function setExtraOpen(open) {
+    if (!extra || !extraButton || !extraMenu) {
+      extraOpen = false;
+      return;
+    }
+
+    extraOpen = open;
+    extra.classList.toggle('open', open);
+    extraButton.setAttribute('aria-expanded', String(open));
+    extraMenu.setAttribute('aria-hidden', String(!open));
+  }
+
+  function setNavScreenVersionOpen(open) {
+    if (!navScreenVersionGroup || !navScreenVersionButton || !navScreenVersionItems) {
+      navScreenVersionOpen = false;
+      return;
+    }
+
+    navScreenVersionOpen = !!open;
+    navScreenVersionGroup.classList.toggle('open', navScreenVersionOpen);
+    navScreenVersionButton.setAttribute('aria-expanded', String(navScreenVersionOpen));
+    navScreenVersionItems.setAttribute('aria-hidden', String(!navScreenVersionOpen));
+  }
+
   if (versionButton && versionMenu) {
     versionButton.addEventListener('click', function (event) {
       event.preventDefault();
       event.stopPropagation();
+      if (extraOpen) {
+        setExtraOpen(false);
+      }
       setVersionOpen(!versionOpen);
     });
 
@@ -159,6 +205,175 @@
       }
     });
   }
+
+  if (extraButton && extraMenu) {
+    extraButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (versionOpen) {
+        setVersionOpen(false);
+      }
+      setExtraOpen(!extraOpen);
+    });
+
+    extraMenu.addEventListener('click', function (event) {
+      if (event.target.closest('a') && !event.target.closest('.theme-toggle')) {
+        setExtraOpen(false);
+      }
+    });
+
+    document.addEventListener('click', function (event) {
+      if (extraOpen && extra && !extra.contains(event.target)) {
+        setExtraOpen(false);
+      }
+    });
+  }
+
+  if (navScreenVersionButton) {
+    navScreenVersionButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      setNavScreenVersionOpen(!navScreenVersionOpen);
+    });
+  }
+
+  function formatGitHubStarCount(value) {
+    var count = Number(value);
+    if (!Number.isFinite(count) || count < 0) {
+      return null;
+    }
+
+    if (count >= 1000000) {
+      var millions = (count / 1000000).toFixed(count >= 10000000 ? 0 : 1);
+      return millions.replace(/\.0$/, '') + 'M';
+    }
+
+    if (count >= 1000) {
+      var thousands = (count / 1000).toFixed(count >= 100000 ? 0 : 1);
+      return thousands.replace(/\.0$/, '') + 'k';
+    }
+
+    return String(Math.round(count));
+  }
+
+  function setGitHubStarCount(button, value) {
+    if (!button) {
+      return;
+    }
+
+    var countElement = button.querySelector('.VPNavBarStarCount');
+    if (!countElement) {
+      return;
+    }
+
+    var formatted = formatGitHubStarCount(value);
+    if (!formatted) {
+      return;
+    }
+
+    countElement.textContent = formatted;
+    countElement.hidden = false;
+  }
+
+  var githubStarCacheTtlMs = 6 * 60 * 60 * 1000;
+
+  function readCachedGitHubStarCount(repository) {
+    if (!repository || !window.localStorage) {
+      return null;
+    }
+
+    try {
+      var valueKey = 'vp-github-stars:value:' + repository;
+      var tsKey = 'vp-github-stars:ts:' + repository;
+
+      var rawValue = localStorage.getItem(valueKey);
+      var rawTs = localStorage.getItem(tsKey);
+      if (!rawValue || !rawTs) {
+        return null;
+      }
+
+      var stars = Number(rawValue);
+      var cachedAt = Number(rawTs);
+      if (!Number.isFinite(stars) || !Number.isFinite(cachedAt)) {
+        return null;
+      }
+
+      if (Date.now() - cachedAt > githubStarCacheTtlMs) {
+        return null;
+      }
+
+      return { stars: stars, cachedAt: cachedAt };
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function writeCachedGitHubStarCount(repository, stars) {
+    if (!repository || !window.localStorage) {
+      return;
+    }
+
+    try {
+      var valueKey = 'vp-github-stars:value:' + repository;
+      var tsKey = 'vp-github-stars:ts:' + repository;
+      localStorage.setItem(valueKey, String(stars));
+      localStorage.setItem(tsKey, String(Date.now()));
+    } catch (error) {
+      // Ignore storage errors.
+    }
+  }
+
+  function loadGitHubStarCount(button) {
+    if (!button) {
+      return;
+    }
+
+    var showCount = button.getAttribute('data-github-star-show-count') !== 'false';
+    if (!showCount) {
+      return;
+    }
+
+    var repository = button.getAttribute('data-github-star-repo');
+    if (!repository) {
+      return;
+    }
+
+    var cached = readCachedGitHubStarCount(repository);
+    if (cached && typeof cached.stars === 'number') {
+      setGitHubStarCount(button, cached.stars);
+      return;
+    }
+
+    var apiRepository = repository
+      .split('/')
+      .map(function (segment) {
+        return encodeURIComponent(segment);
+      })
+      .join('/');
+
+    fetch('https://api.github.com/repos/' + apiRepository, {
+      headers: { Accept: 'application/vnd.github+json' }
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error('GitHub API request failed');
+        }
+        return response.json();
+      })
+      .then(function (data) {
+        if (data && typeof data.stargazers_count === 'number') {
+          setGitHubStarCount(button, data.stargazers_count);
+          writeCachedGitHubStarCount(repository, data.stargazers_count);
+        }
+      })
+      .catch(function () {
+        // Keep the button visible without count if API lookup fails.
+      });
+  }
+
+  document.querySelectorAll('.VPNavBarStarLink[data-github-star-repo]').forEach(function (button) {
+    loadGitHubStarCount(button);
+  });
 
   function syncMobileMenus() {
     var anyOpen = navScreenOpen || sidebarOpen;
@@ -193,6 +408,9 @@
   }
 
   function closeMobileMenus() {
+    if (navScreenVersionOpen) {
+      setNavScreenVersionOpen(false);
+    }
     navScreenOpen = false;
     sidebarOpen = false;
     syncMobileMenus();
@@ -202,6 +420,11 @@
     navScreenOpen = !!open;
     if (navScreenOpen) {
       sidebarOpen = false;
+    } else if (navScreenVersionOpen) {
+      setNavScreenVersionOpen(false);
+    }
+    if (navScreenOpen && extraOpen) {
+      setExtraOpen(false);
     }
     if (navScreenOpen && versionOpen) {
       setVersionOpen(false);
@@ -212,7 +435,13 @@
   function setSidebarOpen(open) {
     sidebarOpen = !!open;
     if (sidebarOpen) {
+      if (navScreenVersionOpen) {
+        setNavScreenVersionOpen(false);
+      }
       navScreenOpen = false;
+    }
+    if (sidebarOpen && extraOpen) {
+      setExtraOpen(false);
     }
     if (sidebarOpen && versionOpen) {
       setVersionOpen(false);
@@ -261,6 +490,9 @@
     }
     if (window.innerWidth < 768 && versionOpen) {
       setVersionOpen(false);
+    }
+    if ((window.innerWidth < 768 || window.innerWidth >= 1280) && extraOpen) {
+      setExtraOpen(false);
     }
   });
 
@@ -539,6 +771,9 @@
     if (versionOpen) {
       setVersionOpen(false);
     }
+    if (extraOpen) {
+      setExtraOpen(false);
+    }
 
     if (navScreenOpen || sidebarOpen) {
       closeMobileMenus();
@@ -638,6 +873,12 @@
       if (searchOpen) {
         event.preventDefault();
         closeSearch();
+        return;
+      }
+
+      if (extraOpen) {
+        event.preventDefault();
+        setExtraOpen(false);
         return;
       }
 

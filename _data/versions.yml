@@ -1,0 +1,5 @@
+current: auto
+items:
+  - title: Changelog
+    url: https://github.com/crmne/jekyll-vitepress-theme/releases
+    external: true

@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: 'en-US' }}">
   {% include head.html %}
-  <body data-vp-scroll-offset="{{ site.vp_theme.scroll_offset | default: 134 }}">
+  {% assign theme = site.jekyll_vitepress %}
+  {% assign behavior = theme.behavior %}
+  {% assign page_theme = page.jekyll_vitepress %}
+  <body data-vp-scroll-offset="{{ behavior.scroll_offset | default: 134 }}">
     {% assign is_home = false %}
-    {% if page.vp_layout == 'home' or page.layout == 'home' or page.url == '/' %}
+    {% if page.layout == 'home' or page.url == '/' %}
       {% assign is_home = true %}
     {% endif %}
 
@@ -15,7 +18,7 @@
     <div id="app">
       <div class="Layout{% if page.page_class %} {{ page.page_class }}{% endif %}">
         <span tabindex="-1"></span>
-        <a href="#VPContent" class="VPSkipLink visually-hidden">{{ site.vp_theme.skip_to_content_label | default: 'Skip to content' }}</a>
+        <a href="#VPContent" class="VPSkipLink visually-hidden">{{ theme.labels.skip_to_content | default: 'Skip to content' }}</a>
 
         <div class="VPBackdrop backdrop" id="vp-backdrop"></div>
 
@@ -38,7 +41,7 @@
                         <nav aria-labelledby="doc-outline-aria-label" class="VPDocAsideOutline has-outline" id="vp-doc-outline">
                           <div class="content">
                             <div class="outline-marker" id="vp-outline-marker"></div>
-                            <div aria-level="2" class="outline-title" id="doc-outline-aria-label" role="heading">{{ site.vp_theme.outline_title | default: 'On this page' }}</div>
+                            <div aria-level="2" class="outline-title" id="doc-outline-aria-label" role="heading">{{ theme.labels.outline | default: 'On this page' }}</div>
                             <ul class="VPDocOutlineItem root"></ul>
                           </div>
                         </nav>
@@ -53,7 +56,7 @@
                     <main class="main">
                       <div class="vp-doc{% if page.url %} {{ page.url | replace: '/', '_' | replace: '.', '_' }}{% endif %}">
                         {% assign show_auto_page_title = false %}
-                        {% if page.title and page.vp_auto_title != false %}
+                        {% if page.title and page_theme.auto_title != false %}
                           {% unless content contains '<h1' %}
                             {% assign show_auto_page_title = true %}
                           {% endunless %}
@@ -65,7 +68,6 @@
                       </div>
                     </main>
                     {% include doc_footer.html %}
-                    {% include vp_slots/doc_footer.html %}
                   </div>
                 </div>
               </div>
@@ -80,7 +82,7 @@
                     <main class="main">
                       <div class="vp-doc{% if page.url %} {{ page.url | replace: '/', '_' | replace: '.', '_' }}{% endif %}">
                         {% assign show_auto_page_title = false %}
-                        {% if page.title and page.vp_auto_title != false %}
+                        {% if page.title and page_theme.auto_title != false %}
                           {% unless content contains '<h1' %}
                             {% assign show_auto_page_title = true %}
                           {% endunless %}
@@ -92,7 +94,6 @@
                       </div>
                     </main>
                     {% include doc_footer.html %}
-                    {% include vp_slots/doc_footer.html %}
                   </div>
                 </div>
               </div>
@@ -100,9 +101,15 @@
           {% endif %}
         </div>
 
+        {% assign theme_footer = theme.footer %}
+        {% assign footer_enabled = true %}
+        {% if theme_footer and theme_footer.enabled == false %}
+          {% assign footer_enabled = false %}
+        {% endif %}
+
         {% assign show_global_footer = false %}
-        {% if site.vp_theme.footer and page.footer != false %}
-          {% if has_sidebar == false or site.vp_theme.footer.show_on_docs == true %}
+        {% if footer_enabled and theme_footer and page_theme.footer != false %}
+          {% if is_home or theme_footer.show_on_docs == true %}
             {% assign show_global_footer = true %}
           {% endif %}
         {% endif %}
@@ -110,17 +117,17 @@
         {% if show_global_footer %}
           <footer class="VPFooter{% if has_sidebar %} has-sidebar{% endif %}">
             <div class="container">
-              {% if site.vp_theme.footer.message %}
-                <p class="message">{{ site.vp_theme.footer.message }}</p>
+              {% if theme_footer.message %}
+                <p class="message">{{ theme_footer.message }}</p>
               {% endif %}
-              {% if site.vp_theme.footer.copyright %}
-                <p class="copyright">{{ site.vp_theme.footer.copyright }}</p>
+              {% if theme_footer.copyright %}
+                <p class="copyright">{{ theme_footer.copyright }}</p>
               {% endif %}
             </div>
           </footer>
         {% endif %}
 
-        {% include vp_slots/layout_bottom.html %}
+        {% include jekyll_vitepress/layout_end.html %}
       </div>
     </div>
   </body>

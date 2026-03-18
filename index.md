@@ -40,4 +40,4 @@ features:
 
 ## Build docs like VitePress, ship docs like Jekyll
 
-Start with [Getting Started]({% link _getting_started/getting-started.md %}), then tune the theme in [Configuration Reference]({% link _reference/configuration-reference.md %}).
+Start with [Getting Started](/getting-started/), then tune the theme in [Configuration Reference](/configuration-reference/).

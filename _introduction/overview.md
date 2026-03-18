@@ -30,3 +30,5 @@ The project targets parity for:
 - Rouge-native light/dark syntax themes
 
 It intentionally stays Jekyll-first for config and page authoring.
+
+For an explicit checklist of parity vs theme-specific additions, see [VitePress Parity and Extensions]({% link _reference/vitepress-parity-and-extensions.md %}).

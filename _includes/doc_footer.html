@@ -1,34 +1,45 @@
+{% assign theme = site.jekyll_vitepress %}
+{% assign page_theme = page.jekyll_vitepress %}
+
+{% assign edit_link_config = theme.edit_link %}
 {% assign edit_link_enabled = true %}
-{% if site.vp_theme.edit_link == false or page.edit_link == false %}
+{% if edit_link_config and edit_link_config.enabled == false %}
+  {% assign edit_link_enabled = false %}
+{% endif %}
+{% if page_theme.edit_link == false %}
   {% assign edit_link_enabled = false %}
 {% endif %}
 
 {% assign edit_link = nil %}
-{% if edit_link_enabled and site.vp_theme.edit_link and site.vp_theme.edit_link.pattern and page.path %}
-  {% assign edit_link = site.vp_theme.edit_link.pattern | replace: ':path', page.path %}
+{% if edit_link_enabled and edit_link_config and edit_link_config.pattern and page.path %}
+  {% assign edit_link = edit_link_config.pattern | replace: ':path', page.path %}
 {% endif %}
 
 {% assign edit_link_text = 'Edit this page on GitHub' %}
-{% if site.vp_theme.edit_link and site.vp_theme.edit_link.text %}
-  {% assign edit_link_text = site.vp_theme.edit_link.text %}
+{% if edit_link_config and edit_link_config.text %}
+  {% assign edit_link_text = edit_link_config.text %}
 {% endif %}
 
+{% assign last_updated_config = theme.last_updated %}
 {% assign last_updated_enabled = true %}
-{% if site.vp_theme.last_updated == false or page.last_updated == false %}
+{% if last_updated_config and last_updated_config.enabled == false %}
+  {% assign last_updated_enabled = false %}
+{% endif %}
+{% if page_theme.last_updated == false %}
   {% assign last_updated_enabled = false %}
 {% endif %}
 
 {% assign last_updated_text = 'Last updated' %}
-{% if site.vp_theme.last_updated and site.vp_theme.last_updated.text %}
-  {% assign last_updated_text = site.vp_theme.last_updated.text %}
+{% if last_updated_config and last_updated_config.text %}
+  {% assign last_updated_text = last_updated_config.text %}
 {% endif %}
 
 {% assign last_updated_format = '%-d %b %Y, %H:%M' %}
-{% if site.vp_theme.last_updated and site.vp_theme.last_updated.format %}
-  {% assign last_updated_format = site.vp_theme.last_updated.format %}
+{% if last_updated_config and last_updated_config.format %}
+  {% assign last_updated_format = last_updated_config.format %}
 {% endif %}
 
-{% assign last_updated_at = page.last_updated_at | default: page.last_updated | default: nil %}
+{% assign last_updated_at = page_theme.last_updated_at | default: nil %}
 {% assign show_last_updated = false %}
 {% if last_updated_enabled and last_updated_at %}
   {% assign show_last_updated = true %}
@@ -52,8 +63,12 @@
   {% endfor %}
 {% endif %}
 
+{% assign doc_footer_config = theme.doc_footer %}
 {% assign doc_footer_enabled = true %}
-{% if site.vp_theme.doc_footer == false or page.doc_footer == false %}
+{% if doc_footer_config and doc_footer_config.enabled == false %}
+  {% assign doc_footer_enabled = false %}
+{% endif %}
+{% if page_theme.doc_footer == false %}
   {% assign doc_footer_enabled = false %}
 {% endif %}
 
@@ -62,39 +77,39 @@
 {% assign prev_desc = 'Previous page' %}
 {% assign next_desc = 'Next page' %}
 
-{% if site.vp_theme.doc_footer and site.vp_theme.doc_footer != false %}
-  {% if site.vp_theme.doc_footer.prev == false %}
+{% if doc_footer_config %}
+  {% if doc_footer_config.previous_label == false %}
     {% assign prev_enabled = false %}
-  {% elsif site.vp_theme.doc_footer.prev %}
-    {% assign prev_desc = site.vp_theme.doc_footer.prev %}
+  {% elsif doc_footer_config.previous_label %}
+    {% assign prev_desc = doc_footer_config.previous_label %}
   {% endif %}
 
-  {% if site.vp_theme.doc_footer.next == false %}
+  {% if doc_footer_config.next_label == false %}
     {% assign next_enabled = false %}
-  {% elsif site.vp_theme.doc_footer.next %}
-    {% assign next_desc = site.vp_theme.doc_footer.next %}
+  {% elsif doc_footer_config.next_label %}
+    {% assign next_desc = doc_footer_config.next_label %}
   {% endif %}
 {% endif %}
 
-{% if page.doc_footer and page.doc_footer != false %}
-  {% if page.doc_footer.prev == false %}
+{% if page_theme.doc_footer and page_theme.doc_footer != false %}
+  {% if page_theme.doc_footer.prev == false %}
     {% assign prev_enabled = false %}
-  {% elsif page.doc_footer.prev %}
-    {% assign prev_desc = page.doc_footer.prev %}
+  {% elsif page_theme.doc_footer.prev %}
+    {% assign prev_desc = page_theme.doc_footer.prev %}
   {% endif %}
 
-  {% if page.doc_footer.next == false %}
+  {% if page_theme.doc_footer.next == false %}
     {% assign next_enabled = false %}
-  {% elsif page.doc_footer.next %}
-    {% assign next_desc = page.doc_footer.next %}
+  {% elsif page_theme.doc_footer.next %}
+    {% assign next_desc = page_theme.doc_footer.next %}
   {% endif %}
 {% endif %}
 
-{% if page.prev == false %}
+{% if page_theme.prev == false %}
   {% assign prev_enabled = false %}
 {% endif %}
 
-{% if page.next == false %}
+{% if page_theme.next == false %}
   {% assign next_enabled = false %}
 {% endif %}
 
@@ -104,9 +119,9 @@
 {% assign next_title = nil %}
 
 {% if prev_enabled %}
-  {% if page.prev and page.prev != false and page.prev.link %}
-    {% assign prev_url = page.prev.link %}
-    {% assign prev_title = page.prev.text | default: page.prev.link %}
+  {% if page_theme.prev and page_theme.prev != false and page_theme.prev.link %}
+    {% assign prev_url = page_theme.prev.link %}
+    {% assign prev_title = page_theme.prev.text | default: page_theme.prev.link %}
   {% elsif prev_doc %}
     {% assign prev_url = prev_doc.url | relative_url %}
     {% assign prev_title = prev_doc.title %}
@@ -114,9 +129,9 @@
 {% endif %}
 
 {% if next_enabled %}
-  {% if page.next and page.next != false and page.next.link %}
-    {% assign next_url = page.next.link %}
-    {% assign next_title = page.next.text | default: page.next.link %}
+  {% if page_theme.next and page_theme.next != false and page_theme.next.link %}
+    {% assign next_url = page_theme.next.link %}
+    {% assign next_title = page_theme.next.text | default: page_theme.next.link %}
   {% elsif next_doc %}
     {% assign next_url = next_doc.url | relative_url %}
     {% assign next_title = next_doc.title %}
@@ -132,8 +147,17 @@
   {% assign show_next_link = true %}
 {% endif %}
 
+{% capture doc_footer_end_markup %}
+  {% include jekyll_vitepress/doc_footer_end.html %}
+{% endcapture %}
+{% assign doc_footer_end_markup = doc_footer_end_markup | strip %}
+{% assign show_doc_footer_end = false %}
+{% if doc_footer_end_markup != '' %}
+  {% assign show_doc_footer_end = true %}
+{% endif %}
+
 {% assign show_footer = false %}
-{% if edit_link or show_last_updated or show_prev_link or show_next_link %}
+{% if edit_link or show_last_updated or show_prev_link or show_next_link or show_doc_footer_end %}
   {% assign show_footer = true %}
 {% endif %}
 
@@ -179,6 +203,10 @@
           {% endif %}
         </div>
       </nav>
+    {% endif %}
+
+    {% if show_doc_footer_end %}
+      {{ doc_footer_end_markup }}
     {% endif %}
   </footer>
 {% endif %}

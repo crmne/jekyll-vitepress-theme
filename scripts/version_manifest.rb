@@ -58,16 +58,22 @@ rescue ArgumentError
   nil
 end
 
+def first_release_id(item, *keys)
+  keys.each do |key|
+    release_id = release_id_for(item[key] || item[key.to_sym])
+    return release_id if release_id
+  end
+
+  nil
+end
+
 def release_id_from_item(item)
   return nil unless item.is_a?(Hash)
 
-  from_id = release_id_for(item['id'] || item[:id])
-  return from_id if from_id
+  from_item = first_release_id(item, 'id', 'title', 'text')
+  return from_item if from_item
 
-  from_text = release_id_for(item['text'] || item[:text])
-  return from_text if from_text
-
-  link = item['link'] || item[:link]
+  link = item['url'] || item[:url] || item['link'] || item[:link]
   return nil unless link
 
   match = link.to_s.match(%r{/v/(\d+\.\d+\.\d+[A-Za-z0-9.-]*)/?})
@@ -105,23 +111,23 @@ current_id = options[:mode] == 'release' ? release_id_for(options[:version]) : '
 items = []
 items << {
   'id' => 'next',
-  'text' => 'next (unreleased)',
-  'link' => "#{base_path}/next/"
+  'title' => 'next (unreleased)',
+  'url' => "#{base_path}/next/"
 }
 
 release_ids.each do |rid|
-  text = rid == latest_id ? "#{rid} (latest)" : rid
+  title = rid == latest_id ? "#{rid} (latest)" : rid
   items << {
     'id' => rid,
-    'text' => text,
-    'link' => "#{base_path}/v/#{rid.delete_prefix('v')}/"
+    'title' => title,
+    'url' => "#{base_path}/v/#{rid.delete_prefix('v')}/"
   }
 end
 
 items << {
   'id' => 'changelog',
-  'text' => 'Changelog',
-  'link' => "https://github.com/#{options[:repository]}/releases",
+  'title' => 'Changelog',
+  'url' => "https://github.com/#{options[:repository]}/releases",
   'external' => true
 }
 

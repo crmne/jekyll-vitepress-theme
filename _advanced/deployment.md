@@ -30,7 +30,7 @@ Typical flow:
 2. On release, build docs for `/v/x.y.z` and `/latest`, then publish with `publish_gh_pages.sh release`.
 3. Keep `versions.yml` in `gh-pages` as the selector source of truth.
 
-When `/_data/versions.yml` is present, it overrides `vp_theme.version` in nav.
+When `/_data/versions.yml` is present, it is used as the version selector source.
 
 Use this mode only when you need immutable version snapshots. It adds operational complexity and more edge cases (caching, legacy paths, rebuilds).
 

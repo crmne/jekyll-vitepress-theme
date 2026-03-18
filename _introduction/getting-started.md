@@ -28,29 +28,43 @@ plugins:
 ```
 {: data-title="_config.yml"}
 
-## 3. Configure navigation
+## 3. Add Jekyll-native config and data
+
+Theme behavior lives in `_config.yml` under `jekyll_vitepress`:
 
 ```yaml
-vp_theme:
-  nav:
-    - text: Guide
-      link: /what-is-jekyll-vitepress-theme/
-      collections: [getting_started, core_features, advanced]
-    - text: Reference
-      link: /configuration-reference/
-      collections: [reference]
-
-  sidebar_collections:
-    - id: getting_started
-      text: Introduction
-    - id: core_features
-      text: Core Features
-    - id: advanced
-      text: Advanced
-    - id: reference
-      text: Reference
+jekyll_vitepress:
+  branding:
+    site_title: My Project
+  syntax:
+    light_theme: github
+    dark_theme: github.dark
 ```
 {: data-title="_config.yml"}
+
+Navigation and sidebar structure live in `_data`:
+
+```yaml
+# _data/navigation.yml
+- title: Guide
+  url: /getting-started/
+  collections: [introduction, core_features, advanced]
+- title: Reference
+  url: /configuration-reference/
+  collections: [reference]
+```
+
+```yaml
+# _data/sidebar.yml
+- title: Introduction
+  collection: introduction
+- title: Core Features
+  collection: core_features
+- title: Advanced
+  collection: advanced
+- title: Reference
+  collection: reference
+```
 
 ## 4. Run locally
 

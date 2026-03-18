@@ -30,34 +30,27 @@ module Jekyll
       DEFAULT_DARK = 'github.dark'.freeze
 
       def apply(site)
-        vp_theme = site.config['vp_theme']
-        return unless vp_theme.is_a?(Hash)
+        theme_config = site.config['jekyll_vitepress']
+        return unless theme_config.is_a?(Hash)
 
-        light_name, dark_name = resolved_theme_names(vp_theme)
+        light_name, dark_name = resolved_theme_names(theme_config['syntax'])
         light_name = valid_theme_name(light_name, DEFAULT_LIGHT)
         dark_name = valid_theme_name(dark_name, DEFAULT_DARK)
 
-        vp_theme['rouge_theme'] = {
-          'light' => light_name,
-          'dark' => dark_name
+        theme_config['syntax'] = {
+          'light_theme' => light_name,
+          'dark_theme' => dark_name
         }
-        vp_theme['_generated_rouge_css'] = generated_css(light_name, dark_name)
+        theme_config['_generated_rouge_css'] = generated_css(light_name, dark_name)
       rescue StandardError => e
         Jekyll.logger.warn('jekyll-vitepress-theme', "Rouge theme generation failed: #{e.message}")
       end
 
-      def resolved_theme_names(vp_theme)
-        rouge_theme = vp_theme['rouge_theme']
+      def resolved_theme_names(syntax_config)
+        return [DEFAULT_LIGHT, DEFAULT_DARK] unless syntax_config.is_a?(Hash)
 
-        light = nil
-        dark = nil
-
-        if rouge_theme.is_a?(String)
-          light = normalized_name(rouge_theme)
-        elsif rouge_theme.is_a?(Hash)
-          light = normalized_name(rouge_theme['light'] || rouge_theme[:light])
-          dark = normalized_name(rouge_theme['dark'] || rouge_theme[:dark])
-        end
+        light = normalized_name(syntax_config['light_theme'] || syntax_config[:light_theme])
+        dark = normalized_name(syntax_config['dark_theme'] || syntax_config[:dark_theme])
 
         [light || DEFAULT_LIGHT, dark || DEFAULT_DARK]
       end
@@ -96,16 +89,13 @@ module Jekyll
       AUTO_VALUE = 'auto'.freeze
 
       def apply(site)
-        vp_theme = site.config['vp_theme']
-        return unless vp_theme.is_a?(Hash)
+        versions = site.data['versions']
+        return unless versions.is_a?(Hash)
 
-        version_config = vp_theme['version']
-        return unless version_config.is_a?(Hash)
-
-        current_value = version_config['current'] || version_config[:current]
+        current_value = versions['current'] || versions[:current]
         return unless auto_value?(current_value)
 
-        version_config['current'] = "v#{Jekyll::VitePressTheme::VERSION}"
+        versions['current'] = "v#{Jekyll::VitePressTheme::VERSION}"
       rescue StandardError => e
         Jekyll.logger.warn('jekyll-vitepress-theme', "Version label resolution failed: #{e.message}")
       end
@@ -117,7 +107,7 @@ module Jekyll
   end
 end
 
-Jekyll::Hooks.register :site, :after_reset do |site|
+Jekyll::Hooks.register :site, :post_read do |site|
   Jekyll::VitePressTheme::VersionLabel.apply(site)
   Jekyll::VitePressTheme::RougeStyles.apply(site)
 end

@@ -14,10 +14,10 @@ Code blocks support VitePress-style enhancements:
 Syntax colors come from Rouge themes configured in `_config.yml`:
 
 ```yaml
-vp_theme:
-  rouge_theme:
-    light: github
-    dark: github.dark
+jekyll_vitepress:
+  syntax:
+    light_theme: github
+    dark_theme: github.dark
 ```
 {: data-title="_config.yml"}
 
@@ -39,4 +39,4 @@ export function formatDate(input: string): string {
 ```
 {: data-title="src/utils/date.ts"}
 
-`light` and `dark` accept any installed Rouge theme name.
+`light_theme` and `dark_theme` accept any installed Rouge theme name.

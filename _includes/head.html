@@ -4,12 +4,18 @@
   {% assign page_title = page.title | default: site.title %}
   <title>{% if page_title and page_title != site.title %}{{ page_title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{{ page.description | default: site.description | escape }}">
-  <link rel="icon" href="{{ site.vp_theme.logo | default: site.vp_theme.logo_light | default: '/vitepress-logo-mini.svg' | relative_url }}">
-  {% assign vp_google_fonts_url = site.vp_theme.google_fonts_url | default: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap' %}
-  {% if vp_google_fonts_url %}
+
+  {% assign theme = site.jekyll_vitepress %}
+  {% assign branding = theme.branding %}
+  {% assign logo = branding.logo %}
+  <link rel="icon" href="{{ logo.default | default: logo.light | default: '/vitepress-logo-mini.svg' | relative_url }}">
+
+  {% assign typography = theme.typography %}
+  {% assign google_fonts_url = typography.google_fonts_url | default: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap' %}
+  {% if google_fonts_url and google_fonts_url != false and google_fonts_url != '' %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="{{ vp_google_fonts_url }}">
+    <link rel="stylesheet" href="{{ google_fonts_url }}">
   {% endif %}
 
   <script>
@@ -41,27 +47,27 @@
   <link rel="stylesheet" href="{{ '/assets/css/vp-icons.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/vitepress-overrides.css' | relative_url }}">
 
-  {% assign vp_font_family_base = site.vp_theme.font_family_base %}
-  {% assign vp_font_family_mono = site.vp_theme.font_family_mono %}
-  {% assign vp_css_vars_light = site.vp_theme.css_vars.light %}
-  {% assign vp_css_vars_dark = site.vp_theme.css_vars.dark %}
+  {% assign body_font_family = typography.body_font_family %}
+  {% assign code_font_family = typography.code_font_family %}
+  {% assign token_vars_light = theme.tokens.light %}
+  {% assign token_vars_dark = theme.tokens.dark %}
   {% assign has_theme_var_overrides = false %}
-  {% if vp_font_family_base or vp_font_family_mono %}
+  {% if body_font_family or code_font_family %}
     {% assign has_theme_var_overrides = true %}
   {% endif %}
-  {% if vp_css_vars_light and vp_css_vars_light.size > 0 %}
+  {% if token_vars_light and token_vars_light.size > 0 %}
     {% assign has_theme_var_overrides = true %}
   {% endif %}
-  {% if vp_css_vars_dark and vp_css_vars_dark.size > 0 %}
+  {% if token_vars_dark and token_vars_dark.size > 0 %}
     {% assign has_theme_var_overrides = true %}
   {% endif %}
   {% if has_theme_var_overrides %}
     <style id="vp-theme-vars">
       :root {
-        {% if vp_font_family_base %}--vp-font-family-base: {{ vp_font_family_base }};{% endif %}
-        {% if vp_font_family_mono %}--vp-font-family-mono: {{ vp_font_family_mono }};{% endif %}
-        {% if vp_css_vars_light %}
-          {% for pair in vp_css_vars_light %}
+        {% if body_font_family %}--vp-font-family-base: {{ body_font_family }};{% endif %}
+        {% if code_font_family %}--vp-font-family-mono: {{ code_font_family }};{% endif %}
+        {% if token_vars_light %}
+          {% for pair in token_vars_light %}
             {% assign css_var_name = pair[0] | strip %}
             {% if css_var_name contains '--' %}
               {{ css_var_name }}: {{ pair[1] }};
@@ -71,9 +77,9 @@
           {% endfor %}
         {% endif %}
       }
-      {% if vp_css_vars_dark and vp_css_vars_dark.size > 0 %}
+      {% if token_vars_dark and token_vars_dark.size > 0 %}
         .dark {
-          {% for pair in vp_css_vars_dark %}
+          {% for pair in token_vars_dark %}
             {% assign css_var_name = pair[0] | strip %}
             {% if css_var_name contains '--' %}
               {{ css_var_name }}: {{ pair[1] }};
@@ -86,13 +92,13 @@
     </style>
   {% endif %}
 
-  {% assign vp_rouge_css = site.vp_theme._generated_rouge_css %}
-  {% if vp_rouge_css and vp_rouge_css != '' %}
+  {% assign rouge_css = theme._generated_rouge_css %}
+  {% if rouge_css and rouge_css != '' %}
     <style id="vp-rouge-theme">
-{{ vp_rouge_css }}
+{{ rouge_css }}
     </style>
   {% endif %}
 
-  {% include vp_slots/head.html %}
+  {% include jekyll_vitepress/head_end.html %}
   <script src="{{ '/assets/js/vitepress-theme.js' | relative_url }}" defer></script>
 </head>

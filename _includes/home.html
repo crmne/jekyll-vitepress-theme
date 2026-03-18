@@ -254,9 +254,9 @@
                   {% if feature.details %}
                     <p class="details">{{ feature.details }}</p>
                   {% endif %}
-                  {% if feature.linkText %}
+                  {% if feature.link_text %}
                     <div class="link-text">
-                      <p class="link-text-value">{{ feature.linkText }} <span class="vpi-arrow-right link-text-icon"></span></p>
+                      <p class="link-text-value">{{ feature.link_text }} <span class="vpi-arrow-right link-text-icon"></span></p>
                     </div>
                   {% endif %}
                 </article>
@@ -302,7 +302,7 @@
   {% endif %}
 
   {% if home_body != '' %}
-    {% if page.markdownStyles == false %}
+    {% if page.markdown_styles == false %}
       {{ include.content }}
     {% else %}
       <div class="VPHomeContent">

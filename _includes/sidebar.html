@@ -3,8 +3,9 @@
   <nav class="nav" id="VPSidebarNav" aria-labelledby="sidebar-aria-label" tabindex="-1">
     <span class="visually-hidden" id="sidebar-aria-label">Sidebar Navigation</span>
 
-    {% for group in site.vp_theme.sidebar_collections %}
-      {% assign docs = site[group.id] | sort: 'nav_order' %}
+    {% assign sidebar_groups = site.data.sidebar %}
+    {% for group in sidebar_groups %}
+      {% assign docs = site[group.collection] | sort: 'nav_order' %}
       {% if docs.size > 0 %}
         {% assign has_active = false %}
         {% for doc in docs %}
@@ -17,7 +18,7 @@
           <section class="VPSidebarItem level-0 collapsible{% if has_active %} has-active{% endif %}">
             <div class="item" role="button" tabindex="0">
               <div class="indicator"></div>
-              <h2 class="text">{{ group.text }}</h2>
+              <h2 class="text">{{ group.title }}</h2>
               <div class="caret" role="button" aria-label="toggle section" tabindex="0">
                 <span class="vpi-chevron-right caret-icon"></span>
               </div>

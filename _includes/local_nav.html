@@ -1,18 +1,19 @@
+{% assign labels = site.jekyll_vitepress.labels %}
 <div class="VPLocalNav has-sidebar" id="vp-local-nav">
   <div class="container">
     <button class="menu" aria-expanded="false" aria-controls="VPSidebarNav" id="vp-local-menu-button">
       <span class="vpi-align-left menu-icon"></span>
-      <span class="menu-text">{{ site.vp_theme.sidebar_menu_label | default: 'Menu' }}</span>
+      <span class="menu-text">{{ labels.sidebar_menu | default: 'Menu' }}</span>
     </button>
 
     <div class="VPLocalNavOutlineDropdown" id="vp-local-outline-dropdown">
       <button type="button" id="vp-local-outline-button">
-        <span class="menu-text">{{ site.vp_theme.outline_title | default: 'On this page' }}</span>
+        <span class="menu-text">{{ labels.outline | default: 'On this page' }}</span>
         <span class="vpi-chevron-right icon"></span>
       </button>
       <div class="items" hidden>
         <div class="header">
-          <a class="top-link" href="#top" id="vp-local-top-link">{{ site.vp_theme.return_to_top_label | default: 'Return to top' }}</a>
+          <a class="top-link" href="#top" id="vp-local-top-link">{{ labels.return_to_top | default: 'Return to top' }}</a>
         </div>
         <div class="outline">
           <ul class="VPDocOutlineItem"></ul>

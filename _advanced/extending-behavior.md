@@ -8,9 +8,10 @@ Because this is Jekyll, extension points are straightforward:
 
 - override `_layouts/default.html`
 - override specific includes (e.g. `nav.html`, `doc_footer.html`)
-- use slot includes for additive markup:
-  - `_includes/vp_slots/doc_footer.html`
-  - `_includes/vp_slots/layout_bottom.html`
+- use hook includes for additive markup:
+  - `_includes/jekyll_vitepress/head_end.html`
+  - `_includes/jekyll_vitepress/doc_footer_end.html`
+  - `_includes/jekyll_vitepress/layout_end.html`
 - add your own JS/CSS assets
 
 For behavior customizations, you can fork/extend `assets/js/vitepress-theme.js` while keeping the HTML structure intact.

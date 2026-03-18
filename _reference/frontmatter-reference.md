@@ -28,30 +28,36 @@ features:
   - icon: ⚡
     title: Fast
     details: Feature description
+    link_text: Learn more
+    link: /getting-started/
 ```
 {: data-title="index.md"}
+
+For home pages, `markdown_styles: false` renders body content without `.vp-doc` markdown wrapper styles.
 
 ## Optional page keys
 
 - `description`
 - `nav_order`
-- `last_updated_at` (manual override)
-- `footer: false` (hide global footer)
-- `doc_footer: false` (hide prev/next pager)
-- `edit_link: false` (hide edit link for this page)
-- `last_updated: false` (hide last updated for this page)
-- `prev: false` / `next: false` (disable pager side)
+- `jekyll_vitepress.last_updated_at` (manual override)
+- `jekyll_vitepress.auto_title: false` (disable automatic `<h1>` injection when the page has a title)
+- `jekyll_vitepress.footer: false` (hide global footer)
+- `jekyll_vitepress.doc_footer: false` (hide prev/next pager)
+- `jekyll_vitepress.edit_link: false` (hide edit link for this page)
+- `jekyll_vitepress.last_updated: false` (hide last updated for this page)
+- `jekyll_vitepress.prev: false` / `jekyll_vitepress.next: false` (disable pager side)
 
 ## Custom prev / next links
 
 You can override auto-computed pager links:
 
 ```yaml
-prev:
-  text: Custom previous title
-  link: /some/page/
-next:
-  text: Custom next title
-  link: /another/page/
+jekyll_vitepress:
+  prev:
+    text: Custom previous title
+    link: /some/page/
+  next:
+    text: Custom next title
+    link: /another/page/
 ```
 {: data-title="example-page.md"}

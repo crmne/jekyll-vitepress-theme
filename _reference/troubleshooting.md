@@ -1,6 +1,6 @@
 ---
 title: Troubleshooting
-nav_order: 3
+nav_order: 4
 description: Common setup and runtime issues.
 ---
 
@@ -11,8 +11,13 @@ description: Common setup and runtime issues.
 
 ## Sidebar is empty
 
-- Verify `vp_theme.sidebar_collections` points to existing Jekyll collections.
+- Verify `/_data/sidebar.yml` exists and points to valid collection names.
 - Ensure each collection has documents with front matter.
+
+## Nav links do not render
+
+- Verify `/_data/navigation.yml` exists.
+- Ensure each item has `title` and `url`.
 
 ## Last updated does not appear
 

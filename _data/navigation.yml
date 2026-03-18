@@ -1,0 +1,10 @@
+- title: Guide
+  url: /what-is-jekyll-vitepress-theme/
+  collections:
+    - introduction
+    - core_features
+    - advanced
+- title: Reference
+  url: /configuration-reference/
+  collections:
+    - reference

@@ -14,8 +14,9 @@ permalink: /search.json
   }
   {% assign first = false %}
 {% endif %}
-{% for group in site.vp_theme.sidebar_collections %}
-  {% assign docs = site[group.id] | sort: 'nav_order' %}
+{% assign sidebar_groups = site.data.sidebar %}
+{% for group in sidebar_groups %}
+  {% assign docs = site[group.collection] | sort: 'nav_order' %}
   {% for doc in docs %}
     {% if doc.title and doc.url %}
       {% unless first %},{% endunless %}
