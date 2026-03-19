@@ -1163,6 +1163,41 @@
 
   addCopyButtons();
 
+  // Copy as Markdown button
+  var copyMdBtn = document.querySelector('.copy-md-btn');
+  if (copyMdBtn) {
+    copyMdBtn.addEventListener('click', function () {
+      var textarea = document.querySelector('.vp-raw-markdown');
+      if (!textarea) return;
+
+      var md = textarea.value;
+      var header = document.querySelector('.vp-doc-header');
+      var autoH1 = header && header.querySelector('h1');
+      if (autoH1) {
+        var titleText = autoH1.textContent.trim();
+        if (titleText) {
+          md = '# ' + titleText + '\n\n' + md;
+        }
+      }
+
+      writeToClipboard(md)
+        .then(function () {
+          copyMdBtn.classList.add('copied');
+          copyMdBtn.textContent = 'Copied!';
+          if (copyMdBtn._copyTimeout) {
+            window.clearTimeout(copyMdBtn._copyTimeout);
+          }
+          copyMdBtn._copyTimeout = window.setTimeout(function () {
+            copyMdBtn.classList.remove('copied');
+            copyMdBtn.textContent = 'Copy as Markdown';
+          }, 2000);
+        })
+        .catch(function () {
+          // Ignore copy errors so UI remains interactive.
+        });
+    });
+  }
+
   var content = document.querySelector('.vp-doc');
   if (!content) {
     return;

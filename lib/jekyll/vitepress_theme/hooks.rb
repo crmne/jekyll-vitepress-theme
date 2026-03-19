@@ -113,6 +113,8 @@ Jekyll::Hooks.register :site, :post_read do |site|
 end
 
 Jekyll::Hooks.register :documents, :pre_render do |document|
+  document.data['_raw_markdown'] = document.content
+
   next if document.data.key?('last_updated_at')
 
   updated_at = Jekyll::VitePressTheme::LastUpdated.source_file_time(document.site, document.path)
@@ -120,6 +122,8 @@ Jekyll::Hooks.register :documents, :pre_render do |document|
 end
 
 Jekyll::Hooks.register :pages, :pre_render do |page|
+  page.data['_raw_markdown'] = page.content
+
   next if page.data.key?('last_updated_at')
 
   updated_at = Jekyll::VitePressTheme::LastUpdated.source_file_time(page.site, page.path)

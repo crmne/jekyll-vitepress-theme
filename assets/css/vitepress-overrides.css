@@ -1698,3 +1698,39 @@ html.dark .only-light {
     margin-left: 0;
   }
 }
+
+/* Copy as Markdown button */
+.vp-doc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.vp-doc-header h1 {
+  margin-top: 0;
+}
+
+.copy-md-btn {
+  flex-shrink: 0;
+  padding: 4px 12px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.25s, border-color 0.25s, background-color 0.25s;
+  white-space: nowrap;
+}
+
+.copy-md-btn:hover {
+  color: var(--vp-c-text-1);
+  border-color: var(--vp-c-text-3);
+}
+
+.copy-md-btn.copied {
+  color: var(--vp-c-green-1, #42b883);
+  border-color: var(--vp-c-green-1, #42b883);
+}

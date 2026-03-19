@@ -61,8 +61,16 @@
                             {% assign show_auto_page_title = true %}
                           {% endunless %}
                         {% endif %}
-                        {% if show_auto_page_title %}
-                          <h1>{{ page.title }}</h1>
+                        <div class="vp-doc-header">
+                          {% if show_auto_page_title %}
+                            <h1>{{ page.title }}</h1>
+                          {% endif %}
+                          {% if page._raw_markdown and page._raw_markdown != "" %}
+                            <button class="copy-md-btn" type="button" title="Copy as Markdown">Copy as Markdown</button>
+                          {% endif %}
+                        </div>
+                        {% if page._raw_markdown and page._raw_markdown != "" %}
+                          <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">{{ page._raw_markdown | xml_escape }}</textarea>
                         {% endif %}
                         {{ content }}
                       </div>
@@ -87,8 +95,16 @@
                             {% assign show_auto_page_title = true %}
                           {% endunless %}
                         {% endif %}
-                        {% if show_auto_page_title %}
-                          <h1>{{ page.title }}</h1>
+                        <div class="vp-doc-header">
+                          {% if show_auto_page_title %}
+                            <h1>{{ page.title }}</h1>
+                          {% endif %}
+                          {% if page._raw_markdown and page._raw_markdown != "" %}
+                            <button class="copy-md-btn" type="button" title="Copy as Markdown">Copy as Markdown</button>
+                          {% endif %}
+                        </div>
+                        {% if page._raw_markdown and page._raw_markdown != "" %}
+                          <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">{{ page._raw_markdown | xml_escape }}</textarea>
                         {% endif %}
                         {{ content }}
                       </div>
