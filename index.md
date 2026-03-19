@@ -6,7 +6,7 @@ permalink: /
 hero:
   name: Jekyll VitePress
   text: VitePress-Style Docs for Jekyll
-  tagline: Markdown to beautiful documents without leaving Ruby
+  tagline: Beautiful documentation without leaving Ruby
   actions:
     - theme: brand
       text: What Is This Theme?
