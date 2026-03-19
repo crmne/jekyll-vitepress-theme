@@ -409,7 +409,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.0.0</span>
+                      <span>v1.1.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -578,7 +578,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.0.0</span>
+            <span class="button-text">v1.1.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -808,8 +808,30 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
+                    <a class="VPLink link link" href="/custom-blocks/">
+                      <p class="text">Custom Blocks</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
                     <a class="VPLink link link" href="/search-and-outline/">
                       <p class="text">Search and Outline</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/markdown-extensions/">
+                      <p class="text">Markdown Extensions</p>
                     </a>
                   </div>
                 </div>
@@ -976,26 +998,48 @@
                         
                           <h1>Customizing Styles</h1>
                         
-                        <p>Use <code class="language-plaintext highlighter-rouge">jekyll_vitepress.tokens.light</code> and <code class="language-plaintext highlighter-rouge">jekyll_vitepress.tokens.dark</code> to override VitePress token variables.</p>
+                        <p>The theme’s visual design is built on CSS custom properties (tokens), making it straightforward to adjust colors, fonts, and spacing without touching any CSS files directly.</p>
+
+<h2 id="brand-colors">Brand colors</h2>
+
+<p>The most common customization is changing the brand color. Use <code class="language-plaintext highlighter-rouge">jekyll_vitepress.tokens.light</code> and <code class="language-plaintext highlighter-rouge">jekyll_vitepress.tokens.dark</code> to override VitePress CSS variables:</p>
 
 <div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
   <span class="na">tokens</span><span class="pi">:</span>
     <span class="na">light</span><span class="pi">:</span>
       <span class="na">--vp-c-brand-1</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#3451b2"</span>
       <span class="na">--vp-c-brand-2</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#3a5ccc"</span>
+      <span class="na">--vp-c-brand-3</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#2f4bab"</span>
     <span class="na">dark</span><span class="pi">:</span>
       <span class="na">--vp-c-brand-1</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#a8b1ff"</span>
       <span class="na">--vp-c-brand-2</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#bac2ff"</span>
+      <span class="na">--vp-c-brand-3</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#939eff"</span>
 </code></pre></div></div>
 
-<p>Font stacks are controlled with:</p>
+<p>Brand tokens affect links, the active nav highlight, the hero button, and other accent elements throughout the theme. The numbered variants (<code class="language-plaintext highlighter-rouge">brand-1</code>, <code class="language-plaintext highlighter-rouge">brand-2</code>, <code class="language-plaintext highlighter-rouge">brand-3</code>) control different states — <code class="language-plaintext highlighter-rouge">brand-1</code> is the primary color, <code class="language-plaintext highlighter-rouge">brand-2</code> is used for hover states, and <code class="language-plaintext highlighter-rouge">brand-3</code> for active/pressed states.</p>
 
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.typography.body_font_family</code></li>
-  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.typography.code_font_family</code></li>
-</ul>
+<p>Any VitePress CSS variable can be overridden this way. To discover available tokens, inspect the theme’s <code class="language-plaintext highlighter-rouge">assets/css/vitepress-overrides.css</code> or refer to the <a href="https://vitepress.dev/reference/default-theme-config">VitePress theme configuration docs</a>.</p>
 
-<p>Appearance mode defaults to system preference and can be overridden by user toggle.</p>
+<h2 id="fonts">Fonts</h2>
+
+<p>Font stacks are controlled through typography settings:</p>
+
+<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
+  <span class="na">typography</span><span class="pi">:</span>
+    <span class="na">body_font_family</span><span class="pi">:</span> <span class="s2">"</span><span class="s">'Inter',</span><span class="nv"> </span><span class="s">ui-sans-serif,</span><span class="nv"> </span><span class="s">system-ui,</span><span class="nv"> </span><span class="s">sans-serif"</span>
+    <span class="na">code_font_family</span><span class="pi">:</span> <span class="s2">"</span><span class="s">'JetBrains</span><span class="nv"> </span><span class="s">Mono',</span><span class="nv"> </span><span class="s">ui-monospace,</span><span class="nv"> </span><span class="s">monospace"</span>
+    <span class="na">google_fonts_url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap"</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">google_fonts_url</code> is loaded as a stylesheet in <code class="language-plaintext highlighter-rouge">&lt;head&gt;</code>. Set it to <code class="language-plaintext highlighter-rouge">false</code> to disable external font loading — useful if you’re self-hosting fonts or prefer system fonts.</p>
+
+<h2 id="appearance-mode">Appearance mode</h2>
+
+<p>The theme ships with three appearance modes: <strong>auto</strong> (follows system preference), <strong>dark</strong>, and <strong>light</strong>. Users cycle through them with the appearance toggle in the navbar.</p>
+
+<p>The user’s choice is persisted in <code class="language-plaintext highlighter-rouge">localStorage</code>, so it sticks across page loads. When set to “auto”, the theme tracks the operating system’s <code class="language-plaintext highlighter-rouge">prefers-color-scheme</code> media query in real time.</p>
+
+<p>No configuration is needed — this works out of the box. The toggle labels are customizable via <code class="language-plaintext highlighter-rouge">jekyll_vitepress.labels.appearance_menu</code>, <code class="language-plaintext highlighter-rouge">switch_to_dark</code>, and <code class="language-plaintext highlighter-rouge">switch_to_light</code>.</p>
 
                       </div>
                     </main>

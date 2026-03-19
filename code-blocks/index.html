@@ -409,7 +409,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.0.0</span>
+                      <span>v1.1.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -578,7 +578,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.0.0</span>
+            <span class="button-text">v1.1.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -808,8 +808,30 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
+                    <a class="VPLink link link" href="/custom-blocks/">
+                      <p class="text">Custom Blocks</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
                     <a class="VPLink link link" href="/search-and-outline/">
                       <p class="text">Search and Outline</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/markdown-extensions/">
+                      <p class="text">Markdown Extensions</p>
                     </a>
                   </div>
                 </div>
@@ -976,16 +998,27 @@
                         
                           <h1>Code Blocks</h1>
                         
-                        <p>Code blocks support VitePress-style enhancements:</p>
+                        <p>Code blocks get several VitePress-style enhancements automatically — no configuration needed beyond choosing your syntax themes.</p>
+
+<h2 id="what-you-get-for-free">What you get for free</h2>
+
+<p>Every fenced code block renders with:</p>
 
 <ul>
-  <li>copy button</li>
-  <li>language label</li>
-  <li>optional title bar via <code class="language-plaintext highlighter-rouge">data-title</code></li>
-  <li>file-type icon in title bar inferred from file extension/language</li>
+  <li>A <strong>copy button</strong> in the top-right corner</li>
+  <li>A <strong>language label</strong> showing the block’s language (e.g., <code class="language-plaintext highlighter-rouge">ruby</code>, <code class="language-plaintext highlighter-rouge">yaml</code>, <code class="language-plaintext highlighter-rouge">sh</code>)</li>
 </ul>
 
-<p>Syntax colors come from Rouge themes configured in <code class="language-plaintext highlighter-rouge">_config.yml</code>:</p>
+<p>These work with any standard Markdown fenced code block:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">ruby
+</span><span class="nb">puts</span> <span class="s2">"Hello, world!"</span>
+<span class="p">```</span>
+</code></pre></div></div>
+
+<h2 id="syntax-highlighting">Syntax highlighting</h2>
+
+<p>Syntax colors come from <a href="https://github.com/rouge-ruby/rouge">Rouge</a> themes, configured in <code class="language-plaintext highlighter-rouge">_config.yml</code>:</p>
 
 <div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
   <span class="na">syntax</span><span class="pi">:</span>
@@ -993,7 +1026,25 @@
     <span class="na">dark_theme</span><span class="pi">:</span> <span class="s">github.dark</span>
 </code></pre></div></div>
 
-<h2 id="titled-block-example">Titled block example</h2>
+<p>The theme generates scoped CSS for both modes at build time. When the user toggles between light and dark mode, code blocks switch palettes automatically. Any installed Rouge theme name works here — if you specify an invalid name, the plugin falls back to <code class="language-plaintext highlighter-rouge">github</code> / <code class="language-plaintext highlighter-rouge">github.dark</code> and logs a warning.</p>
+
+<h2 id="title-bars">Title bars</h2>
+
+<p>You can add a file-title bar to any code block using Kramdown’s <a href="https://kramdown.gettalong.de/syntax.html#inline-attribute-lists">Inline Attribute List</a> syntax. Place <code class="language-plaintext highlighter-rouge">{: data-title="filename"}</code> on the line immediately after the closing fence:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">ruby
+</span><span class="k">class</span> <span class="nc">WeatherTool</span>
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">city</span><span class="p">:)</span>
+    <span class="s2">"sunny in </span><span class="si">#{</span><span class="n">city</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="p">```</span>
+{: data-title="app/tools/weather_tool.rb"}
+</code></pre></div></div>
+
+<p>This renders a title bar above the code block showing the filename, complete with a file-type icon inferred from the extension. The theme includes built-in icons for common file types.</p>
+
+<h2 id="titled-block-examples">Titled block examples</h2>
 
 <div data-title="app/tools/weather_tool.rb" class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">WeatherTool</span>
   <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">city</span><span class="p">:)</span>
@@ -1007,7 +1058,17 @@
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">light_theme</code> and <code class="language-plaintext highlighter-rouge">dark_theme</code> accept any installed Rouge theme name.</p>
+<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
+  <span class="na">branding</span><span class="pi">:</span>
+    <span class="na">site_title</span><span class="pi">:</span> <span class="s">My Docs</span>
+</code></pre></div></div>
+
+<div class="tip custom-block">
+  <p class="custom-block-title">TIP</p>
+  <p>The <code class="language-plaintext highlighter-rouge">{: data-title="..."}</code> syntax is a Kramdown feature called an Inline Attribute List (IAL). It must appear on its own line directly after the code fence, with no blank line in between.
+</p>
+</div>
+
 
                       </div>
                     </main>
@@ -1115,9 +1176,9 @@
 
         <div class="pager">
           
-            <a class="VPLink link pager-link next" href="/search-and-outline/">
+            <a class="VPLink link pager-link next" href="/custom-blocks/">
               <span class="desc">Next page</span>
-              <span class="title">Search and Outline</span>
+              <span class="title">Custom Blocks</span>
             </a>
           
         </div>

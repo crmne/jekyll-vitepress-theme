@@ -1666,33 +1666,6 @@ html.dark .only-light {
   background: var(--vp-c-danger-soft);
 }
 
-/* Just-the-docs callout class compatibility */
-.vp-doc blockquote.note,
-.vp-doc .note {
-  border: 1px solid var(--vp-custom-block-tip-border);
-  border-radius: 8px;
-  padding: 12px 16px;
-  color: var(--vp-custom-block-tip-text);
-  background-color: var(--vp-custom-block-tip-bg);
-}
-
-.vp-doc blockquote.warning,
-.vp-doc .warning {
-  border: 1px solid var(--vp-custom-block-warning-border);
-  border-radius: 8px;
-  padding: 12px 16px;
-  color: var(--vp-custom-block-warning-text);
-  background-color: var(--vp-custom-block-warning-bg);
-}
-
-.vp-doc blockquote.new,
-.vp-doc .new {
-  border: 1px solid var(--vp-custom-block-success-border, transparent);
-  border-radius: 8px;
-  padding: 12px 16px;
-  color: var(--vp-c-success-1);
-  background-color: var(--vp-c-success-soft);
-}
 
 @media (max-width: 1279px) {
   .VPDoc.has-aside .content-container {

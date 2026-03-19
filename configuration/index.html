@@ -409,7 +409,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.0.0</span>
+                      <span>v1.1.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -578,7 +578,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.0.0</span>
+            <span class="button-text">v1.1.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -808,8 +808,30 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
+                    <a class="VPLink link link" href="/custom-blocks/">
+                      <p class="text">Custom Blocks</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
                     <a class="VPLink link link" href="/search-and-outline/">
                       <p class="text">Search and Outline</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/markdown-extensions/">
+                      <p class="text">Markdown Extensions</p>
                     </a>
                   </div>
                 </div>
@@ -976,16 +998,19 @@
                         
                           <h1>Configuration</h1>
                         
-                        <p>Theme behavior lives under <code class="language-plaintext highlighter-rouge">jekyll_vitepress</code> in <code class="language-plaintext highlighter-rouge">_config.yml</code>.
-Navigation and other displayed lists are defined in <code class="language-plaintext highlighter-rouge">_data/*.yml</code> files.</p>
+                        <p>All theme configuration follows a Jekyll-native pattern: rendering options go in <code class="language-plaintext highlighter-rouge">_config.yml</code> under <code class="language-plaintext highlighter-rouge">jekyll_vitepress</code>, while navigation and other displayed lists go in <code class="language-plaintext highlighter-rouge">_data/*.yml</code> files. There’s nothing custom to learn — if you know Jekyll, you already know how this works.</p>
+
+<h2 id="branding-and-syntax-highlighting">Branding and syntax highlighting</h2>
+
+<p>At minimum, set your site title. You can also configure a logo and syntax highlighting themes:</p>
 
 <div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
   <span class="na">branding</span><span class="pi">:</span>
     <span class="na">site_title</span><span class="pi">:</span> <span class="s">Your Project</span>
     <span class="na">logo</span><span class="pi">:</span>
-      <span class="na">default</span><span class="pi">:</span> <span class="s">/assets/images/theme/vitepress-logo-mini.svg</span>
-      <span class="na">light</span><span class="pi">:</span> <span class="s">/assets/images/theme/vitepress-logo-mini.svg</span>
-      <span class="na">dark</span><span class="pi">:</span> <span class="s">/assets/images/theme/vitepress-logo-mini.svg</span>
+      <span class="na">default</span><span class="pi">:</span> <span class="s">/assets/images/logo.svg</span>
+      <span class="na">light</span><span class="pi">:</span> <span class="s">/assets/images/logo-light.svg</span>
+      <span class="na">dark</span><span class="pi">:</span> <span class="s">/assets/images/logo-dark.svg</span>
       <span class="na">alt</span><span class="pi">:</span> <span class="s">Your Project</span>
       <span class="na">width</span><span class="pi">:</span> <span class="m">24</span>
       <span class="na">height</span><span class="pi">:</span> <span class="m">24</span>
@@ -993,7 +1018,15 @@ Navigation and other displayed lists are defined in <code class="language-plaint
   <span class="na">syntax</span><span class="pi">:</span>
     <span class="na">light_theme</span><span class="pi">:</span> <span class="s">github</span>
     <span class="na">dark_theme</span><span class="pi">:</span> <span class="s">github.dark</span>
+</code></pre></div></div>
 
+<p>The <code class="language-plaintext highlighter-rouge">light_theme</code> and <code class="language-plaintext highlighter-rouge">dark_theme</code> values accept any installed <a href="https://github.com/rouge-ruby/rouge">Rouge</a> theme name. The theme automatically generates scoped CSS for both modes at build time, so your code blocks look right in light and dark mode without any extra work.</p>
+
+<h2 id="typography-and-tokens">Typography and tokens</h2>
+
+<p>You can customize fonts and override VitePress CSS variables (tokens) for branding:</p>
+
+<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
   <span class="na">typography</span><span class="pi">:</span>
     <span class="na">google_fonts_url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap"</span>
     <span class="na">body_font_family</span><span class="pi">:</span> <span class="s2">"</span><span class="s">'Inter',</span><span class="nv"> </span><span class="s">ui-sans-serif,</span><span class="nv"> </span><span class="s">system-ui,</span><span class="nv"> </span><span class="s">sans-serif"</span>
@@ -1001,37 +1034,78 @@ Navigation and other displayed lists are defined in <code class="language-plaint
 
   <span class="na">tokens</span><span class="pi">:</span>
     <span class="na">light</span><span class="pi">:</span>
-      <span class="c1"># --vp-c-brand-1: "#3451b2"</span>
+      <span class="na">--vp-c-brand-1</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#3451b2"</span>
     <span class="na">dark</span><span class="pi">:</span>
-      <span class="c1"># --vp-c-brand-1: "#a8b1ff"</span>
+      <span class="na">--vp-c-brand-1</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#a8b1ff"</span>
+</code></pre></div></div>
 
+<p>Set <code class="language-plaintext highlighter-rouge">google_fonts_url: false</code> to disable external font loading entirely (useful if you want to serve fonts locally or use system fonts).</p>
+
+<h2 id="navigation-and-sidebar">Navigation and sidebar</h2>
+
+<p>Navigation links appear in the top navbar. Each link has a <code class="language-plaintext highlighter-rouge">title</code>, a <code class="language-plaintext highlighter-rouge">url</code> (where clicking it navigates), and a list of <code class="language-plaintext highlighter-rouge">collections</code> it “owns” — this controls which nav item stays highlighted as the user browses pages within those collections:</p>
+
+<div data-title="_data/navigation.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Guide</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">/what-is-jekyll-vitepress-theme/</span>
+  <span class="na">collections</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">introduction</span><span class="pi">,</span> <span class="nv">core_features</span><span class="pi">,</span> <span class="nv">advanced</span><span class="pi">]</span>
+<span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Reference</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">/configuration-reference/</span>
+  <span class="na">collections</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">reference</span><span class="pi">]</span>
+</code></pre></div></div>
+
+<p>Sidebar groups map directly to collections. Documents within each collection are sorted by their <code class="language-plaintext highlighter-rouge">nav_order</code> frontmatter value:</p>
+
+<div data-title="_data/sidebar.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Introduction</span>
+  <span class="na">collection</span><span class="pi">:</span> <span class="s">introduction</span>
+<span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Core Features</span>
+  <span class="na">collection</span><span class="pi">:</span> <span class="s">core_features</span>
+</code></pre></div></div>
+
+<h2 id="social-links">Social links</h2>
+
+<p>Social icons appear in the top navbar. Use a built-in icon slug, or provide custom inline SVG:</p>
+
+<div data-title="_data/social_links.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">icon</span><span class="pi">:</span> <span class="s">github</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">https://github.com/you/project</span>
+  <span class="na">label</span><span class="pi">:</span> <span class="s">GitHub</span>
+<span class="pi">-</span> <span class="na">icon</span><span class="pi">:</span> <span class="s">x</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">https://x.com/you</span>
+  <span class="na">label</span><span class="pi">:</span> <span class="s">X</span>
+</code></pre></div></div>
+
+<p>For a full list of built-in icon slugs and custom SVG support, see the <a href="/configuration-reference/">Configuration Reference</a>.</p>
+
+<h2 id="edit-link">Edit link</h2>
+
+<p>Point users to the source file on GitHub with an edit link in the doc footer:</p>
+
+<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
   <span class="na">edit_link</span><span class="pi">:</span>
     <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
     <span class="na">pattern</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://github.com/you/project/edit/main/:path"</span>
     <span class="na">text</span><span class="pi">:</span> <span class="s">Edit this page on GitHub</span>
 </code></pre></div></div>
 
-<p>Navigation and sidebar structure:</p>
+<p>The <code class="language-plaintext highlighter-rouge">:path</code> placeholder is replaced with the source file’s path at build time.</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _data/navigation.yml</span>
-<span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Guide</span>
-  <span class="na">url</span><span class="pi">:</span> <span class="s">/what-is-jekyll-vitepress-theme/</span>
-  <span class="na">collections</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">introduction</span><span class="pi">,</span> <span class="nv">core_features</span><span class="pi">,</span> <span class="nv">advanced</span><span class="pi">]</span>
+<h2 id="version-selector">Version selector</h2>
+
+<p>If <code class="language-plaintext highlighter-rouge">_data/versions.yml</code> exists, the theme renders a version selector dropdown in the navbar:</p>
+
+<div data-title="_data/versions.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">current</span><span class="pi">:</span> <span class="s">auto</span>
+<span class="na">items</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">v1.0.0 (current)</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">/</span>
+  <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Changelog</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">https://github.com/you/project/releases</span>
+    <span class="na">external</span><span class="pi">:</span> <span class="kc">true</span>
 </code></pre></div></div>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _data/sidebar.yml</span>
-<span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Introduction</span>
-  <span class="na">collection</span><span class="pi">:</span> <span class="s">introduction</span>
-</code></pre></div></div>
+<p>Set <code class="language-plaintext highlighter-rouge">current: auto</code> to automatically resolve to <code class="language-plaintext highlighter-rouge">v#{Jekyll::VitePressTheme::VERSION}</code> at build time — handy if your docs version should track your gem version.</p>
 
-<p>For complete keys, see <a href="/configuration-reference/">Configuration Reference</a>.</p>
+<h2 id="github-star-button">GitHub star button</h2>
 
-<p>Social icons come from <code class="language-plaintext highlighter-rouge">_data/social_links.yml</code> and support built-in icon slugs plus custom inline SVG through <code class="language-plaintext highlighter-rouge">icon_svg</code>.</p>
-
-<p>Version selector data lives in <code class="language-plaintext highlighter-rouge">/_data/versions.yml</code>.
-Set <code class="language-plaintext highlighter-rouge">current: auto</code> to resolve to <code class="language-plaintext highlighter-rouge">v#{Jekyll::VitePressTheme::VERSION}</code> at build time.</p>
-
-<p>Optional GitHub star button:</p>
+<p>Show a GitHub star button with live count in the navbar:</p>
 
 <div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
   <span class="na">github_star</span><span class="pi">:</span>
@@ -1041,8 +1115,19 @@ Set <code class="language-plaintext highlighter-rouge">current: auto</code> to r
     <span class="na">show_count</span><span class="pi">:</span> <span class="kc">true</span>
 </code></pre></div></div>
 
-<p>Need custom <code class="language-plaintext highlighter-rouge">&lt;head&gt;</code> tags (extra fonts, analytics, verification meta)?
-Create <code class="language-plaintext highlighter-rouge">_includes/jekyll_vitepress/head_end.html</code> in your site.</p>
+<h2 id="extension-hooks">Extension hooks</h2>
+
+<p>Need custom <code class="language-plaintext highlighter-rouge">&lt;head&gt;</code> tags (analytics, verification meta, extra fonts)? Create any of these include files in your site to inject markup without forking the theme’s layouts:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">_includes/jekyll_vitepress/head_end.html</code> — appended inside <code class="language-plaintext highlighter-rouge">&lt;head&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">_includes/jekyll_vitepress/doc_footer_end.html</code> — appended after the doc footer</li>
+  <li><code class="language-plaintext highlighter-rouge">_includes/jekyll_vitepress/layout_end.html</code> — appended before <code class="language-plaintext highlighter-rouge">&lt;/body&gt;</code></li>
+</ul>
+
+<p>If these files don’t exist in your site, the theme’s empty defaults are used.</p>
+
+<p>For complete configuration keys and detailed examples, see the <a href="/configuration-reference/">Configuration Reference</a>.</p>
 
                       </div>
                     </main>

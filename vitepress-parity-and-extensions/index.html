@@ -409,7 +409,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.0.0</span>
+                      <span>v1.1.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -578,7 +578,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.0.0</span>
+            <span class="button-text">v1.1.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -808,8 +808,30 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
+                    <a class="VPLink link link" href="/custom-blocks/">
+                      <p class="text">Custom Blocks</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
                     <a class="VPLink link link" href="/search-and-outline/">
                       <p class="text">Search and Outline</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/markdown-extensions/">
+                      <p class="text">Markdown Extensions</p>
                     </a>
                   </div>
                 </div>
@@ -976,54 +998,54 @@
                         
                           <h1>VitePress Parity and Extensions</h1>
                         
-                        <p>This project targets high visual and interaction parity with <a href="https://vitepress.dev/">VitePress</a>, while keeping configuration and authoring idiomatic to <a href="https://jekyllrb.com/">Jekyll</a>.</p>
+                        <p>This theme targets high visual and interaction parity with <a href="https://vitepress.dev/">VitePress</a>, while keeping configuration and authoring idiomatic to <a href="https://jekyllrb.com/">Jekyll</a>. Here’s what maps directly, what’s intentionally different, and what’s been added on top.</p>
 
 <h2 id="vitepress-parity-targets">VitePress parity targets</h2>
 
-<p>The theme intentionally mirrors:</p>
+<p>The theme intentionally mirrors these VitePress features:</p>
 
 <ul>
-  <li>top nav, mobile nav screen, and social links</li>
-  <li>left sidebar + right outline behavior</li>
-  <li>home layout structure (hero + feature cards)</li>
-  <li>doc footer behavior (edit link, previous/next pager, last-updated label)</li>
-  <li>appearance switcher (<code class="language-plaintext highlighter-rouge">auto -&gt; dark -&gt; light</code>)</li>
-  <li>search trigger UX (<code class="language-plaintext highlighter-rouge">/</code>, <code class="language-plaintext highlighter-rouge">Ctrl/Cmd+K</code>, <code class="language-plaintext highlighter-rouge">Cmd+K</code>)</li>
-  <li>code block UX (copy buttons, language labels, file title bars/icons)</li>
+  <li>Top nav, mobile nav screen, and social links</li>
+  <li>Left sidebar + right outline behavior</li>
+  <li>Home layout structure (hero + feature cards)</li>
+  <li>Doc footer behavior (edit link, previous/next pager, last-updated label)</li>
+  <li>Appearance switcher (<code class="language-plaintext highlighter-rouge">auto</code> → <code class="language-plaintext highlighter-rouge">dark</code> → <code class="language-plaintext highlighter-rouge">light</code>)</li>
+  <li>Search trigger UX (<code class="language-plaintext highlighter-rouge">/</code>, <code class="language-plaintext highlighter-rouge">Ctrl/Cmd+K</code>)</li>
+  <li>Code block UX (copy buttons, language labels, file title bars with icons)</li>
+  <li>Header anchors on all headings</li>
+  <li>External link icons (arrow indicator on outbound links)</li>
+  <li>Table styling (striped rows, bordered cells, responsive scroll)</li>
+  <li>Custom containers (tip, warning, danger, info, note, important, caution, details)</li>
+  <li>Automatic page title injection</li>
 </ul>
 
 <h2 id="jekyll-first-differences-intentional">Jekyll-first differences (intentional)</h2>
 
-<p>These are deliberate departures from VitePress internals:</p>
+<p>These are deliberate departures from VitePress internals. The functionality is equivalent, but the implementation uses Jekyll conventions:</p>
 
 <ul>
-  <li>configuration lives in <code class="language-plaintext highlighter-rouge">_config.yml</code> under <code class="language-plaintext highlighter-rouge">jekyll_vitepress</code></li>
-  <li>nav/sidebar/social/version data live in <code class="language-plaintext highlighter-rouge">_data/*.yml</code></li>
-  <li>syntax highlighting uses Rouge themes (<code class="language-plaintext highlighter-rouge">jekyll_vitepress.syntax.*</code>)</li>
-  <li>last-updated timestamps are filled via Jekyll plugin hooks</li>
-  <li>extension points are include hooks instead of Vue slots:
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">_includes/jekyll_vitepress/head_end.html</code></li>
-      <li><code class="language-plaintext highlighter-rouge">_includes/jekyll_vitepress/doc_footer_end.html</code></li>
-      <li><code class="language-plaintext highlighter-rouge">_includes/jekyll_vitepress/layout_end.html</code></li>
-    </ul>
-  </li>
+  <li>Configuration lives in <code class="language-plaintext highlighter-rouge">_config.yml</code> under <code class="language-plaintext highlighter-rouge">jekyll_vitepress</code> instead of a <code class="language-plaintext highlighter-rouge">.vitepress/config.js</code> file</li>
+  <li>Nav, sidebar, social, and version data live in <code class="language-plaintext highlighter-rouge">_data/*.yml</code> instead of being defined in JavaScript</li>
+  <li>Syntax highlighting uses <a href="https://github.com/rouge-ruby/rouge">Rouge</a> themes instead of Shiki</li>
+  <li>Last-updated timestamps are populated via Jekyll plugin hooks instead of Git history</li>
+  <li>Extension points are include hooks (<code class="language-plaintext highlighter-rouge">_includes/jekyll_vitepress/*.html</code>) instead of Vue slots</li>
 </ul>
 
 <h2 id="extras-added-on-top">Extras added on top</h2>
 
-<p>This theme includes optional extras that are not baseline VitePress core behavior:</p>
+<p>These features are not part of baseline VitePress but are included as optional extras:</p>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.github_star</code> navbar GitHub star widget with live star count</li>
-  <li>simple local-search index from <code class="language-plaintext highlighter-rouge">search.json</code> generated by Jekyll content</li>
-  <li>data-driven version selector from <code class="language-plaintext highlighter-rouge">_data/versions.yml</code> (<code class="language-plaintext highlighter-rouge">current: auto</code> supported)</li>
+  <li><strong>GitHub star widget</strong> — a navbar button showing live star count from the GitHub API, configured via <code class="language-plaintext highlighter-rouge">jekyll_vitepress.github_star</code></li>
+  <li><strong>Local search index</strong> — a simple client-side search built from <code class="language-plaintext highlighter-rouge">search.json</code>, generated at build time from sidebar collection content</li>
+  <li><strong>Version selector</strong> — a data-driven dropdown from <code class="language-plaintext highlighter-rouge">_data/versions.yml</code> with <code class="language-plaintext highlighter-rouge">current: auto</code> support for automatic version label resolution</li>
 </ul>
 
 <h2 id="practical-guidance">Practical guidance</h2>
 
-<p>If you want strict VitePress-like output, keep optional extras disabled and rely on default structure/styling.
-If you want productized docs behavior, enable extras case by case in <code class="language-plaintext highlighter-rouge">_config.yml</code>.</p>
+<p>If you want output that looks as close to VitePress as possible, keep the optional extras disabled and rely on the default structure and styling.</p>
+
+<p>If you want productized docs behavior beyond what VitePress ships out of the box, enable extras case by case in <code class="language-plaintext highlighter-rouge">_config.yml</code>. Each extra is independent — you can use the GitHub star widget without the version selector, or the search without either.</p>
 
                       </div>
                     </main>

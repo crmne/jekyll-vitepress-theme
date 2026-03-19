@@ -409,7 +409,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.0.0</span>
+                      <span>v1.1.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -578,7 +578,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.0.0</span>
+            <span class="button-text">v1.1.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -808,8 +808,30 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
+                    <a class="VPLink link link" href="/custom-blocks/">
+                      <p class="text">Custom Blocks</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
                     <a class="VPLink link link" href="/search-and-outline/">
                       <p class="text">Search and Outline</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/markdown-extensions/">
+                      <p class="text">Markdown Extensions</p>
                     </a>
                   </div>
                 </div>
@@ -976,46 +998,54 @@
                         
                           <h1>Deployment</h1>
                         
-                        <h2 id="default-recommended-single-docs-site">Default (recommended): single docs site</h2>
+                        <h2 id="single-docs-site-recommended">Single docs site (recommended)</h2>
 
-<p>This repository deploys one canonical docs site at <code class="language-plaintext highlighter-rouge">/</code> from <code class="language-plaintext highlighter-rouge">main</code>.</p>
-
-<p>The docs workflow:</p>
+<p>The simplest and recommended approach is deploying one canonical docs site at <code class="language-plaintext highlighter-rouge">/</code>. This is the standard GitHub Pages workflow:</p>
 
 <ol>
-  <li>Builds Jekyll once at the repository base path.</li>
-  <li>Publishes the build to <code class="language-plaintext highlighter-rouge">gh-pages</code> root.</li>
+  <li>Build Jekyll at the repository root.</li>
+  <li>Publish the output to the <code class="language-plaintext highlighter-rouge">gh-pages</code> branch (or configure GitHub Pages to build from your default branch).</li>
 </ol>
 
-<p>This keeps CI and maintenance simple.</p>
+<p>With GitHub Actions, a minimal workflow looks like:</p>
 
-<h2 id="optional-multi-version-docs">Optional: multi-version docs</h2>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/jekyll-build-pages@v1</span>
+<span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/deploy-pages@v4</span>
+</code></pre></div></div>
 
-<p>If your project needs versioned docs (<code class="language-plaintext highlighter-rouge">/next/</code>, <code class="language-plaintext highlighter-rouge">/latest/</code>, <code class="language-plaintext highlighter-rouge">/v/x.y.z/</code>), this theme includes an advanced pattern:</p>
+<p>This keeps CI simple and avoids the complexity of managing multiple doc versions.</p>
+
+<h2 id="multi-version-docs-optional">Multi-version docs (optional)</h2>
+
+<p>If your project needs versioned documentation — say, <code class="language-plaintext highlighter-rouge">/next/</code> for the development branch, <code class="language-plaintext highlighter-rouge">/latest/</code> for the current release, and <code class="language-plaintext highlighter-rouge">/v/1.0.0/</code> for specific versions — the theme includes scripts to support this pattern:</p>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">scripts/version_manifest.rb</code> to generate <code class="language-plaintext highlighter-rouge">/_data/versions.yml</code></li>
-  <li><code class="language-plaintext highlighter-rouge">scripts/publish_gh_pages.sh</code> modes:
+  <li><code class="language-plaintext highlighter-rouge">scripts/version_manifest.rb</code> generates <code class="language-plaintext highlighter-rouge">_data/versions.yml</code> from your release history</li>
+  <li><code class="language-plaintext highlighter-rouge">scripts/publish_gh_pages.sh</code> handles publishing in two modes:
     <ul>
-      <li><code class="language-plaintext highlighter-rouge">next</code></li>
-      <li><code class="language-plaintext highlighter-rouge">release</code></li>
+      <li><code class="language-plaintext highlighter-rouge">next</code> — publishes to the <code class="language-plaintext highlighter-rouge">/next/</code> path</li>
+      <li><code class="language-plaintext highlighter-rouge">release</code> — publishes to both <code class="language-plaintext highlighter-rouge">/v/x.y.z/</code> and <code class="language-plaintext highlighter-rouge">/latest/</code></li>
     </ul>
   </li>
 </ul>
 
-<p>Typical flow:</p>
+<p>A typical CI flow:</p>
 
 <ol>
-  <li>On every push to <code class="language-plaintext highlighter-rouge">main</code>, build docs with baseurl <code class="language-plaintext highlighter-rouge">/next</code> and publish with <code class="language-plaintext highlighter-rouge">publish_gh_pages.sh next</code>.</li>
-  <li>On release, build docs for <code class="language-plaintext highlighter-rouge">/v/x.y.z</code> and <code class="language-plaintext highlighter-rouge">/latest</code>, then publish with <code class="language-plaintext highlighter-rouge">publish_gh_pages.sh release</code>.</li>
-  <li>Keep <code class="language-plaintext highlighter-rouge">versions.yml</code> in <code class="language-plaintext highlighter-rouge">gh-pages</code> as the selector source of truth.</li>
+  <li><strong>On every push to the default branch</strong>, build docs with <code class="language-plaintext highlighter-rouge">baseurl: /next</code> and publish with <code class="language-plaintext highlighter-rouge">publish_gh_pages.sh next</code>.</li>
+  <li><strong>On release</strong>, build for <code class="language-plaintext highlighter-rouge">/v/x.y.z</code> and <code class="language-plaintext highlighter-rouge">/latest</code>, then publish with <code class="language-plaintext highlighter-rouge">publish_gh_pages.sh release</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">_data/versions.yml</code> on the <code class="language-plaintext highlighter-rouge">gh-pages</code> branch becomes the source of truth for the version selector dropdown.</li>
 </ol>
 
-<p>When <code class="language-plaintext highlighter-rouge">/_data/versions.yml</code> is present, it is used as the version selector source.</p>
+<p>When <code class="language-plaintext highlighter-rouge">_data/versions.yml</code> is present and contains version items, the theme renders a version selector in the navbar automatically.</p>
 
-<p>Use this mode only when you need immutable version snapshots. It adds operational complexity and more edge cases (caching, legacy paths, rebuilds).</p>
+<div class="warning custom-block">
+  <p class="custom-block-title">WARNING</p>
+  <p>Multi-version mode adds operational complexity — caching behavior, legacy paths, and rebuild coordination all need attention. Only use it when you genuinely need immutable version snapshots. For most projects, a single docs site with a changelog link is sufficient.
+</p>
+</div>
 
-<p>In repository settings, configure GitHub Pages to serve from branch <code class="language-plaintext highlighter-rouge">gh-pages</code> (root).</p>
+<p>In your repository’s GitHub Pages settings, configure the source to serve from branch <code class="language-plaintext highlighter-rouge">gh-pages</code> (root).</p>
 
                       </div>
                     </main>

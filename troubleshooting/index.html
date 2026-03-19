@@ -409,7 +409,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.0.0</span>
+                      <span>v1.1.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -578,7 +578,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.0.0</span>
+            <span class="button-text">v1.1.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -808,8 +808,30 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
+                    <a class="VPLink link link" href="/custom-blocks/">
+                      <p class="text">Custom Blocks</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
                     <a class="VPLink link link" href="/search-and-outline/">
                       <p class="text">Search and Outline</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/markdown-extensions/">
+                      <p class="text">Markdown Extensions</p>
                     </a>
                   </div>
                 </div>
@@ -979,44 +1001,80 @@
                         <h2 id="search-modal-does-not-open">Search modal does not open</h2>
 
 <ul>
-  <li>Confirm <code class="language-plaintext highlighter-rouge">search.json</code> is generated and reachable at <code class="language-plaintext highlighter-rouge">/search.json</code>.</li>
-  <li>Confirm <code class="language-plaintext highlighter-rouge">assets/js/vitepress-theme.js</code> is loaded.</li>
+  <li>Confirm <code class="language-plaintext highlighter-rouge">search.json</code> is generated and reachable at <code class="language-plaintext highlighter-rouge">/search.json</code>. You can test this by visiting <code class="language-plaintext highlighter-rouge">http://127.0.0.1:4000/search.json</code> in your browser during local development.</li>
+  <li>Confirm <code class="language-plaintext highlighter-rouge">assets/js/vitepress-theme.js</code> is loaded. Check your browser’s DevTools console for 404 errors.</li>
+  <li>If search works but misses certain pages, make sure those pages belong to a collection listed in <code class="language-plaintext highlighter-rouge">_data/sidebar.yml</code>. Only sidebar collections are indexed.</li>
 </ul>
 
 <h2 id="sidebar-is-empty">Sidebar is empty</h2>
 
 <ul>
-  <li>Verify <code class="language-plaintext highlighter-rouge">/_data/sidebar.yml</code> exists and points to valid collection names.</li>
-  <li>Ensure each collection has documents with front matter.</li>
+  <li>Verify <code class="language-plaintext highlighter-rouge">_data/sidebar.yml</code> exists and each entry points to a valid collection name that matches a collection defined in <code class="language-plaintext highlighter-rouge">_config.yml</code>.</li>
+  <li>Ensure each collection has at least one document with frontmatter (the <code class="language-plaintext highlighter-rouge">---</code> block at the top of the file). Files without frontmatter are not processed by Jekyll.</li>
+  <li>Check that your collections are configured with <code class="language-plaintext highlighter-rouge">output: true</code> in <code class="language-plaintext highlighter-rouge">_config.yml</code>.</li>
 </ul>
 
 <h2 id="nav-links-do-not-render">Nav links do not render</h2>
 
 <ul>
-  <li>Verify <code class="language-plaintext highlighter-rouge">/_data/navigation.yml</code> exists.</li>
-  <li>Ensure each item has <code class="language-plaintext highlighter-rouge">title</code> and <code class="language-plaintext highlighter-rouge">url</code>.</li>
+  <li>Verify <code class="language-plaintext highlighter-rouge">_data/navigation.yml</code> exists.</li>
+  <li>Ensure each item has both <code class="language-plaintext highlighter-rouge">title</code> and <code class="language-plaintext highlighter-rouge">url</code> keys.</li>
+  <li>If nav items don’t highlight correctly, check that the <code class="language-plaintext highlighter-rouge">collections</code> array references valid collection names.</li>
 </ul>
 
 <h2 id="last-updated-does-not-appear">Last updated does not appear</h2>
 
 <ul>
-  <li>Ensure plugin is enabled:</li>
+  <li>Ensure the plugin is enabled in <code class="language-plaintext highlighter-rouge">_config.yml</code>:</li>
 </ul>
 
 <div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">plugins</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="s">jekyll-vitepress-theme</span>
 </code></pre></div></div>
 
+<ul>
+  <li>Check that <code class="language-plaintext highlighter-rouge">jekyll_vitepress.last_updated.enabled</code> is not set to <code class="language-plaintext highlighter-rouge">false</code>.</li>
+  <li>If a specific page has <code class="language-plaintext highlighter-rouge">jekyll_vitepress.last_updated: false</code> in its frontmatter, the timestamp is hidden for that page only.</li>
+</ul>
+
 <h2 id="theme-looks-unstyled">Theme looks unstyled</h2>
 
 <ul>
-  <li>Confirm these files are present and served:
+  <li>Confirm the gem is installed: run <code class="language-plaintext highlighter-rouge">bundle list | grep vitepress</code> and check the output.</li>
+  <li>Make sure <code class="language-plaintext highlighter-rouge">theme: jekyll-vitepress-theme</code> is set in <code class="language-plaintext highlighter-rouge">_config.yml</code> (not just in <code class="language-plaintext highlighter-rouge">plugins</code>).</li>
+  <li>Check your browser’s DevTools Network tab for 404s on CSS files. The theme expects these paths:
     <ul>
       <li><code class="language-plaintext highlighter-rouge">assets/css/vitepress-core.css</code></li>
       <li><code class="language-plaintext highlighter-rouge">assets/css/vitepress-components.css</code></li>
       <li><code class="language-plaintext highlighter-rouge">assets/css/vitepress-overrides.css</code></li>
     </ul>
   </li>
+</ul>
+
+<h2 id="code-blocks-have-no-syntax-colors">Code blocks have no syntax colors</h2>
+
+<ul>
+  <li>Verify your Rouge theme names are valid. Invalid names produce a build warning and fall back to <code class="language-plaintext highlighter-rouge">github</code> / <code class="language-plaintext highlighter-rouge">github.dark</code>.</li>
+  <li>Ensure <code class="language-plaintext highlighter-rouge">plugins: [jekyll-vitepress-theme]</code> is set — the Rouge CSS generation happens in the plugin hooks.</li>
+  <li>Check that your Kramdown config uses Rouge as the syntax highlighter (this is the Jekyll default, but a custom <code class="language-plaintext highlighter-rouge">_config.yml</code> might override it).</li>
+</ul>
+
+<h2 id="dark-mode-code-blocks-use-the-wrong-colors">Dark mode code blocks use the wrong colors</h2>
+
+<ul>
+  <li>Make sure you’ve set both <code class="language-plaintext highlighter-rouge">light_theme</code> and <code class="language-plaintext highlighter-rouge">dark_theme</code> under <code class="language-plaintext highlighter-rouge">jekyll_vitepress.syntax</code>. If only one is set, both modes may use the same palette.</li>
+</ul>
+
+<h2 id="appearance-toggle-doesnt-persist">Appearance toggle doesn’t persist</h2>
+
+<ul>
+  <li>The toggle stores its state in <code class="language-plaintext highlighter-rouge">localStorage</code>. If your browser blocks localStorage (private/incognito mode in some browsers), the preference won’t persist across page loads.</li>
+</ul>
+
+<h2 id="build-fails-with-unknown-rouge-theme-warning">Build fails with “Unknown Rouge theme” warning</h2>
+
+<ul>
+  <li>This is a warning, not an error — the build will still succeed, falling back to the default themes. To fix it, check your <code class="language-plaintext highlighter-rouge">jekyll_vitepress.syntax.light_theme</code> and <code class="language-plaintext highlighter-rouge">dark_theme</code> values against the list of <a href="https://github.com/rouge-ruby/rouge/tree/master/lib/rouge/themes">available Rouge themes</a>.</li>
 </ul>
 
                       </div>

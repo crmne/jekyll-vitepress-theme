@@ -409,7 +409,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.0.0</span>
+                      <span>v1.1.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -578,7 +578,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.0.0</span>
+            <span class="button-text">v1.1.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -805,11 +805,33 @@
               
                 
                 
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/custom-blocks/">
+                      <p class="text">Custom Blocks</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
                 <div class="VPSidebarItem level-1 is-link is-active">
                   <div class="item">
                     <div class="indicator"></div>
                     <a class="VPLink link link" href="/search-and-outline/">
                       <p class="text">Search and Outline</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/markdown-extensions/">
+                      <p class="text">Markdown Extensions</p>
                     </a>
                   </div>
                 </div>
@@ -978,24 +1000,38 @@
                         
                         <h2 id="local-search">Local search</h2>
 
-<p>Search opens with:</p>
+<p>The theme includes a built-in search modal that works entirely client-side — no external service required.</p>
+
+<p>Open search with any of these shortcuts:</p>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">/</code></li>
-  <li><code class="language-plaintext highlighter-rouge">Ctrl+K</code> / <code class="language-plaintext highlighter-rouge">Cmd+K</code></li>
+  <li><code class="language-plaintext highlighter-rouge">/</code> (when not focused on an input)</li>
+  <li><code class="language-plaintext highlighter-rouge">Ctrl+K</code> (Windows/Linux)</li>
+  <li><code class="language-plaintext highlighter-rouge">Cmd+K</code> (macOS)</li>
 </ul>
 
-<p>The index is built from <code class="language-plaintext highlighter-rouge">search.json</code> and includes the home page plus documents in configured sidebar collections.</p>
+<p>The search index is generated from a <code class="language-plaintext highlighter-rouge">search.json</code> file at build time. It includes the home page and all documents from your sidebar collections. Results show matching page titles and content excerpts, and clicking a result navigates directly to that page.</p>
 
-<h2 id="right-side-outline-behavior">Right-side outline behavior</h2>
+<div class="tip custom-block">
+  <p class="custom-block-title">TIP</p>
+  <p>If search doesn’t seem to find certain pages, make sure those pages belong to a collection listed in your <code class="language-plaintext highlighter-rouge">_data/sidebar.yml</code>. Only sidebar collections are indexed.
+</p>
+</div>
 
-<p>The outline tracks <code class="language-plaintext highlighter-rouge">h2</code> and <code class="language-plaintext highlighter-rouge">h3</code> headings.</p>
+<h2 id="right-side-outline">Right-side outline</h2>
 
-<ul>
-  <li>At page top: no heading selected.</li>
-  <li>While scrolling: current topmost heading is highlighted.</li>
-  <li>Clicking outline links applies header offset so headings are visible below the nav bar.</li>
-</ul>
+<p>The “On this page” outline appears on the right side of docs pages and lists all <code class="language-plaintext highlighter-rouge">h2</code> and <code class="language-plaintext highlighter-rouge">h3</code> headings on the current page.</p>
+
+<p>As you scroll, the outline highlights the heading that’s currently at the top of the viewport. Clicking an outline link scrolls to that heading, offset so it’s visible below the fixed navbar. The offset distance is configurable:</p>
+
+<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
+  <span class="na">behavior</span><span class="pi">:</span>
+    <span class="na">scroll_offset</span><span class="pi">:</span> <span class="m">134</span>
+</code></pre></div></div>
+
+<p>The outline label defaults to “On this page” and can be changed via <code class="language-plaintext highlighter-rouge">jekyll_vitepress.labels.outline</code>.</p>
+
+<p>On narrow screens, the outline collapses to keep the content area readable.</p>
 
                       </div>
                     </main>
@@ -1094,14 +1130,19 @@
 
         <div class="pager">
           
-            <a class="VPLink link pager-link prev" href="/code-blocks/">
+            <a class="VPLink link pager-link prev" href="/custom-blocks/">
               <span class="desc">Previous page</span>
-              <span class="title">Code Blocks</span>
+              <span class="title">Custom Blocks</span>
             </a>
           
         </div>
 
         <div class="pager">
+          
+            <a class="VPLink link pager-link next" href="/markdown-extensions/">
+              <span class="desc">Next page</span>
+              <span class="title">Markdown Extensions</span>
+            </a>
           
         </div>
       </nav>

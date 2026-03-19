@@ -409,7 +409,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.0.0</span>
+                      <span>v1.1.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -578,7 +578,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.0.0</span>
+            <span class="button-text">v1.1.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -808,8 +808,30 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
+                    <a class="VPLink link link" href="/custom-blocks/">
+                      <p class="text">Custom Blocks</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
                     <a class="VPLink link link" href="/search-and-outline/">
                       <p class="text">Search and Outline</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/markdown-extensions/">
+                      <p class="text">Markdown Extensions</p>
                     </a>
                   </div>
                 </div>
@@ -979,11 +1001,13 @@
                         <h2 id="layouts">Layouts</h2>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">layout: default</code> for docs pages.</li>
-  <li><code class="language-plaintext highlighter-rouge">layout: home</code> for VitePress-style home pages.</li>
+  <li><code class="language-plaintext highlighter-rouge">layout: default</code> — standard docs page with sidebar and outline.</li>
+  <li><code class="language-plaintext highlighter-rouge">layout: home</code> — VitePress-style landing page with hero and feature cards. Sidebar and outline are hidden.</li>
 </ul>
 
 <h2 id="home-layout-keys">Home layout keys</h2>
+
+<p>The home layout supports a <code class="language-plaintext highlighter-rouge">hero</code> section and a <code class="language-plaintext highlighter-rouge">features</code> list:</p>
 
 <div data-title="index.md" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">layout</span><span class="pi">:</span> <span class="s">home</span>
 <span class="na">hero</span><span class="pi">:</span>
@@ -993,10 +1017,15 @@
   <span class="na">image</span><span class="pi">:</span>
     <span class="na">src</span><span class="pi">:</span> <span class="s">/path/to/image.svg</span>
     <span class="na">alt</span><span class="pi">:</span> <span class="s">Logo</span>
+    <span class="na">width</span><span class="pi">:</span> <span class="m">320</span>
+    <span class="na">height</span><span class="pi">:</span> <span class="m">320</span>
   <span class="na">actions</span><span class="pi">:</span>
     <span class="pi">-</span> <span class="na">theme</span><span class="pi">:</span> <span class="s">brand</span>
       <span class="na">text</span><span class="pi">:</span> <span class="s">Get Started</span>
       <span class="na">link</span><span class="pi">:</span> <span class="s">/getting-started/</span>
+    <span class="pi">-</span> <span class="na">theme</span><span class="pi">:</span> <span class="s">alt</span>
+      <span class="na">text</span><span class="pi">:</span> <span class="s">GitHub</span>
+      <span class="na">link</span><span class="pi">:</span> <span class="s">https://github.com/you/project</span>
 <span class="na">features</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="na">icon</span><span class="pi">:</span> <span class="s">⚡</span>
     <span class="na">title</span><span class="pi">:</span> <span class="s">Fast</span>
@@ -1005,25 +1034,28 @@
     <span class="na">link</span><span class="pi">:</span> <span class="s">/getting-started/</span>
 </code></pre></div></div>
 
-<p>For home pages, <code class="language-plaintext highlighter-rouge">markdown_styles: false</code> renders body content without <code class="language-plaintext highlighter-rouge">.vp-doc</code> markdown wrapper styles.</p>
+<p>Action buttons support two themes: <code class="language-plaintext highlighter-rouge">brand</code> (solid, primary color) and <code class="language-plaintext highlighter-rouge">alt</code> (outlined, secondary). Feature cards can optionally include <code class="language-plaintext highlighter-rouge">link</code> and <code class="language-plaintext highlighter-rouge">link_text</code> to make them clickable.</p>
 
 <h2 id="optional-page-keys">Optional page keys</h2>
 
+<p>These keys can be set in any page’s frontmatter to control theme behavior on a per-page basis:</p>
+
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">description</code></li>
-  <li><code class="language-plaintext highlighter-rouge">nav_order</code></li>
-  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.last_updated_at</code> (manual override)</li>
-  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.auto_title: false</code> (disable automatic <code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code> injection when the page has a title)</li>
-  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.footer: false</code> (hide global footer)</li>
-  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.doc_footer: false</code> (hide prev/next pager)</li>
-  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.edit_link: false</code> (hide edit link for this page)</li>
-  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.last_updated: false</code> (hide last updated for this page)</li>
-  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.prev: false</code> / <code class="language-plaintext highlighter-rouge">jekyll_vitepress.next: false</code> (disable pager side)</li>
+  <li><code class="language-plaintext highlighter-rouge">description</code> — used in <code class="language-plaintext highlighter-rouge">&lt;meta name="description"&gt;</code> and search results.</li>
+  <li><code class="language-plaintext highlighter-rouge">nav_order</code> — controls sort order within sidebar groups. Lower numbers appear first.</li>
+  <li><code class="language-plaintext highlighter-rouge">markdown_styles: false</code> — renders body content without the <code class="language-plaintext highlighter-rouge">.vp-doc</code> markdown wrapper styles. Useful for home pages with custom HTML.</li>
+  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.auto_title: false</code> — disables the automatic <code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code> injection. By default, if a page has a <code class="language-plaintext highlighter-rouge">title</code> but no <code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code> in its content, the theme renders one automatically.</li>
+  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.footer: false</code> — hides the global footer on this page.</li>
+  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.doc_footer: false</code> — hides the entire doc footer (prev/next pager, edit link, last updated).</li>
+  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.edit_link: false</code> — hides the edit link for this page only.</li>
+  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.last_updated: false</code> — hides the last-updated timestamp for this page only.</li>
+  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.last_updated_at</code> — manually override the last-updated timestamp instead of using the file’s modification time.</li>
+  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.prev: false</code> / <code class="language-plaintext highlighter-rouge">jekyll_vitepress.next: false</code> — disables one side of the pager navigation.</li>
 </ul>
 
 <h2 id="custom-prev--next-links">Custom prev / next links</h2>
 
-<p>You can override auto-computed pager links:</p>
+<p>You can override the auto-computed pager links with custom titles and URLs:</p>
 
 <div data-title="example-page.md" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
   <span class="na">prev</span><span class="pi">:</span>

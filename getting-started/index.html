@@ -409,7 +409,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.0.0</span>
+                      <span>v1.1.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -578,7 +578,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.0.0</span>
+            <span class="button-text">v1.1.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -808,8 +808,30 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
+                    <a class="VPLink link link" href="/custom-blocks/">
+                      <p class="text">Custom Blocks</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
                     <a class="VPLink link link" href="/search-and-outline/">
                       <p class="text">Search and Outline</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/markdown-extensions/">
+                      <p class="text">Markdown Extensions</p>
                     </a>
                   </div>
                 </div>
@@ -976,26 +998,51 @@
                         
                           <h1>Getting Started</h1>
                         
-                        <p>Install the theme gem and enable it as both <code class="language-plaintext highlighter-rouge">theme</code> and plugin.</p>
+                        <p>This guide walks you through installing the theme and getting a working documentation site running locally. By the end, you’ll have a Jekyll site with VitePress-style navigation, sidebar, and styling.</p>
 
-<h2 id="1-add-the-gem">1. Add the gem</h2>
+<h2 id="add-the-gem">Add the gem</h2>
+
+<p>Add the theme to your <code class="language-plaintext highlighter-rouge">Gemfile</code>:</p>
 
 <div data-title="Gemfile" class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gem</span> <span class="s2">"jekyll-vitepress-theme"</span>
 </code></pre></div></div>
 
-<p>Then install:</p>
+<p>Then install it:</p>
 
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">install</span>
 </code></pre></div></div>
 
-<h2 id="2-enable-theme-and-plugin">2. Enable theme and plugin</h2>
+<h2 id="enable-theme-and-plugin">Enable theme and plugin</h2>
+
+<p>The gem serves double duty — it provides layouts and assets as a <strong>theme</strong>, and registers Jekyll hooks as a <strong>plugin</strong>. You need to enable both:</p>
 
 <div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">theme</span><span class="pi">:</span> <span class="s">jekyll-vitepress-theme</span>
 <span class="na">plugins</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="s">jekyll-vitepress-theme</span>
 </code></pre></div></div>
 
-<h2 id="3-add-jekyll-native-config-and-data">3. Add Jekyll-native config and data</h2>
+<h2 id="define-your-collections">Define your collections</h2>
+
+<p>Jekyll VitePress Theme uses <a href="https://jekyllrb.com/docs/collections/">collections</a> to organize your documentation into groups. Define them in <code class="language-plaintext highlighter-rouge">_config.yml</code>:</p>
+
+<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">collections</span><span class="pi">:</span>
+  <span class="na">guides</span><span class="pi">:</span>
+    <span class="na">output</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">permalink</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/:name/"</span>
+  <span class="na">reference</span><span class="pi">:</span>
+    <span class="na">output</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">permalink</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/:name/"</span>
+
+<span class="na">defaults</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">scope</span><span class="pi">:</span>
+      <span class="na">path</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">values</span><span class="pi">:</span>
+      <span class="na">layout</span><span class="pi">:</span> <span class="s">default</span>
+</code></pre></div></div>
+
+<p>Each collection becomes a folder (e.g., <code class="language-plaintext highlighter-rouge">_guides/</code>, <code class="language-plaintext highlighter-rouge">_reference/</code>) where you place your Markdown files. The <code class="language-plaintext highlighter-rouge">permalink: "/:name/"</code> setting gives each document a clean URL based on its filename.</p>
+
+<h2 id="configure-branding-and-data-files">Configure branding and data files</h2>
 
 <p>Theme behavior lives in <code class="language-plaintext highlighter-rouge">_config.yml</code> under <code class="language-plaintext highlighter-rouge">jekyll_vitepress</code>:</p>
 
@@ -1007,39 +1054,51 @@
     <span class="na">dark_theme</span><span class="pi">:</span> <span class="s">github.dark</span>
 </code></pre></div></div>
 
-<p>Navigation and sidebar structure live in <code class="language-plaintext highlighter-rouge">_data</code>:</p>
+<p>Navigation and sidebar structure live in <code class="language-plaintext highlighter-rouge">_data/</code> files. The <strong>navigation</strong> defines your top navbar links and maps them to collections (so the correct nav item highlights when viewing pages from those collections):</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _data/navigation.yml</span>
-<span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Guide</span>
+<div data-title="_data/navigation.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Guide</span>
   <span class="na">url</span><span class="pi">:</span> <span class="s">/getting-started/</span>
-  <span class="na">collections</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">introduction</span><span class="pi">,</span> <span class="nv">core_features</span><span class="pi">,</span> <span class="nv">advanced</span><span class="pi">]</span>
+  <span class="na">collections</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">guides</span><span class="pi">]</span>
 <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Reference</span>
-  <span class="na">url</span><span class="pi">:</span> <span class="s">/configuration-reference/</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">/api-reference/</span>
   <span class="na">collections</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">reference</span><span class="pi">]</span>
 </code></pre></div></div>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _data/sidebar.yml</span>
-<span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Introduction</span>
-  <span class="na">collection</span><span class="pi">:</span> <span class="s">introduction</span>
-<span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Core Features</span>
-  <span class="na">collection</span><span class="pi">:</span> <span class="s">core_features</span>
-<span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Advanced</span>
-  <span class="na">collection</span><span class="pi">:</span> <span class="s">advanced</span>
+<p>The <strong>sidebar</strong> defines the left-hand navigation groups. Each group pulls its entries from a collection, sorted by <code class="language-plaintext highlighter-rouge">nav_order</code> frontmatter:</p>
+
+<div data-title="_data/sidebar.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Guides</span>
+  <span class="na">collection</span><span class="pi">:</span> <span class="s">guides</span>
 <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Reference</span>
   <span class="na">collection</span><span class="pi">:</span> <span class="s">reference</span>
 </code></pre></div></div>
 
-<h2 id="4-run-locally">4. Run locally</h2>
+<h2 id="create-your-first-page">Create your first page</h2>
+
+<p>Create a document inside one of your collection folders:</p>
+
+<div data-title="_guides/introduction.md" class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s">Introduction</span>
+<span class="na">nav_order</span><span class="pi">:</span> <span class="m">1</span>
+<span class="nn">---</span>
+
+Welcome to My Project! This is your first documentation page.
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">nav_order</code> value controls the sort order in the sidebar. Lower numbers appear first.</p>
+
+<h2 id="run-locally">Run locally</h2>
 
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">exec </span>jekyll serve <span class="nt">--livereload</span>
 </code></pre></div></div>
 
-<p>Open <code class="language-plaintext highlighter-rouge">http://127.0.0.1:4000</code>.</p>
+<p>Open <code class="language-plaintext highlighter-rouge">http://127.0.0.1:4000</code> and you should see your site with the VitePress layout — top nav, sidebar, and your content in the center.</p>
 
 <div class="tip custom-block">
   <p class="custom-block-title">TIP</p>
-  <p>Set <code>layout: home</code> on your home page front matter to render the VitePress-style hero/features home without sidebar.</p>
+  <p>To add a VitePress-style landing page with a hero section and feature cards, set <code class="language-plaintext highlighter-rouge">layout: home</code> in your <code class="language-plaintext highlighter-rouge">index.md</code> frontmatter. See the <a href="/frontmatter-reference/">Frontmatter Reference</a> for the full set of home layout keys.
+</p>
 </div>
+
 
                       </div>
                     </main>

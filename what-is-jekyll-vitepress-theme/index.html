@@ -409,7 +409,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.0.0</span>
+                      <span>v1.1.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -578,7 +578,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.0.0</span>
+            <span class="button-text">v1.1.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -808,8 +808,30 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
+                    <a class="VPLink link link" href="/custom-blocks/">
+                      <p class="text">Custom Blocks</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
                     <a class="VPLink link link" href="/search-and-outline/">
                       <p class="text">Search and Outline</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/markdown-extensions/">
+                      <p class="text">Markdown Extensions</p>
                     </a>
                   </div>
                 </div>
@@ -976,28 +998,34 @@
                         
                           <h1>What Is Jekyll VitePress Theme?</h1>
                         
-                        <p><a href="https://jekyllrb.com/">Jekyll</a> is a static site generator written in <a href="https://www.ruby-lang.org/">Ruby</a>.
-It turns <a href="https://www.markdownguide.org/">Markdown</a>, <a href="https://shopify.github.io/liquid/">Liquid</a> templates, and <a href="https://jekyllrb.com/docs/datafiles/">data files</a> into static HTML that you can deploy almost anywhere.</p>
+                        <p><a href="https://jekyllrb.com/">Jekyll</a> is a static site generator written in <a href="https://www.ruby-lang.org/">Ruby</a>. It turns <a href="https://www.markdownguide.org/">Markdown</a>, <a href="https://shopify.github.io/liquid/">Liquid</a> templates, and <a href="https://jekyllrb.com/docs/datafiles/">data files</a> into static HTML you can deploy almost anywhere — no application server, no database, just files on a CDN.</p>
 
-<p><a href="https://jekyllrb.com/">Jekyll</a> powers many documentation sites and blogs, especially in Ruby ecosystems and <a href="https://pages.github.com/">GitHub Pages</a> workflows.</p>
+<p>Jekyll powers a huge number of documentation sites and blogs, particularly in the Ruby ecosystem and <a href="https://pages.github.com/">GitHub Pages</a> workflows. If you’ve ever pushed a <code class="language-plaintext highlighter-rouge">docs/</code> folder to GitHub and had a site appear, you’ve likely used Jekyll.</p>
 
 <h2 id="what-this-theme-is">What this theme is</h2>
 
-<p><a href="https://github.com/crmne/jekyll-vitepress-theme">Jekyll VitePress Theme</a> is a <a href="https://jekyllrb.com/">Jekyll</a> theme + plugin gem that recreates the <a href="https://vitepress.dev/">VitePress</a> documentation experience:</p>
+<p><a href="https://github.com/crmne/jekyll-vitepress-theme">Jekyll VitePress Theme</a> is a Jekyll theme <strong>and</strong> plugin gem that recreates the <a href="https://vitepress.dev/">VitePress</a> documentation experience — the same polished look and feel, entirely within Jekyll:</p>
 
 <ul>
-  <li>top navigation + mobile nav screen</li>
-  <li>left sidebar and right “On this page” outline</li>
-  <li>copy buttons and language labels for code blocks</li>
-  <li>home layout with hero + feature cards</li>
-  <li>doc footer with edit link, pager, and last updated timestamp</li>
-  <li>optional GitHub star widget in the navbar</li>
+  <li><strong>Top navigation</strong> with mobile nav screen, social links, and optional GitHub star count</li>
+  <li><strong>Left sidebar</strong> driven by your Jekyll collections and data files</li>
+  <li><strong>Right “On this page” outline</strong> that tracks your scroll position</li>
+  <li><strong>Code blocks</strong> with copy buttons, language labels, and file-title bars with icons</li>
+  <li><strong>Custom blocks</strong> for tips, warnings, and callouts that match VitePress containers</li>
+  <li><strong>Home layout</strong> with hero section and feature cards</li>
+  <li><strong>Doc footer</strong> with edit link, previous/next pager, and automatic last-updated timestamps</li>
+  <li><strong>Built-in local search</strong> triggered with <code class="language-plaintext highlighter-rouge">/</code> or <code class="language-plaintext highlighter-rouge">Ctrl/Cmd+K</code></li>
+  <li><strong>Dark mode</strong> with an appearance toggle that respects system preference</li>
+  <li><strong>Markdown enhancements</strong> — header anchors, external link icons, styled tables, and automatic title injection</li>
 </ul>
+
+<p>Everything is configured through <code class="language-plaintext highlighter-rouge">_config.yml</code> and <code class="language-plaintext highlighter-rouge">_data/*.yml</code> files — no JavaScript build step, no Node.js toolchain.</p>
 
 <h2 id="why-this-exists">Why this exists</h2>
 
-<p><a href="https://vitepress.dev/">VitePress</a> has excellent docs UX, but it depends on a <a href="https://nodejs.org/">Node.js</a> + <a href="https://vite.dev/">Vite</a> toolchain.
-This project brings the same visual and interaction model to <a href="https://jekyllrb.com/">Jekyll</a>, keeping configuration and authoring idiomatic to Ruby/Jekyll projects.</p>
+<p><a href="https://vitepress.dev/">VitePress</a> has arguably the best documentation UX available today, but it depends on a <a href="https://nodejs.org/">Node.js</a> + <a href="https://vite.dev/">Vite</a> toolchain. That’s a fine choice for JavaScript projects, but if you’re building something in Ruby, adding an entire Node.js pipeline just for docs feels like the wrong trade-off.</p>
+
+<p>This theme brings VitePress’s visual and interaction model to Jekyll, so you can write your docs in Markdown, configure everything in YAML, and deploy with the tools you already know.</p>
 
                       </div>
                     </main>

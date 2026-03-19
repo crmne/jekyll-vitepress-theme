@@ -409,7 +409,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.0.0</span>
+                      <span>v1.1.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -578,7 +578,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.0.0</span>
+            <span class="button-text">v1.1.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -808,8 +808,30 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
+                    <a class="VPLink link link" href="/custom-blocks/">
+                      <p class="text">Custom Blocks</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
                     <a class="VPLink link link" href="/search-and-outline/">
                       <p class="text">Search and Outline</p>
+                    </a>
+                  </div>
+                </div>
+              
+                
+                
+                <div class="VPSidebarItem level-1 is-link">
+                  <div class="item">
+                    <div class="indicator"></div>
+                    <a class="VPLink link link" href="/markdown-extensions/">
+                      <p class="text">Markdown Extensions</p>
                     </a>
                   </div>
                 </div>
@@ -976,38 +998,51 @@
                         
                           <h1>Overview</h1>
                         
-                        <p>Jekyll VitePress Theme is a <strong>theme + plugin gem</strong>.</p>
+                        <p>Jekyll VitePress Theme is distributed as a single gem that acts as both a <strong>theme</strong> (providing layouts, includes, and assets) and a <strong>plugin</strong> (registering Jekyll hooks for build-time behavior). Understanding this dual role helps when you want to customize or extend things.</p>
 
 <h2 id="theme-assets">Theme assets</h2>
 
-<p>The gem ships:</p>
+<p>The gem ships everything needed to render a VitePress-like site:</p>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">_layouts</code> and <code class="language-plaintext highlighter-rouge">_includes</code> for VitePress-like layout structure.</li>
-  <li><code class="language-plaintext highlighter-rouge">assets/css/*</code> with core/theme/override styles.</li>
-  <li><code class="language-plaintext highlighter-rouge">assets/js/vitepress-theme.js</code> for interactive behavior.</li>
+  <li><strong>Layouts</strong> (<code class="language-plaintext highlighter-rouge">_layouts/default.html</code>, <code class="language-plaintext highlighter-rouge">_layouts/home.html</code>) that compose the page structure — navbar, sidebar, content area, outline, and footer.</li>
+  <li><strong>Includes</strong> for each UI component — navigation, search modal, sidebar, doc footer, and more.</li>
+  <li><strong>Stylesheets</strong> (<code class="language-plaintext highlighter-rouge">assets/css/</code>) split into core layout styles, component styles, and token overrides.</li>
+  <li><strong>JavaScript</strong> (<code class="language-plaintext highlighter-rouge">assets/js/vitepress-theme.js</code>) for interactive behavior — sidebar toggle, scroll-tracked outline, search modal, appearance switcher, and code block copy buttons.</li>
 </ul>
+
+<p>All of this is vanilla HTML, CSS, and JavaScript. There’s no build step, no bundler, and no framework dependency.</p>
 
 <h2 id="plugin-behavior">Plugin behavior</h2>
 
-<p>The gem plugin registers Jekyll hooks for last-updated timestamps so docs footers can show <code class="language-plaintext highlighter-rouge">Last updated</code> without extra manual front matter.</p>
+<p>The plugin side registers three Jekyll hooks that run automatically at build time:</p>
+
+<ul>
+  <li><strong>Last-updated timestamps</strong> — Before each page renders, the plugin reads the source file’s modification time and sets <code class="language-plaintext highlighter-rouge">last_updated_at</code> in frontmatter. This means your doc footers can show “Last updated” dates without you touching frontmatter manually.</li>
+  <li><strong>Rouge syntax theme generation</strong> — After reading site config, the plugin validates your configured Rouge theme names and generates scoped CSS for light and dark modes. Invalid theme names fall back to defaults with a warning.</li>
+  <li><strong>Version label resolution</strong> — If <code class="language-plaintext highlighter-rouge">_data/versions.yml</code> sets <code class="language-plaintext highlighter-rouge">current: auto</code>, the plugin replaces it with the gem’s version string (e.g., <code class="language-plaintext highlighter-rouge">v1.0.0</code>) at build time.</li>
+</ul>
 
 <h2 id="vitepress-parity-scope">VitePress parity scope</h2>
 
-<p>The project targets parity for:</p>
+<p>The project targets high visual and interaction parity with VitePress for the features that matter most in documentation:</p>
 
 <ul>
-  <li>top nav, sidebar, local nav, right outline</li>
-  <li>header anchors and scroll tracking</li>
-  <li>doc footer pager and edit-link support</li>
-  <li>appearance switcher and system-theme mode</li>
-  <li>code block copy buttons, language labels, title bars, and file icons</li>
+  <li>Top nav, sidebar, local nav, and right outline</li>
+  <li>Header anchors and scroll tracking</li>
+  <li>External link icons</li>
+  <li>Styled tables (striped rows, responsive scroll)</li>
+  <li>Custom containers (tip, warning, danger, info, and more)</li>
+  <li>Doc footer pager and edit-link support</li>
+  <li>Appearance switcher (auto, dark, light)</li>
+  <li>Code block copy buttons, language labels, title bars, and file icons</li>
   <li>Rouge-native light/dark syntax themes</li>
+  <li>Automatic page title injection</li>
 </ul>
 
-<p>It intentionally stays Jekyll-first for config and page authoring.</p>
+<p>It intentionally stays Jekyll-first for configuration and page authoring — no <code class="language-plaintext highlighter-rouge">.vue</code> files, no Node.js, no frontmatter DSLs that don’t exist in standard Jekyll.</p>
 
-<p>For an explicit checklist of parity vs theme-specific additions, see <a href="/vitepress-parity-and-extensions/">VitePress Parity and Extensions</a>.</p>
+<p>For a detailed feature checklist comparing what’s mirrored from VitePress versus what’s added on top, see <a href="/vitepress-parity-and-extensions/">VitePress Parity and Extensions</a>.</p>
 
                       </div>
                     </main>

@@ -83,7 +83,7 @@ bundle exec overcommit --run
 
 ## Docs deployment (this repo)
 
-- `main` deploys a single docs site at `/`
+- `master` deploys a single docs site at `/`
 - No secondary version paths are published in default mode (`/latest/`, `/v/*`, `/next/`)
 - Optional multi-version deployment is documented in [_advanced/deployment.md](_advanced/deployment.md)
 
