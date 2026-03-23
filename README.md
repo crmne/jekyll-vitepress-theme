@@ -2,8 +2,6 @@
 
 A reusable Jekyll theme gem that reproduces the VitePress default docs experience.
 
-![Jekyll VitePress Theme preview](assets/images/screenshots/home-light.png)
-
 ## What it includes
 
 - VitePress-style layout structure (top nav, sidebar, outline, doc footer)
