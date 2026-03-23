@@ -2,6 +2,8 @@
 
 A reusable Jekyll theme gem that reproduces the VitePress default docs experience.
 
+![Jekyll VitePress Theme preview](assets/images/screenshots/home-light.png)
+
 ## What it includes
 
 - VitePress-style layout structure (top nav, sidebar, outline, doc footer)
@@ -12,6 +14,24 @@ A reusable Jekyll theme gem that reproduces the VitePress default docs experienc
 - Rouge-native syntax theme config (`jekyll_vitepress.syntax.light_theme/dark_theme`)
 - Last-updated hook via plugin
 - Jekyll-native extension hooks (`_includes/jekyll_vitepress/head_end.html`, `doc_footer_end.html`, `layout_end.html`)
+
+## Screenshots
+
+### Home (Light)
+
+![Home light mode](assets/images/screenshots/home-light.png)
+
+### Home (Dark)
+
+![Home dark mode](assets/images/screenshots/home-dark.png)
+
+### Getting Started (Light)
+
+![Getting Started light mode](assets/images/screenshots/getting-started-light.png)
+
+### Getting Started (Dark)
+
+![Getting Started dark mode](assets/images/screenshots/getting-started-dark.png)
 
 ## Installation
 
