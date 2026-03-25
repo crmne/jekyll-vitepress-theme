@@ -113,7 +113,17 @@ Jekyll::Hooks.register :site, :post_read do |site|
 end
 
 Jekyll::Hooks.register :documents, :pre_render do |document|
-  document.data['_raw_markdown'] = document.content
+  theme_config = document.site.config['jekyll_vitepress']
+  copy_page_disabled = theme_config.is_a?(Hash) &&
+    theme_config['copy_page'].is_a?(Hash) &&
+    theme_config['copy_page']['enabled'] == false
+
+  unless copy_page_disabled
+    page_theme = document.data['jekyll_vitepress']
+    copy_page_disabled = page_theme == false || (page_theme.is_a?(Hash) && page_theme['copy_page'] == false)
+  end
+
+  document.data['_raw_markdown'] = document.content unless copy_page_disabled
 
   next if document.data.key?('last_updated_at')
 
@@ -122,7 +132,17 @@ Jekyll::Hooks.register :documents, :pre_render do |document|
 end
 
 Jekyll::Hooks.register :pages, :pre_render do |page|
-  page.data['_raw_markdown'] = page.content
+  theme_config = page.site.config['jekyll_vitepress']
+  copy_page_disabled = theme_config.is_a?(Hash) &&
+    theme_config['copy_page'].is_a?(Hash) &&
+    theme_config['copy_page']['enabled'] == false
+
+  unless copy_page_disabled
+    page_theme = page.data['jekyll_vitepress']
+    copy_page_disabled = page_theme == false || (page_theme.is_a?(Hash) && page_theme['copy_page'] == false)
+  end
+
+  page.data['_raw_markdown'] = page.content unless copy_page_disabled
 
   next if page.data.key?('last_updated_at')
 
@@ -132,6 +152,13 @@ end
 
 # Write raw .md files after site build using the same content as "Copy page"
 Jekyll::Hooks.register :site, :post_write do |site|
+  theme_config = site.config['jekyll_vitepress']
+  if theme_config.is_a?(Hash) &&
+     theme_config['copy_page'].is_a?(Hash) &&
+     theme_config['copy_page']['enabled'] == false
+    next
+  end
+
   items = site.pages + site.collections.values.flat_map(&:docs)
 
   items.each do |item|
@@ -142,7 +169,11 @@ Jekyll::Hooks.register :site, :post_write do |site|
     md_path = '/index.md' if item.url == '/'
 
     title = item.data['title']
-    body = (title && !title.empty?) ? "# #{title}\n\n#{raw}" : raw
+    body = if title && !title.empty? && !raw.strip.start_with?('# ')
+             "# #{title}\n\n#{raw}"
+           else
+             raw
+           end
 
     dest = File.join(site.dest, md_path)
     FileUtils.mkdir_p(File.dirname(dest))

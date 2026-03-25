@@ -1169,12 +1169,14 @@
     if (!textarea) return;
 
     var md = textarea.value;
-    var header = document.querySelector('.vp-doc-header');
-    var autoH1 = header && header.querySelector('h1');
-    if (autoH1) {
-      var titleText = autoH1.textContent.trim();
-      if (titleText) {
-        md = '# ' + titleText + '\n\n' + md;
+    if (!/^#\s/.test(md.trim())) {
+      var header = document.querySelector('.vp-doc-header');
+      var autoH1 = header && header.querySelector('h1');
+      if (autoH1) {
+        var titleText = autoH1.textContent.trim();
+        if (titleText) {
+          md = '# ' + titleText + '\n\n' + md;
+        }
       }
     }
 

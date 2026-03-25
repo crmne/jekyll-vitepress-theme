@@ -40,6 +40,7 @@ These features are not part of baseline VitePress but are included as optional e
 - **GitHub star widget** — a navbar button showing live star count from the GitHub API, configured via `jekyll_vitepress.github_star`
 - **Local search index** — a simple client-side search built from `search.json`, generated at build time from sidebar collection content
 - **Version selector** — a data-driven dropdown from `_data/versions.yml` with `current: auto` support for automatic version label resolution
+- **Copy page** — a split button offering "Copy page" (copies raw Markdown to clipboard for LLM use) and "View as Markdown" (opens the page as a plain `.md` file). Enabled by default; disable with `jekyll_vitepress.copy_page.enabled: false`.
 
 ## Practical guidance
 
