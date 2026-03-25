@@ -3,6 +3,7 @@
 ## Search modal does not open
 
 - Confirm `search.json` is generated and reachable at `/search.json`. You can test this by visiting `http://127.0.0.1:4000/search.json` in your browser during local development.
+- If you provide a custom `search.json`, make sure it returns a JSON array of objects with `title`, `url`, and `content` fields.
 - Confirm `assets/js/vitepress-theme.js` is loaded. Check your browser's DevTools console for 404 errors.
 - If search works but misses certain pages, make sure those pages belong to a collection listed in `_data/sidebar.yml`. Only sidebar collections are indexed.
 

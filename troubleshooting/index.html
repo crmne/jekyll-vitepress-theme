@@ -409,7 +409,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.2.1</span>
+                      <span>v1.2.2</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -578,7 +578,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.2.1</span>
+            <span class="button-text">v1.2.2</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1037,6 +1037,7 @@
                           <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">## Search modal does not open
 
 - Confirm `search.json` is generated and reachable at `/search.json`. You can test this by visiting `http://127.0.0.1:4000/search.json` in your browser during local development.
+- If you provide a custom `search.json`, make sure it returns a JSON array of objects with `title`, `url`, and `content` fields.
 - Confirm `assets/js/vitepress-theme.js` is loaded. Check your browser&apos;s DevTools console for 404 errors.
 - If search works but misses certain pages, make sure those pages belong to a collection listed in `_data/sidebar.yml`. Only sidebar collections are indexed.
 
@@ -1097,6 +1098,7 @@ plugins:
 
 <ul>
   <li>Confirm <code class="language-plaintext highlighter-rouge">search.json</code> is generated and reachable at <code class="language-plaintext highlighter-rouge">/search.json</code>. You can test this by visiting <code class="language-plaintext highlighter-rouge">http://127.0.0.1:4000/search.json</code> in your browser during local development.</li>
+  <li>If you provide a custom <code class="language-plaintext highlighter-rouge">search.json</code>, make sure it returns a JSON array of objects with <code class="language-plaintext highlighter-rouge">title</code>, <code class="language-plaintext highlighter-rouge">url</code>, and <code class="language-plaintext highlighter-rouge">content</code> fields.</li>
   <li>Confirm <code class="language-plaintext highlighter-rouge">assets/js/vitepress-theme.js</code> is loaded. Check your browser’s DevTools console for 404 errors.</li>
   <li>If search works but misses certain pages, make sure those pages belong to a collection listed in <code class="language-plaintext highlighter-rouge">_data/sidebar.yml</code>. Only sidebar collections are indexed.</li>
 </ul>

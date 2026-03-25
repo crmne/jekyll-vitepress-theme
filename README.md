@@ -7,6 +7,7 @@ A reusable Jekyll theme gem that reproduces the VitePress default docs experienc
 - VitePress-style layout structure (top nav, sidebar, outline, doc footer)
 - Appearance toggle with `auto -> dark -> light`
 - Local search modal (`/`, `Ctrl/Cmd+K`, `Cmd+K`)
+- Automatic `/search.json` generation for the home page and sidebar collections
 - Optional GitHub star button with live count (`jekyll_vitepress.github_star`)
 - Code block copy button, language labels, file-title bars and icons
 - Page-level "Copy page" split button with raw Markdown copy + plain `.md` view (`jekyll_vitepress.copy_page`, enabled by default)

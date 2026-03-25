@@ -409,7 +409,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.2.1</span>
+                      <span>v1.2.2</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -578,7 +578,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.2.1</span>
+            <span class="button-text">v1.2.2</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1044,7 +1044,9 @@ Open search with any of these shortcuts:
 - `Ctrl+K` (Windows/Linux)
 - `Cmd+K` (macOS)
 
-The search index is generated from a `search.json` file at build time. It includes the home page and all documents from your sidebar collections. Results show matching page titles and content excerpts, and clicking a result navigates directly to that page.
+The plugin generates `/search.json` automatically at build time. It includes the home page and all documents from your sidebar collections. Results show matching page titles and content excerpts, and clicking a result navigates directly to that page.
+
+If you need custom indexing behavior, add your own `search.json` page to the site and it will override the generated default.
 
 
 
@@ -1089,7 +1091,9 @@ On narrow screens, the outline collapses to keep the content area readable.
   <li><code class="language-plaintext highlighter-rouge">Cmd+K</code> (macOS)</li>
 </ul>
 
-<p>The search index is generated from a <code class="language-plaintext highlighter-rouge">search.json</code> file at build time. It includes the home page and all documents from your sidebar collections. Results show matching page titles and content excerpts, and clicking a result navigates directly to that page.</p>
+<p>The plugin generates <code class="language-plaintext highlighter-rouge">/search.json</code> automatically at build time. It includes the home page and all documents from your sidebar collections. Results show matching page titles and content excerpts, and clicking a result navigates directly to that page.</p>
+
+<p>If you need custom indexing behavior, add your own <code class="language-plaintext highlighter-rouge">search.json</code> page to the site and it will override the generated default.</p>
 
 <div class="tip custom-block">
   <p class="custom-block-title">TIP</p>
