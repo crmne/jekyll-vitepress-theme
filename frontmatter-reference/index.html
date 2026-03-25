@@ -996,7 +996,112 @@
                         
                         
                         
-                          <h1>Frontmatter Reference</h1>
+                        
+                        
+                        <div class="vp-doc-header">
+                          
+                            <h1>Frontmatter Reference</h1>
+                          
+                          
+                            
+
+<div class="copy-md-group">
+  <button class="copy-md-btn" type="button" title="Copy page as Markdown">
+    <span class="vpi-copy"></span>
+    <span class="copy-md-label">Copy page</span>
+  </button>
+  <button class="copy-md-toggle" type="button" aria-label="More options" aria-expanded="false">
+    <span class="vpi-chevron-down copy-md-chevron"></span>
+  </button>
+  <div class="copy-md-dropdown" hidden>
+    <button class="copy-md-dropdown-item" type="button" data-action="copy">
+      <span class="vpi-copy copy-md-dropdown-icon"></span>
+      <div class="copy-md-dropdown-text">
+        <span class="copy-md-dropdown-title">Copy page</span>
+        <span class="copy-md-dropdown-desc">Copy page as Markdown for LLMs</span>
+      </div>
+    </button>
+    <a class="copy-md-dropdown-item" href="/frontmatter-reference.md" target="_blank" rel="noreferrer">
+      <span class="vpi-file-text copy-md-dropdown-icon"></span>
+      <div class="copy-md-dropdown-text">
+        <span class="copy-md-dropdown-title">View as Markdown</span>
+        <span class="copy-md-dropdown-desc">View this page as plain text</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+                          
+                        </div>
+                        
+                          <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">## Layouts
+
+- `layout: default` — standard docs page with sidebar and outline.
+- `layout: home` — VitePress-style landing page with hero and feature cards. Sidebar and outline are hidden.
+
+## Home layout keys
+
+The home layout supports a `hero` section and a `features` list:
+
+```yaml
+layout: home
+hero:
+  name: Project Name
+  text: Project Tagline
+  tagline: Supporting sentence
+  image:
+    src: /path/to/image.svg
+    alt: Logo
+    width: 320
+    height: 320
+  actions:
+    - theme: brand
+      text: Get Started
+      link: /getting-started/
+    - theme: alt
+      text: GitHub
+      link: https://github.com/you/project
+features:
+  - icon: ⚡
+    title: Fast
+    details: Feature description
+    link_text: Learn more
+    link: /getting-started/
+```
+{: data-title=&quot;index.md&quot;}
+
+Action buttons support two themes: `brand` (solid, primary color) and `alt` (outlined, secondary). Feature cards can optionally include `link` and `link_text` to make them clickable.
+
+## Optional page keys
+
+These keys can be set in any page&apos;s frontmatter to control theme behavior on a per-page basis:
+
+- `description` — used in `&lt;meta name=&quot;description&quot;&gt;` and search results.
+- `nav_order` — controls sort order within sidebar groups. Lower numbers appear first.
+- `markdown_styles: false` — renders body content without the `.vp-doc` markdown wrapper styles. Useful for home pages with custom HTML.
+- `jekyll_vitepress.auto_title: false` — disables the automatic `&lt;h1&gt;` injection. By default, if a page has a `title` but no `&lt;h1&gt;` in its content, the theme renders one automatically.
+- `jekyll_vitepress.footer: false` — hides the global footer on this page.
+- `jekyll_vitepress.doc_footer: false` — hides the entire doc footer (prev/next pager, edit link, last updated).
+- `jekyll_vitepress.edit_link: false` — hides the edit link for this page only.
+- `jekyll_vitepress.last_updated: false` — hides the last-updated timestamp for this page only.
+- `jekyll_vitepress.last_updated_at` — manually override the last-updated timestamp instead of using the file&apos;s modification time.
+- `jekyll_vitepress.prev: false` / `jekyll_vitepress.next: false` — disables one side of the pager navigation.
+
+## Custom prev / next links
+
+You can override the auto-computed pager links with custom titles and URLs:
+
+```yaml
+jekyll_vitepress:
+  prev:
+    text: Custom previous title
+    link: /some/page/
+  next:
+    text: Custom next title
+    link: /another/page/
+```
+{: data-title=&quot;example-page.md&quot;}
+</textarea>
                         
                         <h2 id="layouts">Layouts</h2>
 

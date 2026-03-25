@@ -996,7 +996,157 @@
                         
                         
                         
-                          <h1>Getting Started</h1>
+                        
+                        
+                        <div class="vp-doc-header">
+                          
+                            <h1>Getting Started</h1>
+                          
+                          
+                            
+
+<div class="copy-md-group">
+  <button class="copy-md-btn" type="button" title="Copy page as Markdown">
+    <span class="vpi-copy"></span>
+    <span class="copy-md-label">Copy page</span>
+  </button>
+  <button class="copy-md-toggle" type="button" aria-label="More options" aria-expanded="false">
+    <span class="vpi-chevron-down copy-md-chevron"></span>
+  </button>
+  <div class="copy-md-dropdown" hidden>
+    <button class="copy-md-dropdown-item" type="button" data-action="copy">
+      <span class="vpi-copy copy-md-dropdown-icon"></span>
+      <div class="copy-md-dropdown-text">
+        <span class="copy-md-dropdown-title">Copy page</span>
+        <span class="copy-md-dropdown-desc">Copy page as Markdown for LLMs</span>
+      </div>
+    </button>
+    <a class="copy-md-dropdown-item" href="/getting-started.md" target="_blank" rel="noreferrer">
+      <span class="vpi-file-text copy-md-dropdown-icon"></span>
+      <div class="copy-md-dropdown-text">
+        <span class="copy-md-dropdown-title">View as Markdown</span>
+        <span class="copy-md-dropdown-desc">View this page as plain text</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+                          
+                        </div>
+                        
+                          <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">This guide walks you through installing the theme and getting a working documentation site running locally. By the end, you&apos;ll have a Jekyll site with VitePress-style navigation, sidebar, and styling.
+
+## Add the gem
+
+Add the theme to your `Gemfile`:
+
+```ruby
+gem &quot;jekyll-vitepress-theme&quot;
+```
+{: data-title=&quot;Gemfile&quot;}
+
+Then install it:
+
+```sh
+bundle install
+```
+
+## Enable theme and plugin
+
+The gem serves double duty — it provides layouts and assets as a **theme**, and registers Jekyll hooks as a **plugin**. You need to enable both:
+
+```yaml
+theme: jekyll-vitepress-theme
+plugins:
+  - jekyll-vitepress-theme
+```
+{: data-title=&quot;_config.yml&quot;}
+
+## Define your collections
+
+Jekyll VitePress Theme uses [collections](https://jekyllrb.com/docs/collections/) to organize your documentation into groups. Define them in `_config.yml`:
+
+```yaml
+collections:
+  guides:
+    output: true
+    permalink: &quot;/:name/&quot;
+  reference:
+    output: true
+    permalink: &quot;/:name/&quot;
+
+defaults:
+  - scope:
+      path: &quot;&quot;
+    values:
+      layout: default
+```
+{: data-title=&quot;_config.yml&quot;}
+
+Each collection becomes a folder (e.g., `_guides/`, `_reference/`) where you place your Markdown files. The `permalink: &quot;/:name/&quot;` setting gives each document a clean URL based on its filename.
+
+## Configure branding and data files
+
+Theme behavior lives in `_config.yml` under `jekyll_vitepress`:
+
+```yaml
+jekyll_vitepress:
+  branding:
+    site_title: My Project
+  syntax:
+    light_theme: github
+    dark_theme: github.dark
+```
+{: data-title=&quot;_config.yml&quot;}
+
+Navigation and sidebar structure live in `_data/` files. The **navigation** defines your top navbar links and maps them to collections (so the correct nav item highlights when viewing pages from those collections):
+
+```yaml
+- title: Guide
+  url: /getting-started/
+  collections: [guides]
+- title: Reference
+  url: /api-reference/
+  collections: [reference]
+```
+{: data-title=&quot;_data/navigation.yml&quot;}
+
+The **sidebar** defines the left-hand navigation groups. Each group pulls its entries from a collection, sorted by `nav_order` frontmatter:
+
+```yaml
+- title: Guides
+  collection: guides
+- title: Reference
+  collection: reference
+```
+{: data-title=&quot;_data/sidebar.yml&quot;}
+
+## Create your first page
+
+Create a document inside one of your collection folders:
+
+```markdown
+---
+title: Introduction
+nav_order: 1
+---
+
+Welcome to My Project! This is your first documentation page.
+```
+{: data-title=&quot;_guides/introduction.md&quot;}
+
+The `nav_order` value controls the sort order in the sidebar. Lower numbers appear first.
+
+## Run locally
+
+```sh
+bundle exec jekyll serve --livereload
+```
+
+Open `http://127.0.0.1:4000` and you should see your site with the VitePress layout — top nav, sidebar, and your content in the center.
+
+{% include alert.html type=&quot;tip&quot; content=&quot;To add a VitePress-style landing page with a hero section and feature cards, set `layout: home` in your `index.md` frontmatter. See the [Frontmatter Reference](/frontmatter-reference/) for the full set of home layout keys.&quot; %}
+</textarea>
                         
                         <p>This guide walks you through installing the theme and getting a working documentation site running locally. By the end, you’ll have a Jekyll site with VitePress-style navigation, sidebar, and styling.</p>
 

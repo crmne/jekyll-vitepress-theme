@@ -996,7 +996,92 @@
                         
                         
                         
-                          <h1>Custom Blocks</h1>
+                        
+                        
+                        <div class="vp-doc-header">
+                          
+                            <h1>Custom Blocks</h1>
+                          
+                          
+                            
+
+<div class="copy-md-group">
+  <button class="copy-md-btn" type="button" title="Copy page as Markdown">
+    <span class="vpi-copy"></span>
+    <span class="copy-md-label">Copy page</span>
+  </button>
+  <button class="copy-md-toggle" type="button" aria-label="More options" aria-expanded="false">
+    <span class="vpi-chevron-down copy-md-chevron"></span>
+  </button>
+  <div class="copy-md-dropdown" hidden>
+    <button class="copy-md-dropdown-item" type="button" data-action="copy">
+      <span class="vpi-copy copy-md-dropdown-icon"></span>
+      <div class="copy-md-dropdown-text">
+        <span class="copy-md-dropdown-title">Copy page</span>
+        <span class="copy-md-dropdown-desc">Copy page as Markdown for LLMs</span>
+      </div>
+    </button>
+    <a class="copy-md-dropdown-item" href="/custom-blocks.md" target="_blank" rel="noreferrer">
+      <span class="vpi-file-text copy-md-dropdown-icon"></span>
+      <div class="copy-md-dropdown-text">
+        <span class="copy-md-dropdown-title">View as Markdown</span>
+        <span class="copy-md-dropdown-desc">View this page as plain text</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+                          
+                        </div>
+                        
+                          <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">The theme includes styled callout blocks that match VitePress custom containers — colored boxes for tips, warnings, danger notices, and more. They use a built-in `alert.html` include that produces the exact VitePress HTML structure.
+
+## Syntax
+
+```liquid
+{% raw %}{% include alert.html type=&quot;tip&quot; content=&quot;This is a helpful tip.&quot; %}{% endraw %}
+```
+
+The `type` controls the color and default title. The `content` is processed as Markdown, so inline formatting like backticks and links work naturally.
+
+## Available types
+
+{% include alert.html type=&quot;info&quot; content=&quot;This is an `info` block. Use it for neutral, supplementary information.&quot; %}
+
+{% include alert.html type=&quot;note&quot; content=&quot;This is a `note` block. Visually identical to info — use whichever label fits better.&quot; %}
+
+{% include alert.html type=&quot;tip&quot; content=&quot;This is a helpful `tip` block.&quot; %}
+
+{% include alert.html type=&quot;important&quot; content=&quot;This is an `important` block. Don&apos;t skip this.&quot; %}
+
+{% include alert.html type=&quot;warning&quot; content=&quot;This is a `warning` block. Something could go wrong.&quot; %}
+
+{% include alert.html type=&quot;danger&quot; content=&quot;This is a `danger` block. Data loss or security risk.&quot; %}
+
+{% include alert.html type=&quot;caution&quot; content=&quot;This is a `caution` block. Visually identical to danger.&quot; %}
+
+{% include alert.html type=&quot;details&quot; content=&quot;This is a collapsible `details` block.&quot; %}
+
+## Custom titles
+
+Each type has a default title (`TIP`, `WARNING`, etc.). Override it with the `title` parameter:
+
+```liquid
+{% raw %}{% include alert.html type=&quot;warning&quot; title=&quot;Breaking Change&quot; content=&quot;The `foo` option was removed in v2.0.&quot; %}{% endraw %}
+```
+
+{% include alert.html type=&quot;warning&quot; title=&quot;Breaking Change&quot; content=&quot;The `foo` option was removed in v2.0.&quot; %}
+
+## Markdown in content
+
+The `content` parameter supports inline Markdown — code, links, bold, and so on:
+
+```liquid
+{% raw %}{% include alert.html type=&quot;tip&quot; content=&quot;Set `layout: home` in your frontmatter. See the [Frontmatter Reference](/frontmatter-reference/) for details.&quot; %}{% endraw %}
+```
+
+{% include alert.html type=&quot;tip&quot; content=&quot;Set `layout: home` in your frontmatter. See the [Frontmatter Reference](/frontmatter-reference/) for details.&quot; %}
+</textarea>
                         
                         <p>The theme includes styled callout blocks that match VitePress custom containers — colored boxes for tips, warnings, danger notices, and more. They use a built-in <code class="language-plaintext highlighter-rouge">alert.html</code> include that produces the exact VitePress HTML structure.</p>
 

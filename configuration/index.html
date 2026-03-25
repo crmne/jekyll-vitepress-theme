@@ -996,7 +996,189 @@
                         
                         
                         
-                          <h1>Configuration</h1>
+                        
+                        
+                        <div class="vp-doc-header">
+                          
+                            <h1>Configuration</h1>
+                          
+                          
+                            
+
+<div class="copy-md-group">
+  <button class="copy-md-btn" type="button" title="Copy page as Markdown">
+    <span class="vpi-copy"></span>
+    <span class="copy-md-label">Copy page</span>
+  </button>
+  <button class="copy-md-toggle" type="button" aria-label="More options" aria-expanded="false">
+    <span class="vpi-chevron-down copy-md-chevron"></span>
+  </button>
+  <div class="copy-md-dropdown" hidden>
+    <button class="copy-md-dropdown-item" type="button" data-action="copy">
+      <span class="vpi-copy copy-md-dropdown-icon"></span>
+      <div class="copy-md-dropdown-text">
+        <span class="copy-md-dropdown-title">Copy page</span>
+        <span class="copy-md-dropdown-desc">Copy page as Markdown for LLMs</span>
+      </div>
+    </button>
+    <a class="copy-md-dropdown-item" href="/configuration.md" target="_blank" rel="noreferrer">
+      <span class="vpi-file-text copy-md-dropdown-icon"></span>
+      <div class="copy-md-dropdown-text">
+        <span class="copy-md-dropdown-title">View as Markdown</span>
+        <span class="copy-md-dropdown-desc">View this page as plain text</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+                          
+                        </div>
+                        
+                          <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">All theme configuration follows a Jekyll-native pattern: rendering options go in `_config.yml` under `jekyll_vitepress`, while navigation and other displayed lists go in `_data/*.yml` files. There&apos;s nothing custom to learn — if you know Jekyll, you already know how this works.
+
+## Branding and syntax highlighting
+
+At minimum, set your site title. You can also configure a logo and syntax highlighting themes:
+
+```yaml
+jekyll_vitepress:
+  branding:
+    site_title: Your Project
+    logo:
+      default: /assets/images/logo.svg
+      light: /assets/images/logo-light.svg
+      dark: /assets/images/logo-dark.svg
+      alt: Your Project
+      width: 24
+      height: 24
+
+  syntax:
+    light_theme: github
+    dark_theme: github.dark
+```
+{: data-title=&quot;_config.yml&quot;}
+
+The `light_theme` and `dark_theme` values accept any installed [Rouge](https://github.com/rouge-ruby/rouge) theme name. The theme automatically generates scoped CSS for both modes at build time, so your code blocks look right in light and dark mode without any extra work.
+
+## Typography and tokens
+
+You can customize fonts and override VitePress CSS variables (tokens) for branding:
+
+```yaml
+jekyll_vitepress:
+  typography:
+    google_fonts_url: &quot;https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap&quot;
+    body_font_family: &quot;&apos;Inter&apos;, ui-sans-serif, system-ui, sans-serif&quot;
+    code_font_family: &quot;&apos;JetBrains Mono&apos;, ui-monospace, monospace&quot;
+
+  tokens:
+    light:
+      --vp-c-brand-1: &quot;#3451b2&quot;
+    dark:
+      --vp-c-brand-1: &quot;#a8b1ff&quot;
+```
+{: data-title=&quot;_config.yml&quot;}
+
+Set `google_fonts_url: false` to disable external font loading entirely (useful if you want to serve fonts locally or use system fonts).
+
+## Navigation and sidebar
+
+Navigation links appear in the top navbar. Each link has a `title`, a `url` (where clicking it navigates), and a list of `collections` it &quot;owns&quot; — this controls which nav item stays highlighted as the user browses pages within those collections:
+
+```yaml
+- title: Guide
+  url: /what-is-jekyll-vitepress-theme/
+  collections: [introduction, core_features, advanced]
+- title: Reference
+  url: /configuration-reference/
+  collections: [reference]
+```
+{: data-title=&quot;_data/navigation.yml&quot;}
+
+Sidebar groups map directly to collections. Documents within each collection are sorted by their `nav_order` frontmatter value:
+
+```yaml
+- title: Introduction
+  collection: introduction
+- title: Core Features
+  collection: core_features
+```
+{: data-title=&quot;_data/sidebar.yml&quot;}
+
+## Social links
+
+Social icons appear in the top navbar. Use a built-in icon slug, or provide custom inline SVG:
+
+```yaml
+- icon: github
+  url: https://github.com/you/project
+  label: GitHub
+- icon: x
+  url: https://x.com/you
+  label: X
+```
+{: data-title=&quot;_data/social_links.yml&quot;}
+
+For a full list of built-in icon slugs and custom SVG support, see the [Configuration Reference]({% link _reference/configuration-reference.md %}).
+
+## Edit link
+
+Point users to the source file on GitHub with an edit link in the doc footer:
+
+```yaml
+jekyll_vitepress:
+  edit_link:
+    enabled: true
+    pattern: &quot;https://github.com/you/project/edit/main/:path&quot;
+    text: Edit this page on GitHub
+```
+{: data-title=&quot;_config.yml&quot;}
+
+The `:path` placeholder is replaced with the source file&apos;s path at build time.
+
+## Version selector
+
+If `_data/versions.yml` exists, the theme renders a version selector dropdown in the navbar:
+
+```yaml
+current: auto
+items:
+  - title: v1.0.0 (current)
+    url: /
+  - title: Changelog
+    url: https://github.com/you/project/releases
+    external: true
+```
+{: data-title=&quot;_data/versions.yml&quot;}
+
+Set `current: auto` to automatically resolve to `v#{Jekyll::VitePressTheme::VERSION}` at build time — handy if your docs version should track your gem version.
+
+## GitHub star button
+
+Show a GitHub star button with live count in the navbar:
+
+```yaml
+jekyll_vitepress:
+  github_star:
+    enabled: true
+    repository: you/project
+    text: Star
+    show_count: true
+```
+{: data-title=&quot;_config.yml&quot;}
+
+## Extension hooks
+
+Need custom `&lt;head&gt;` tags (analytics, verification meta, extra fonts)? Create any of these include files in your site to inject markup without forking the theme&apos;s layouts:
+
+- `_includes/jekyll_vitepress/head_end.html` — appended inside `&lt;head&gt;`
+- `_includes/jekyll_vitepress/doc_footer_end.html` — appended after the doc footer
+- `_includes/jekyll_vitepress/layout_end.html` — appended before `&lt;/body&gt;`
+
+If these files don&apos;t exist in your site, the theme&apos;s empty defaults are used.
+
+For complete configuration keys and detailed examples, see the [Configuration Reference]({% link _reference/configuration-reference.md %}).
+</textarea>
                         
                         <p>All theme configuration follows a Jekyll-native pattern: rendering options go in <code class="language-plaintext highlighter-rouge">_config.yml</code> under <code class="language-plaintext highlighter-rouge">jekyll_vitepress</code>, while navigation and other displayed lists go in <code class="language-plaintext highlighter-rouge">_data/*.yml</code> files. There’s nothing custom to learn — if you know Jekyll, you already know how this works.</p>
 

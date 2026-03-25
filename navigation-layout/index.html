@@ -996,7 +996,105 @@
                         
                         
                         
-                          <h1>Navigation and Layout</h1>
+                        
+                        
+                        <div class="vp-doc-header">
+                          
+                            <h1>Navigation and Layout</h1>
+                          
+                          
+                            
+
+<div class="copy-md-group">
+  <button class="copy-md-btn" type="button" title="Copy page as Markdown">
+    <span class="vpi-copy"></span>
+    <span class="copy-md-label">Copy page</span>
+  </button>
+  <button class="copy-md-toggle" type="button" aria-label="More options" aria-expanded="false">
+    <span class="vpi-chevron-down copy-md-chevron"></span>
+  </button>
+  <div class="copy-md-dropdown" hidden>
+    <button class="copy-md-dropdown-item" type="button" data-action="copy">
+      <span class="vpi-copy copy-md-dropdown-icon"></span>
+      <div class="copy-md-dropdown-text">
+        <span class="copy-md-dropdown-title">Copy page</span>
+        <span class="copy-md-dropdown-desc">Copy page as Markdown for LLMs</span>
+      </div>
+    </button>
+    <a class="copy-md-dropdown-item" href="/navigation-layout.md" target="_blank" rel="noreferrer">
+      <span class="vpi-file-text copy-md-dropdown-icon"></span>
+      <div class="copy-md-dropdown-text">
+        <span class="copy-md-dropdown-title">View as Markdown</span>
+        <span class="copy-md-dropdown-desc">View this page as plain text</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+                          
+                        </div>
+                        
+                          <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">The default layout mirrors the standard VitePress docs structure: a fixed top navbar, a left sidebar for section navigation, a main content area, and a right-side outline that tracks your scroll position.
+
+## Page structure
+
+Every docs page renders inside this layout:
+
+```text
+┌──────────────────────────────────────────────┐
+│                  Top Navbar                  │
+├────────┬───────────────────────┬─────────────┤
+│        │                       │ On this page│
+│Sidebar │      Content          │  - Heading  │
+│        │                       │  - Heading  │
+│        │                       │  - Heading  │
+│        ├───────────────────────┤             │
+│        │     Doc Footer        │             │
+├────────┴───────────────────────┴─────────────┤
+│              Global Footer                   │
+└──────────────────────────────────────────────┘
+```
+
+Pages with `layout: home` skip the sidebar and outline, rendering the hero and feature cards at full width instead.
+
+## Sidebar
+
+Sidebar entries are driven by two things: your `_data/sidebar.yml` file and the `nav_order` frontmatter on each document.
+
+```yaml
+- title: Introduction
+  collection: introduction
+- title: Core Features
+  collection: core_features
+```
+{: data-title=&quot;_data/sidebar.yml&quot;}
+
+Each group pulls documents from the named Jekyll collection and sorts them by `nav_order`. The currently active page is highlighted automatically. If a collection has no documents with frontmatter, that group won&apos;t render any links.
+
+## Top navigation
+
+The navbar links are defined in `_data/navigation.yml`. Each entry has a `title`, a `url`, and optionally a `collections` array:
+
+```yaml
+- title: Guide
+  url: /introduction/
+  collections: [introduction, core_features, advanced]
+- title: Reference
+  url: /configuration-reference/
+  collections: [reference]
+```
+{: data-title=&quot;_data/navigation.yml&quot;}
+
+The `collections` array determines which nav link stays highlighted as the user navigates within those collections. For example, when viewing any page from the `core_features` collection, the &quot;Guide&quot; nav link remains active.
+
+## Mobile navigation
+
+On smaller screens, the sidebar collapses behind a menu button. Tapping it reveals a full-screen navigation overlay with the same sidebar groups. The menu button label is configurable via `jekyll_vitepress.labels.sidebar_menu` (defaults to &quot;Menu&quot;).
+
+## Home layout
+
+Set `layout: home` in your page&apos;s frontmatter to render a landing page with a hero section and feature cards. Home pages don&apos;t show the sidebar or outline — they&apos;re full-width by design. See the [Frontmatter Reference]({% link _reference/frontmatter-reference.md %}) for all available home layout keys.
+</textarea>
                         
                         <p>The default layout mirrors the standard VitePress docs structure: a fixed top navbar, a left sidebar for section navigation, a main content area, and a right-side outline that tracks your scroll position.</p>
 

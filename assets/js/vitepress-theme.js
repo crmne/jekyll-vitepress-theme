@@ -1163,6 +1163,83 @@
 
   addCopyButtons();
 
+  // Copy page as Markdown - split button with dropdown
+  function copyPageMarkdown(btn) {
+    var textarea = document.querySelector('.vp-raw-markdown');
+    if (!textarea) return;
+
+    var md = textarea.value;
+    if (!/^#\s/.test(md.trim())) {
+      var header = document.querySelector('.vp-doc-header');
+      var autoH1 = header && header.querySelector('h1');
+      if (autoH1) {
+        var titleText = autoH1.textContent.trim();
+        if (titleText) {
+          md = '# ' + titleText + '\n\n' + md;
+        }
+      }
+    }
+
+    var label = btn.querySelector('.copy-md-label');
+    writeToClipboard(md)
+      .then(function () {
+        btn.classList.add('copied');
+        if (label) label.textContent = 'Copied';
+        if (btn._copyTimeout) window.clearTimeout(btn._copyTimeout);
+        btn._copyTimeout = window.setTimeout(function () {
+          btn.classList.remove('copied');
+          if (label) label.textContent = 'Copy page';
+        }, 2000);
+      })
+      .catch(function () {});
+  }
+
+  var copyMdBtn = document.querySelector('.copy-md-btn');
+  if (copyMdBtn) {
+    copyMdBtn.addEventListener('click', function () {
+      copyPageMarkdown(copyMdBtn);
+    });
+  }
+
+  // Dropdown toggle
+  var toggle = document.querySelector('.copy-md-toggle');
+  var dropdown = document.querySelector('.copy-md-dropdown');
+  if (toggle && dropdown) {
+    toggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = !dropdown.hidden;
+      dropdown.hidden = !dropdown.hidden;
+      toggle.setAttribute('aria-expanded', !open);
+    });
+
+    // Copy from dropdown item
+    var dropdownCopy = dropdown.querySelector('[data-action="copy"]');
+    if (dropdownCopy) {
+      dropdownCopy.addEventListener('click', function () {
+        dropdown.hidden = true;
+        toggle.setAttribute('aria-expanded', 'false');
+        copyPageMarkdown(copyMdBtn);
+      });
+    }
+
+    // Close on outside click
+    document.addEventListener('click', function (e) {
+      if (!dropdown.hidden && !dropdown.contains(e.target) && !toggle.contains(e.target)) {
+        dropdown.hidden = true;
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !dropdown.hidden) {
+        dropdown.hidden = true;
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
+      }
+    });
+  }
+
   var content = document.querySelector('.vp-doc');
   if (!content) {
     return;

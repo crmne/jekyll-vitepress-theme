@@ -1698,3 +1698,168 @@ html.dark .only-light {
     margin-left: 0;
   }
 }
+
+/* Copy as Markdown button group */
+.vp-doc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.vp-doc-header h1 {
+  margin-top: 0;
+}
+
+/* Copy page icon defs */
+.vpi-copy {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'/%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.vpi-file-text {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpolyline points='14 2 14 8 20 8'/%3E%3Cline x1='16' y1='13' x2='8' y2='13'/%3E%3Cline x1='16' y1='17' x2='8' y2='17'/%3E%3Cpolyline points='10 9 9 9 8 9'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Copy page split button */
+.copy-md-group {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+  background: var(--vp-c-bg-soft);
+  transition: color 0.25s, border-color 0.25s, background-color 0.25s;
+}
+
+.copy-md-group:hover {
+  border-color: var(--vp-c-brand-1);
+}
+
+.copy-md-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 6px 0 0 6px;
+  background: transparent;
+  color: var(--vp-c-text-2);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.25s, background-color 0.25s;
+  white-space: nowrap;
+}
+
+.copy-md-btn .vpi-copy {
+  width: 14px;
+  height: 14px;
+}
+
+.copy-md-btn:hover {
+  color: var(--vp-c-text-1);
+  background: var(--vp-c-bg-elv);
+}
+
+.copy-md-btn.copied {
+  color: var(--vp-c-green-1, #42b883);
+}
+
+.copy-md-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 6px;
+  border: none;
+  border-left: 1px solid var(--vp-c-divider);
+  border-radius: 0 6px 6px 0;
+  background: transparent;
+  color: var(--vp-c-text-2);
+  cursor: pointer;
+  transition: color 0.25s, background-color 0.25s;
+}
+
+.copy-md-toggle .vpi-chevron-down {
+  width: 14px;
+  height: 14px;
+}
+
+.copy-md-toggle:hover {
+  color: var(--vp-c-text-1);
+  background: var(--vp-c-bg-elv);
+}
+
+.copy-md-toggle[aria-expanded="true"] .copy-md-chevron {
+  transform: rotate(180deg);
+}
+
+.copy-md-chevron {
+  transition: transform 0.2s;
+}
+
+/* Dropdown */
+.copy-md-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 10;
+  min-width: 240px;
+  padding: 6px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: var(--vp-c-bg);
+  box-shadow: var(--vp-shadow-1);
+}
+
+.copy-md-dropdown-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.copy-md-dropdown-item:hover {
+  background: var(--vp-c-bg-soft);
+}
+
+a.copy-md-dropdown-item,
+a.copy-md-dropdown-item:hover {
+  text-decoration: none;
+  color: var(--vp-c-text-1);
+}
+
+.copy-md-dropdown-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  color: var(--vp-c-text-2);
+}
+
+.copy-md-dropdown-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.copy-md-dropdown-title {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  display: inline;
+}
+
+.copy-md-dropdown-desc {
+  font-size: 12px;
+  color: var(--vp-c-text-3);
+  line-height: 1.3;
+}

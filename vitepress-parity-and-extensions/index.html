@@ -996,7 +996,88 @@
                         
                         
                         
-                          <h1>VitePress Parity and Extensions</h1>
+                        
+                        
+                        <div class="vp-doc-header">
+                          
+                            <h1>VitePress Parity and Extensions</h1>
+                          
+                          
+                            
+
+<div class="copy-md-group">
+  <button class="copy-md-btn" type="button" title="Copy page as Markdown">
+    <span class="vpi-copy"></span>
+    <span class="copy-md-label">Copy page</span>
+  </button>
+  <button class="copy-md-toggle" type="button" aria-label="More options" aria-expanded="false">
+    <span class="vpi-chevron-down copy-md-chevron"></span>
+  </button>
+  <div class="copy-md-dropdown" hidden>
+    <button class="copy-md-dropdown-item" type="button" data-action="copy">
+      <span class="vpi-copy copy-md-dropdown-icon"></span>
+      <div class="copy-md-dropdown-text">
+        <span class="copy-md-dropdown-title">Copy page</span>
+        <span class="copy-md-dropdown-desc">Copy page as Markdown for LLMs</span>
+      </div>
+    </button>
+    <a class="copy-md-dropdown-item" href="/vitepress-parity-and-extensions.md" target="_blank" rel="noreferrer">
+      <span class="vpi-file-text copy-md-dropdown-icon"></span>
+      <div class="copy-md-dropdown-text">
+        <span class="copy-md-dropdown-title">View as Markdown</span>
+        <span class="copy-md-dropdown-desc">View this page as plain text</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+                          
+                        </div>
+                        
+                          <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">This theme targets high visual and interaction parity with [VitePress](https://vitepress.dev/), while keeping configuration and authoring idiomatic to [Jekyll](https://jekyllrb.com/). Here&apos;s what maps directly, what&apos;s intentionally different, and what&apos;s been added on top.
+
+## VitePress parity targets
+
+The theme intentionally mirrors these VitePress features:
+
+- Top nav, mobile nav screen, and social links
+- Left sidebar + right outline behavior
+- Home layout structure (hero + feature cards)
+- Doc footer behavior (edit link, previous/next pager, last-updated label)
+- Appearance switcher (`auto` → `dark` → `light`)
+- Search trigger UX (`/`, `Ctrl/Cmd+K`)
+- Code block UX (copy buttons, language labels, file title bars with icons)
+- Header anchors on all headings
+- External link icons (arrow indicator on outbound links)
+- Table styling (striped rows, bordered cells, responsive scroll)
+- Custom containers (tip, warning, danger, info, note, important, caution, details)
+- Automatic page title injection
+
+## Jekyll-first differences (intentional)
+
+These are deliberate departures from VitePress internals. The functionality is equivalent, but the implementation uses Jekyll conventions:
+
+- Configuration lives in `_config.yml` under `jekyll_vitepress` instead of a `.vitepress/config.js` file
+- Nav, sidebar, social, and version data live in `_data/*.yml` instead of being defined in JavaScript
+- Syntax highlighting uses [Rouge](https://github.com/rouge-ruby/rouge) themes instead of Shiki
+- Last-updated timestamps are populated via Jekyll plugin hooks instead of Git history
+- Extension points are include hooks (`_includes/jekyll_vitepress/*.html`) instead of Vue slots
+
+## Extras added on top
+
+These features are not part of baseline VitePress but are included as optional extras:
+
+- **GitHub star widget** — a navbar button showing live star count from the GitHub API, configured via `jekyll_vitepress.github_star`
+- **Local search index** — a simple client-side search built from `search.json`, generated at build time from sidebar collection content
+- **Version selector** — a data-driven dropdown from `_data/versions.yml` with `current: auto` support for automatic version label resolution
+- **Copy page** — a split button offering &quot;Copy page&quot; (copies raw Markdown to clipboard for LLM use) and &quot;View as Markdown&quot; (opens the page as a plain `.md` file). Enabled by default; disable with `jekyll_vitepress.copy_page.enabled: false`.
+
+## Practical guidance
+
+If you want output that looks as close to VitePress as possible, keep the optional extras disabled and rely on the default structure and styling.
+
+If you want productized docs behavior beyond what VitePress ships out of the box, enable extras case by case in `_config.yml`. Each extra is independent — you can use the GitHub star widget without the version selector, or the search without either.
+</textarea>
                         
                         <p>This theme targets high visual and interaction parity with <a href="https://vitepress.dev/">VitePress</a>, while keeping configuration and authoring idiomatic to <a href="https://jekyllrb.com/">Jekyll</a>. Here’s what maps directly, what’s intentionally different, and what’s been added on top.</p>
 
@@ -1039,6 +1120,7 @@
   <li><strong>GitHub star widget</strong> — a navbar button showing live star count from the GitHub API, configured via <code class="language-plaintext highlighter-rouge">jekyll_vitepress.github_star</code></li>
   <li><strong>Local search index</strong> — a simple client-side search built from <code class="language-plaintext highlighter-rouge">search.json</code>, generated at build time from sidebar collection content</li>
   <li><strong>Version selector</strong> — a data-driven dropdown from <code class="language-plaintext highlighter-rouge">_data/versions.yml</code> with <code class="language-plaintext highlighter-rouge">current: auto</code> support for automatic version label resolution</li>
+  <li><strong>Copy page</strong> — a split button offering “Copy page” (copies raw Markdown to clipboard for LLM use) and “View as Markdown” (opens the page as a plain <code class="language-plaintext highlighter-rouge">.md</code> file). Enabled by default; disable with <code class="language-plaintext highlighter-rouge">jekyll_vitepress.copy_page.enabled: false</code>.</li>
 </ul>
 
 <h2 id="practical-guidance">Practical guidance</h2>

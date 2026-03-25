@@ -996,7 +996,92 @@
                         
                         
                         
-                          <h1>Extending Behavior</h1>
+                        
+                        
+                        <div class="vp-doc-header">
+                          
+                            <h1>Extending Behavior</h1>
+                          
+                          
+                            
+
+<div class="copy-md-group">
+  <button class="copy-md-btn" type="button" title="Copy page as Markdown">
+    <span class="vpi-copy"></span>
+    <span class="copy-md-label">Copy page</span>
+  </button>
+  <button class="copy-md-toggle" type="button" aria-label="More options" aria-expanded="false">
+    <span class="vpi-chevron-down copy-md-chevron"></span>
+  </button>
+  <div class="copy-md-dropdown" hidden>
+    <button class="copy-md-dropdown-item" type="button" data-action="copy">
+      <span class="vpi-copy copy-md-dropdown-icon"></span>
+      <div class="copy-md-dropdown-text">
+        <span class="copy-md-dropdown-title">Copy page</span>
+        <span class="copy-md-dropdown-desc">Copy page as Markdown for LLMs</span>
+      </div>
+    </button>
+    <a class="copy-md-dropdown-item" href="/extending-behavior.md" target="_blank" rel="noreferrer">
+      <span class="vpi-file-text copy-md-dropdown-icon"></span>
+      <div class="copy-md-dropdown-text">
+        <span class="copy-md-dropdown-title">View as Markdown</span>
+        <span class="copy-md-dropdown-desc">View this page as plain text</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+                          
+                        </div>
+                        
+                          <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">Because this is Jekyll, extension is straightforward — override a file and you&apos;re done. The theme provides several levels of customization, from simple hooks to full layout overrides.
+
+## Hook includes (non-destructive)
+
+The easiest way to add custom markup is through the theme&apos;s hook includes. Create any of these files in your site and they&apos;ll be injected at the right point:
+
+- `_includes/jekyll_vitepress/head_end.html` — injected just before `&lt;/head&gt;`. Use this for analytics scripts, meta tags, or extra stylesheets.
+- `_includes/jekyll_vitepress/doc_footer_end.html` — injected after the doc footer. Use this for feedback widgets, related pages, or custom CTAs.
+- `_includes/jekyll_vitepress/layout_end.html` — injected just before `&lt;/body&gt;`. Use this for chat widgets, global scripts, or modals.
+
+For example, to add a simple feedback prompt after every doc page:
+
+```html
+&lt;div class=&quot;my-feedback&quot;&gt;
+  Was this page helpful?
+  &lt;a href=&quot;/feedback/&quot;&gt;Let us know&lt;/a&gt;.
+&lt;/div&gt;
+```
+{: data-title=&quot;_includes/jekyll_vitepress/doc_footer_end.html&quot;}
+
+If these files don&apos;t exist in your site, the theme&apos;s empty defaults are used — no errors, no output.
+
+## Include overrides
+
+For deeper changes, override any of the theme&apos;s built-in includes by creating a file with the same path in your site&apos;s `_includes/` directory. Jekyll will use your version instead of the gem&apos;s.
+
+Common overrides:
+
+- `_includes/nav.html` — customize the top navigation
+- `_includes/sidebar.html` — change sidebar rendering
+- `_includes/doc_footer.html` — modify the doc footer layout
+
+## Layout overrides
+
+You can also override `_layouts/default.html` entirely. This gives you full control over the page structure, but means you&apos;ll need to update your override if the theme changes its layout in future versions.
+
+## Custom JS and CSS
+
+To add your own JavaScript or CSS, use the `head_end.html` hook include:
+
+```html
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/custom.css&quot;&gt;
+&lt;script src=&quot;/assets/js/custom.js&quot; defer&gt;&lt;/script&gt;
+```
+{: data-title=&quot;_includes/jekyll_vitepress/head_end.html&quot;}
+
+{% include alert.html type=&quot;warning&quot; content=&quot;If you override includes or layouts that contain interactive elements (sidebar, outline, search), keep the existing class names and DOM structure intact. The theme&apos;s JavaScript relies on these to wire up sidebar toggling, scroll tracking, and search behavior.&quot; %}
+</textarea>
                         
                         <p>Because this is Jekyll, extension is straightforward — override a file and you’re done. The theme provides several levels of customization, from simple hooks to full layout overrides.</p>
 
