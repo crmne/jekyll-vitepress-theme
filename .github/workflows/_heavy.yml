@@ -41,6 +41,10 @@ jobs:
           ruby-version: ${{ inputs.ruby-version }}
           bundler-cache: ${{ inputs.bundler-cache }}
 
+      - name: Install Ruby dependencies
+        if: ${{ !inputs.bundler-cache }}
+        run: bundle install
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:

@@ -115,8 +115,8 @@ end
 Jekyll::Hooks.register :documents, :pre_render do |document|
   theme_config = document.site.config['jekyll_vitepress']
   copy_page_disabled = theme_config.is_a?(Hash) &&
-    theme_config['copy_page'].is_a?(Hash) &&
-    theme_config['copy_page']['enabled'] == false
+                       theme_config['copy_page'].is_a?(Hash) &&
+                       theme_config['copy_page']['enabled'] == false
 
   unless copy_page_disabled
     page_theme = document.data['jekyll_vitepress']
@@ -134,8 +134,8 @@ end
 Jekyll::Hooks.register :pages, :pre_render do |page|
   theme_config = page.site.config['jekyll_vitepress']
   copy_page_disabled = theme_config.is_a?(Hash) &&
-    theme_config['copy_page'].is_a?(Hash) &&
-    theme_config['copy_page']['enabled'] == false
+                       theme_config['copy_page'].is_a?(Hash) &&
+                       theme_config['copy_page']['enabled'] == false
 
   unless copy_page_disabled
     page_theme = page.data['jekyll_vitepress']
@@ -166,7 +166,8 @@ Jekyll::Hooks.register :site, :post_write do |site|
     raw = item.data['_raw_markdown']
     next if raw.nil? || raw.empty?
 
-    md_path = item.url.sub(/\.html$/, '').sub(/\/$/, '') + '.md'
+    base_path = item.url.sub(/\.html$/, '').sub(%r{/$}, '')
+    md_path = "#{base_path}.md"
     md_path = '/index.md' if item.url == '/'
 
     title = item.data['title']
