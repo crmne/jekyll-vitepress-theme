@@ -13,6 +13,24 @@ A reusable Jekyll theme gem that reproduces the VitePress default docs experienc
 - Last-updated hook via plugin
 - Jekyll-native extension hooks (`_includes/jekyll_vitepress/head_end.html`, `doc_footer_end.html`, `layout_end.html`)
 
+## Screenshots
+
+### Home (Light)
+
+![Home light mode](assets/images/screenshots/home-light.png)
+
+### Home (Dark)
+
+![Home dark mode](assets/images/screenshots/home-dark.png)
+
+### Getting Started (Light)
+
+![Getting Started light mode](assets/images/screenshots/getting-started-light.png)
+
+### Getting Started (Dark)
+
+![Getting Started dark mode](assets/images/screenshots/getting-started-dark.png)
+
 ## Installation
 
 1. Add the gem to your `Gemfile`:
