@@ -61,8 +61,23 @@
                             {% assign show_auto_page_title = true %}
                           {% endunless %}
                         {% endif %}
-                        {% if show_auto_page_title %}
-                          <h1>{{ page.title }}</h1>
+                        {% assign copy_page_enabled = true %}
+                        {% if theme.copy_page and theme.copy_page.enabled == false %}
+                          {% assign copy_page_enabled = false %}
+                        {% endif %}
+                        {% if page_theme.copy_page == false %}
+                          {% assign copy_page_enabled = false %}
+                        {% endif %}
+                        <div class="vp-doc-header">
+                          {% if show_auto_page_title %}
+                            <h1>{{ page.title }}</h1>
+                          {% endif %}
+                          {% if copy_page_enabled and page._raw_markdown and page._raw_markdown != "" %}
+                            {% include copy_page_button.html %}
+                          {% endif %}
+                        </div>
+                        {% if copy_page_enabled and page._raw_markdown and page._raw_markdown != "" %}
+                          <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">{{ page._raw_markdown | xml_escape }}</textarea>
                         {% endif %}
                         {{ content }}
                       </div>
@@ -87,8 +102,23 @@
                             {% assign show_auto_page_title = true %}
                           {% endunless %}
                         {% endif %}
-                        {% if show_auto_page_title %}
-                          <h1>{{ page.title }}</h1>
+                        {% assign copy_page_enabled = true %}
+                        {% if theme.copy_page and theme.copy_page.enabled == false %}
+                          {% assign copy_page_enabled = false %}
+                        {% endif %}
+                        {% if page_theme.copy_page == false %}
+                          {% assign copy_page_enabled = false %}
+                        {% endif %}
+                        <div class="vp-doc-header">
+                          {% if show_auto_page_title %}
+                            <h1>{{ page.title }}</h1>
+                          {% endif %}
+                          {% if copy_page_enabled and page._raw_markdown and page._raw_markdown != "" %}
+                            {% include copy_page_button.html %}
+                          {% endif %}
+                        </div>
+                        {% if copy_page_enabled and page._raw_markdown and page._raw_markdown != "" %}
+                          <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">{{ page._raw_markdown | xml_escape }}</textarea>
                         {% endif %}
                         {{ content }}
                       </div>

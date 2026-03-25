@@ -153,6 +153,29 @@ jekyll_vitepress:
 ```
 {: data-title="_config.yml"}
 
+### Copy Page
+
+- `copy_page.enabled` (defaults to `true`)
+
+Copy page adds a split button to each doc page header. The main button copies the page as raw Markdown. The dropdown includes a "View as Markdown" link that opens the page as a plain `.md` file (generated alongside the HTML at build time).
+
+To disable:
+
+```yaml
+jekyll_vitepress:
+  copy_page:
+    enabled: false
+```
+{: data-title="_config.yml"}
+
+Per-page disable via frontmatter:
+
+```yaml
+jekyll_vitepress:
+  copy_page: false
+```
+{: data-title="page frontmatter"}
+
 ### Labels and Behavior
 
 - `labels.outline`

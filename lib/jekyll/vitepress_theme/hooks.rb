@@ -113,6 +113,18 @@ Jekyll::Hooks.register :site, :post_read do |site|
 end
 
 Jekyll::Hooks.register :documents, :pre_render do |document|
+  theme_config = document.site.config['jekyll_vitepress']
+  copy_page_disabled = theme_config.is_a?(Hash) &&
+                       theme_config['copy_page'].is_a?(Hash) &&
+                       theme_config['copy_page']['enabled'] == false
+
+  unless copy_page_disabled
+    page_theme = document.data['jekyll_vitepress']
+    copy_page_disabled = page_theme == false || (page_theme.is_a?(Hash) && page_theme['copy_page'] == false)
+  end
+
+  document.data['_raw_markdown'] = document.content unless copy_page_disabled
+
   next if document.data.key?('last_updated_at')
 
   updated_at = Jekyll::VitePressTheme::LastUpdated.source_file_time(document.site, document.path)
@@ -120,8 +132,53 @@ Jekyll::Hooks.register :documents, :pre_render do |document|
 end
 
 Jekyll::Hooks.register :pages, :pre_render do |page|
+  theme_config = page.site.config['jekyll_vitepress']
+  copy_page_disabled = theme_config.is_a?(Hash) &&
+                       theme_config['copy_page'].is_a?(Hash) &&
+                       theme_config['copy_page']['enabled'] == false
+
+  unless copy_page_disabled
+    page_theme = page.data['jekyll_vitepress']
+    copy_page_disabled = page_theme == false || (page_theme.is_a?(Hash) && page_theme['copy_page'] == false)
+  end
+
+  page.data['_raw_markdown'] = page.content unless copy_page_disabled
+
   next if page.data.key?('last_updated_at')
 
   updated_at = Jekyll::VitePressTheme::LastUpdated.source_file_time(page.site, page.path)
   page.data['last_updated_at'] = updated_at if updated_at
+end
+
+# Write raw .md files after site build using the same content as "Copy page"
+Jekyll::Hooks.register :site, :post_write do |site|
+  theme_config = site.config['jekyll_vitepress']
+  if theme_config.is_a?(Hash) &&
+     theme_config['copy_page'].is_a?(Hash) &&
+     theme_config['copy_page']['enabled'] == false
+    next
+  end
+
+  items = site.pages.select { |p| p.output_ext == '.html' } +
+          site.collections.values.flat_map(&:docs)
+
+  items.each do |item|
+    raw = item.data['_raw_markdown']
+    next if raw.nil? || raw.empty?
+
+    base_path = item.url.sub(/\.html$/, '').sub(%r{/$}, '')
+    md_path = "#{base_path}.md"
+    md_path = '/index.md' if item.url == '/'
+
+    title = item.data['title']
+    body = if title && !title.empty? && !raw.strip.start_with?('# ')
+             "# #{title}\n\n#{raw}"
+           else
+             raw
+           end
+
+    dest = File.join(site.dest, md_path)
+    FileUtils.mkdir_p(File.dirname(dest))
+    File.write(dest, body)
+  end
 end
