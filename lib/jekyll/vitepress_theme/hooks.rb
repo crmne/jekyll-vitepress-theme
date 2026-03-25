@@ -159,7 +159,8 @@ Jekyll::Hooks.register :site, :post_write do |site|
     next
   end
 
-  items = site.pages + site.collections.values.flat_map(&:docs)
+  items = site.pages.select { |p| p.output_ext == '.html' } +
+          site.collections.values.flat_map(&:docs)
 
   items.each do |item|
     raw = item.data['_raw_markdown']
