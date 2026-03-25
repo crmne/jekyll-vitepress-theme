@@ -129,3 +129,23 @@ Jekyll::Hooks.register :pages, :pre_render do |page|
   updated_at = Jekyll::VitePressTheme::LastUpdated.source_file_time(page.site, page.path)
   page.data['last_updated_at'] = updated_at if updated_at
 end
+
+# Write raw .md files after site build using the same content as "Copy page"
+Jekyll::Hooks.register :site, :post_write do |site|
+  items = site.pages + site.collections.values.flat_map(&:docs)
+
+  items.each do |item|
+    raw = item.data['_raw_markdown']
+    next if raw.nil? || raw.empty?
+
+    md_path = item.url.sub(/\.html$/, '').sub(/\/$/, '') + '.md'
+    md_path = '/index.md' if item.url == '/'
+
+    title = item.data['title']
+    body = (title && !title.empty?) ? "# #{title}\n\n#{raw}" : raw
+
+    dest = File.join(site.dest, md_path)
+    FileUtils.mkdir_p(File.dirname(dest))
+    File.write(dest, body)
+  end
+end
