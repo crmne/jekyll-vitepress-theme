@@ -59,4 +59,4 @@ On smaller screens, the sidebar collapses behind a menu button. Tapping it revea
 
 ## Home layout
 
-Set `layout: home` in your page's frontmatter to render a landing page with a hero section and feature cards. Home pages don't show the sidebar or outline — they're full-width by design. See the [Frontmatter Reference]({% link _reference/frontmatter-reference.md %}) for all available home layout keys.
+Set `layout: home` in your page's frontmatter to render a landing page with a hero section and feature cards. Home pages don't show the sidebar or outline — they're full-width by design. See the [Frontmatter Reference](/frontmatter-reference/) for all available home layout keys.

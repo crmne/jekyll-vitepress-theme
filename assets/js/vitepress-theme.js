@@ -1164,16 +1164,72 @@
   addCopyButtons();
 
   // Copy page as Markdown - split button with dropdown
+  function markdownStartsWithH1(markdown) {
+    var value = String(markdown || '').replace(/^\s+/, '');
+    return /^#\s+\S/.test(value) || /^<h1(?:\s|>)/i.test(value) || /^[^\n]+\n=+\s*(?:\n|$)/.test(value);
+  }
+
+  function resolveCopyPageTitleHeading() {
+    var doc = document.querySelector('.vp-doc');
+    if (!doc) {
+      return null;
+    }
+
+    var headerHeading = doc.querySelector('.vp-doc-header h1');
+    if (headerHeading) {
+      return headerHeading;
+    }
+
+    var headings = Array.from(doc.querySelectorAll('h1'));
+    for (var i = 0; i < headings.length; i += 1) {
+      if (!headings[i].closest('.vp-doc-header')) {
+        return headings[i];
+      }
+    }
+
+    return null;
+  }
+
+  function alignCopyPageButtonWithHeading() {
+    var header = document.querySelector('.vp-doc-header');
+    var group = header && header.querySelector('.copy-md-group');
+    if (!header || !group || header.querySelector('h1')) {
+      return;
+    }
+
+    var titleHeading = resolveCopyPageTitleHeading();
+    if (!titleHeading) {
+      return;
+    }
+
+    var titleRow = titleHeading.closest('.vp-doc-title-row');
+    if (!titleRow) {
+      titleRow = document.createElement('div');
+      titleRow.className = 'vp-doc-title-row';
+      titleHeading.parentNode.insertBefore(titleRow, titleHeading);
+      titleRow.appendChild(titleHeading);
+    }
+
+    titleRow.appendChild(group);
+
+    if (!header.querySelector('*')) {
+      header.hidden = true;
+    }
+  }
+
+  alignCopyPageButtonWithHeading();
+
   function copyPageMarkdown(btn) {
+    if (!btn) return;
+
     var textarea = document.querySelector('.vp-raw-markdown');
     if (!textarea) return;
 
     var md = textarea.value;
-    if (!/^#\s/.test(md.trim())) {
-      var header = document.querySelector('.vp-doc-header');
-      var autoH1 = header && header.querySelector('h1');
-      if (autoH1) {
-        var titleText = autoH1.textContent.trim();
+    if (!markdownStartsWithH1(md)) {
+      var titleHeading = resolveCopyPageTitleHeading();
+      if (titleHeading) {
+        var titleText = titleHeading.textContent.trim();
         if (titleText) {
           md = '# ' + titleText + '\n\n' + md;
         }

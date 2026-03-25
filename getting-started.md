@@ -111,4 +111,15 @@ bundle exec jekyll serve --livereload
 
 Open `http://127.0.0.1:4000` and you should see your site with the VitePress layout — top nav, sidebar, and your content in the center.
 
-{% include alert.html type="tip" content="To add a VitePress-style landing page with a hero section and feature cards, set `layout: home` in your `index.md` frontmatter. See the [Frontmatter Reference](/frontmatter-reference/) for the full set of home layout keys." %}
+
+
+
+
+
+<div class="tip custom-block">
+  <p class="custom-block-title">TIP</p>
+  <p>To add a VitePress-style landing page with a hero section and feature cards, set <code class="language-plaintext highlighter-rouge">layout: home</code> in your <code class="language-plaintext highlighter-rouge">index.md</code> frontmatter. See the <a href="/frontmatter-reference/">Frontmatter Reference</a> for the full set of home layout keys.
+</p>
+</div>
+
+

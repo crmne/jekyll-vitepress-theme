@@ -85,7 +85,7 @@ Social icons appear in the top navbar. Use a built-in icon slug, or provide cust
 ```
 {: data-title="_data/social_links.yml"}
 
-For a full list of built-in icon slugs and custom SVG support, see the [Configuration Reference]({% link _reference/configuration-reference.md %}).
+For a full list of built-in icon slugs and custom SVG support, see the [Configuration Reference](/configuration-reference/).
 
 ## Edit link
 
@@ -143,4 +143,4 @@ Need custom `<head>` tags (analytics, verification meta, extra fonts)? Create an
 
 If these files don't exist in your site, the theme's empty defaults are used.
 
-For complete configuration keys and detailed examples, see the [Configuration Reference]({% link _reference/configuration-reference.md %}).
+For complete configuration keys and detailed examples, see the [Configuration Reference](/configuration-reference/).

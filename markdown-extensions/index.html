@@ -1054,10 +1054,10 @@ Standard Markdown links work as expected. Use relative paths or absolute paths:
 
 ```markdown
 [Getting Started](/getting-started/)
-[Configuration]({% raw %}{% link _reference/configuration-reference.md %}{% endraw %})
+[Configuration]({% link _reference/configuration-reference.md %})
 ```
 
-The second form uses Jekyll&apos;s `{% raw %}{% link %}{% endraw %}` tag, which validates that the target file exists at build time — if you rename or delete a page, the build will fail instead of producing a broken link.
+The second form uses Jekyll&apos;s `{% link %}` tag, which validates that the target file exists at build time — if you rename or delete a page, the build will fail instead of producing a broken link.
 
 ### External links
 
@@ -1107,7 +1107,7 @@ description: A brief description for search and meta tags.
 ---
 ```
 
-See the [Frontmatter Reference]({% link _reference/frontmatter-reference.md %}) for all available keys.
+See the [Frontmatter Reference](/frontmatter-reference/) for all available keys.
 
 ## Automatic title injection
 

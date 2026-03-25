@@ -1700,15 +1700,26 @@ html.dark .only-light {
 }
 
 /* Copy as Markdown button group */
-.vp-doc-header {
+.vp-doc-header,
+.vp-doc-title-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
-.vp-doc-header h1 {
+.vp-doc-header h1,
+.vp-doc-title-row h1 {
   margin-top: 0;
+  margin-bottom: 0;
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.vp-doc-header .copy-md-group,
+.vp-doc-title-row .copy-md-group {
+  margin-left: auto;
 }
 
 /* Copy page icon defs */

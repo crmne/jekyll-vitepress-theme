@@ -39,4 +39,4 @@ The project targets high visual and interaction parity with VitePress for the fe
 
 It intentionally stays Jekyll-first for configuration and page authoring — no `.vue` files, no Node.js, no frontmatter DSLs that don't exist in standard Jekyll.
 
-For a detailed feature checklist comparing what's mirrored from VitePress versus what's added on top, see [VitePress Parity and Extensions]({% link _reference/vitepress-parity-and-extensions.md %}).
+For a detailed feature checklist comparing what's mirrored from VitePress versus what's added on top, see [VitePress Parity and Extensions](/vitepress-parity-and-extensions/).

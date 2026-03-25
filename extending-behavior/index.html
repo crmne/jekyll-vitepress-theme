@@ -1080,7 +1080,18 @@ To add your own JavaScript or CSS, use the `head_end.html` hook include:
 ```
 {: data-title=&quot;_includes/jekyll_vitepress/head_end.html&quot;}
 
-{% include alert.html type=&quot;warning&quot; content=&quot;If you override includes or layouts that contain interactive elements (sidebar, outline, search), keep the existing class names and DOM structure intact. The theme&apos;s JavaScript relies on these to wire up sidebar toggling, scroll tracking, and search behavior.&quot; %}
+
+
+
+
+
+&lt;div class=&quot;warning custom-block&quot;&gt;
+  &lt;p class=&quot;custom-block-title&quot;&gt;WARNING&lt;/p&gt;
+  &lt;p&gt;If you override includes or layouts that contain interactive elements (sidebar, outline, search), keep the existing class names and DOM structure intact. The theme’s JavaScript relies on these to wire up sidebar toggling, scroll tracking, and search behavior.
+&lt;/p&gt;
+&lt;/div&gt;
+
+
 </textarea>
                         
                         <p>Because this is Jekyll, extension is straightforward — override a file and you’re done. The theme provides several levels of customization, from simple hooks to full layout overrides.</p>

@@ -12,7 +12,18 @@ Open search with any of these shortcuts:
 
 The search index is generated from a `search.json` file at build time. It includes the home page and all documents from your sidebar collections. Results show matching page titles and content excerpts, and clicking a result navigates directly to that page.
 
-{% include alert.html type="tip" content="If search doesn't seem to find certain pages, make sure those pages belong to a collection listed in your `_data/sidebar.yml`. Only sidebar collections are indexed." %}
+
+
+
+
+
+<div class="tip custom-block">
+  <p class="custom-block-title">TIP</p>
+  <p>If search doesn’t seem to find certain pages, make sure those pages belong to a collection listed in your <code class="language-plaintext highlighter-rouge">_data/sidebar.yml</code>. Only sidebar collections are indexed.
+</p>
+</div>
+
+
 
 ## Right-side outline
 

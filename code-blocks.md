@@ -73,4 +73,15 @@ jekyll_vitepress:
 ```
 {: data-title="_config.yml"}
 
-{% include alert.html type="tip" content='The `{: data-title="..."}` syntax is a Kramdown feature called an Inline Attribute List (IAL). It must appear on its own line directly after the code fence, with no blank line in between.' %}
+
+
+
+
+
+<div class="tip custom-block">
+  <p class="custom-block-title">TIP</p>
+  <p>The <code class="language-plaintext highlighter-rouge">{: data-title="..."}</code> syntax is a Kramdown feature called an Inline Attribute List (IAL). It must appear on its own line directly after the code fence, with no blank line in between.
+</p>
+</div>
+
+

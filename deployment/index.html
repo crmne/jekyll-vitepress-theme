@@ -1067,7 +1067,18 @@ A typical CI flow:
 
 When `_data/versions.yml` is present and contains version items, the theme renders a version selector in the navbar automatically.
 
-{% include alert.html type=&quot;warning&quot; content=&quot;Multi-version mode adds operational complexity — caching behavior, legacy paths, and rebuild coordination all need attention. Only use it when you genuinely need immutable version snapshots. For most projects, a single docs site with a changelog link is sufficient.&quot; %}
+
+
+
+
+
+&lt;div class=&quot;warning custom-block&quot;&gt;
+  &lt;p class=&quot;custom-block-title&quot;&gt;WARNING&lt;/p&gt;
+  &lt;p&gt;Multi-version mode adds operational complexity — caching behavior, legacy paths, and rebuild coordination all need attention. Only use it when you genuinely need immutable version snapshots. For most projects, a single docs site with a changelog link is sufficient.
+&lt;/p&gt;
+&lt;/div&gt;
+
+
 
 In your repository&apos;s GitHub Pages settings, configure the source to serve from branch `gh-pages` (root).
 </textarea>
