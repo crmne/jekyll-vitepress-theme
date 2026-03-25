@@ -409,7 +409,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.1.1</span>
+                      <span>v1.2.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -578,7 +578,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.1.1</span>
+            <span class="button-text">v1.2.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1043,17 +1043,18 @@ The gem ships everything needed to render a VitePress-like site:
 - **Layouts** (`_layouts/default.html`, `_layouts/home.html`) that compose the page structure — navbar, sidebar, content area, outline, and footer.
 - **Includes** for each UI component — navigation, search modal, sidebar, doc footer, and more.
 - **Stylesheets** (`assets/css/`) split into core layout styles, component styles, and token overrides.
-- **JavaScript** (`assets/js/vitepress-theme.js`) for interactive behavior — sidebar toggle, scroll-tracked outline, search modal, appearance switcher, and code block copy buttons.
+- **JavaScript** (`assets/js/vitepress-theme.js`) for interactive behavior — sidebar toggle, scroll-tracked outline, search modal, appearance switcher, code block copy buttons, and the page-level &quot;Copy page&quot; control.
 
 All of this is vanilla HTML, CSS, and JavaScript. There&apos;s no build step, no bundler, and no framework dependency.
 
 ## Plugin behavior
 
-The plugin side registers three Jekyll hooks that run automatically at build time:
+The plugin side registers Jekyll hooks that run automatically at build time:
 
 - **Last-updated timestamps** — Before each page renders, the plugin reads the source file&apos;s modification time and sets `last_updated_at` in frontmatter. This means your doc footers can show &quot;Last updated&quot; dates without you touching frontmatter manually.
 - **Rouge syntax theme generation** — After reading site config, the plugin validates your configured Rouge theme names and generates scoped CSS for light and dark modes. Invalid theme names fall back to defaults with a warning.
 - **Version label resolution** — If `_data/versions.yml` sets `current: auto`, the plugin replaces it with the gem&apos;s version string (e.g., `v1.0.0`) at build time.
+- **Copy page markdown export** — Before doc pages render, the plugin captures their raw Markdown for the &quot;Copy page&quot; button. After the site is written, it emits a plain `.md` sibling for each generated HTML doc page so &quot;View as Markdown&quot; works without external hosting assumptions. Disable this with `jekyll_vitepress.copy_page.enabled: false`.
 
 ## VitePress parity scope
 
@@ -1085,19 +1086,20 @@ For a detailed feature checklist comparing what&apos;s mirrored from VitePress v
   <li><strong>Layouts</strong> (<code class="language-plaintext highlighter-rouge">_layouts/default.html</code>, <code class="language-plaintext highlighter-rouge">_layouts/home.html</code>) that compose the page structure — navbar, sidebar, content area, outline, and footer.</li>
   <li><strong>Includes</strong> for each UI component — navigation, search modal, sidebar, doc footer, and more.</li>
   <li><strong>Stylesheets</strong> (<code class="language-plaintext highlighter-rouge">assets/css/</code>) split into core layout styles, component styles, and token overrides.</li>
-  <li><strong>JavaScript</strong> (<code class="language-plaintext highlighter-rouge">assets/js/vitepress-theme.js</code>) for interactive behavior — sidebar toggle, scroll-tracked outline, search modal, appearance switcher, and code block copy buttons.</li>
+  <li><strong>JavaScript</strong> (<code class="language-plaintext highlighter-rouge">assets/js/vitepress-theme.js</code>) for interactive behavior — sidebar toggle, scroll-tracked outline, search modal, appearance switcher, code block copy buttons, and the page-level “Copy page” control.</li>
 </ul>
 
 <p>All of this is vanilla HTML, CSS, and JavaScript. There’s no build step, no bundler, and no framework dependency.</p>
 
 <h2 id="plugin-behavior">Plugin behavior</h2>
 
-<p>The plugin side registers three Jekyll hooks that run automatically at build time:</p>
+<p>The plugin side registers Jekyll hooks that run automatically at build time:</p>
 
 <ul>
   <li><strong>Last-updated timestamps</strong> — Before each page renders, the plugin reads the source file’s modification time and sets <code class="language-plaintext highlighter-rouge">last_updated_at</code> in frontmatter. This means your doc footers can show “Last updated” dates without you touching frontmatter manually.</li>
   <li><strong>Rouge syntax theme generation</strong> — After reading site config, the plugin validates your configured Rouge theme names and generates scoped CSS for light and dark modes. Invalid theme names fall back to defaults with a warning.</li>
   <li><strong>Version label resolution</strong> — If <code class="language-plaintext highlighter-rouge">_data/versions.yml</code> sets <code class="language-plaintext highlighter-rouge">current: auto</code>, the plugin replaces it with the gem’s version string (e.g., <code class="language-plaintext highlighter-rouge">v1.0.0</code>) at build time.</li>
+  <li><strong>Copy page markdown export</strong> — Before doc pages render, the plugin captures their raw Markdown for the “Copy page” button. After the site is written, it emits a plain <code class="language-plaintext highlighter-rouge">.md</code> sibling for each generated HTML doc page so “View as Markdown” works without external hosting assumptions. Disable this with <code class="language-plaintext highlighter-rouge">jekyll_vitepress.copy_page.enabled: false</code>.</li>
 </ul>
 
 <h2 id="vitepress-parity-scope">VitePress parity scope</h2>
