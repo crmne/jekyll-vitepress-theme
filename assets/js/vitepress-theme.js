@@ -77,13 +77,8 @@
   applyMode(mode);
 
   function cycleMode() {
-    if (mode === 'auto') {
-      mode = 'dark';
-    } else if (mode === 'dark') {
-      mode = 'light';
-    } else {
-      mode = 'auto';
-    }
+    var isDark = document.documentElement.classList.contains('dark');
+    var changeModeTo = isDark ? 'light' : 'dark';
     writeMode(mode);
     applyModeWithoutTransitions(mode);
   }
