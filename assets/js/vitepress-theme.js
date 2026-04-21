@@ -77,13 +77,11 @@
   applyMode(mode);
 
   function cycleMode() {
-    if (mode === 'auto') {
-      mode = 'dark';
-    } else if (mode === 'dark') {
-      mode = 'light';
-    } else {
-      mode = 'auto';
-    }
+    var isDark = root.classList.contains('dark');
+    var nextMode = isDark ? 'light' : 'dark';
+    var systemMode = mediaQuery.matches ? 'dark' : 'light';
+
+    mode = nextMode === systemMode ? 'auto' : nextMode;
     writeMode(mode);
     applyModeWithoutTransitions(mode);
   }
