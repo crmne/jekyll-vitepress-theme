@@ -1190,8 +1190,12 @@
 
 .VPDocAsideOutline .content {
   position: relative;
+  order: initial;
+  margin: 0;
   border-left: 1px solid var(--vp-c-divider);
-  padding-left: 16px;
+  padding: 0 0 0 16px;
+  width: auto;
+  min-width: 0;
   font-size: 13px;
   font-weight: 500;
 }
@@ -1232,13 +1236,12 @@
 
 .VPDocOutlineItem .outline-link {
   display: block;
-  line-height: 32px;
+  padding: 6px 0;
+  line-height: 20px;
   font-size: 14px;
   font-weight: 400;
   color: var(--vp-c-text-2);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
   transition: color 0.5s;
 }
 
