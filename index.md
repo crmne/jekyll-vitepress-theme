@@ -24,16 +24,34 @@ hero:
     height: 320
 
 features:
-  - icon: ⚡
-    title: Turbo Page Navigation
-    details: Internal docs links swap only the content frame, keeping the sidebar and shell in place for VitePress-like page changes.
-  - icon: 🧩
-    title: Ruby-Native Setup
-    details: Configure docs with collections, frontmatter, `_config.yml`, and `_data/*.yml`; no Vite app required.
-  - icon: 🎨
+  - icon:
+      src: /assets/images/theme/turbo-frame-swap.svg
+      alt: Turbo frame navigation
+      width: 42
+      height: 42
+    title: As Fast as VitePress
+    details: Jekyll VitePress uses Turbo Frames like a Rails app, swapping only the content frame while the nav, sidebar, and shell stay in place.
+  - icon:
+      src: /assets/images/theme/jekyll-test-tube.svg
+      alt: Jekyll
+      width: 42
+      height: 42
+    title: Jekyll-Native Setup
+    details: Keep your existing pages. Add the gem, configure the handful of Jekyll settings your site needs, and start publishing.
+  - icon:
+      src: /assets/images/theme/vitepress-logo-official.svg
+      alt: VitePress
+      width: 42
+      height: 42
     title: Familiar VitePress UX
-    details: Top nav, sidebar, right outline, local search, dark mode, code blocks, and doc footers come ready to use.
-  - icon: 🔍
-    title: Static Output
-    details: Build with Jekyll and deploy static HTML anywhere, while Turbo makes navigation feel app-fast.
+    details: Top nav, sidebar, right outline, search, dark mode, code blocks, callouts, and doc footers come ready to use.
+  - icon:
+      src: /assets/images/theme/more-than-vitepress.svg
+      alt: More than VitePress
+      width: 42
+      height: 42
+    title: More Than VitePress
+    details: Adds GitHub Star and Sponsor buttons, a version selector, generated local search, and Copy Page/View as Markdown for LLM workflows.
+    link: /vitepress-parity-and-extensions/
+    link_text: See what is included
 ---
