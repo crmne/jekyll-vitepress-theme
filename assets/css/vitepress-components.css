@@ -1354,7 +1354,7 @@
 }
 
 .VPFooter.has-sidebar {
-  display: none;
+  display: block;
 }
 
 .VPFooter a {
@@ -1370,6 +1370,19 @@
 @media (min-width: 768px) {
   .VPFooter {
     padding: 32px;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPFooter.has-sidebar {
+    margin-left: var(--vp-sidebar-width);
+  }
+}
+
+@media (min-width: 1440px) {
+  .VPFooter.has-sidebar {
+    margin-right: calc((100% - var(--vp-layout-max-width)) / 2);
+    margin-left: calc((100% - var(--vp-layout-max-width)) / 2 + var(--vp-sidebar-width));
   }
 }
 
