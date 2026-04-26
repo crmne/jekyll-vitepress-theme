@@ -2,6 +2,9 @@ name: Release
 
 on:
   workflow_call:
+  push:
+    tags:
+      - "v*"
 
 permissions:
   contents: write
@@ -14,6 +17,8 @@ jobs:
   publish:
     name: Build + Publish Gem
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
 
     steps:
       - uses: actions/checkout@v6
@@ -26,8 +31,8 @@ jobs:
           ruby-version: "3.3"
           bundler-cache: true
 
-      - name: Check if version needs publishing
-        id: check_version
+      - name: Read gem version
+        id: version
         shell: bash
         run: |
           set -euo pipefail
@@ -39,6 +44,30 @@ jobs:
             exit 1
           fi
           echo "Local version: $VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Verify tag matches gem version
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          TAG: ${{ github.ref_name }}
+          VERSION: ${{ steps.version.outputs.version }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          TAG_VERSION="${TAG#v}"
+          if [ "$TAG_VERSION" != "$VERSION" ]; then
+            echo "Tag $TAG does not match gem version $VERSION." >&2
+            exit 1
+          fi
+
+      - name: Check if version needs publishing
+        id: check_version
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        shell: bash
+        run: |
+          set -euo pipefail
 
           GEM_NAME="jekyll-vitepress-theme"
           echo "Fetching published versions for '$GEM_NAME'..."
@@ -60,7 +89,6 @@ jobs:
           else
             echo "Verdict: Version $VERSION is new."
             echo "version_changed=true" >> "$GITHUB_OUTPUT"
-            echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Build gem package
@@ -71,7 +99,7 @@ jobs:
         if: steps.check_version.outputs.version_changed == 'true'
         env:
           GEM_HOST_API_KEY: "${{ secrets.RUBYGEMS_AUTH_TOKEN }}"
-          GEM_VERSION: "${{ steps.check_version.outputs.version }}"
+          GEM_VERSION: "${{ steps.version.outputs.version }}"
         shell: bash
         run: |
           set -euo pipefail
@@ -98,3 +126,43 @@ jobs:
             fi
           }
           echo "$output"
+
+  github_release:
+    name: Create GitHub Release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [publish]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+          VERSION: ${{ needs.publish.outputs.version }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "GitHub release $TAG already exists."
+            exit 0
+          fi
+
+          prerelease_args=()
+          if ruby -rrubygems/version -e 'exit Gem::Version.new(ARGV.fetch(0)).prerelease? ? 0 : 1' "$VERSION"; then
+            prerelease_args=(--prerelease)
+          fi
+
+          gh release create "$TAG" \
+            --verify-tag \
+            --generate-notes \
+            "${prerelease_args[@]}"
