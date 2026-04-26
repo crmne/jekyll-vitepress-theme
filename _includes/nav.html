@@ -29,6 +29,29 @@
 {% if github_star_enabled %}
   {% assign github_star_url = 'https://github.com/' | append: github_star_repository %}
 {% endif %}
+{% assign github_sponsor_config = theme.github_sponsor %}
+{% assign github_sponsor_enabled = false %}
+{% assign github_sponsor_url = nil %}
+{% assign github_sponsor_text = 'Sponsor' %}
+{% assign github_sponsor_label = 'Sponsor on GitHub' %}
+{% if github_sponsor_config and github_sponsor_config != false %}
+  {% assign github_sponsor_user = github_sponsor_config.user | default: github_sponsor_config.username | default: github_sponsor_config.account %}
+  {% assign github_sponsor_url = github_sponsor_config.url %}
+  {% if github_sponsor_url == nil or github_sponsor_url == '' %}
+    {% if github_sponsor_user %}
+      {% assign github_sponsor_url = 'https://github.com/sponsors/' | append: github_sponsor_user %}
+    {% endif %}
+  {% endif %}
+  {% if github_sponsor_config.text %}
+    {% assign github_sponsor_text = github_sponsor_config.text %}
+  {% endif %}
+  {% if github_sponsor_config.label %}
+    {% assign github_sponsor_label = github_sponsor_config.label %}
+  {% endif %}
+  {% if github_sponsor_config.enabled != false and github_sponsor_url %}
+    {% assign github_sponsor_enabled = true %}
+  {% endif %}
+{% endif %}
 
 <header class="VPNav">
   <div class="VPNavBar{% if include.has_sidebar %} has-sidebar{% endif %}{% if include.is_home %} home{% endif %} top" id="vp-nav-bar">
@@ -151,6 +174,18 @@
                             </a>
                           </div>
                         {% endif %}
+                        {% if github_sponsor_enabled %}
+                          <div class="VPNavBarStar VPNavBarSponsor">
+                            <a class="VPLink link no-icon VPNavBarStarLink VPNavBarSponsorLink" href="{{ github_sponsor_url }}" aria-label="{{ github_sponsor_label | escape }}" target="_blank" rel="noreferrer noopener">
+                              <span class="VPNavBarSponsorIcon" aria-hidden="true">
+                                <svg viewBox="0 0 16 16" focusable="false">
+                                  <path d="M8 13.25l-.7-.64C3.1 8.79 1 6.88 1 4.5 1 2.56 2.56 1 4.5 1c1.1 0 2.15.51 2.83 1.31A3.76 3.76 0 0 1 10.5 1C12.44 1 14 2.56 14 4.5c0 2.38-2.1 4.29-6.3 8.11l-.7.64z"></path>
+                                </svg>
+                              </span>
+                              <span class="VPNavBarStarText">{{ github_sponsor_text }}</span>
+                            </a>
+                          </div>
+                        {% endif %}
 
                         {% for social in social_links %}
                           {% assign social_icon_name = social.icon %}
@@ -193,6 +228,18 @@
                     <span class="vpi-social-github" aria-hidden="true"></span>
                     <span class="VPNavBarStarText">{{ github_star_text }}</span>
                     <span class="VPNavBarStarCount" aria-hidden="true"{% unless github_star_show_count %} hidden{% endunless %}>{% if github_star_show_count %}...{% endif %}</span>
+                  </a>
+                </div>
+              {% endif %}
+              {% if github_sponsor_enabled %}
+                <div class="VPNavBarStar VPNavBarSponsor" id="vp-nav-sponsor">
+                  <a class="VPLink link no-icon VPNavBarStarLink VPNavBarSponsorLink" href="{{ github_sponsor_url }}" aria-label="{{ github_sponsor_label | escape }}" target="_blank" rel="noreferrer noopener">
+                    <span class="VPNavBarSponsorIcon" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" focusable="false">
+                        <path d="M8 13.25l-.7-.64C3.1 8.79 1 6.88 1 4.5 1 2.56 2.56 1 4.5 1c1.1 0 2.15.51 2.83 1.31A3.76 3.76 0 0 1 10.5 1C12.44 1 14 2.56 14 4.5c0 2.38-2.1 4.29-6.3 8.11l-.7.64z"></path>
+                      </svg>
+                    </span>
+                    <span class="VPNavBarStarText">{{ github_sponsor_text }}</span>
                   </a>
                 </div>
               {% endif %}
@@ -301,6 +348,18 @@
               <span class="vpi-social-github" aria-hidden="true"></span>
               <span class="VPNavBarStarText">{{ github_star_text }}</span>
               <span class="VPNavBarStarCount" aria-hidden="true"{% unless github_star_show_count %} hidden{% endunless %}>{% if github_star_show_count %}...{% endif %}</span>
+            </a>
+          </div>
+        {% endif %}
+        {% if github_sponsor_enabled %}
+          <div class="VPNavBarStar VPNavScreenStar VPNavBarSponsor">
+            <a class="VPLink link no-icon VPNavBarStarLink VPNavScreenStarLink VPNavBarSponsorLink" href="{{ github_sponsor_url }}" aria-label="{{ github_sponsor_label | escape }}" target="_blank" rel="noreferrer noopener">
+              <span class="VPNavBarSponsorIcon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" focusable="false">
+                  <path d="M8 13.25l-.7-.64C3.1 8.79 1 6.88 1 4.5 1 2.56 2.56 1 4.5 1c1.1 0 2.15.51 2.83 1.31A3.76 3.76 0 0 1 10.5 1C12.44 1 14 2.56 14 4.5c0 2.38-2.1 4.29-6.3 8.11l-.7.64z"></path>
+                </svg>
+              </span>
+              <span class="VPNavBarStarText">{{ github_sponsor_text }}</span>
             </a>
           </div>
         {% endif %}

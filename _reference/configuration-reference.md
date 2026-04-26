@@ -122,7 +122,7 @@ jekyll_vitepress:
 ```
 {: data-title="_config.yml"}
 
-### Edit Link, Last Updated, and GitHub Star
+### Edit Link, Last Updated, GitHub Star, and GitHub Sponsor
 
 - `edit_link.enabled`
 - `edit_link.pattern`
@@ -134,6 +134,11 @@ jekyll_vitepress:
 - `github_star.repository` (`owner/repo`)
 - `github_star.text`
 - `github_star.show_count`
+- `github_sponsor.enabled`
+- `github_sponsor.user` (GitHub Sponsors account name)
+- `github_sponsor.url` (optional custom sponsorship URL)
+- `github_sponsor.text`
+- `github_sponsor.label`
 
 ```yaml
 jekyll_vitepress:
@@ -150,8 +155,14 @@ jekyll_vitepress:
     repository: you/project
     text: Star
     show_count: true
+  github_sponsor:
+    enabled: true
+    user: you
+    text: Sponsor
 ```
 {: data-title="_config.yml"}
+
+If `github_sponsor.url` is omitted, the theme links to `https://github.com/sponsors/:user`.
 
 ### Copy Page
 

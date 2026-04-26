@@ -93,6 +93,10 @@ jekyll_vitepress:
     repository: crmne/jekyll-vitepress-theme
     text: Star
     show_count: true
+  github_sponsor:
+    enabled: true
+    user: crmne
+    text: Sponsor
   labels:
     outline: On this page
     sidebar_menu: Menu

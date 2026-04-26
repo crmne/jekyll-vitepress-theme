@@ -123,7 +123,7 @@ items:
 
 Set `current: auto` to automatically resolve to `v#{Jekyll::VitePressTheme::VERSION}` at build time. This is handy if your docs version should track your gem version.
 
-## GitHub star button
+## GitHub buttons
 
 Show a GitHub star button with live count in the navbar:
 
@@ -136,6 +136,19 @@ jekyll_vitepress:
     show_count: true
 ```
 {: data-title="_config.yml"}
+
+You can also show a GitHub Sponsors button next to it:
+
+```yaml
+jekyll_vitepress:
+  github_sponsor:
+    enabled: true
+    user: you
+    text: Sponsor
+```
+{: data-title="_config.yml"}
+
+Use `url` instead of `user` if you want to point to a custom sponsorship page.
 
 ## Extension hooks
 
