@@ -1945,6 +1945,23 @@
   syncPersistentNavState();
 
   if (window.Turbo) {
+    document.addEventListener('turbo:frame-missing', function (event) {
+      if (!event.target || event.target.id !== 'vp-content-frame') {
+        return;
+      }
+
+      event.preventDefault();
+
+      if (event.detail && typeof event.detail.visit === 'function' && event.detail.response) {
+        event.detail.visit(event.detail.response);
+        return;
+      }
+
+      if (event.detail && event.detail.response && event.detail.response.url) {
+        window.location.href = event.detail.response.url;
+      }
+    });
+
     document.addEventListener('turbo:frame-load', function (event) {
       if (!event.target || event.target.id !== 'vp-content-frame') {
         return;
