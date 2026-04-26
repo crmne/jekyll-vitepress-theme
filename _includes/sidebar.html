@@ -15,7 +15,7 @@
         {% endfor %}
 
         <div class="group no-transition">
-          <section class="VPSidebarItem level-0 collapsible{% if has_active %} has-active{% endif %}">
+          <section class="VPSidebarItem level-0 collapsible{% if has_active %} has-active{% endif %}" data-vp-sidebar-group data-collection="{{ group.collection }}">
             <div class="item" role="button" tabindex="0">
               <div class="indicator"></div>
               <h2 class="text">{{ group.title }}</h2>
@@ -33,7 +33,7 @@
                 <div class="VPSidebarItem level-1 is-link{% if active %} is-active{% endif %}">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="{{ doc.url | relative_url }}">
+                    <a class="VPLink link link" href="{{ doc.url | relative_url }}" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">{{ doc.title }}</p>
                     </a>
                   </div>

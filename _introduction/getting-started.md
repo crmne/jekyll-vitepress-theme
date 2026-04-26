@@ -4,7 +4,7 @@ nav_order: 2
 description: Install and run Jekyll VitePress Theme in a few minutes.
 ---
 
-This guide walks you through installing the theme and getting a working documentation site running locally. By the end, you'll have a Jekyll site with VitePress-style navigation, sidebar, and styling.
+This guide walks you through installing the theme and getting a working documentation site running locally. By the end, you'll have a Jekyll site with VitePress-style navigation, a persistent sidebar, Turbo-powered internal page changes, and polished default styling.
 
 ## Add the gem
 
@@ -23,7 +23,7 @@ bundle install
 
 ## Enable theme and plugin
 
-The gem serves double duty — it provides layouts and assets as a **theme**, and registers Jekyll hooks as a **plugin**. You need to enable both:
+The gem serves double duty. It provides layouts and assets as a **theme**, and registers Jekyll hooks as a **plugin**. You need to enable both:
 
 ```yaml
 theme: jekyll-vitepress-theme
@@ -113,6 +113,6 @@ The `nav_order` value controls the sort order in the sidebar. Lower numbers appe
 bundle exec jekyll serve --livereload
 ```
 
-Open `http://127.0.0.1:4000` and you should see your site with the VitePress layout — top nav, sidebar, and your content in the center.
+Open `http://127.0.0.1:4000`. You should see the VitePress-style layout: top nav, sidebar, content area, right outline, local search, and fast doc-to-doc navigation.
 
 {% include alert.html type="tip" content="To add a VitePress-style landing page with a hero section and feature cards, set `layout: home` in your `index.md` frontmatter. See the [Frontmatter Reference](/frontmatter-reference/) for the full set of home layout keys." %}

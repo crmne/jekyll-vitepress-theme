@@ -187,7 +187,7 @@
 
         <div class="pager">
           {% if show_prev_link %}
-            <a class="VPLink link pager-link prev" href="{{ prev_url }}">
+            <a class="VPLink link pager-link prev" href="{{ prev_url }}" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
               <span class="desc">{{ prev_desc }}</span>
               <span class="title">{{ prev_title }}</span>
             </a>
@@ -196,7 +196,7 @@
 
         <div class="pager">
           {% if show_next_link %}
-            <a class="VPLink link pager-link next" href="{{ next_url }}">
+            <a class="VPLink link pager-link next" href="{{ next_url }}" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
               <span class="desc">{{ next_desc }}</span>
               <span class="title">{{ next_title }}</span>
             </a>

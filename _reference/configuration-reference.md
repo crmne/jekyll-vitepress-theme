@@ -14,24 +14,24 @@ For parity notes and optional extras compared to VitePress core, see [VitePress 
 ## Minimal setup
 
 ```yaml
-# _config.yml
 jekyll_vitepress:
   branding:
     site_title: My Docs
 ```
+{: data-title="_config.yml"}
 
 ```yaml
-# _data/navigation.yml
 - title: Guide
   url: /getting-started/
   collections: [introduction, core_features, advanced]
 ```
+{: data-title="_data/navigation.yml"}
 
 ```yaml
-# _data/sidebar.yml
 - title: Getting Started
   collection: introduction
 ```
+{: data-title="_data/sidebar.yml"}
 
 ## `_config.yml` (`jekyll_vitepress`)
 
@@ -101,7 +101,7 @@ jekyll_vitepress:
 ### Footer and Doc Footer
 
 - `footer.enabled`
-- `footer.show_on_docs` (defaults to `false` — footer only shows on home page unless set to `true`)
+- `footer.show_on_docs` (defaults to `false`; footer only shows on home page unless set to `true`)
 - `footer.message`
 - `footer.copyright`
 - `doc_footer.enabled`
@@ -289,7 +289,6 @@ Use these optional include files to inject custom markup without forking layouts
 If the files are absent in your site, the theme's empty defaults are used.
 
 ```html
-<!-- _includes/jekyll_vitepress/doc_footer_end.html -->
 <div class="my-doc-footer">
   Need help? <a href="/support/">Contact support</a>.
 </div>

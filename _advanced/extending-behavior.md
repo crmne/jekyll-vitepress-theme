@@ -4,15 +4,15 @@ nav_order: 2
 description: Extend via layout/include overrides and custom scripts.
 ---
 
-Because this is Jekyll, extension is straightforward — override a file and you're done. The theme provides several levels of customization, from simple hooks to full layout overrides.
+Because this is Jekyll, extension is straightforward. Override a file and you are done. The theme provides several levels of customization, from simple hooks to full layout overrides.
 
 ## Hook includes (non-destructive)
 
 The easiest way to add custom markup is through the theme's hook includes. Create any of these files in your site and they'll be injected at the right point:
 
-- `_includes/jekyll_vitepress/head_end.html` — injected just before `</head>`. Use this for analytics scripts, meta tags, or extra stylesheets.
-- `_includes/jekyll_vitepress/doc_footer_end.html` — injected after the doc footer. Use this for feedback widgets, related pages, or custom CTAs.
-- `_includes/jekyll_vitepress/layout_end.html` — injected just before `</body>`. Use this for chat widgets, global scripts, or modals.
+- `_includes/jekyll_vitepress/head_end.html`: injected just before `</head>`. Use this for analytics scripts, meta tags, or extra stylesheets.
+- `_includes/jekyll_vitepress/doc_footer_end.html`: injected after the doc footer. Use this for feedback widgets, related pages, or custom CTAs.
+- `_includes/jekyll_vitepress/layout_end.html`: injected just before `</body>`. Use this for chat widgets, global scripts, or modals.
 
 For example, to add a simple feedback prompt after every doc page:
 
@@ -24,7 +24,7 @@ For example, to add a simple feedback prompt after every doc page:
 ```
 {: data-title="_includes/jekyll_vitepress/doc_footer_end.html"}
 
-If these files don't exist in your site, the theme's empty defaults are used — no errors, no output.
+If these files don't exist in your site, the theme's empty defaults are used. There are no errors and no output.
 
 ## Include overrides
 
@@ -32,9 +32,9 @@ For deeper changes, override any of the theme's built-in includes by creating a 
 
 Common overrides:
 
-- `_includes/nav.html` — customize the top navigation
-- `_includes/sidebar.html` — change sidebar rendering
-- `_includes/doc_footer.html` — modify the doc footer layout
+- `_includes/nav.html`: customize the top navigation
+- `_includes/sidebar.html`: change sidebar rendering
+- `_includes/doc_footer.html`: modify the doc footer layout
 
 ## Layout overrides
 
@@ -51,3 +51,5 @@ To add your own JavaScript or CSS, use the `head_end.html` hook include:
 {: data-title="_includes/jekyll_vitepress/head_end.html"}
 
 {% include alert.html type="warning" content="If you override includes or layouts that contain interactive elements (sidebar, outline, search), keep the existing class names and DOM structure intact. The theme's JavaScript relies on these to wire up sidebar toggling, scroll tracking, and search behavior." %}
+
+{% include alert.html type="tip" content="If you override nav, sidebar, search, or the default layout, preserve the Turbo Frame attributes on internal docs links. Those attributes are what keep navigation fast while leaving the sidebar and navbar in place." %}

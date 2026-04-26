@@ -1,4 +1,4 @@
-<div class="VPSearch" id="vp-search" data-search-index-url="{{ '/search.json' | relative_url }}" hidden>
+<div class="VPSearch" id="vp-search" data-search-index-url="{{ '/search.json' | relative_url }}"{% if page.collection %} data-search-frame-target="vp-content-frame"{% endif %} hidden>
   <div class="VPSearchBackdrop" id="vp-search-backdrop"></div>
 
   <div class="VPSearchDialog" role="dialog" aria-modal="true" aria-labelledby="vp-search-label">

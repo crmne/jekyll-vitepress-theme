@@ -6,7 +6,7 @@ description: Keyboard search, generated index, and active heading tracking.
 
 ## Local search
 
-The theme includes a built-in search modal that works entirely client-side — no external service required.
+The theme includes a built-in search modal that works entirely client-side. No external service is required.
 
 Open search with any of these shortcuts:
 
@@ -14,7 +14,9 @@ Open search with any of these shortcuts:
 - `Ctrl+K` (Windows/Linux)
 - `Cmd+K` (macOS)
 
-The plugin generates `/search.json` automatically at build time. It includes the home page and all documents from your sidebar collections. Results show matching page titles and content excerpts, and clicking a result navigates directly to that page.
+The plugin generates `/search.json` automatically at build time. It includes the home page and all documents from your sidebar collections. Results show matching page titles and content excerpts.
+
+On docs pages, clicking a search result uses the same Turbo Frame navigation as sidebar links, so the result opens without tearing down the surrounding docs shell.
 
 If you need custom indexing behavior, add your own `search.json` page to the site and it will override the generated default.
 

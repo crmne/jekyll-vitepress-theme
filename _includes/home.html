@@ -252,7 +252,7 @@
 
                   <h2 class="title">{{ feature.title }}</h2>
                   {% if feature.details %}
-                    <p class="details">{{ feature.details }}</p>
+                    <p class="details">{{ feature.details | markdownify | remove: '<p>' | remove: '</p>' }}</p>
                   {% endif %}
                   {% if feature.link_text %}
                     <div class="link-text">

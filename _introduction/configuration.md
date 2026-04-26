@@ -4,7 +4,7 @@ nav_order: 3
 description: Configure branding, nav, sidebars, edit links, and theme tokens.
 ---
 
-All theme configuration follows a Jekyll-native pattern: rendering options go in `_config.yml` under `jekyll_vitepress`, while navigation and other displayed lists go in `_data/*.yml` files. There's nothing custom to learn — if you know Jekyll, you already know how this works.
+All theme configuration follows a Jekyll-native pattern: rendering options go in `_config.yml` under `jekyll_vitepress`, while navigation and other displayed lists go in `_data/*.yml` files. There's nothing custom to learn. If you know Jekyll, you already know how this works.
 
 ## Branding and syntax highlighting
 
@@ -53,7 +53,7 @@ Set `google_fonts_url: false` to disable external font loading entirely (useful 
 
 ## Navigation and sidebar
 
-Navigation links appear in the top navbar. Each link has a `title`, a `url` (where clicking it navigates), and a list of `collections` it "owns" — this controls which nav item stays highlighted as the user browses pages within those collections:
+Navigation links appear in the top navbar. Each link has a `title`, a `url` (where clicking it navigates), and a list of `collections` it "owns". This controls which nav item stays highlighted as the user browses pages within those collections:
 
 ```yaml
 - title: Guide
@@ -121,7 +121,7 @@ items:
 ```
 {: data-title="_data/versions.yml"}
 
-Set `current: auto` to automatically resolve to `v#{Jekyll::VitePressTheme::VERSION}` at build time — handy if your docs version should track your gem version.
+Set `current: auto` to automatically resolve to `v#{Jekyll::VitePressTheme::VERSION}` at build time. This is handy if your docs version should track your gem version.
 
 ## GitHub star button
 
@@ -141,9 +141,9 @@ jekyll_vitepress:
 
 Need custom `<head>` tags (analytics, verification meta, extra fonts)? Create any of these include files in your site to inject markup without forking the theme's layouts:
 
-- `_includes/jekyll_vitepress/head_end.html` — appended inside `<head>`
-- `_includes/jekyll_vitepress/doc_footer_end.html` — appended after the doc footer
-- `_includes/jekyll_vitepress/layout_end.html` — appended before `</body>`
+- `_includes/jekyll_vitepress/head_end.html`: appended inside `<head>`
+- `_includes/jekyll_vitepress/doc_footer_end.html`: appended after the doc footer
+- `_includes/jekyll_vitepress/layout_end.html`: appended before `</body>`
 
 If these files don't exist in your site, the theme's empty defaults are used.
 

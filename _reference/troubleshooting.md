@@ -23,6 +23,12 @@ description: Common setup and runtime issues.
 - Ensure each item has both `title` and `url` keys.
 - If nav items don't highlight correctly, check that the `collections` array references valid collection names.
 
+## Page navigation reloads the whole document
+
+- Confirm `assets/vendor/turbo.js` and `assets/js/vitepress-theme.js` are both loading without 404 errors.
+- If you override `_includes/nav.html`, `_includes/sidebar.html`, `_includes/search.html`, or `_layouts/default.html`, keep the `turbo-frame` wrapper and the `data-turbo`, `data-turbo-frame`, and `data-turbo-action` attributes on internal doc links.
+- Links to the home page, external sites, downloads, or links with `data-turbo="false"` intentionally use normal browser navigation.
+
 ## Last updated does not appear
 
 - Ensure the plugin is enabled in `_config.yml`:
@@ -48,7 +54,7 @@ plugins:
 ## Code blocks have no syntax colors
 
 - Verify your Rouge theme names are valid. Invalid names produce a build warning and fall back to `github` / `github.dark`.
-- Ensure `plugins: [jekyll-vitepress-theme]` is set — the Rouge CSS generation happens in the plugin hooks.
+- Ensure `plugins: [jekyll-vitepress-theme]` is set. The Rouge CSS generation happens in the plugin hooks.
 - Check that your Kramdown config uses Rouge as the syntax highlighter (this is the Jekyll default, but a custom `_config.yml` might override it).
 
 ## Dark mode code blocks use the wrong colors
@@ -61,4 +67,4 @@ plugins:
 
 ## Build fails with "Unknown Rouge theme" warning
 
-- This is a warning, not an error — the build will still succeed, falling back to the default themes. To fix it, check your `jekyll_vitepress.syntax.light_theme` and `dark_theme` values against the list of [available Rouge themes](https://github.com/rouge-ruby/rouge/tree/master/lib/rouge/themes).
+- This is a warning, not an error. The build will still succeed and fall back to the default themes. To fix it, check your `jekyll_vitepress.syntax.light_theme` and `dark_theme` values against the list of [available Rouge themes](https://github.com/rouge-ruby/rouge/tree/master/lib/rouge/themes).

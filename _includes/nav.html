@@ -80,7 +80,7 @@
                 {% elsif page.url == item.url %}
                   {% assign is_active = true %}
                 {% endif %}
-                <a class="VPLink link VPNavBarMenuLink{% if is_active %} active{% endif %}" href="{{ item.url | relative_url }}">
+                <a class="VPLink link VPNavBarMenuLink{% if is_active %} active{% endif %}" href="{{ item.url | relative_url }}" data-vp-nav-link{% if item.collections %} data-collections="{{ item.collections | join: '|' }}"{% endif %}{% if include.has_sidebar and item.collections %} data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance"{% endif %}>
                   <span>{{ item.title }}</span>
                 </a>
               {% endfor %}
@@ -241,7 +241,7 @@
           {% elsif page.url == item.url %}
             {% assign is_active = true %}
           {% endif %}
-          <a class="VPLink link VPNavScreenMenuLink{% if is_active %} active{% endif %}" href="{{ item.url | relative_url }}">
+          <a class="VPLink link VPNavScreenMenuLink{% if is_active %} active{% endif %}" href="{{ item.url | relative_url }}" data-vp-nav-link{% if item.collections %} data-collections="{{ item.collections | join: '|' }}"{% endif %}{% if include.has_sidebar and item.collections %} data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance"{% endif %}>
             <span>{{ item.title }}</span>
           </a>
         {% endfor %}

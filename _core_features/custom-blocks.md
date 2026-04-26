@@ -4,7 +4,7 @@ nav_order: 3
 description: Callout boxes for tips, warnings, and other highlighted content.
 ---
 
-The theme includes styled callout blocks that match VitePress custom containers — colored boxes for tips, warnings, danger notices, and more. They use a built-in `alert.html` include that produces the exact VitePress HTML structure.
+The theme includes styled callout blocks that match VitePress custom containers: colored boxes for tips, warnings, danger notices, and more. They use a built-in `alert.html` include that produces the exact VitePress HTML structure.
 
 ## Syntax
 
@@ -18,7 +18,7 @@ The `type` controls the color and default title. The `content` is processed as M
 
 {% include alert.html type="info" content="This is an `info` block. Use it for neutral, supplementary information." %}
 
-{% include alert.html type="note" content="This is a `note` block. Visually identical to info — use whichever label fits better." %}
+{% include alert.html type="note" content="This is a `note` block. Visually identical to info; use whichever label fits better." %}
 
 {% include alert.html type="tip" content="This is a helpful `tip` block." %}
 
@@ -44,7 +44,7 @@ Each type has a default title (`TIP`, `WARNING`, etc.). Override it with the `ti
 
 ## Markdown in content
 
-The `content` parameter supports inline Markdown — code, links, bold, and so on:
+The `content` parameter supports inline Markdown: code, links, bold, and so on:
 
 ```liquid
 {% raw %}{% include alert.html type="tip" content="Set `layout: home` in your frontmatter. See the [Frontmatter Reference](/frontmatter-reference/) for details." %}{% endraw %}

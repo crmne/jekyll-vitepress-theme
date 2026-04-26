@@ -31,62 +31,69 @@
 
         <div class="VPContent{% if has_sidebar %} has-sidebar{% endif %}{% if is_home %} is-home{% endif %}" id="VPContent">
           {% if has_sidebar %}
-            <div class="VPDoc has-sidebar has-aside">
-              <div class="container">
-                <div class="aside">
-                  <div class="aside-curtain"></div>
-                  <div class="aside-container">
-                    <div class="aside-content">
-                      <div class="VPDocAside">
-                        <nav aria-labelledby="doc-outline-aria-label" class="VPDocAsideOutline has-outline" id="vp-doc-outline">
-                          <div class="content">
-                            <div class="outline-marker" id="vp-outline-marker"></div>
-                            <div aria-level="2" class="outline-title" id="doc-outline-aria-label" role="heading">{{ theme.labels.outline | default: 'On this page' }}</div>
-                            <ul class="VPDocOutlineItem root"></ul>
-                          </div>
-                        </nav>
-                        <div class="spacer"></div>
+            {% assign frame_page_title = site.title %}
+            {% if page.title and page.title != site.title %}
+              {% capture frame_page_title %}{{ page.title }} | {{ site.title }}{% endcapture %}
+            {% endif %}
+            <turbo-frame id="vp-content-frame" target="_top">
+              <div id="vp-page-state" hidden data-title="{{ frame_page_title | strip | escape }}" data-url="{{ page.url | relative_url }}" data-collection="{{ page.collection | default: '' | escape }}"></div>
+              <div class="VPDoc has-sidebar has-aside">
+                <div class="container">
+                  <div class="aside">
+                    <div class="aside-curtain"></div>
+                    <div class="aside-container">
+                      <div class="aside-content">
+                        <div class="VPDocAside">
+                          <nav aria-labelledby="doc-outline-aria-label" class="VPDocAsideOutline has-outline" id="vp-doc-outline">
+                            <div class="content">
+                              <div class="outline-marker" id="vp-outline-marker"></div>
+                              <div aria-level="2" class="outline-title" id="doc-outline-aria-label" role="heading">{{ theme.labels.outline | default: 'On this page' }}</div>
+                              <ul class="VPDocOutlineItem root"></ul>
+                            </div>
+                          </nav>
+                          <div class="spacer"></div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="content">
-                  <div class="content-container">
-                    <main class="main">
-                      <div class="vp-doc external-link-icon-enabled{% if page.url %} {{ page.url | replace: '/', '_' | replace: '.', '_' }}{% endif %}">
-                        {% assign show_auto_page_title = false %}
-                        {% if page.title and page_theme.auto_title != false %}
-                          {% unless content contains '<h1' %}
-                            {% assign show_auto_page_title = true %}
-                          {% endunless %}
-                        {% endif %}
-                        {% assign copy_page_enabled = true %}
-                        {% if theme.copy_page and theme.copy_page.enabled == false %}
-                          {% assign copy_page_enabled = false %}
-                        {% endif %}
-                        {% if page_theme.copy_page == false %}
-                          {% assign copy_page_enabled = false %}
-                        {% endif %}
-                        <div class="vp-doc-header">
-                          {% if show_auto_page_title %}
-                            <h1>{{ page.title }}</h1>
+                  <div class="content">
+                    <div class="content-container">
+                      <main class="main">
+                        <div class="vp-doc external-link-icon-enabled{% if page.url %} {{ page.url | replace: '/', '_' | replace: '.', '_' }}{% endif %}">
+                          {% assign show_auto_page_title = false %}
+                          {% if page.title and page_theme.auto_title != false %}
+                            {% unless content contains '<h1' %}
+                              {% assign show_auto_page_title = true %}
+                            {% endunless %}
                           {% endif %}
+                          {% assign copy_page_enabled = true %}
+                          {% if theme.copy_page and theme.copy_page.enabled == false %}
+                            {% assign copy_page_enabled = false %}
+                          {% endif %}
+                          {% if page_theme.copy_page == false %}
+                            {% assign copy_page_enabled = false %}
+                          {% endif %}
+                          <div class="vp-doc-header">
+                            {% if show_auto_page_title %}
+                              <h1>{{ page.title }}</h1>
+                            {% endif %}
+                            {% if copy_page_enabled and page._raw_markdown and page._raw_markdown != "" %}
+                              {% include copy_page_button.html %}
+                            {% endif %}
+                          </div>
                           {% if copy_page_enabled and page._raw_markdown and page._raw_markdown != "" %}
-                            {% include copy_page_button.html %}
+                            <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">{{ page._raw_markdown | xml_escape }}</textarea>
                           {% endif %}
+                          {{ content }}
                         </div>
-                        {% if copy_page_enabled and page._raw_markdown and page._raw_markdown != "" %}
-                          <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">{{ page._raw_markdown | xml_escape }}</textarea>
-                        {% endif %}
-                        {{ content }}
-                      </div>
-                    </main>
-                    {% include doc_footer.html %}
+                      </main>
+                      {% include doc_footer.html %}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </turbo-frame>
           {% elsif is_home %}
             {% include home.html content=content %}
           {% else %}

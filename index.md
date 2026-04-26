@@ -25,19 +25,15 @@ hero:
 
 features:
   - icon: ⚡
-    title: Familiar VitePress UX
-    details: Top nav, left sidebar, right outline, and doc footer pager with high visual parity.
+    title: Turbo Page Navigation
+    details: Internal docs links swap only the content frame, keeping the sidebar and shell in place for VitePress-like page changes.
   - icon: 🧩
-    title: Jekyll-Native Config
-    details: Configure nav, sidebars, edit links, labels, colors, fonts, and more in `_config.yml`.
+    title: Ruby-Native Setup
+    details: Configure docs with collections, frontmatter, `_config.yml`, and `_data/*.yml`; no Vite app required.
   - icon: 🎨
-    title: Rouge + Theme Tokens
-    details: Use Rouge-native light/dark themes and override CSS variables for branding and polish.
+    title: Familiar VitePress UX
+    details: Top nav, sidebar, right outline, local search, dark mode, code blocks, and doc footers come ready to use.
   - icon: 🔍
-    title: Built-In Local Search
-    details: Fast docs search with `/` and `Ctrl/Cmd+K`, powered by a generated `search.json` index.
+    title: Static Output
+    details: Build with Jekyll and deploy static HTML anywhere, while Turbo makes navigation feel app-fast.
 ---
-
-## Build docs like VitePress, ship docs like Jekyll
-
-Start with [Getting Started](/getting-started/), then tune the theme in [Configuration Reference](/configuration-reference/).
