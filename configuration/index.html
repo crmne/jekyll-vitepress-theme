@@ -351,6 +351,12 @@
 
 
 
+
+
+
+
+
+
 <header class="VPNav">
   <div class="VPNavBar has-sidebar top" id="vp-nav-bar">
     <div class="wrapper">
@@ -416,7 +422,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.3.1</span>
+                      <span>v1.4.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -470,6 +476,18 @@
                             </a>
                           </div>
                         
+                        
+                          <div class="VPNavBarStar VPNavBarSponsor">
+                            <a class="VPLink link no-icon VPNavBarStarLink VPNavBarSponsorLink" href="https://github.com/sponsors/crmne" aria-label="Sponsor on GitHub" target="_blank" rel="noreferrer noopener">
+                              <span class="VPNavBarSponsorIcon" aria-hidden="true">
+                                <svg viewBox="0 0 16 16" focusable="false">
+                                  <path d="M8 13.25l-.7-.64C3.1 8.79 1 6.88 1 4.5 1 2.56 2.56 1 4.5 1c1.1 0 2.15.51 2.83 1.31A3.76 3.76 0 0 1 10.5 1C12.44 1 14 2.56 14 4.5c0 2.38-2.1 4.29-6.3 8.11l-.7.64z"></path>
+                                </svg>
+                              </span>
+                              <span class="VPNavBarStarText">Sponsor</span>
+                            </a>
+                          </div>
+                        
 
                         
                           
@@ -508,6 +526,18 @@
                     <span class="vpi-social-github" aria-hidden="true"></span>
                     <span class="VPNavBarStarText">Star</span>
                     <span class="VPNavBarStarCount" aria-hidden="true">...</span>
+                  </a>
+                </div>
+              
+              
+                <div class="VPNavBarStar VPNavBarSponsor" id="vp-nav-sponsor">
+                  <a class="VPLink link no-icon VPNavBarStarLink VPNavBarSponsorLink" href="https://github.com/sponsors/crmne" aria-label="Sponsor on GitHub" target="_blank" rel="noreferrer noopener">
+                    <span class="VPNavBarSponsorIcon" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" focusable="false">
+                        <path d="M8 13.25l-.7-.64C3.1 8.79 1 6.88 1 4.5 1 2.56 2.56 1 4.5 1c1.1 0 2.15.51 2.83 1.31A3.76 3.76 0 0 1 10.5 1C12.44 1 14 2.56 14 4.5c0 2.38-2.1 4.29-6.3 8.11l-.7.64z"></path>
+                      </svg>
+                    </span>
+                    <span class="VPNavBarStarText">Sponsor</span>
                   </a>
                 </div>
               
@@ -569,7 +599,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.3.1</span>
+            <span class="button-text">v1.4.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -610,6 +640,18 @@
               <span class="vpi-social-github" aria-hidden="true"></span>
               <span class="VPNavBarStarText">Star</span>
               <span class="VPNavBarStarCount" aria-hidden="true">...</span>
+            </a>
+          </div>
+        
+        
+          <div class="VPNavBarStar VPNavScreenStar VPNavBarSponsor">
+            <a class="VPLink link no-icon VPNavBarStarLink VPNavScreenStarLink VPNavBarSponsorLink" href="https://github.com/sponsors/crmne" aria-label="Sponsor on GitHub" target="_blank" rel="noreferrer noopener">
+              <span class="VPNavBarSponsorIcon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" focusable="false">
+                  <path d="M8 13.25l-.7-.64C3.1 8.79 1 6.88 1 4.5 1 2.56 2.56 1 4.5 1c1.1 0 2.15.51 2.83 1.31A3.76 3.76 0 0 1 10.5 1C12.44 1 14 2.56 14 4.5c0 2.38-2.1 4.29-6.3 8.11l-.7.64z"></path>
+                </svg>
+              </span>
+              <span class="VPNavBarStarText">Sponsor</span>
             </a>
           </div>
         
@@ -1137,7 +1179,7 @@ items:
 
 Set `current: auto` to automatically resolve to `v#{Jekyll::VitePressTheme::VERSION}` at build time. This is handy if your docs version should track your gem version.
 
-## GitHub star button
+## GitHub buttons
 
 Show a GitHub star button with live count in the navbar:
 
@@ -1150,6 +1192,19 @@ jekyll_vitepress:
     show_count: true
 ```
 {: data-title=&quot;_config.yml&quot;}
+
+You can also show a GitHub Sponsors button next to it:
+
+```yaml
+jekyll_vitepress:
+  github_sponsor:
+    enabled: true
+    user: you
+    text: Sponsor
+```
+{: data-title=&quot;_config.yml&quot;}
+
+Use `url` instead of `user` if you want to point to a custom sponsorship page.
 
 ## Extension hooks
 
@@ -1269,7 +1324,7 @@ For complete configuration keys and detailed examples, see the [Configuration Re
 
 <p>Set <code class="language-plaintext highlighter-rouge">current: auto</code> to automatically resolve to <code class="language-plaintext highlighter-rouge">v#{Jekyll::VitePressTheme::VERSION}</code> at build time. This is handy if your docs version should track your gem version.</p>
 
-<h2 id="github-star-button">GitHub star button</h2>
+<h2 id="github-buttons">GitHub buttons</h2>
 
 <p>Show a GitHub star button with live count in the navbar:</p>
 
@@ -1280,6 +1335,17 @@ For complete configuration keys and detailed examples, see the [Configuration Re
     <span class="na">text</span><span class="pi">:</span> <span class="s">Star</span>
     <span class="na">show_count</span><span class="pi">:</span> <span class="kc">true</span>
 </code></pre></div></div>
+
+<p>You can also show a GitHub Sponsors button next to it:</p>
+
+<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
+  <span class="na">github_sponsor</span><span class="pi">:</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">user</span><span class="pi">:</span> <span class="s">you</span>
+    <span class="na">text</span><span class="pi">:</span> <span class="s">Sponsor</span>
+</code></pre></div></div>
+
+<p>Use <code class="language-plaintext highlighter-rouge">url</code> instead of <code class="language-plaintext highlighter-rouge">user</code> if you want to point to a custom sponsorship page.</p>
 
 <h2 id="extension-hooks">Extension hooks</h2>
 

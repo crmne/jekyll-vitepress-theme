@@ -23,7 +23,7 @@ The unusual part is navigation. Internal docs links use Turbo Frames, so page ch
 
 ## Why Use It
 
-- **VitePress-like UX:** top nav, persistent sidebar, right outline, doc footer pager, search modal, and theme toggle.
+- **VitePress-like UX:** top nav, persistent sidebar, right outline, doc footer pager, search modal, theme toggle, and optional GitHub Star/Sponsor buttons.
 - **Turbo page navigation:** only the docs content frame swaps, so the shell stays in place and page changes feel fast.
 - **Jekyll-native setup:** configure everything with `_config.yml`, `_data/*.yml`, collections, includes, and frontmatter.
 - **Ruby syntax pipeline:** Rouge powers light and dark syntax themes without a separate JavaScript build.

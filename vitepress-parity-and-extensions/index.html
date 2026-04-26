@@ -351,6 +351,12 @@
 
 
 
+
+
+
+
+
+
 <header class="VPNav">
   <div class="VPNavBar has-sidebar top" id="vp-nav-bar">
     <div class="wrapper">
@@ -416,7 +422,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.3.1</span>
+                      <span>v1.4.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -470,6 +476,18 @@
                             </a>
                           </div>
                         
+                        
+                          <div class="VPNavBarStar VPNavBarSponsor">
+                            <a class="VPLink link no-icon VPNavBarStarLink VPNavBarSponsorLink" href="https://github.com/sponsors/crmne" aria-label="Sponsor on GitHub" target="_blank" rel="noreferrer noopener">
+                              <span class="VPNavBarSponsorIcon" aria-hidden="true">
+                                <svg viewBox="0 0 16 16" focusable="false">
+                                  <path d="M8 13.25l-.7-.64C3.1 8.79 1 6.88 1 4.5 1 2.56 2.56 1 4.5 1c1.1 0 2.15.51 2.83 1.31A3.76 3.76 0 0 1 10.5 1C12.44 1 14 2.56 14 4.5c0 2.38-2.1 4.29-6.3 8.11l-.7.64z"></path>
+                                </svg>
+                              </span>
+                              <span class="VPNavBarStarText">Sponsor</span>
+                            </a>
+                          </div>
+                        
 
                         
                           
@@ -508,6 +526,18 @@
                     <span class="vpi-social-github" aria-hidden="true"></span>
                     <span class="VPNavBarStarText">Star</span>
                     <span class="VPNavBarStarCount" aria-hidden="true">...</span>
+                  </a>
+                </div>
+              
+              
+                <div class="VPNavBarStar VPNavBarSponsor" id="vp-nav-sponsor">
+                  <a class="VPLink link no-icon VPNavBarStarLink VPNavBarSponsorLink" href="https://github.com/sponsors/crmne" aria-label="Sponsor on GitHub" target="_blank" rel="noreferrer noopener">
+                    <span class="VPNavBarSponsorIcon" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" focusable="false">
+                        <path d="M8 13.25l-.7-.64C3.1 8.79 1 6.88 1 4.5 1 2.56 2.56 1 4.5 1c1.1 0 2.15.51 2.83 1.31A3.76 3.76 0 0 1 10.5 1C12.44 1 14 2.56 14 4.5c0 2.38-2.1 4.29-6.3 8.11l-.7.64z"></path>
+                      </svg>
+                    </span>
+                    <span class="VPNavBarStarText">Sponsor</span>
                   </a>
                 </div>
               
@@ -569,7 +599,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.3.1</span>
+            <span class="button-text">v1.4.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -610,6 +640,18 @@
               <span class="vpi-social-github" aria-hidden="true"></span>
               <span class="VPNavBarStarText">Star</span>
               <span class="VPNavBarStarCount" aria-hidden="true">...</span>
+            </a>
+          </div>
+        
+        
+          <div class="VPNavBarStar VPNavScreenStar VPNavBarSponsor">
+            <a class="VPLink link no-icon VPNavBarStarLink VPNavScreenStarLink VPNavBarSponsorLink" href="https://github.com/sponsors/crmne" aria-label="Sponsor on GitHub" target="_blank" rel="noreferrer noopener">
+              <span class="VPNavBarSponsorIcon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" focusable="false">
+                  <path d="M8 13.25l-.7-.64C3.1 8.79 1 6.88 1 4.5 1 2.56 2.56 1 4.5 1c1.1 0 2.15.51 2.83 1.31A3.76 3.76 0 0 1 10.5 1C12.44 1 14 2.56 14 4.5c0 2.38-2.1 4.29-6.3 8.11l-.7.64z"></path>
+                </svg>
+              </span>
+              <span class="VPNavBarStarText">Sponsor</span>
             </a>
           </div>
         
@@ -1054,6 +1096,7 @@ These are deliberate departures from VitePress internals. The functionality is e
 These features are not part of baseline VitePress but are included as optional extras:
 
 - **GitHub star widget:** a navbar button showing live star count from the GitHub API, configured via `jekyll_vitepress.github_star`
+- **GitHub Sponsors widget:** a navbar button linking to GitHub Sponsors or a custom sponsorship URL, configured via `jekyll_vitepress.github_sponsor`
 - **Local search index:** a simple client-side search built from `search.json`, generated at build time from sidebar collection content
 - **Version selector:** a data-driven dropdown from `_data/versions.yml` with `current: auto` support for automatic version label resolution
 - **Copy page:** a split button offering &quot;Copy page&quot; (copies raw Markdown to clipboard for LLM use) and &quot;View as Markdown&quot; (opens the page as a plain `.md` file). Enabled by default; disable with `jekyll_vitepress.copy_page.enabled: false`.
@@ -1106,6 +1149,7 @@ If you want productized docs behavior beyond what VitePress ships out of the box
 
 <ul>
   <li><strong>GitHub star widget:</strong> a navbar button showing live star count from the GitHub API, configured via <code class="language-plaintext highlighter-rouge">jekyll_vitepress.github_star</code></li>
+  <li><strong>GitHub Sponsors widget:</strong> a navbar button linking to GitHub Sponsors or a custom sponsorship URL, configured via <code class="language-plaintext highlighter-rouge">jekyll_vitepress.github_sponsor</code></li>
   <li><strong>Local search index:</strong> a simple client-side search built from <code class="language-plaintext highlighter-rouge">search.json</code>, generated at build time from sidebar collection content</li>
   <li><strong>Version selector:</strong> a data-driven dropdown from <code class="language-plaintext highlighter-rouge">_data/versions.yml</code> with <code class="language-plaintext highlighter-rouge">current: auto</code> support for automatic version label resolution</li>
   <li><strong>Copy page:</strong> a split button offering “Copy page” (copies raw Markdown to clipboard for LLM use) and “View as Markdown” (opens the page as a plain <code class="language-plaintext highlighter-rouge">.md</code> file). Enabled by default; disable with <code class="language-plaintext highlighter-rouge">jekyll_vitepress.copy_page.enabled: false</code>.</li>

@@ -351,6 +351,12 @@
 
 
 
+
+
+
+
+
+
 <header class="VPNav">
   <div class="VPNavBar has-sidebar top" id="vp-nav-bar">
     <div class="wrapper">
@@ -416,7 +422,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.3.1</span>
+                      <span>v1.4.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -470,6 +476,18 @@
                             </a>
                           </div>
                         
+                        
+                          <div class="VPNavBarStar VPNavBarSponsor">
+                            <a class="VPLink link no-icon VPNavBarStarLink VPNavBarSponsorLink" href="https://github.com/sponsors/crmne" aria-label="Sponsor on GitHub" target="_blank" rel="noreferrer noopener">
+                              <span class="VPNavBarSponsorIcon" aria-hidden="true">
+                                <svg viewBox="0 0 16 16" focusable="false">
+                                  <path d="M8 13.25l-.7-.64C3.1 8.79 1 6.88 1 4.5 1 2.56 2.56 1 4.5 1c1.1 0 2.15.51 2.83 1.31A3.76 3.76 0 0 1 10.5 1C12.44 1 14 2.56 14 4.5c0 2.38-2.1 4.29-6.3 8.11l-.7.64z"></path>
+                                </svg>
+                              </span>
+                              <span class="VPNavBarStarText">Sponsor</span>
+                            </a>
+                          </div>
+                        
 
                         
                           
@@ -508,6 +526,18 @@
                     <span class="vpi-social-github" aria-hidden="true"></span>
                     <span class="VPNavBarStarText">Star</span>
                     <span class="VPNavBarStarCount" aria-hidden="true">...</span>
+                  </a>
+                </div>
+              
+              
+                <div class="VPNavBarStar VPNavBarSponsor" id="vp-nav-sponsor">
+                  <a class="VPLink link no-icon VPNavBarStarLink VPNavBarSponsorLink" href="https://github.com/sponsors/crmne" aria-label="Sponsor on GitHub" target="_blank" rel="noreferrer noopener">
+                    <span class="VPNavBarSponsorIcon" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" focusable="false">
+                        <path d="M8 13.25l-.7-.64C3.1 8.79 1 6.88 1 4.5 1 2.56 2.56 1 4.5 1c1.1 0 2.15.51 2.83 1.31A3.76 3.76 0 0 1 10.5 1C12.44 1 14 2.56 14 4.5c0 2.38-2.1 4.29-6.3 8.11l-.7.64z"></path>
+                      </svg>
+                    </span>
+                    <span class="VPNavBarStarText">Sponsor</span>
                   </a>
                 </div>
               
@@ -569,7 +599,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.3.1</span>
+            <span class="button-text">v1.4.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -610,6 +640,18 @@
               <span class="vpi-social-github" aria-hidden="true"></span>
               <span class="VPNavBarStarText">Star</span>
               <span class="VPNavBarStarCount" aria-hidden="true">...</span>
+            </a>
+          </div>
+        
+        
+          <div class="VPNavBarStar VPNavScreenStar VPNavBarSponsor">
+            <a class="VPLink link no-icon VPNavBarStarLink VPNavScreenStarLink VPNavBarSponsorLink" href="https://github.com/sponsors/crmne" aria-label="Sponsor on GitHub" target="_blank" rel="noreferrer noopener">
+              <span class="VPNavBarSponsorIcon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" focusable="false">
+                  <path d="M8 13.25l-.7-.64C3.1 8.79 1 6.88 1 4.5 1 2.56 2.56 1 4.5 1c1.1 0 2.15.51 2.83 1.31A3.76 3.76 0 0 1 10.5 1C12.44 1 14 2.56 14 4.5c0 2.38-2.1 4.29-6.3 8.11l-.7.64z"></path>
+                </svg>
+              </span>
+              <span class="VPNavBarStarText">Sponsor</span>
             </a>
           </div>
         
@@ -1136,7 +1178,7 @@ jekyll_vitepress:
 ```
 {: data-title=&quot;_config.yml&quot;}
 
-### Edit Link, Last Updated, and GitHub Star
+### Edit Link, Last Updated, GitHub Star, and GitHub Sponsor
 
 - `edit_link.enabled`
 - `edit_link.pattern`
@@ -1148,6 +1190,11 @@ jekyll_vitepress:
 - `github_star.repository` (`owner/repo`)
 - `github_star.text`
 - `github_star.show_count`
+- `github_sponsor.enabled`
+- `github_sponsor.user` (GitHub Sponsors account name)
+- `github_sponsor.url` (optional custom sponsorship URL)
+- `github_sponsor.text`
+- `github_sponsor.label`
 
 ```yaml
 jekyll_vitepress:
@@ -1164,8 +1211,14 @@ jekyll_vitepress:
     repository: you/project
     text: Star
     show_count: true
+  github_sponsor:
+    enabled: true
+    user: you
+    text: Sponsor
 ```
 {: data-title=&quot;_config.yml&quot;}
+
+If `github_sponsor.url` is omitted, the theme links to `https://github.com/sponsors/:user`.
 
 ### Copy Page
 
@@ -1424,7 +1477,7 @@ If the files are absent in your site, the theme&apos;s empty defaults are used.
     <span class="na">next_label</span><span class="pi">:</span> <span class="s">Next page</span>
 </code></pre></div></div>
 
-<h3 id="edit-link-last-updated-and-github-star">Edit Link, Last Updated, and GitHub Star</h3>
+<h3 id="edit-link-last-updated-github-star-and-github-sponsor">Edit Link, Last Updated, GitHub Star, and GitHub Sponsor</h3>
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">edit_link.enabled</code></li>
@@ -1437,6 +1490,11 @@ If the files are absent in your site, the theme&apos;s empty defaults are used.
   <li><code class="language-plaintext highlighter-rouge">github_star.repository</code> (<code class="language-plaintext highlighter-rouge">owner/repo</code>)</li>
   <li><code class="language-plaintext highlighter-rouge">github_star.text</code></li>
   <li><code class="language-plaintext highlighter-rouge">github_star.show_count</code></li>
+  <li><code class="language-plaintext highlighter-rouge">github_sponsor.enabled</code></li>
+  <li><code class="language-plaintext highlighter-rouge">github_sponsor.user</code> (GitHub Sponsors account name)</li>
+  <li><code class="language-plaintext highlighter-rouge">github_sponsor.url</code> (optional custom sponsorship URL)</li>
+  <li><code class="language-plaintext highlighter-rouge">github_sponsor.text</code></li>
+  <li><code class="language-plaintext highlighter-rouge">github_sponsor.label</code></li>
 </ul>
 
 <div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
@@ -1453,7 +1511,13 @@ If the files are absent in your site, the theme&apos;s empty defaults are used.
     <span class="na">repository</span><span class="pi">:</span> <span class="s">you/project</span>
     <span class="na">text</span><span class="pi">:</span> <span class="s">Star</span>
     <span class="na">show_count</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">github_sponsor</span><span class="pi">:</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">user</span><span class="pi">:</span> <span class="s">you</span>
+    <span class="na">text</span><span class="pi">:</span> <span class="s">Sponsor</span>
 </code></pre></div></div>
+
+<p>If <code class="language-plaintext highlighter-rouge">github_sponsor.url</code> is omitted, the theme links to <code class="language-plaintext highlighter-rouge">https://github.com/sponsors/:user</code>.</p>
 
 <h3 id="copy-page">Copy Page</h3>
 
