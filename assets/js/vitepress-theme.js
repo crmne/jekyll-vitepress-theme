@@ -1320,12 +1320,20 @@
     return;
   }
 
+  function getHeadingLabel(heading) {
+    var clone = heading.cloneNode(true);
+    clone.querySelectorAll('.header-anchor').forEach(function (anchor) {
+      anchor.remove();
+    });
+    return clone.textContent ? clone.textContent.trim() : heading.id;
+  }
+
   content.querySelectorAll('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]').forEach(function (heading) {
     if (heading.querySelector('.header-anchor')) {
       return;
     }
 
-    var title = heading.textContent ? heading.textContent.trim() : heading.id;
+    var title = getHeadingLabel(heading);
     var anchor = document.createElement('a');
     anchor.className = 'header-anchor';
     anchor.href = '#' + heading.id;
@@ -1409,7 +1417,7 @@
 
       var li = document.createElement('li');
       var link = document.createElement('a');
-      var label = entry.heading.textContent ? entry.heading.textContent.trim() : entry.heading.id;
+      var label = getHeadingLabel(entry.heading);
 
       link.className = 'outline-link';
       link.href = '#' + entry.heading.id;
@@ -1536,38 +1544,38 @@
     return 134;
   }
 
-  function scrollToHashWithOffset(hash, smooth) {
+  function getHashTarget(hash) {
     if (!hash) {
-      return;
+      return null;
     }
 
-    var target = null;
+    var id = hash.slice(1);
     try {
-      target = document.getElementById(decodeURIComponent(hash).slice(1));
+      id = decodeURIComponent(id);
     } catch (error) {
-      target = null;
+      id = hash.slice(1);
     }
 
+    return document.getElementById(id);
+  }
+
+  function scrollToHash(hash, smooth) {
+    var target = getHashTarget(hash);
     if (!target) {
-      return;
+      return false;
     }
-
-    var targetTop = window.scrollY +
-      target.getBoundingClientRect().top -
-      getConfiguredScrollOffset() +
-      (parseInt(window.getComputedStyle(target).paddingTop, 10) || 0);
 
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var behavior = 'auto';
-    if (!reduceMotion && smooth && Math.abs(targetTop - window.scrollY) <= window.innerHeight) {
+    if (!reduceMotion && smooth && Math.abs(target.getBoundingClientRect().top) <= window.innerHeight) {
       behavior = 'smooth';
     }
 
-    window.scrollTo({ left: 0, top: targetTop, behavior: behavior });
+    target.scrollIntoView({ block: 'start', inline: 'nearest', behavior: behavior });
 
     target.focus({ preventScroll: true });
     if (document.activeElement === target || target.hasAttribute('tabindex')) {
-      return;
+      return true;
     }
 
     var restoreTabindex = function () {
@@ -1581,51 +1589,98 @@
     if (document.activeElement !== target) {
       restoreTabindex();
     }
+
+    return true;
   }
 
-  function handleOutlineLinkClick(event) {
+  function getSamePageHash(link) {
+    if (!link) {
+      return null;
+    }
+
+    var href = link.getAttribute('href');
+    if (!href || href === '#') {
+      return null;
+    }
+
+    if (href.charAt(0) === '#') {
+      return href;
+    }
+
+    var url;
+    try {
+      url = new URL(href, window.location.href);
+    } catch (error) {
+      return null;
+    }
+
+    if (url.origin !== window.location.origin ||
+      normalizePathname(url.pathname) !== normalizePathname(window.location.pathname) ||
+      url.search !== window.location.search ||
+      !url.hash) {
+      return null;
+    }
+
+    return url.hash;
+  }
+
+  function handleHashLinkClick(event) {
+    if (event.defaultPrevented || (typeof event.button === 'number' && event.button !== 0) ||
+      event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+      return;
+    }
+
     var link = event.currentTarget;
     if (!link) {
       return;
     }
 
-    var hash = link.getAttribute('href');
-    if (!hash || hash.charAt(0) !== '#') {
+    var target = link.getAttribute('target');
+    if (target && target !== '_self') {
+      return;
+    }
+
+    var hash = getSamePageHash(link);
+    if (!hash || !getHashTarget(hash)) {
       return;
     }
 
     event.preventDefault();
 
     if (window.history && typeof window.history.pushState === 'function') {
+      if (window.location.hash === hash) {
+        scrollToHash(hash, true);
+        return;
+      }
       window.history.pushState(null, '', hash);
     } else {
       window.location.hash = hash;
     }
 
-    scrollToHashWithOffset(hash, true);
+    scrollToHash(hash, true);
   }
 
-  function bindOutlineLinkHandlers() {
-    document.querySelectorAll('.outline-link').forEach(function (link) {
-      if (link.hasAttribute('data-vp-bound')) {
+  function bindHashLinkHandlers() {
+    document.querySelectorAll('.outline-link, .vp-doc a[href]').forEach(function (link) {
+      if (link.hasAttribute('data-vp-hash-bound') || !getSamePageHash(link)) {
         return;
       }
-      link.setAttribute('data-vp-bound', 'true');
-      link.addEventListener('click', handleOutlineLinkClick);
+      link.setAttribute('data-vp-hash-bound', 'true');
+      link.addEventListener('click', handleHashLinkClick);
     });
   }
 
-  bindOutlineLinkHandlers();
+  bindHashLinkHandlers();
 
   if (window.location.hash) {
     window.requestAnimationFrame(function () {
-      scrollToHashWithOffset(window.location.hash, false);
+      scrollToHash(window.location.hash, false);
     });
   }
 
   window.addEventListener('hashchange', function () {
     if (window.location.hash) {
-      scrollToHashWithOffset(window.location.hash, false);
+      scrollToHash(window.location.hash, false);
     }
   });
 
@@ -1646,10 +1701,7 @@
   }
 
   function getOutlineScrollOffset() {
-    var styles = window.getComputedStyle(root);
-    var navHeight = parseFloat(styles.getPropertyValue('--vp-nav-height')) || 0;
-    var layoutTopHeight = parseFloat(styles.getPropertyValue('--vp-layout-top-height')) || 0;
-    return navHeight + layoutTopHeight;
+    return getConfiguredScrollOffset();
   }
 
   function activateOutlineHash(activeHash) {
@@ -1854,7 +1906,7 @@
         return;
       }
 
-      var title = heading.textContent ? heading.textContent.trim() : heading.id;
+      var title = getHeadingLabel(heading);
       var anchor = document.createElement('a');
       anchor.className = 'header-anchor';
       anchor.href = '#' + heading.id;
@@ -1936,7 +1988,7 @@
       localOutlineItems.hidden = true;
     }
 
-    bindOutlineLinkHandlers();
+    bindHashLinkHandlers();
     syncLocalOutlineViewportHeight();
     syncActiveHeading();
   }
@@ -1971,7 +2023,7 @@
       refreshDocPageState();
 
       if (window.location.hash) {
-        scrollToHashWithOffset(window.location.hash, false);
+        scrollToHash(window.location.hash, false);
       } else {
         window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
         activateOutlineHash(null);
