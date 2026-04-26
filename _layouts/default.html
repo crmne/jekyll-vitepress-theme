@@ -4,7 +4,8 @@
   {% assign theme = site.jekyll_vitepress %}
   {% assign behavior = theme.behavior %}
   {% assign page_theme = page.jekyll_vitepress %}
-  <body data-vp-scroll-offset="{{ behavior.scroll_offset | default: 134 }}">
+  {% assign scroll_offset = behavior.scroll_offset | default: 134 %}
+  <body data-vp-scroll-offset="{{ scroll_offset }}" style="--vp-scroll-offset: {{ scroll_offset }}px;">
     {% assign is_home = false %}
     {% if page.layout == 'home' or page.url == '/' %}
       {% assign is_home = true %}

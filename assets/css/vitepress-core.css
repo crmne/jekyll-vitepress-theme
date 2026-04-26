@@ -1306,6 +1306,15 @@ html:not(.dark) .shiki span {
   outline: none;
 }
 
+.vp-doc h1[id],
+.vp-doc h2[id],
+.vp-doc h3[id],
+.vp-doc h4[id],
+.vp-doc h5[id],
+.vp-doc h6[id] {
+  scroll-margin-top: calc(var(--vp-scroll-offset, 134px) - var(--vp-heading-anchor-offset, 0px));
+}
+
 .vp-doc h1 {
   letter-spacing: -0.02em;
   line-height: 40px;
@@ -1313,6 +1322,8 @@ html:not(.dark) .shiki span {
 }
 
 .vp-doc h2 {
+  --vp-heading-anchor-offset: 24px;
+
   margin: 48px 0 16px;
   border-top: 1px solid var(--vp-c-divider);
   padding-top: 24px;
