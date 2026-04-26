@@ -4,7 +4,7 @@ Beyond standard Markdown, the theme automatically enhances several elements to m
 
 ## Header anchors
 
-Every heading (`h1` through `h6`) that has an `id` attribute automatically gets a clickable anchor link. Hover over any heading on this page to see the `#` appear — clicking it updates the URL hash so you can share a direct link to that section.
+Every heading (`h1` through `h6`) that has an `id` attribute automatically gets a clickable anchor link. Hover over any heading on this page to see the `#` appear. Clicking it updates the URL hash so you can share a direct link to that section.
 
 Kramdown generates heading IDs from the heading text by default. You can also set a custom anchor:
 
@@ -23,17 +23,17 @@ Standard Markdown links work as expected. Use relative paths or absolute paths:
 [Configuration]({% link _reference/configuration-reference.md %})
 ```
 
-The second form uses Jekyll's `{% link %}` tag, which validates that the target file exists at build time — if you rename or delete a page, the build will fail instead of producing a broken link.
+The second form uses Jekyll's `{% link %}` tag, which validates that the target file exists at build time. If you rename or delete a page, the build will fail instead of producing a broken link.
 
 ### External links
 
-Links pointing to external URLs automatically get a visual indicator — a small arrow icon appears after the link text, signaling to readers that clicking will take them away from the docs. This is applied via CSS to any link whose `href` contains `://`.
+Links pointing to external URLs automatically get a visual indicator. A small arrow icon appears after the link text, signaling to readers that clicking will take them away from the docs. This is applied via CSS to any link whose `href` contains `://`.
 
-[VitePress documentation](https://vitepress.dev/) — notice the arrow icon.
+[VitePress documentation](https://vitepress.dev/) shows the arrow icon.
 
 ## Tables
 
-Standard GitHub-flavored Markdown tables render with VitePress styling — striped rows, bordered cells, and horizontal scroll on narrow screens:
+Standard GitHub-flavored Markdown tables render with VitePress styling: striped rows, bordered cells, and horizontal scroll on narrow screens:
 
 ```markdown
 | Feature        | Status    | Notes             |
@@ -77,6 +77,6 @@ See the [Frontmatter Reference](/frontmatter-reference/) for all available keys.
 
 ## Automatic title injection
 
-If a page has a `title` in its frontmatter but no `<h1>` in its content, the theme automatically renders the title as an `h1` at the top of the page. This keeps your Markdown clean — you don't need to repeat the title as a heading.
+If a page has a `title` in its frontmatter but no `<h1>` in its content, the theme automatically renders the title as an `h1` at the top of the page. This keeps your Markdown clean. You don't need to repeat the title as a heading.
 
 To disable this behavior on a specific page, set `jekyll_vitepress.auto_title: false` in the frontmatter.

@@ -313,6 +313,7 @@
   plausible.init()
 </script>
 
+  <script src="/assets/vendor/turbo.js" defer></script>
   <script src="/assets/js/vitepress-theme.js" defer></script>
 </head>
 
@@ -394,13 +395,13 @@
               
                 
                 
-                <a class="VPLink link VPNavBarMenuLink" href="/what-is-jekyll-vitepress-theme/">
+                <a class="VPLink link VPNavBarMenuLink" href="/what-is-jekyll-vitepress-theme/" data-vp-nav-link data-collections="introduction|core_features|advanced" data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                   <span>Guide</span>
                 </a>
               
                 
                 
-                <a class="VPLink link VPNavBarMenuLink active" href="/configuration-reference/">
+                <a class="VPLink link VPNavBarMenuLink active" href="/configuration-reference/" data-vp-nav-link data-collections="reference" data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                   <span>Reference</span>
                 </a>
               
@@ -409,7 +410,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.2.3</span>
+                      <span>v1.3.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -563,13 +564,13 @@
         
           
           
-          <a class="VPLink link VPNavScreenMenuLink" href="/what-is-jekyll-vitepress-theme/">
+          <a class="VPLink link VPNavScreenMenuLink" href="/what-is-jekyll-vitepress-theme/" data-vp-nav-link data-collections="introduction|core_features|advanced" data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
             <span>Guide</span>
           </a>
         
           
           
-          <a class="VPLink link VPNavScreenMenuLink active" href="/configuration-reference/">
+          <a class="VPLink link VPNavScreenMenuLink active" href="/configuration-reference/" data-vp-nav-link data-collections="reference" data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
             <span>Reference</span>
           </a>
         
@@ -578,7 +579,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.2.3</span>
+            <span class="button-text">v1.3.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -650,7 +651,7 @@
   </div>
 </header>
 
-        <div class="VPSearch" id="vp-search" data-search-index-url="/search.json" hidden>
+        <div class="VPSearch" id="vp-search" data-search-index-url="/search.json" data-search-frame-target="vp-content-frame" hidden>
   <div class="VPSearchBackdrop" id="vp-search-backdrop"></div>
 
   <div class="VPSearchDialog" role="dialog" aria-modal="true" aria-labelledby="vp-search-label">
@@ -704,7 +705,7 @@
         
 
         <div class="group no-transition">
-          <section class="VPSidebarItem level-0 collapsible">
+          <section class="VPSidebarItem level-0 collapsible" data-vp-sidebar-group data-collection="introduction">
             <div class="item" role="button" tabindex="0">
               <div class="indicator"></div>
               <h2 class="text">Introduction</h2>
@@ -720,7 +721,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/what-is-jekyll-vitepress-theme/">
+                    <a class="VPLink link link" href="/what-is-jekyll-vitepress-theme/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">What Is Jekyll VitePress Theme?</p>
                     </a>
                   </div>
@@ -731,7 +732,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/getting-started/">
+                    <a class="VPLink link link" href="/getting-started/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Getting Started</p>
                     </a>
                   </div>
@@ -742,7 +743,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/configuration/">
+                    <a class="VPLink link link" href="/configuration/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Configuration</p>
                     </a>
                   </div>
@@ -753,7 +754,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/overview/">
+                    <a class="VPLink link link" href="/overview/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Overview</p>
                     </a>
                   </div>
@@ -770,7 +771,7 @@
         
 
         <div class="group no-transition">
-          <section class="VPSidebarItem level-0 collapsible">
+          <section class="VPSidebarItem level-0 collapsible" data-vp-sidebar-group data-collection="core_features">
             <div class="item" role="button" tabindex="0">
               <div class="indicator"></div>
               <h2 class="text">Core Features</h2>
@@ -786,7 +787,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/navigation-layout/">
+                    <a class="VPLink link link" href="/navigation-layout/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Navigation and Layout</p>
                     </a>
                   </div>
@@ -797,7 +798,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/code-blocks/">
+                    <a class="VPLink link link" href="/code-blocks/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Code Blocks</p>
                     </a>
                   </div>
@@ -808,7 +809,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/custom-blocks/">
+                    <a class="VPLink link link" href="/custom-blocks/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Custom Blocks</p>
                     </a>
                   </div>
@@ -819,7 +820,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/search-and-outline/">
+                    <a class="VPLink link link" href="/search-and-outline/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Search and Outline</p>
                     </a>
                   </div>
@@ -830,7 +831,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/markdown-extensions/">
+                    <a class="VPLink link link" href="/markdown-extensions/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Markdown Extensions</p>
                     </a>
                   </div>
@@ -847,7 +848,7 @@
         
 
         <div class="group no-transition">
-          <section class="VPSidebarItem level-0 collapsible">
+          <section class="VPSidebarItem level-0 collapsible" data-vp-sidebar-group data-collection="advanced">
             <div class="item" role="button" tabindex="0">
               <div class="indicator"></div>
               <h2 class="text">Advanced</h2>
@@ -863,7 +864,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/customizing-styles/">
+                    <a class="VPLink link link" href="/customizing-styles/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Customizing Styles</p>
                     </a>
                   </div>
@@ -874,7 +875,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/extending-behavior/">
+                    <a class="VPLink link link" href="/extending-behavior/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Extending Behavior</p>
                     </a>
                   </div>
@@ -885,7 +886,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/deployment/">
+                    <a class="VPLink link link" href="/deployment/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Deployment</p>
                     </a>
                   </div>
@@ -902,7 +903,7 @@
         
 
         <div class="group no-transition">
-          <section class="VPSidebarItem level-0 collapsible has-active">
+          <section class="VPSidebarItem level-0 collapsible has-active" data-vp-sidebar-group data-collection="reference">
             <div class="item" role="button" tabindex="0">
               <div class="indicator"></div>
               <h2 class="text">Reference</h2>
@@ -918,7 +919,7 @@
                 <div class="VPSidebarItem level-1 is-link is-active">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/configuration-reference/">
+                    <a class="VPLink link link" href="/configuration-reference/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Configuration Reference</p>
                     </a>
                   </div>
@@ -929,7 +930,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/frontmatter-reference/">
+                    <a class="VPLink link link" href="/frontmatter-reference/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Frontmatter Reference</p>
                     </a>
                   </div>
@@ -940,7 +941,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/vitepress-parity-and-extensions/">
+                    <a class="VPLink link link" href="/vitepress-parity-and-extensions/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">VitePress Parity and Extensions</p>
                     </a>
                   </div>
@@ -951,7 +952,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/troubleshooting/">
+                    <a class="VPLink link link" href="/troubleshooting/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Troubleshooting</p>
                     </a>
                   </div>
@@ -969,41 +970,45 @@
 
         <div class="VPContent has-sidebar" id="VPContent">
           
-            <div class="VPDoc has-sidebar has-aside">
-              <div class="container">
-                <div class="aside">
-                  <div class="aside-curtain"></div>
-                  <div class="aside-container">
-                    <div class="aside-content">
-                      <div class="VPDocAside">
-                        <nav aria-labelledby="doc-outline-aria-label" class="VPDocAsideOutline has-outline" id="vp-doc-outline">
-                          <div class="content">
-                            <div class="outline-marker" id="vp-outline-marker"></div>
-                            <div aria-level="2" class="outline-title" id="doc-outline-aria-label" role="heading">On this page</div>
-                            <ul class="VPDocOutlineItem root"></ul>
-                          </div>
-                        </nav>
-                        <div class="spacer"></div>
+            
+            
+            <turbo-frame id="vp-content-frame" target="_top">
+              <div id="vp-page-state" hidden data-title="Configuration Reference | Jekyll VitePress Theme" data-url="/configuration-reference/" data-collection="reference"></div>
+              <div class="VPDoc has-sidebar has-aside">
+                <div class="container">
+                  <div class="aside">
+                    <div class="aside-curtain"></div>
+                    <div class="aside-container">
+                      <div class="aside-content">
+                        <div class="VPDocAside">
+                          <nav aria-labelledby="doc-outline-aria-label" class="VPDocAsideOutline has-outline" id="vp-doc-outline">
+                            <div class="content">
+                              <div class="outline-marker" id="vp-outline-marker"></div>
+                              <div aria-level="2" class="outline-title" id="doc-outline-aria-label" role="heading">On this page</div>
+                              <ul class="VPDocOutlineItem root"></ul>
+                            </div>
+                          </nav>
+                          <div class="spacer"></div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="content">
-                  <div class="content-container">
-                    <main class="main">
-                      <div class="vp-doc external-link-icon-enabled _configuration-reference_">
-                        
-                        
-                        
-                        
-                        
-                        <div class="vp-doc-header">
-                          
-                            <h1>Configuration Reference</h1>
+                  <div class="content">
+                    <div class="content-container">
+                      <main class="main">
+                        <div class="vp-doc external-link-icon-enabled _configuration-reference_">
                           
                           
+                          
+                          
+                          
+                          <div class="vp-doc-header">
                             
+                              <h1>Configuration Reference</h1>
+                            
+                            
+                              
 
 <div class="copy-md-group">
   <button class="copy-md-btn" type="button" title="Copy page as Markdown">
@@ -1031,10 +1036,10 @@
   </div>
 </div>
 
+                            
+                          </div>
                           
-                        </div>
-                        
-                          <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">This theme follows a Jekyll-native split:
+                            <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">This theme follows a Jekyll-native split:
 
 - Behavior and rendering options in `_config.yml` under `jekyll_vitepress`
 - Navigation/social/version/sidebar content in `_data/*.yml`
@@ -1044,24 +1049,24 @@ For parity notes and optional extras compared to VitePress core, see [VitePress 
 ## Minimal setup
 
 ```yaml
-# _config.yml
 jekyll_vitepress:
   branding:
     site_title: My Docs
 ```
+{: data-title=&quot;_config.yml&quot;}
 
 ```yaml
-# _data/navigation.yml
 - title: Guide
   url: /getting-started/
   collections: [introduction, core_features, advanced]
 ```
+{: data-title=&quot;_data/navigation.yml&quot;}
 
 ```yaml
-# _data/sidebar.yml
 - title: Getting Started
   collection: introduction
 ```
+{: data-title=&quot;_data/sidebar.yml&quot;}
 
 ## `_config.yml` (`jekyll_vitepress`)
 
@@ -1131,7 +1136,7 @@ jekyll_vitepress:
 ### Footer and Doc Footer
 
 - `footer.enabled`
-- `footer.show_on_docs` (defaults to `false` — footer only shows on home page unless set to `true`)
+- `footer.show_on_docs` (defaults to `false`; footer only shows on home page unless set to `true`)
 - `footer.message`
 - `footer.copyright`
 - `doc_footer.enabled`
@@ -1319,15 +1324,14 @@ Use these optional include files to inject custom markup without forking layouts
 If the files are absent in your site, the theme&apos;s empty defaults are used.
 
 ```html
-&lt;!-- _includes/jekyll_vitepress/doc_footer_end.html --&gt;
 &lt;div class=&quot;my-doc-footer&quot;&gt;
   Need help? &lt;a href=&quot;/support/&quot;&gt;Contact support&lt;/a&gt;.
 &lt;/div&gt;
 ```
 {: data-title=&quot;_includes/jekyll_vitepress/doc_footer_end.html&quot;}
 </textarea>
-                        
-                        <p>This theme follows a Jekyll-native split:</p>
+                          
+                          <p>This theme follows a Jekyll-native split:</p>
 
 <ul>
   <li>Behavior and rendering options in <code class="language-plaintext highlighter-rouge">_config.yml</code> under <code class="language-plaintext highlighter-rouge">jekyll_vitepress</code></li>
@@ -1338,20 +1342,17 @@ If the files are absent in your site, the theme&apos;s empty defaults are used.
 
 <h2 id="minimal-setup">Minimal setup</h2>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _config.yml</span>
-<span class="na">jekyll_vitepress</span><span class="pi">:</span>
+<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
   <span class="na">branding</span><span class="pi">:</span>
     <span class="na">site_title</span><span class="pi">:</span> <span class="s">My Docs</span>
 </code></pre></div></div>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _data/navigation.yml</span>
-<span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Guide</span>
+<div data-title="_data/navigation.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Guide</span>
   <span class="na">url</span><span class="pi">:</span> <span class="s">/getting-started/</span>
   <span class="na">collections</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">introduction</span><span class="pi">,</span> <span class="nv">core_features</span><span class="pi">,</span> <span class="nv">advanced</span><span class="pi">]</span>
 </code></pre></div></div>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _data/sidebar.yml</span>
-<span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Getting Started</span>
+<div data-title="_data/sidebar.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Getting Started</span>
   <span class="na">collection</span><span class="pi">:</span> <span class="s">introduction</span>
 </code></pre></div></div>
 
@@ -1424,7 +1425,7 @@ If the files are absent in your site, the theme&apos;s empty defaults are used.
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">footer.enabled</code></li>
-  <li><code class="language-plaintext highlighter-rouge">footer.show_on_docs</code> (defaults to <code class="language-plaintext highlighter-rouge">false</code> — footer only shows on home page unless set to <code class="language-plaintext highlighter-rouge">true</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">footer.show_on_docs</code> (defaults to <code class="language-plaintext highlighter-rouge">false</code>; footer only shows on home page unless set to <code class="language-plaintext highlighter-rouge">true</code>)</li>
   <li><code class="language-plaintext highlighter-rouge">footer.message</code></li>
   <li><code class="language-plaintext highlighter-rouge">footer.copyright</code></li>
   <li><code class="language-plaintext highlighter-rouge">doc_footer.enabled</code></li>
@@ -1604,15 +1605,14 @@ If the files are absent in your site, the theme&apos;s empty defaults are used.
 
 <p>If the files are absent in your site, the theme’s empty defaults are used.</p>
 
-<div data-title="_includes/jekyll_vitepress/doc_footer_end.html" class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- _includes/jekyll_vitepress/doc_footer_end.html --&gt;</span>
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"my-doc-footer"</span><span class="nt">&gt;</span>
+<div data-title="_includes/jekyll_vitepress/doc_footer_end.html" class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"my-doc-footer"</span><span class="nt">&gt;</span>
   Need help? <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/support/"</span><span class="nt">&gt;</span>Contact support<span class="nt">&lt;/a&gt;</span>.
 <span class="nt">&lt;/div&gt;</span>
 </code></pre></div></div>
 
-                      </div>
-                    </main>
-                    
+                        </div>
+                      </main>
+                      
 
 
 
@@ -1711,7 +1711,7 @@ If the files are absent in your site, the theme&apos;s empty defaults are used.
 
         <div class="pager">
           
-            <a class="VPLink link pager-link next" href="/frontmatter-reference/">
+            <a class="VPLink link pager-link next" href="/frontmatter-reference/" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
               <span class="desc">Next page</span>
               <span class="title">Frontmatter Reference</span>
             </a>
@@ -1724,10 +1724,11 @@ If the files are absent in your site, the theme&apos;s empty defaults are used.
   </footer>
 
 
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </turbo-frame>
           
         </div>
 

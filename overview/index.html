@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Overview | Jekyll VitePress Theme</title>
-  <meta name="description" content="How the theme is structured and what it aims to replicate from VitePress.">
+  <meta name="description" content="How the theme is structured and where Turbo, Jekyll, and VitePress-style UI meet.">
 
   
   
@@ -313,6 +313,7 @@
   plausible.init()
 </script>
 
+  <script src="/assets/vendor/turbo.js" defer></script>
   <script src="/assets/js/vitepress-theme.js" defer></script>
 </head>
 
@@ -394,13 +395,13 @@
               
                 
                 
-                <a class="VPLink link VPNavBarMenuLink active" href="/what-is-jekyll-vitepress-theme/">
+                <a class="VPLink link VPNavBarMenuLink active" href="/what-is-jekyll-vitepress-theme/" data-vp-nav-link data-collections="introduction|core_features|advanced" data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                   <span>Guide</span>
                 </a>
               
                 
                 
-                <a class="VPLink link VPNavBarMenuLink" href="/configuration-reference/">
+                <a class="VPLink link VPNavBarMenuLink" href="/configuration-reference/" data-vp-nav-link data-collections="reference" data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                   <span>Reference</span>
                 </a>
               
@@ -409,7 +410,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.2.3</span>
+                      <span>v1.3.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -563,13 +564,13 @@
         
           
           
-          <a class="VPLink link VPNavScreenMenuLink active" href="/what-is-jekyll-vitepress-theme/">
+          <a class="VPLink link VPNavScreenMenuLink active" href="/what-is-jekyll-vitepress-theme/" data-vp-nav-link data-collections="introduction|core_features|advanced" data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
             <span>Guide</span>
           </a>
         
           
           
-          <a class="VPLink link VPNavScreenMenuLink" href="/configuration-reference/">
+          <a class="VPLink link VPNavScreenMenuLink" href="/configuration-reference/" data-vp-nav-link data-collections="reference" data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
             <span>Reference</span>
           </a>
         
@@ -578,7 +579,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.2.3</span>
+            <span class="button-text">v1.3.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -650,7 +651,7 @@
   </div>
 </header>
 
-        <div class="VPSearch" id="vp-search" data-search-index-url="/search.json" hidden>
+        <div class="VPSearch" id="vp-search" data-search-index-url="/search.json" data-search-frame-target="vp-content-frame" hidden>
   <div class="VPSearchBackdrop" id="vp-search-backdrop"></div>
 
   <div class="VPSearchDialog" role="dialog" aria-modal="true" aria-labelledby="vp-search-label">
@@ -704,7 +705,7 @@
         
 
         <div class="group no-transition">
-          <section class="VPSidebarItem level-0 collapsible has-active">
+          <section class="VPSidebarItem level-0 collapsible has-active" data-vp-sidebar-group data-collection="introduction">
             <div class="item" role="button" tabindex="0">
               <div class="indicator"></div>
               <h2 class="text">Introduction</h2>
@@ -720,7 +721,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/what-is-jekyll-vitepress-theme/">
+                    <a class="VPLink link link" href="/what-is-jekyll-vitepress-theme/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">What Is Jekyll VitePress Theme?</p>
                     </a>
                   </div>
@@ -731,7 +732,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/getting-started/">
+                    <a class="VPLink link link" href="/getting-started/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Getting Started</p>
                     </a>
                   </div>
@@ -742,7 +743,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/configuration/">
+                    <a class="VPLink link link" href="/configuration/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Configuration</p>
                     </a>
                   </div>
@@ -753,7 +754,7 @@
                 <div class="VPSidebarItem level-1 is-link is-active">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/overview/">
+                    <a class="VPLink link link" href="/overview/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Overview</p>
                     </a>
                   </div>
@@ -770,7 +771,7 @@
         
 
         <div class="group no-transition">
-          <section class="VPSidebarItem level-0 collapsible">
+          <section class="VPSidebarItem level-0 collapsible" data-vp-sidebar-group data-collection="core_features">
             <div class="item" role="button" tabindex="0">
               <div class="indicator"></div>
               <h2 class="text">Core Features</h2>
@@ -786,7 +787,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/navigation-layout/">
+                    <a class="VPLink link link" href="/navigation-layout/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Navigation and Layout</p>
                     </a>
                   </div>
@@ -797,7 +798,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/code-blocks/">
+                    <a class="VPLink link link" href="/code-blocks/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Code Blocks</p>
                     </a>
                   </div>
@@ -808,7 +809,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/custom-blocks/">
+                    <a class="VPLink link link" href="/custom-blocks/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Custom Blocks</p>
                     </a>
                   </div>
@@ -819,7 +820,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/search-and-outline/">
+                    <a class="VPLink link link" href="/search-and-outline/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Search and Outline</p>
                     </a>
                   </div>
@@ -830,7 +831,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/markdown-extensions/">
+                    <a class="VPLink link link" href="/markdown-extensions/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Markdown Extensions</p>
                     </a>
                   </div>
@@ -847,7 +848,7 @@
         
 
         <div class="group no-transition">
-          <section class="VPSidebarItem level-0 collapsible">
+          <section class="VPSidebarItem level-0 collapsible" data-vp-sidebar-group data-collection="advanced">
             <div class="item" role="button" tabindex="0">
               <div class="indicator"></div>
               <h2 class="text">Advanced</h2>
@@ -863,7 +864,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/customizing-styles/">
+                    <a class="VPLink link link" href="/customizing-styles/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Customizing Styles</p>
                     </a>
                   </div>
@@ -874,7 +875,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/extending-behavior/">
+                    <a class="VPLink link link" href="/extending-behavior/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Extending Behavior</p>
                     </a>
                   </div>
@@ -885,7 +886,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/deployment/">
+                    <a class="VPLink link link" href="/deployment/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Deployment</p>
                     </a>
                   </div>
@@ -902,7 +903,7 @@
         
 
         <div class="group no-transition">
-          <section class="VPSidebarItem level-0 collapsible">
+          <section class="VPSidebarItem level-0 collapsible" data-vp-sidebar-group data-collection="reference">
             <div class="item" role="button" tabindex="0">
               <div class="indicator"></div>
               <h2 class="text">Reference</h2>
@@ -918,7 +919,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/configuration-reference/">
+                    <a class="VPLink link link" href="/configuration-reference/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Configuration Reference</p>
                     </a>
                   </div>
@@ -929,7 +930,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/frontmatter-reference/">
+                    <a class="VPLink link link" href="/frontmatter-reference/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Frontmatter Reference</p>
                     </a>
                   </div>
@@ -940,7 +941,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/vitepress-parity-and-extensions/">
+                    <a class="VPLink link link" href="/vitepress-parity-and-extensions/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">VitePress Parity and Extensions</p>
                     </a>
                   </div>
@@ -951,7 +952,7 @@
                 <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
-                    <a class="VPLink link link" href="/troubleshooting/">
+                    <a class="VPLink link link" href="/troubleshooting/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
                       <p class="text">Troubleshooting</p>
                     </a>
                   </div>
@@ -969,41 +970,45 @@
 
         <div class="VPContent has-sidebar" id="VPContent">
           
-            <div class="VPDoc has-sidebar has-aside">
-              <div class="container">
-                <div class="aside">
-                  <div class="aside-curtain"></div>
-                  <div class="aside-container">
-                    <div class="aside-content">
-                      <div class="VPDocAside">
-                        <nav aria-labelledby="doc-outline-aria-label" class="VPDocAsideOutline has-outline" id="vp-doc-outline">
-                          <div class="content">
-                            <div class="outline-marker" id="vp-outline-marker"></div>
-                            <div aria-level="2" class="outline-title" id="doc-outline-aria-label" role="heading">On this page</div>
-                            <ul class="VPDocOutlineItem root"></ul>
-                          </div>
-                        </nav>
-                        <div class="spacer"></div>
+            
+            
+            <turbo-frame id="vp-content-frame" target="_top">
+              <div id="vp-page-state" hidden data-title="Overview | Jekyll VitePress Theme" data-url="/overview/" data-collection="introduction"></div>
+              <div class="VPDoc has-sidebar has-aside">
+                <div class="container">
+                  <div class="aside">
+                    <div class="aside-curtain"></div>
+                    <div class="aside-container">
+                      <div class="aside-content">
+                        <div class="VPDocAside">
+                          <nav aria-labelledby="doc-outline-aria-label" class="VPDocAsideOutline has-outline" id="vp-doc-outline">
+                            <div class="content">
+                              <div class="outline-marker" id="vp-outline-marker"></div>
+                              <div aria-level="2" class="outline-title" id="doc-outline-aria-label" role="heading">On this page</div>
+                              <ul class="VPDocOutlineItem root"></ul>
+                            </div>
+                          </nav>
+                          <div class="spacer"></div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="content">
-                  <div class="content-container">
-                    <main class="main">
-                      <div class="vp-doc external-link-icon-enabled _overview_">
-                        
-                        
-                        
-                        
-                        
-                        <div class="vp-doc-header">
-                          
-                            <h1>Overview</h1>
+                  <div class="content">
+                    <div class="content-container">
+                      <main class="main">
+                        <div class="vp-doc external-link-icon-enabled _overview_">
                           
                           
+                          
+                          
+                          
+                          <div class="vp-doc-header">
                             
+                              <h1>Overview</h1>
+                            
+                            
+                              
 
 <div class="copy-md-group">
   <button class="copy-md-btn" type="button" title="Copy page as Markdown">
@@ -1031,36 +1036,40 @@
   </div>
 </div>
 
+                            
+                          </div>
                           
-                        </div>
-                        
-                          <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">Jekyll VitePress Theme is distributed as a single gem that acts as both a **theme** (providing layouts, includes, and assets) and a **plugin** (registering Jekyll hooks for build-time behavior). Understanding this dual role helps when you want to customize or extend things.
+                            <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">Jekyll VitePress Theme is distributed as a single gem with two jobs: it is a **theme** that provides layouts, includes, and assets, and it is a **plugin** that registers Jekyll hooks for build-time behavior.
+
+That split keeps the runtime simple. Jekyll renders static HTML. The theme adds a small amount of JavaScript for UI behavior, including Turbo Frame navigation for doc-to-doc page changes.
 
 ## Theme assets
 
 The gem ships everything needed to render a VitePress-like site:
 
-- **Layouts** (`_layouts/default.html`, `_layouts/home.html`) that compose the page structure — navbar, sidebar, content area, outline, and footer.
-- **Includes** for each UI component — navigation, search modal, sidebar, doc footer, and more.
+- **Layouts** (`_layouts/default.html`, `_layouts/home.html`) that compose the page structure: navbar, sidebar, content area, outline, and footer.
+- **Includes** for each UI component: navigation, search modal, sidebar, doc footer, and more.
 - **Stylesheets** (`assets/css/`) split into core layout styles, component styles, and token overrides.
-- **JavaScript** (`assets/js/vitepress-theme.js`) for interactive behavior — sidebar toggle, scroll-tracked outline, search modal, appearance switcher, code block copy buttons, and the page-level &quot;Copy page&quot; control.
+- **JavaScript** (`assets/js/vitepress-theme.js`) for interactive behavior: sidebar toggle, scroll-tracked outline, search modal, appearance switcher, code block copy buttons, page-level &quot;Copy page&quot;, and Turbo Frame refresh hooks.
+- **Turbo runtime** (`assets/vendor/turbo.js`) for fast internal docs navigation without a full page reload.
 
-All of this is vanilla HTML, CSS, and JavaScript. There&apos;s no build step, no bundler, and no framework dependency.
+There is no app bundle to build. The shipped assets are plain HTML, CSS, JavaScript, and a vendored Turbo runtime.
 
 ## Plugin behavior
 
 The plugin side registers Jekyll hooks that run automatically at build time:
 
-- **Last-updated timestamps** — Before each page renders, the plugin reads the source file&apos;s modification time and sets `last_updated_at` in frontmatter. This means your doc footers can show &quot;Last updated&quot; dates without you touching frontmatter manually.
-- **Rouge syntax theme generation** — After reading site config, the plugin validates your configured Rouge theme names and generates scoped CSS for light and dark modes. Invalid theme names fall back to defaults with a warning.
-- **Version label resolution** — If `_data/versions.yml` sets `current: auto`, the plugin replaces it with the gem&apos;s version string (e.g., `v1.0.0`) at build time.
-- **Copy page markdown export** — Before doc pages render, the plugin captures their raw Markdown for the &quot;Copy page&quot; button. After the site is written, it emits a plain `.md` sibling for each generated HTML doc page so &quot;View as Markdown&quot; works without external hosting assumptions. Disable this with `jekyll_vitepress.copy_page.enabled: false`.
+- **Last-updated timestamps:** before each page renders, the plugin reads the source file&apos;s modification time and sets `last_updated_at` in frontmatter. This means your doc footers can show &quot;Last updated&quot; dates without you touching frontmatter manually.
+- **Rouge syntax theme generation:** after reading site config, the plugin validates your configured Rouge theme names and generates scoped CSS for light and dark modes. Invalid theme names fall back to defaults with a warning.
+- **Version label resolution:** if `_data/versions.yml` sets `current: auto`, the plugin replaces it with the gem&apos;s version string (e.g., `v1.0.0`) at build time.
+- **Copy page markdown export:** before doc pages render, the plugin captures their raw Markdown for the &quot;Copy page&quot; button. After the site is written, it emits a plain `.md` sibling for each generated HTML doc page so &quot;View as Markdown&quot; works without external hosting assumptions. Disable this with `jekyll_vitepress.copy_page.enabled: false`.
 
 ## VitePress parity scope
 
 The project targets high visual and interaction parity with VitePress for the features that matter most in documentation:
 
 - Top nav, sidebar, local nav, and right outline
+- Fast internal page navigation with a persistent docs shell
 - Header anchors and scroll tracking
 - External link icons
 - Styled tables (striped rows, responsive scroll)
@@ -1071,35 +1080,38 @@ The project targets high visual and interaction parity with VitePress for the fe
 - Rouge-native light/dark syntax themes
 - Automatic page title injection
 
-It intentionally stays Jekyll-first for configuration and page authoring — no `.vue` files, no Node.js, no frontmatter DSLs that don&apos;t exist in standard Jekyll.
+It intentionally stays Jekyll-first for configuration and page authoring: no `.vue` files, no Vite config, and no frontmatter DSL that only exists in another toolchain.
 
 For a detailed feature checklist comparing what&apos;s mirrored from VitePress versus what&apos;s added on top, see [VitePress Parity and Extensions](/vitepress-parity-and-extensions/).
 </textarea>
-                        
-                        <p>Jekyll VitePress Theme is distributed as a single gem that acts as both a <strong>theme</strong> (providing layouts, includes, and assets) and a <strong>plugin</strong> (registering Jekyll hooks for build-time behavior). Understanding this dual role helps when you want to customize or extend things.</p>
+                          
+                          <p>Jekyll VitePress Theme is distributed as a single gem with two jobs: it is a <strong>theme</strong> that provides layouts, includes, and assets, and it is a <strong>plugin</strong> that registers Jekyll hooks for build-time behavior.</p>
+
+<p>That split keeps the runtime simple. Jekyll renders static HTML. The theme adds a small amount of JavaScript for UI behavior, including Turbo Frame navigation for doc-to-doc page changes.</p>
 
 <h2 id="theme-assets">Theme assets</h2>
 
 <p>The gem ships everything needed to render a VitePress-like site:</p>
 
 <ul>
-  <li><strong>Layouts</strong> (<code class="language-plaintext highlighter-rouge">_layouts/default.html</code>, <code class="language-plaintext highlighter-rouge">_layouts/home.html</code>) that compose the page structure — navbar, sidebar, content area, outline, and footer.</li>
-  <li><strong>Includes</strong> for each UI component — navigation, search modal, sidebar, doc footer, and more.</li>
+  <li><strong>Layouts</strong> (<code class="language-plaintext highlighter-rouge">_layouts/default.html</code>, <code class="language-plaintext highlighter-rouge">_layouts/home.html</code>) that compose the page structure: navbar, sidebar, content area, outline, and footer.</li>
+  <li><strong>Includes</strong> for each UI component: navigation, search modal, sidebar, doc footer, and more.</li>
   <li><strong>Stylesheets</strong> (<code class="language-plaintext highlighter-rouge">assets/css/</code>) split into core layout styles, component styles, and token overrides.</li>
-  <li><strong>JavaScript</strong> (<code class="language-plaintext highlighter-rouge">assets/js/vitepress-theme.js</code>) for interactive behavior — sidebar toggle, scroll-tracked outline, search modal, appearance switcher, code block copy buttons, and the page-level “Copy page” control.</li>
+  <li><strong>JavaScript</strong> (<code class="language-plaintext highlighter-rouge">assets/js/vitepress-theme.js</code>) for interactive behavior: sidebar toggle, scroll-tracked outline, search modal, appearance switcher, code block copy buttons, page-level “Copy page”, and Turbo Frame refresh hooks.</li>
+  <li><strong>Turbo runtime</strong> (<code class="language-plaintext highlighter-rouge">assets/vendor/turbo.js</code>) for fast internal docs navigation without a full page reload.</li>
 </ul>
 
-<p>All of this is vanilla HTML, CSS, and JavaScript. There’s no build step, no bundler, and no framework dependency.</p>
+<p>There is no app bundle to build. The shipped assets are plain HTML, CSS, JavaScript, and a vendored Turbo runtime.</p>
 
 <h2 id="plugin-behavior">Plugin behavior</h2>
 
 <p>The plugin side registers Jekyll hooks that run automatically at build time:</p>
 
 <ul>
-  <li><strong>Last-updated timestamps</strong> — Before each page renders, the plugin reads the source file’s modification time and sets <code class="language-plaintext highlighter-rouge">last_updated_at</code> in frontmatter. This means your doc footers can show “Last updated” dates without you touching frontmatter manually.</li>
-  <li><strong>Rouge syntax theme generation</strong> — After reading site config, the plugin validates your configured Rouge theme names and generates scoped CSS for light and dark modes. Invalid theme names fall back to defaults with a warning.</li>
-  <li><strong>Version label resolution</strong> — If <code class="language-plaintext highlighter-rouge">_data/versions.yml</code> sets <code class="language-plaintext highlighter-rouge">current: auto</code>, the plugin replaces it with the gem’s version string (e.g., <code class="language-plaintext highlighter-rouge">v1.0.0</code>) at build time.</li>
-  <li><strong>Copy page markdown export</strong> — Before doc pages render, the plugin captures their raw Markdown for the “Copy page” button. After the site is written, it emits a plain <code class="language-plaintext highlighter-rouge">.md</code> sibling for each generated HTML doc page so “View as Markdown” works without external hosting assumptions. Disable this with <code class="language-plaintext highlighter-rouge">jekyll_vitepress.copy_page.enabled: false</code>.</li>
+  <li><strong>Last-updated timestamps:</strong> before each page renders, the plugin reads the source file’s modification time and sets <code class="language-plaintext highlighter-rouge">last_updated_at</code> in frontmatter. This means your doc footers can show “Last updated” dates without you touching frontmatter manually.</li>
+  <li><strong>Rouge syntax theme generation:</strong> after reading site config, the plugin validates your configured Rouge theme names and generates scoped CSS for light and dark modes. Invalid theme names fall back to defaults with a warning.</li>
+  <li><strong>Version label resolution:</strong> if <code class="language-plaintext highlighter-rouge">_data/versions.yml</code> sets <code class="language-plaintext highlighter-rouge">current: auto</code>, the plugin replaces it with the gem’s version string (e.g., <code class="language-plaintext highlighter-rouge">v1.0.0</code>) at build time.</li>
+  <li><strong>Copy page markdown export:</strong> before doc pages render, the plugin captures their raw Markdown for the “Copy page” button. After the site is written, it emits a plain <code class="language-plaintext highlighter-rouge">.md</code> sibling for each generated HTML doc page so “View as Markdown” works without external hosting assumptions. Disable this with <code class="language-plaintext highlighter-rouge">jekyll_vitepress.copy_page.enabled: false</code>.</li>
 </ul>
 
 <h2 id="vitepress-parity-scope">VitePress parity scope</h2>
@@ -1108,6 +1120,7 @@ For a detailed feature checklist comparing what&apos;s mirrored from VitePress v
 
 <ul>
   <li>Top nav, sidebar, local nav, and right outline</li>
+  <li>Fast internal page navigation with a persistent docs shell</li>
   <li>Header anchors and scroll tracking</li>
   <li>External link icons</li>
   <li>Styled tables (striped rows, responsive scroll)</li>
@@ -1119,13 +1132,13 @@ For a detailed feature checklist comparing what&apos;s mirrored from VitePress v
   <li>Automatic page title injection</li>
 </ul>
 
-<p>It intentionally stays Jekyll-first for configuration and page authoring — no <code class="language-plaintext highlighter-rouge">.vue</code> files, no Node.js, no frontmatter DSLs that don’t exist in standard Jekyll.</p>
+<p>It intentionally stays Jekyll-first for configuration and page authoring: no <code class="language-plaintext highlighter-rouge">.vue</code> files, no Vite config, and no frontmatter DSL that only exists in another toolchain.</p>
 
 <p>For a detailed feature checklist comparing what’s mirrored from VitePress versus what’s added on top, see <a href="/vitepress-parity-and-extensions/">VitePress Parity and Extensions</a>.</p>
 
-                      </div>
-                    </main>
-                    
+                        </div>
+                      </main>
+                      
 
 
 
@@ -1220,7 +1233,7 @@ For a detailed feature checklist comparing what&apos;s mirrored from VitePress v
 
         <div class="pager">
           
-            <a class="VPLink link pager-link prev" href="/configuration/">
+            <a class="VPLink link pager-link prev" href="/configuration/" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
               <span class="desc">Previous page</span>
               <span class="title">Configuration</span>
             </a>
@@ -1237,10 +1250,11 @@ For a detailed feature checklist comparing what&apos;s mirrored from VitePress v
   </footer>
 
 
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </turbo-frame>
           
         </div>
 

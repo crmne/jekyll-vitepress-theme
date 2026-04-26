@@ -1,47 +1,44 @@
+<div align="center">
+
+<img src="assets/images/theme/vitepress-logo-large.svg" alt="Jekyll VitePress Theme" height="96">
+
 # Jekyll VitePress Theme
 
-A reusable Jekyll theme gem that reproduces the VitePress default docs experience.
+<strong>Turbo-fast documentation for Jekyll projects.</strong>
 
-## What it includes
+[![Gem Version](https://img.shields.io/gem/v/jekyll-vitepress-theme.svg)](https://rubygems.org/gems/jekyll-vitepress-theme)
+[![CI](https://github.com/crmne/jekyll-vitepress-theme/actions/workflows/main.yml/badge.svg)](https://github.com/crmne/jekyll-vitepress-theme/actions/workflows/main.yml)
+[![Docs](https://img.shields.io/badge/docs-jekyll--vitepress.dev-blue)](https://jekyll-vitepress.dev)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-- VitePress-style layout structure (top nav, sidebar, outline, doc footer)
-- Appearance toggle with `auto -> dark -> light`
-- Local search modal (`/`, `Ctrl/Cmd+K`, `Cmd+K`)
-- Automatic `/search.json` generation for the home page and sidebar collections
-- Optional GitHub star button with live count (`jekyll_vitepress.github_star`)
-- Code block copy button, language labels, file-title bars and icons
-- Page-level "Copy page" split button with raw Markdown copy + plain `.md` view (`jekyll_vitepress.copy_page`, enabled by default)
-- Rouge-native syntax theme config (`jekyll_vitepress.syntax.light_theme/dark_theme`)
-- Last-updated hook via plugin
-- Jekyll-native extension hooks (`_includes/jekyll_vitepress/head_end.html`, `doc_footer_end.html`, `layout_end.html`)
+</div>
 
-## Screenshots
+---
 
-### Home (Light)
+Ruby projects should not need a JavaScript app just to get beautiful, fast docs.
 
-![Home light mode](assets/images/screenshots/home-light.png)
+`jekyll-vitepress-theme` brings the VitePress documentation experience to Jekyll: the familiar nav, sidebar, outline, search, code blocks, dark mode, and polished default theme, packaged as a Ruby gem.
 
-### Home (Dark)
+The unusual part is navigation. Internal docs links use Turbo Frames, so page changes feel close to VitePress while the site remains plain Jekyll output: Markdown, Liquid, YAML, Ruby, and static files.
 
-![Home dark mode](assets/images/screenshots/home-dark.png)
+## Why Use It
 
-### Getting Started (Light)
+- **VitePress-like UX:** top nav, persistent sidebar, right outline, doc footer pager, search modal, and theme toggle.
+- **Turbo page navigation:** only the docs content frame swaps, so the shell stays in place and page changes feel fast.
+- **Jekyll-native setup:** configure everything with `_config.yml`, `_data/*.yml`, collections, includes, and frontmatter.
+- **Ruby syntax pipeline:** Rouge powers light and dark syntax themes without a separate JavaScript build.
+- **Static deployment:** build once with Jekyll and publish to GitHub Pages, any CDN, or any static host.
+- **Useful extras:** GitHub star count, version selector, last-updated labels, copy buttons, and "Copy page" Markdown export.
 
-![Getting Started light mode](assets/images/screenshots/getting-started-light.png)
+## Quick Start
 
-### Getting Started (Dark)
+Add the gem:
 
-![Getting Started dark mode](assets/images/screenshots/getting-started-dark.png)
-
-## Installation
-
-1. Add the gem to your `Gemfile`:
-
-```ruby
+```rb
 gem "jekyll-vitepress-theme"
 ```
 
-2. Enable it in `_config.yml`:
+Enable the theme and plugin:
 
 ```yaml
 theme: jekyll-vitepress-theme
@@ -49,7 +46,7 @@ plugins:
   - jekyll-vitepress-theme
 ```
 
-3. Add theme behavior config in `_config.yml`:
+Add basic theme config:
 
 ```yaml
 jekyll_vitepress:
@@ -60,67 +57,58 @@ jekyll_vitepress:
     dark_theme: github.dark
 ```
 
-4. Add navigation and sidebar data files:
+Define navigation and sidebar data:
 
 ```yaml
 # _data/navigation.yml
 - title: Guide
   url: /getting-started/
-  collections: [introduction, core_features, advanced]
+  collections: [guides]
 ```
 
 ```yaml
 # _data/sidebar.yml
-- title: Getting Started
-  collection: introduction
+- title: Guide
+  collection: guides
 ```
 
-## Local development (this repo)
+Run Jekyll:
 
-```bash
+```sh
+bundle install
+bundle exec jekyll serve --livereload
+```
+
+## Screenshots
+
+| Home | Docs |
+| --- | --- |
+| ![Home page in light mode](assets/images/screenshots/home-light.png) | ![Docs page in light mode](assets/images/screenshots/getting-started-light.png) |
+
+## Docs
+
+Read the full documentation at **[jekyll-vitepress.dev](https://jekyll-vitepress.dev)**.
+
+Start here:
+
+- [Getting Started](https://jekyll-vitepress.dev/getting-started/)
+- [Configuration](https://jekyll-vitepress.dev/configuration/)
+- [Navigation and Layout](https://jekyll-vitepress.dev/navigation-layout/)
+- [Search and Outline](https://jekyll-vitepress.dev/search-and-outline/)
+- [Configuration Reference](https://jekyll-vitepress.dev/configuration-reference/)
+
+## Development
+
+```sh
 bundle install
 npm install
 bundle exec jekyll serve --livereload
 ```
 
-Open `http://127.0.0.1:4000`.
+Run the local verification suite:
 
-## Local Quality Gates
-
-```bash
-# one-shot verification
+```sh
 bundle exec rake verify
-
-# regenerate built-in social icon assets after changing icon list
-npm run build:social-icons
-
-# install and run git hooks
-bundle exec overcommit --install
-bundle exec overcommit --sign pre-commit
-bundle exec overcommit --sign pre-push
-bundle exec overcommit --run
-```
-
-## Docs deployment (this repo)
-
-- `master` deploys a single docs site at `/`
-- No secondary version paths are published in default mode (`/latest/`, `/v/*`, `/next/`)
-- Optional multi-version deployment is documented in [_advanced/deployment.md](_advanced/deployment.md)
-
-## Theme configuration
-
-See docs pages:
-
-- [Getting Started](/getting-started/)
-- [Configuration Reference](/configuration-reference/)
-- [Frontmatter Reference](/frontmatter-reference/)
-- [VitePress Parity and Extensions](/vitepress-parity-and-extensions/)
-
-## Release a gem
-
-```bash
-gem build jekyll-vitepress-theme.gemspec
-gem push jekyll-vitepress-theme-<version>.gem
 ```
 
 ## License

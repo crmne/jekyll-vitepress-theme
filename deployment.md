@@ -18,12 +18,12 @@ This keeps CI simple and avoids the complexity of managing multiple doc versions
 
 ## Multi-version docs (optional)
 
-If your project needs versioned documentation — say, `/next/` for the development branch, `/latest/` for the current release, and `/v/1.0.0/` for specific versions — the theme includes scripts to support this pattern:
+If your project needs versioned documentation, such as `/next/` for the development branch, `/latest/` for the current release, and `/v/1.0.0/` for specific versions, the theme includes scripts to support this pattern:
 
 - `scripts/version_manifest.rb` generates `_data/versions.yml` from your release history
 - `scripts/publish_gh_pages.sh` handles publishing in two modes:
-  - `next` — publishes to the `/next/` path
-  - `release` — publishes to both `/v/x.y.z/` and `/latest/`
+  - `next`: publishes to the `/next/` path
+  - `release`: publishes to both `/v/x.y.z/` and `/latest/`
 
 A typical CI flow:
 
@@ -40,7 +40,7 @@ When `_data/versions.yml` is present and contains version items, the theme rende
 
 <div class="warning custom-block">
   <p class="custom-block-title">WARNING</p>
-  <p>Multi-version mode adds operational complexity — caching behavior, legacy paths, and rebuild coordination all need attention. Only use it when you genuinely need immutable version snapshots. For most projects, a single docs site with a changelog link is sufficient.
+  <p>Multi-version mode adds operational complexity. Caching behavior, legacy paths, and rebuild coordination all need attention. Only use it when you genuinely need immutable version snapshots. For most projects, a single docs site with a changelog link is sufficient.
 </p>
 </div>
 

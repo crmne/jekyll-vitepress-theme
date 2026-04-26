@@ -664,6 +664,11 @@ body.vp-search-open {
   height: 36px;
 }
 
+.VPFooter .footer-built-with {
+  display: block;
+  margin-top: 12px;
+}
+
 .dark .VPFooter .footer-chatwithwork-logo {
   filter: brightness(0) invert(1);
 }

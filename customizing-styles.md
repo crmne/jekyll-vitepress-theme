@@ -20,7 +20,7 @@ jekyll_vitepress:
 ```
 {: data-title="_config.yml"}
 
-Brand tokens affect links, the active nav highlight, the hero button, and other accent elements throughout the theme. The numbered variants (`brand-1`, `brand-2`, `brand-3`) control different states — `brand-1` is the primary color, `brand-2` is used for hover states, and `brand-3` for active/pressed states.
+Brand tokens affect links, the active nav highlight, the hero button, and other accent elements throughout the theme. The numbered variants (`brand-1`, `brand-2`, `brand-3`) control different states. `brand-1` is the primary color, `brand-2` is used for hover states, and `brand-3` for active/pressed states.
 
 Any VitePress CSS variable can be overridden this way. To discover available tokens, inspect the theme's `assets/css/vitepress-overrides.css` or refer to the [VitePress theme configuration docs](https://vitepress.dev/reference/default-theme-config).
 
@@ -37,7 +37,7 @@ jekyll_vitepress:
 ```
 {: data-title="_config.yml"}
 
-The `google_fonts_url` is loaded as a stylesheet in `<head>`. Set it to `false` to disable external font loading — useful if you're self-hosting fonts or prefer system fonts.
+The `google_fonts_url` is loaded as a stylesheet in `<head>`. Set it to `false` to disable external font loading. This is useful if you're self-hosting fonts or prefer system fonts.
 
 ## Appearance mode
 
@@ -45,4 +45,4 @@ The theme ships with three appearance modes: **auto** (follows system preference
 
 The user's choice is persisted in `localStorage`, so it sticks across page loads. When set to "auto", the theme tracks the operating system's `prefers-color-scheme` media query in real time.
 
-No configuration is needed — this works out of the box. The toggle labels are customizable via `jekyll_vitepress.labels.appearance_menu`, `switch_to_dark`, and `switch_to_light`.
+No configuration is needed. This works out of the box. The toggle labels are customizable via `jekyll_vitepress.labels.appearance_menu`, `switch_to_dark`, and `switch_to_light`.

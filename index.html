@@ -313,6 +313,7 @@
   plausible.init()
 </script>
 
+  <script src="/assets/vendor/turbo.js" defer></script>
   <script src="/assets/js/vitepress-theme.js" defer></script>
 </head>
 
@@ -394,13 +395,13 @@
               
                 
                 
-                <a class="VPLink link VPNavBarMenuLink" href="/what-is-jekyll-vitepress-theme/">
+                <a class="VPLink link VPNavBarMenuLink" href="/what-is-jekyll-vitepress-theme/" data-vp-nav-link data-collections="introduction|core_features|advanced">
                   <span>Guide</span>
                 </a>
               
                 
                 
-                <a class="VPLink link VPNavBarMenuLink" href="/configuration-reference/">
+                <a class="VPLink link VPNavBarMenuLink" href="/configuration-reference/" data-vp-nav-link data-collections="reference">
                   <span>Reference</span>
                 </a>
               
@@ -409,7 +410,7 @@
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
                     <span class="text">
-                      <span>v1.2.3</span>
+                      <span>v1.3.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -563,13 +564,13 @@
         
           
           
-          <a class="VPLink link VPNavScreenMenuLink" href="/what-is-jekyll-vitepress-theme/">
+          <a class="VPLink link VPNavScreenMenuLink" href="/what-is-jekyll-vitepress-theme/" data-vp-nav-link data-collections="introduction|core_features|advanced">
             <span>Guide</span>
           </a>
         
           
           
-          <a class="VPLink link VPNavScreenMenuLink" href="/configuration-reference/">
+          <a class="VPLink link VPNavScreenMenuLink" href="/configuration-reference/" data-vp-nav-link data-collections="reference">
             <span>Reference</span>
           </a>
         
@@ -578,7 +579,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.2.3</span>
+            <span class="button-text">v1.3.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -814,9 +815,10 @@
                     
                   
 
-                  <h2 class="title">Familiar VitePress UX</h2>
+                  <h2 class="title">Turbo Page Navigation</h2>
                   
-                    <p class="details">Top nav, left sidebar, right outline, and doc footer pager with high visual parity.</p>
+                    <p class="details">Internal docs links swap only the content frame, keeping the sidebar and shell in place for VitePress-like page changes.
+</p>
                   
                   
                 </article>
@@ -842,9 +844,10 @@
                     
                   
 
-                  <h2 class="title">Jekyll-Native Config</h2>
+                  <h2 class="title">Ruby-Native Setup</h2>
                   
-                    <p class="details">Configure nav, sidebars, edit links, labels, colors, fonts, and more in `_config.yml`.</p>
+                    <p class="details">Configure docs with collections, frontmatter, <code class="language-plaintext highlighter-rouge">_config.yml</code>, and <code class="language-plaintext highlighter-rouge">_data/*.yml</code>; no Vite app required.
+</p>
                   
                   
                 </article>
@@ -870,9 +873,10 @@
                     
                   
 
-                  <h2 class="title">Rouge + Theme Tokens</h2>
+                  <h2 class="title">Familiar VitePress UX</h2>
                   
-                    <p class="details">Use Rouge-native light/dark themes and override CSS variables for branding and polish.</p>
+                    <p class="details">Top nav, sidebar, right outline, local search, dark mode, code blocks, and doc footers come ready to use.
+</p>
                   
                   
                 </article>
@@ -898,9 +902,10 @@
                     
                   
 
-                  <h2 class="title">Built-In Local Search</h2>
+                  <h2 class="title">Static Output</h2>
                   
-                    <p class="details">Fast docs search with `/` and `Ctrl/Cmd+K`, powered by a generated `search.json` index.</p>
+                    <p class="details">Build with Jekyll and deploy static HTML anywhere, while Turbo makes navigation feel app-fast.
+</p>
                   
                   
                 </article>
@@ -914,18 +919,6 @@
     </div>
   
 
-  
-    
-      <div class="VPHomeContent">
-        <div class="vp-doc container">
-          <h2 id="build-docs-like-vitepress-ship-docs-like-jekyll">Build docs like VitePress, ship docs like Jekyll</h2>
-
-<p>Start with <a href="/getting-started/">Getting Started</a>, then tune the theme in <a href="/configuration-reference/">Configuration Reference</a>.</p>
-
-
-        </div>
-      </div>
-    
   
 </div>
 
@@ -943,10 +936,10 @@
           <footer class="VPFooter">
             <div class="container">
               
-                <p class="message">Brought to you by <a href="https://paolino.me">Carmine Paolino</a>, maker of</p>
+                <p class="message">Brought to you by <a href="https://paolino.me" target="_blank" rel="noreferrer">Carmine Paolino</a>, maker of</p>
               
               
-                <p class="copyright"><span class="footer-brand-links"><a href="https://chatwithwork.com" class="footer-chatwithwork-link"><img class="footer-chatwithwork-logo" src="https://chatwithwork.com/logotype.svg" alt="Chat with Work"></a><a href="https://rubyllm.com" class="footer-rubyllm-link"><img class="footer-rubyllm-logo theme-image light" src="https://rubyllm.com/assets/images/logotype.svg" alt="RubyLLM"><img class="footer-rubyllm-logo theme-image dark" src="https://rubyllm.com/assets/images/logotype_dark.svg" alt="RubyLLM"></a></span></p>
+                <p class="copyright"><span class="footer-brand-links"><a href="https://chatwithwork.com" class="footer-chatwithwork-link" target="_blank" rel="noreferrer"><img class="footer-chatwithwork-logo" src="https://chatwithwork.com/logotype.svg" alt="Chat with Work"></a><a href="https://rubyllm.com" class="footer-rubyllm-link" target="_blank" rel="noreferrer"><img class="footer-rubyllm-logo theme-image light" src="https://rubyllm.com/assets/images/logotype.svg" alt="RubyLLM"><img class="footer-rubyllm-logo theme-image dark" src="https://rubyllm.com/assets/images/logotype_dark.svg" alt="RubyLLM"></a></span><br><span class="footer-built-with">Docs built with <a href="https://jekyll-vitepress.dev" target="_blank" rel="noreferrer">Jekyll VitePress</a>.</span></p>
               
             </div>
           </footer>

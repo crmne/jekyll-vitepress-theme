@@ -1,6 +1,6 @@
 # Code Blocks
 
-Code blocks get several VitePress-style enhancements automatically — no configuration needed beyond choosing your syntax themes.
+Code blocks get several VitePress-style enhancements automatically. No configuration is needed beyond choosing your syntax themes.
 
 ## What you get for free
 
@@ -29,7 +29,7 @@ jekyll_vitepress:
 ```
 {: data-title="_config.yml"}
 
-The theme generates scoped CSS for both modes at build time. When the user toggles between light and dark mode, code blocks switch palettes automatically. Any installed Rouge theme name works here — if you specify an invalid name, the plugin falls back to `github` / `github.dark` and logs a warning.
+The theme generates scoped CSS for both modes at build time. When the user toggles between light and dark mode, code blocks switch palettes automatically. Any installed Rouge theme name works here. If you specify an invalid name, the plugin falls back to `github` / `github.dark` and logs a warning.
 
 ## Title bars
 
