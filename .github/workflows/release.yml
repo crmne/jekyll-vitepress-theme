@@ -162,6 +162,8 @@ jobs:
             prerelease_args=(--prerelease)
           fi
 
+          git fetch --tags --force
+
           previous_tag=$(git tag --sort=-v:refname --list 'v*' | grep -v "^${TAG}$" | head -n 1)
           if [ -n "$previous_tag" ]; then
             commit_range="${previous_tag}..${TAG}"
