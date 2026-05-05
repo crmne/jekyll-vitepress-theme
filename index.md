@@ -1,7 +1,7 @@
 ---
 layout: home
-title: Home
-description: VitePress-style docs for Jekyll.
+title: Jekyll VitePress Theme
+description: VitePress-style documentation theme and plugin for Jekyll.
 permalink: /
 hero:
   name: Jekyll VitePress
