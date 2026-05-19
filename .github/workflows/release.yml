@@ -127,30 +127,32 @@ jobs:
           }
           echo "$output"
 
-  github_release:
-    name: Create GitHub Release
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: [publish]
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.3"
-
-      - name: Create GitHub release
+      - name: Create tag and GitHub release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: ${{ github.ref_name }}
-          VERSION: ${{ needs.publish.outputs.version }}
+          VERSION: ${{ steps.version.outputs.version }}
         shell: bash
         run: |
           set -euo pipefail
+
+          TAG="v${VERSION}"
+          release_target="$GITHUB_SHA"
+
+          git fetch --tags --force
+
+          if git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null; then
+            tag_sha=$(git rev-list -n 1 "${TAG}")
+            if [ "$tag_sha" != "$GITHUB_SHA" ] && [ "${{ steps.check_version.outputs.version_changed }}" = "true" ]; then
+              echo "Tag ${TAG} already exists at ${tag_sha}, not ${GITHUB_SHA}." >&2
+              exit 1
+            fi
+            release_target="$tag_sha"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag "$TAG" "$GITHUB_SHA"
+            git push origin "$TAG"
+          fi
 
           if gh release view "$TAG" >/dev/null 2>&1; then
             echo "GitHub release $TAG already exists."
@@ -162,13 +164,11 @@ jobs:
             prerelease_args=(--prerelease)
           fi
 
-          git fetch --tags --force
-
-          previous_tag=$(git tag --sort=-v:refname --list 'v*' | grep -v "^${TAG}$" | head -n 1)
+          previous_tag=$(git tag --sort=-v:refname --list 'v*' | grep -v "^${TAG}$" | head -n 1 || true)
           if [ -n "$previous_tag" ]; then
-            commit_range="${previous_tag}..${TAG}"
+            commit_range="${previous_tag}..${release_target}"
           else
-            commit_range="$TAG"
+            commit_range="$release_target"
           fi
 
           commits=$(git log --reverse --format='* %H %s' "$commit_range" | grep -Ev '^\* [0-9a-f]+ (docs|test|chore):' || true)
@@ -186,6 +186,6 @@ jobs:
           } > release-notes.md
 
           gh release create "$TAG" \
-            --verify-tag \
+            --target "$release_target" \
             --notes-file release-notes.md \
             "${prerelease_args[@]}"
