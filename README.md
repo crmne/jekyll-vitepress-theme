@@ -4,7 +4,7 @@
 
 # Jekyll VitePress Theme
 
-<strong>VitePress-style docs for Jekyll, without leaving Ruby.</strong>
+<strong>Ruby deserves beautiful docs. Jekyll VitePress Theme brings VitePress-level polish to Jekyll.</strong>
 
 [![Gem Version](https://img.shields.io/gem/v/jekyll-vitepress-theme.svg)](https://rubygems.org/gems/jekyll-vitepress-theme)
 [![CI](https://github.com/crmne/jekyll-vitepress-theme/actions/workflows/main.yml/badge.svg)](https://github.com/crmne/jekyll-vitepress-theme/actions/workflows/main.yml)
@@ -15,18 +15,18 @@
 
 ---
 
-Ruby projects should not need a JavaScript app just to get beautiful documentation.
+Ruby projects should not need to leave Ruby just to get documentation that feels designed.
 
-`jekyll-vitepress-theme` brings the VitePress documentation experience to Jekyll: familiar navigation, sidebars, outlines, search, dark mode, code blocks, callouts, and doc footers, packaged as a Ruby gem.
+`jekyll-vitepress-theme` brings VitePress-level documentation polish to Jekyll: a product-like homepage, familiar navigation, sidebars, outlines, search, dark mode, code blocks, callouts, and doc footers, packaged as a Ruby gem.
 
-The unusual part is navigation. Jekyll VitePress uses Turbo Frames like a Rails app, swapping only the content frame while the nav, sidebar, and shell stay in place. Page changes feel as fast as VitePress, while the output remains plain Jekyll: Markdown, Liquid, YAML, Ruby, and static files.
+The unusual part is navigation. Jekyll VitePress uses Turbo Frames like a Rails app, swapping only the content frame while the nav, sidebar, and shell stay in place. Page changes feel instant, while the output remains plain Jekyll: Markdown, Liquid, YAML, Ruby, and static files.
 
 ## Why Use It
 
-- **As fast as VitePress:** Turbo Frames swap only the docs content while the nav, sidebar, and shell stay mounted.
-- **Jekyll-native setup:** keep your existing pages, add the gem, configure the handful of Jekyll settings your site needs, and start publishing.
-- **Familiar VitePress UX:** top nav, sidebar, right outline, search, dark mode, code blocks, callouts, and doc footers come ready to use.
-- **More than VitePress:** add GitHub Star and Sponsor buttons, a version selector, generated local search, and Copy Page/View as Markdown for LLM workflows.
+- **VitePress polish for Jekyll:** give Ruby projects a docs homepage, sidebar, outline, search, dark mode, callouts, code blocks, and doc footers that feel designed.
+- **Jekyll-native setup:** keep your Markdown, Liquid, YAML, and static hosting. Add the gem, set a few options, and publish.
+- **Fast docs navigation:** Turbo Frames update the content area while the nav, sidebar, and shell stay mounted.
+- **More than VitePress:** add GitHub Star and Sponsor buttons, versions, generated local search, and Copy Page/View as Markdown for LLM workflows.
 - **Static Ruby output:** build with Jekyll and deploy the generated HTML to GitHub Pages, any CDN, or any static host.
 
 ## Quick Start
