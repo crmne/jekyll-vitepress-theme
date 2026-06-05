@@ -296,16 +296,14 @@ body.vp-nav-screen-open .VPNav {
   transition: color 0.25s;
 }
 
-.VPNavBarStarLink .vpi-social-github {
-  width: 20px;
-  height: 20px;
-  color: currentcolor;
-}
-
-.VPNavBarSponsorIcon {
+.VPNavBarStarIcon {
   display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
   width: 20px;
   height: 20px;
+  line-height: 0;
   color: currentcolor;
 }
 
@@ -347,12 +345,7 @@ body.vp-nav-screen-open .VPNav {
     background: var(--vp-c-bg-elv);
   }
 
-  .VPNavBarStarLink .vpi-social-github {
-    width: 14px;
-    height: 14px;
-  }
-
-  .VPNavBarSponsorIcon {
+  .VPNavBarStarIcon {
     width: 14px;
     height: 14px;
   }
@@ -512,12 +505,7 @@ body.vp-nav-screen-open .VPNav {
   background: var(--vp-c-bg-elv);
 }
 
-.VPNavScreenSocialLinks .VPNavScreenStarLink .vpi-social-github {
-  width: 14px;
-  height: 14px;
-}
-
-.VPNavScreenSocialLinks .VPNavBarSponsorIcon {
+.VPNavScreenSocialLinks .VPNavBarStarIcon {
   width: 14px;
   height: 14px;
 }
