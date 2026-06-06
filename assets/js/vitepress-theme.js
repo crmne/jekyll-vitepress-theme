@@ -1420,15 +1420,23 @@
       }
     }
 
+    var icon = btn.querySelector('.copy-md-icon');
     var label = btn.querySelector('.copy-md-label');
+    function setCopied(copied) {
+      btn.classList.toggle('copied', copied);
+      if (icon) {
+        icon.classList.toggle('vpi-copy', !copied);
+        icon.classList.toggle('vpi-check', copied);
+      }
+      if (label) label.textContent = copied ? 'Copied' : 'Copy page';
+    }
+
     writeToClipboard(md)
       .then(function () {
-        btn.classList.add('copied');
-        if (label) label.textContent = 'Copied';
+        setCopied(true);
         if (btn._copyTimeout) window.clearTimeout(btn._copyTimeout);
         btn._copyTimeout = window.setTimeout(function () {
-          btn.classList.remove('copied');
-          if (label) label.textContent = 'Copy page';
+          setCopied(false);
         }, 2000);
       })
       .catch(function () {});
