@@ -2,6 +2,8 @@
 title: VitePress Parity
 nav_order: 3
 description: What this theme mirrors from VitePress and where the Jekyll implementation intentionally differs.
+redirect_from:
+  - /vitepress-parity-and-extensions/
 ---
 
 This theme targets high visual and interaction parity with [VitePress](https://vitepress.dev/) while keeping configuration and authoring idiomatic to [Jekyll](https://jekyllrb.com/).
