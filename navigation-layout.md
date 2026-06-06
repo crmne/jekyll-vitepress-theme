@@ -1,6 +1,9 @@
 # Navigation and Layout
 
-The default layout mirrors the standard VitePress docs structure: a fixed top navbar, a left sidebar for section navigation, a main content area, and a right-side outline that tracks your scroll position.
+
+
+
+The default layout mirrors the standard VitePress docs structure: a fixed top navbar, a left sidebar for section navigation, a main content area, and a right-side outline that tracks your scroll position. This is part of the [VitePress Parity](/vitepress-parity/) layer; optional features beyond that baseline are documented in [Extensions to VitePress](/extensions-to-vitepress/).
 
 Internal docs navigation is handled with Turbo Frames. When a reader clicks a doc link, the theme swaps the docs content frame and keeps the surrounding shell in place, including the sidebar, navbar, search modal, and appearance controls.
 

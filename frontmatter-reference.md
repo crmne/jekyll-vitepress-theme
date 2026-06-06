@@ -1,9 +1,12 @@
 # Frontmatter Reference
 
+
+
+
 ## Layouts
 
 - `layout: default`: standard docs page with sidebar and outline.
-- `layout: home`: VitePress-style landing page with hero and feature cards. Sidebar and outline are hidden.
+- `layout: home`: VitePress-style landing page with hero and feature cards. Sidebar and outline are hidden. This belongs to [VitePress Parity](/vitepress-parity/); optional additions beyond VitePress are documented in [Extensions to VitePress](/extensions-to-vitepress/).
 
 ## Home layout keys
 

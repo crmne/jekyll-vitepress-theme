@@ -5,7 +5,9 @@ This theme follows a Jekyll-native split:
 - Behavior and rendering options in `_config.yml` under `jekyll_vitepress`
 - Navigation/social/version/sidebar content in `_data/*.yml`
 
-For parity notes and optional extras compared to VitePress core, see [VitePress Parity and Extensions](/vitepress-parity-and-extensions/).
+
+
+For parity notes compared to VitePress core, see [VitePress Parity](/vitepress-parity/). For optional extras, see [Extensions to VitePress](/extensions-to-vitepress/).
 
 ## Minimal setup
 
@@ -118,14 +120,14 @@ jekyll_vitepress:
 ```
 {: data-title="_config.yml"}
 
-### Edit Link, Last Updated, GitHub Star, and GitHub Sponsor
+### Edit Link, Last Updated, GitHub Star, GitHub Sponsor, and Gem Downloads
 
 - `edit_link.enabled`
 - `edit_link.pattern`
 - `edit_link.text`
 - `last_updated.enabled`
 - `last_updated.text`
-- `last_updated.format`
+- `last_updated.format` (`vitepress` for browser-local VitePress-style formatting, or a Jekyll strftime string)
 - `github_star.enabled`
 - `github_star.repository` (`owner/repo`)
 - `github_star.text`
@@ -135,6 +137,12 @@ jekyll_vitepress:
 - `github_sponsor.url` (optional custom sponsorship URL)
 - `github_sponsor.text`
 - `github_sponsor.label`
+- `gem_downloads.enabled`
+- `gem_downloads.name` or `gem_downloads.gem`
+- `gem_downloads.url` (optional custom downloads URL)
+- `gem_downloads.text`
+- `gem_downloads.label`
+- `gem_downloads.show_count`
 
 ```yaml
 jekyll_vitepress:
@@ -145,7 +153,7 @@ jekyll_vitepress:
   last_updated:
     enabled: true
     text: Last updated
-    format: "%-d %b %Y, %H:%M"
+    format: vitepress
   github_star:
     enabled: true
     repository: you/project
@@ -155,10 +163,19 @@ jekyll_vitepress:
     enabled: true
     user: you
     text: Sponsor
+  gem_downloads:
+    enabled: true
+    name: your_gem
+    text: Gem downloads
+    url: https://rubygems.org/gems/your_gem
+    label: View gem downloads
+    show_count: true
 ```
 {: data-title="_config.yml"}
 
 If `github_sponsor.url` is omitted, the theme links to `https://github.com/sponsors/:user`.
+If `gem_downloads.url` is omitted, the page-level downloads include links to `https://rubygems.org/gems/:name`.
+If `last_updated.format` is `vitepress`, the static fallback is replaced in the browser using `Intl.DateTimeFormat` with medium date and medium time, matching VitePress. Use a Jekyll strftime string such as `"%b %-d, %Y, %-I:%M:%S %p"` for a static custom format.
 
 ### Copy Page
 

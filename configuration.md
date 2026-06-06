@@ -119,7 +119,7 @@ items:
 
 Set `current: auto` to automatically resolve to `v#{Jekyll::VitePressTheme::VERSION}` at build time. This is handy if your docs version should track your gem version.
 
-## GitHub buttons
+## GitHub and RubyGems buttons
 
 Show a GitHub star button with live count in the navbar:
 
@@ -145,6 +145,26 @@ jekyll_vitepress:
 {: data-title="_config.yml"}
 
 Use `url` instead of `user` if you want to point to a custom sponsorship page.
+
+Configure RubyGems downloads once if you want to reuse a live downloads button in pages:
+
+```yaml
+jekyll_vitepress:
+  gem_downloads:
+    enabled: true
+    name: your_gem
+    text: Gem downloads
+    url: https://rubygems.org/gems/your_gem
+    label: View gem downloads
+    show_count: true
+```
+{: data-title="_config.yml"}
+
+Then render it anywhere in Markdown:
+
+```liquid
+{% include rubygems_downloads_button.html %}
+```
 
 ## Extension hooks
 

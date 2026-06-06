@@ -1,8 +1,28 @@
 # Custom Blocks
 
-The theme includes styled callout blocks that match VitePress custom containers: colored boxes for tips, warnings, danger notices, and more. They use a built-in `alert.html` include that produces the exact VitePress HTML structure.
 
-## Syntax
+
+
+Custom blocks are the VitePress-style containers behind the theme's callout UI. They render colored boxes for tips, warnings, danger notices, and other highlighted content. They are part of [VitePress Parity](/vitepress-parity/); Markdown-friendly callouts, labels, and project buttons are covered in [Extensions to VitePress](/extensions-to-vitepress/).
+
+
+
+
+
+
+
+
+<div class="tip custom-block">
+  <p class="custom-block-title">TIP</p>
+  <p>For everyday Markdown authoring, use the Just the Docs-style syntax on <a href="/callouts-labels-buttons/">Callouts, Labels, and Buttons</a>. Use this page when you need the lower-level Liquid include, custom titles, or collapsible details.
+</p>
+</div>
+
+
+
+## Liquid Include Syntax
+
+Use the built-in `alert.html` include when you need explicit control over the block type, title, or content:
 
 ```liquid
 {% include alert.html type="tip" content="This is a helpful tip." %}
@@ -10,7 +30,7 @@ The theme includes styled callout blocks that match VitePress custom containers:
 
 The `type` controls the color and default title. The `content` is processed as Markdown, so inline formatting like backticks and links work naturally.
 
-## Available types
+## Available Types
 
 
 
@@ -58,7 +78,7 @@ The `type` controls the color and default title. The `content` is processed as M
 
 <div class="important custom-block">
   <p class="custom-block-title">IMPORTANT</p>
-  <p>This is an <code class="language-plaintext highlighter-rouge">important</code> block. Don’t skip this.
+  <p>This is an <code class="language-plaintext highlighter-rouge">important</code> block. Do not skip this.
 </p>
 </div>
 
@@ -116,7 +136,7 @@ The `type` controls the color and default title. The `content` is processed as M
 
 
 
-## Custom titles
+## Custom Titles
 
 Each type has a default title (`TIP`, `WARNING`, etc.). Override it with the `title` parameter:
 
@@ -137,7 +157,7 @@ Each type has a default title (`TIP`, `WARNING`, etc.). Override it with the `ti
 
 
 
-## Markdown in content
+## Markdown In Content
 
 The `content` parameter supports inline Markdown: code, links, bold, and so on:
 

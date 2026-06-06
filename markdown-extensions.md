@@ -1,6 +1,9 @@
 # Markdown Extensions
 
-Beyond standard Markdown, the theme automatically enhances several elements to match VitePress behavior. These work out of the box with no configuration.
+
+
+
+Beyond standard Markdown, the theme automatically enhances several elements to match VitePress behavior. These are part of [VitePress Parity](/vitepress-parity/); features that go beyond baseline VitePress are documented in [Extensions to VitePress](/extensions-to-vitepress/). These work out of the box with no configuration.
 
 ## Header anchors
 

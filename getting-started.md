@@ -1,6 +1,9 @@
 # Getting Started
 
-This guide walks you through installing the theme and getting a working documentation site running locally. By the end, you'll have a Jekyll site with VitePress-style navigation, a persistent sidebar, Turbo-powered internal page changes, and polished default styling.
+
+
+
+This guide walks you through installing the theme and getting a working documentation site running locally. By the end, you'll have a Jekyll site with VitePress-style navigation, a persistent sidebar, Turbo-powered internal page changes, polished default styling, and optional features beyond baseline VitePress. See [VitePress Parity](/vitepress-parity/) and [Extensions to VitePress](/extensions-to-vitepress/) for the full scope.
 
 ## Add the gem
 
@@ -109,7 +112,7 @@ The `nav_order` value controls the sort order in the sidebar. Lower numbers appe
 bundle exec jekyll serve --livereload
 ```
 
-Open `http://127.0.0.1:4000`. You should see the VitePress-style layout: top nav, sidebar, content area, right outline, local search, and fast doc-to-doc navigation.
+Open `http://127.0.0.1:4000`. You should see the VitePress-style layout: top nav, sidebar, content area, right outline, local search, and fast doc-to-doc navigation. From there, enable the Jekyll-first extras documented in [Extensions to VitePress](/extensions-to-vitepress/) as needed.
 
 
 
@@ -118,7 +121,7 @@ Open `http://127.0.0.1:4000`. You should see the VitePress-style layout: top nav
 
 <div class="tip custom-block">
   <p class="custom-block-title">TIP</p>
-  <p>To add a VitePress-style landing page with a hero section and feature cards, set <code class="language-plaintext highlighter-rouge">layout: home</code> in your <code class="language-plaintext highlighter-rouge">index.md</code> frontmatter. See the <a href="/frontmatter-reference/">Frontmatter Reference</a> for the full set of home layout keys.
+  <p>To add a VitePress-style landing page with a hero section and feature cards, set <code class="language-plaintext highlighter-rouge">layout: home</code> in your <code class="language-plaintext highlighter-rouge">index.md</code> frontmatter. See <a href="/vitepress-parity/">VitePress Parity</a> for the mirrored baseline, the <a href="/frontmatter-reference/">Frontmatter Reference</a> for home layout keys, and <a href="/extensions-to-vitepress/">Extensions to VitePress</a> for features beyond VitePress.
 </p>
 </div>
 

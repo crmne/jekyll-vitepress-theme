@@ -1,6 +1,9 @@
 # Code Blocks
 
-Code blocks get several VitePress-style enhancements automatically. No configuration is needed beyond choosing your syntax themes.
+
+
+
+Code blocks get several VitePress-style enhancements automatically. They are part of [VitePress Parity](/vitepress-parity/), while optional features beyond baseline VitePress are documented in [Extensions to VitePress](/extensions-to-vitepress/). No configuration is needed beyond choosing your syntax themes.
 
 ## What you get for free
 

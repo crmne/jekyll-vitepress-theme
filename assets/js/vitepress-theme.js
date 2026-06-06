@@ -112,6 +112,31 @@
     });
   }
 
+  function formatLastUpdatedTimes(rootElement) {
+    var rootNode = rootElement || document;
+    var language = navigator.language || document.documentElement.getAttribute('lang') || undefined;
+
+    rootNode.querySelectorAll('.VPLastUpdated time[data-vp-last-updated][datetime]').forEach(function (time) {
+      var date = new Date(time.getAttribute('datetime'));
+      if (Number.isNaN(date.getTime())) {
+        return;
+      }
+
+      try {
+        time.textContent = new Intl.DateTimeFormat(language, {
+          dateStyle: 'medium',
+          timeStyle: 'medium'
+        }).format(date);
+
+        if (language) {
+          time.setAttribute('lang', language);
+        }
+      } catch (error) {
+        // Keep the server-rendered fallback if Intl formatting is unavailable.
+      }
+    });
+  }
+
   window.__vpAppearance = {
     getMode: function () {
       return mode;
@@ -240,6 +265,14 @@
     });
   }
 
+  function formatExactCount(value) {
+    try {
+      return new Intl.NumberFormat('en-US').format(value);
+    } catch (error) {
+      return String(value);
+    }
+  }
+
   function formatGitHubStarCount(value) {
     var count = Number(value);
     if (!Number.isFinite(count) || count < 0) {
@@ -264,7 +297,7 @@
       return;
     }
 
-    var countElement = button.querySelector('.VPNavBarStarCount');
+    var countElement = button.querySelector('.VPNavBarStarCount, .VPMetricButtonCount[data-vp-github-star-count]');
     if (!countElement) {
       return;
     }
@@ -276,9 +309,20 @@
 
     countElement.textContent = formatted;
     countElement.hidden = false;
+
+    if (button.classList.contains('VPMetricButton')) {
+      var repository = button.getAttribute('data-github-star-repo');
+      var exactCount = formatExactCount(value);
+      button.title = exactCount + ' GitHub stars';
+      if (repository) {
+        button.setAttribute('aria-label', 'Star ' + repository + ' on GitHub: ' + exactCount + ' stars');
+      }
+    }
   }
 
   var githubStarCacheTtlMs = 6 * 60 * 60 * 1000;
+  var rubygemsDownloadsCacheTtlMs = 6 * 60 * 60 * 1000;
+  var pendingRubyGemsDownloads = {};
 
   function readCachedGitHubStarCount(repository) {
     if (!repository || !window.localStorage) {
@@ -374,9 +418,169 @@
       });
   }
 
-  document.querySelectorAll('.VPNavBarStarLink[data-github-star-repo]').forEach(function (button) {
-    loadGitHubStarCount(button);
-  });
+  function formatRubyGemsDownloads(value) {
+    var count = Number(value);
+    if (!Number.isFinite(count) || count < 0) {
+      return null;
+    }
+
+    if (count >= 1000000) {
+      var millions = (count / 1000000).toFixed(count >= 10000000 ? 0 : 1);
+      return millions.replace(/\.0$/, '') + 'M';
+    }
+
+    if (count >= 1000) {
+      var thousands = (count / 1000).toFixed(count >= 100000 ? 0 : 1);
+      return thousands.replace(/\.0$/, '') + 'K';
+    }
+
+    return String(Math.round(count));
+  }
+
+  function setRubyGemsDownloads(button, value) {
+    if (!button) {
+      return;
+    }
+
+    var countElement = button.querySelector('.VPMetricButtonCount[data-vp-rubygems-downloads-count]');
+    if (!countElement) {
+      return;
+    }
+
+    var formatted = formatRubyGemsDownloads(value);
+    if (!formatted) {
+      return;
+    }
+
+    var exactCount = formatExactCount(value);
+    var textElement = button.querySelector('.VPMetricButtonText');
+    countElement.textContent = formatted + ' downloads';
+    countElement.hidden = false;
+    if (textElement) {
+      textElement.hidden = true;
+    }
+
+    var label = button.getAttribute('data-rubygems-downloads-label') || 'View gem downloads';
+    button.title = exactCount + ' downloads on RubyGems';
+    button.setAttribute('aria-label', label + ': ' + exactCount + ' downloads');
+  }
+
+  function readCachedRubyGemsDownloads(gemName) {
+    if (!gemName || !window.localStorage) {
+      return null;
+    }
+
+    try {
+      var valueKey = 'vp-rubygems-downloads:value:' + gemName;
+      var tsKey = 'vp-rubygems-downloads:ts:' + gemName;
+
+      var rawValue = localStorage.getItem(valueKey);
+      var rawTs = localStorage.getItem(tsKey);
+      if (!rawValue || !rawTs) {
+        return null;
+      }
+
+      var downloads = Number(rawValue);
+      var cachedAt = Number(rawTs);
+      if (!Number.isFinite(downloads) || !Number.isFinite(cachedAt)) {
+        return null;
+      }
+
+      if (Date.now() - cachedAt > rubygemsDownloadsCacheTtlMs) {
+        return null;
+      }
+
+      return { downloads: downloads, cachedAt: cachedAt };
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function writeCachedRubyGemsDownloads(gemName, downloads) {
+    if (!gemName || !window.localStorage) {
+      return;
+    }
+
+    try {
+      var valueKey = 'vp-rubygems-downloads:value:' + gemName;
+      var tsKey = 'vp-rubygems-downloads:ts:' + gemName;
+      localStorage.setItem(valueKey, String(downloads));
+      localStorage.setItem(tsKey, String(Date.now()));
+    } catch (error) {
+      // Ignore storage errors.
+    }
+  }
+
+  function fetchRubyGemsDownloads(gemName) {
+    if (!pendingRubyGemsDownloads[gemName]) {
+      pendingRubyGemsDownloads[gemName] = fetch('https://rubygems.org/api/v1/gems/' + encodeURIComponent(gemName) + '.json', {
+        credentials: 'omit',
+        headers: { Accept: 'application/json' }
+      })
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error('RubyGems API request failed');
+          }
+          return response.json();
+        })
+        .then(function (data) {
+          var downloads = Number(data && data.downloads);
+          if (!Number.isFinite(downloads)) {
+            throw new Error('RubyGems response missing downloads');
+          }
+          writeCachedRubyGemsDownloads(gemName, downloads);
+          return downloads;
+        })
+        .catch(function () {
+          return null;
+        });
+    }
+
+    return pendingRubyGemsDownloads[gemName];
+  }
+
+  function loadRubyGemsDownloads(button) {
+    if (!button) {
+      return;
+    }
+
+    var showCount = button.getAttribute('data-rubygems-downloads-show-count') !== 'false';
+    if (!showCount) {
+      return;
+    }
+
+    var gemName = button.getAttribute('data-rubygems-downloads-gem');
+    if (!gemName) {
+      return;
+    }
+
+    var cached = readCachedRubyGemsDownloads(gemName);
+    if (cached && typeof cached.downloads === 'number') {
+      setRubyGemsDownloads(button, cached.downloads);
+      return;
+    }
+
+    fetchRubyGemsDownloads(gemName).then(function (downloads) {
+      if (downloads !== null) {
+        setRubyGemsDownloads(button, downloads);
+      }
+    });
+  }
+
+  function loadMetricButtons(rootElement) {
+    var rootNode = rootElement || document;
+
+    rootNode.querySelectorAll('.VPNavBarStarLink[data-github-star-repo], .VPMetricButton[data-github-star-repo]').forEach(function (button) {
+      loadGitHubStarCount(button);
+    });
+
+    rootNode.querySelectorAll('.VPMetricButton[data-rubygems-downloads-gem]').forEach(function (button) {
+      loadRubyGemsDownloads(button);
+    });
+  }
+
+  loadMetricButtons(document);
+  formatLastUpdatedTimes(document);
 
   function syncMobileMenus() {
     var anyOpen = navScreenOpen || sidebarOpen;
@@ -1478,20 +1682,90 @@
   }
 
   var localOutlineOpen = false;
+  var localOutlineTransitionTimer = null;
+
+  function clearLocalOutlineTransition() {
+    if (localOutlineTransitionTimer) {
+      window.clearTimeout(localOutlineTransitionTimer);
+      localOutlineTransitionTimer = null;
+    }
+
+    if (localOutlineItems) {
+      localOutlineItems.classList.remove(
+        'flyout-enter-active',
+        'flyout-enter-from',
+        'flyout-leave-active',
+        'flyout-leave-to'
+      );
+    }
+  }
+
+  function setLocalOutlineOpen(open, animate) {
+    localOutlineOpen = open;
+
+    if (localOutlineButton) {
+      localOutlineButton.classList.toggle('open', open);
+      localOutlineButton.setAttribute('aria-expanded', String(open));
+    }
+
+    if (!localOutlineItems) {
+      return;
+    }
+
+    clearLocalOutlineTransition();
+
+    if (open) {
+      localOutlineItems.hidden = false;
+      if (animate !== false) {
+        localOutlineItems.classList.add('flyout-enter-active', 'flyout-enter-from');
+        window.requestAnimationFrame(function () {
+          if (!localOutlineOpen || !localOutlineItems) {
+            return;
+          }
+
+          localOutlineItems.classList.remove('flyout-enter-from');
+          localOutlineTransitionTimer = window.setTimeout(function () {
+            if (localOutlineItems) {
+              localOutlineItems.classList.remove('flyout-enter-active');
+            }
+            localOutlineTransitionTimer = null;
+          }, 200);
+        });
+      }
+      return;
+    }
+
+    if (animate === false || localOutlineItems.hidden) {
+      localOutlineItems.hidden = true;
+      return;
+    }
+
+    localOutlineItems.classList.add('flyout-leave-active');
+    window.requestAnimationFrame(function () {
+      if (localOutlineOpen || !localOutlineItems) {
+        return;
+      }
+
+      localOutlineItems.classList.add('flyout-leave-to');
+      localOutlineTransitionTimer = window.setTimeout(function () {
+        if (localOutlineItems && !localOutlineOpen) {
+          localOutlineItems.hidden = true;
+          localOutlineItems.classList.remove('flyout-leave-active', 'flyout-leave-to');
+        }
+        localOutlineTransitionTimer = null;
+      }, 150);
+    });
+  }
 
   function closeLocalOutline() {
-    localOutlineOpen = false;
-    if (localOutlineItems) {
-      localOutlineItems.hidden = true;
-    }
-    if (localOutlineButton) {
-      localOutlineButton.classList.remove('open');
-      localOutlineButton.setAttribute('aria-expanded', 'false');
-    }
+    setLocalOutlineOpen(false, true);
   }
 
   if (localOutlineButton) {
     localOutlineButton.setAttribute('aria-expanded', 'false');
+    if (localOutlineItems && localOutlineItems.id) {
+      localOutlineButton.setAttribute('aria-controls', localOutlineItems.id);
+    }
 
     localOutlineButton.addEventListener('click', function () {
       if (!hasOutline) {
@@ -1499,12 +1773,7 @@
         return;
       }
 
-      localOutlineOpen = !localOutlineOpen;
-      if (localOutlineItems) {
-        localOutlineItems.hidden = !localOutlineOpen;
-      }
-      localOutlineButton.classList.toggle('open', localOutlineOpen);
-      localOutlineButton.setAttribute('aria-expanded', String(localOutlineOpen));
+      setLocalOutlineOpen(!localOutlineOpen, true);
     });
   }
 
@@ -1799,6 +2068,8 @@
     return value || '/';
   }
 
+  var pendingDocFrameHash = null;
+
   function shouldTargetDocFrameLink(link) {
     if (!link) {
       return false;
@@ -1839,6 +2110,52 @@
     return true;
   }
 
+  function rememberDocFrameHash(event) {
+    if (event.defaultPrevented || (typeof event.button === 'number' && event.button !== 0) ||
+      event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+      return;
+    }
+
+    var link = event.currentTarget;
+    if (!shouldTargetDocFrameLink(link)) {
+      return;
+    }
+
+    var url;
+    try {
+      url = new URL(link.getAttribute('href'), window.location.href);
+    } catch (error) {
+      pendingDocFrameHash = null;
+      return;
+    }
+
+    pendingDocFrameHash = url.hash || null;
+  }
+
+  function consumePendingDocFrameHash() {
+    var hash = pendingDocFrameHash;
+    pendingDocFrameHash = null;
+
+    if (!hash || !getHashTarget(hash)) {
+      return null;
+    }
+
+    return hash;
+  }
+
+  function restoreLocationHash(hash) {
+    if (!hash || window.location.hash === hash) {
+      return;
+    }
+
+    if (window.history && typeof window.history.replaceState === 'function') {
+      window.history.replaceState(window.history.state, '', window.location.pathname + window.location.search + hash);
+      return;
+    }
+
+    window.location.hash = hash;
+  }
+
   function enhanceDocFrameLinks() {
     document.querySelectorAll('.vp-doc a[href], .VPDocFooter .pager-link').forEach(function (link) {
       if (!shouldTargetDocFrameLink(link)) {
@@ -1847,6 +2164,10 @@
       link.setAttribute('data-turbo', 'true');
       link.setAttribute('data-turbo-frame', 'vp-content-frame');
       link.setAttribute('data-turbo-action', 'advance');
+      if (!link.hasAttribute('data-vp-frame-hash-bound')) {
+        link.setAttribute('data-vp-frame-hash-bound', 'true');
+        link.addEventListener('click', rememberDocFrameHash);
+      }
     });
   }
 
@@ -1971,6 +2292,7 @@
     marker = document.getElementById('vp-outline-marker');
     hasOutline = headings.length > 0;
     localOutlineOpen = false;
+    syncLocalOutlineViewportHeight();
 
     if (!hasOutline) {
       replaceOutline('.VPDocAsideOutline .VPDocOutlineItem.root', [], true);
@@ -2021,13 +2343,10 @@
       replaceOutline('#vp-local-outline-dropdown .outline .VPDocOutlineItem', tree, true);
     }
 
-    if (localOutlineButton) {
-      localOutlineButton.classList.remove('open');
-      localOutlineButton.setAttribute('aria-expanded', 'false');
-    }
+    setLocalOutlineOpen(false, false);
 
-    if (localOutlineItems) {
-      localOutlineItems.hidden = true;
+    if (localOutlineButton && localOutlineItems && localOutlineItems.id) {
+      localOutlineButton.setAttribute('aria-controls', localOutlineItems.id);
     }
 
     bindHashLinkHandlers();
@@ -2063,8 +2382,14 @@
 
       syncPersistentNavState();
       refreshDocPageState();
+      loadMetricButtons(event.target);
+      formatLastUpdatedTimes(event.target);
 
-      if (window.location.hash) {
+      var pendingHash = consumePendingDocFrameHash();
+      if (pendingHash) {
+        restoreLocationHash(pendingHash);
+        scrollToHash(pendingHash, false);
+      } else if (window.location.hash) {
         scrollToHash(window.location.hash, false);
       } else {
         window.scrollTo({ top: 0, left: 0, behavior: 'auto' });

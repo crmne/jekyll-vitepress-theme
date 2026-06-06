@@ -6,7 +6,10 @@ Jekyll powers a huge number of documentation sites and blogs, particularly in th
 
 ## What this theme is
 
-[Jekyll VitePress Theme](https://github.com/crmne/jekyll-vitepress-theme) is a Jekyll theme **and** plugin gem that recreates the [VitePress](https://vitepress.dev/) documentation experience inside a Ruby project:
+
+
+
+[Jekyll VitePress Theme](https://github.com/crmne/jekyll-vitepress-theme) is a Jekyll theme **and** plugin gem that recreates the [VitePress](https://vitepress.dev/) documentation experience inside a Ruby project, then adds Jekyll-first features beyond baseline VitePress. See [VitePress Parity](/vitepress-parity/) for what is mirrored and [Extensions to VitePress](/extensions-to-vitepress/) for what is added on top:
 
 - **Top navigation** with mobile nav screen, social links, and optional GitHub star count
 - **Left sidebar** driven by your Jekyll collections and data files
@@ -26,4 +29,4 @@ Everything is configured through `_config.yml` and `_data/*.yml` files. There is
 
 [VitePress](https://vitepress.dev/) has one of the best documentation experiences available today, but it comes from the Node.js and Vite ecosystem. That is a good fit for JavaScript projects. It can feel like the wrong trade-off when the rest of your project is Ruby.
 
-This theme brings that visual and interaction model to Jekyll. You write Markdown, configure YAML, render static HTML, and still get fast page changes through Turbo Frames.
+This theme brings that visual and interaction model to Jekyll while adding Ruby/Jekyll-specific conveniences. You write Markdown, configure YAML, render static HTML, and still get fast page changes through Turbo Frames.

@@ -12,19 +12,19 @@
   
   
   
-  <title>Search and Outline | Jekyll VitePress Theme</title>
-  <meta name="description" content="Keyboard search, generated index, and active heading tracking.">
+  <title>Callouts, Labels, and Buttons | Jekyll VitePress Theme</title>
+  <meta name="description" content="Just the Docs-style callouts, inline labels, and reusable project buttons.">
   <meta name="robots" content="index,follow,max-image-preview:large">
-  <link rel="canonical" href="https://jekyll-vitepress.dev/search-and-outline/">
+  <link rel="canonical" href="https://jekyll-vitepress.dev/callouts-labels-buttons/">
   <meta property="og:site_name" content="Jekyll VitePress Theme">
-  <meta property="og:title" content="Search and Outline | Jekyll VitePress Theme">
-  <meta property="og:description" content="Keyboard search, generated index, and active heading tracking.">
-  <meta property="og:url" content="https://jekyll-vitepress.dev/search-and-outline/">
+  <meta property="og:title" content="Callouts, Labels, and Buttons | Jekyll VitePress Theme">
+  <meta property="og:description" content="Just the Docs-style callouts, inline labels, and reusable project buttons.">
+  <meta property="og:url" content="https://jekyll-vitepress.dev/callouts-labels-buttons/">
   <meta property="og:type" content="article">
   <meta property="og:image" content="https://jekyll-vitepress.dev/assets/images/favicon/web-app-manifest-512x512.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Search and Outline | Jekyll VitePress Theme">
-  <meta name="twitter:description" content="Keyboard search, generated index, and active heading tracking.">
+  <meta name="twitter:title" content="Callouts, Labels, and Buttons | Jekyll VitePress Theme">
+  <meta name="twitter:description" content="Just the Docs-style callouts, inline labels, and reusable project buttons.">
   <meta name="twitter:image" content="https://jekyll-vitepress.dev/assets/images/favicon/web-app-manifest-512x512.png">
 
   
@@ -352,7 +352,7 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Search and Outline"
+          "name": "Callouts, Labels, and Buttons"
         }
       ]
     }
@@ -883,7 +883,7 @@
               
                 
                 
-                <div class="VPSidebarItem level-1 is-link">
+                <div class="VPSidebarItem level-1 is-link is-active">
                   <div class="item">
                     <div class="indicator"></div>
                     <a class="VPLink link link" href="/callouts-labels-buttons/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
@@ -894,7 +894,7 @@
               
                 
                 
-                <div class="VPSidebarItem level-1 is-link is-active">
+                <div class="VPSidebarItem level-1 is-link">
                   <div class="item">
                     <div class="indicator"></div>
                     <a class="VPLink link link" href="/search-and-outline/" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
@@ -1061,7 +1061,7 @@
             
             
             <turbo-frame id="vp-content-frame" target="_top">
-              <div id="vp-page-state" hidden data-title="Search and Outline | Jekyll VitePress Theme" data-url="/search-and-outline/" data-collection="core_features"></div>
+              <div id="vp-page-state" hidden data-title="Callouts, Labels, and Buttons | Jekyll VitePress Theme" data-url="/callouts-labels-buttons/" data-collection="core_features"></div>
               <div class="VPDoc has-sidebar has-aside">
                 <div class="container">
                   <div class="aside">
@@ -1085,7 +1085,7 @@
                   <div class="content">
                     <div class="content-container">
                       <main class="main">
-                        <div class="vp-doc external-link-icon-enabled _search-and-outline_">
+                        <div class="vp-doc external-link-icon-enabled _callouts-labels-buttons_">
                           
                           
                           
@@ -1093,7 +1093,7 @@
                           
                           <div class="vp-doc-header">
                             
-                              <h1>Search and Outline</h1>
+                              <h1>Callouts, Labels, and Buttons</h1>
                             
                             
                               
@@ -1114,7 +1114,7 @@
         <span class="copy-md-dropdown-desc">Copy page as Markdown for LLMs</span>
       </div>
     </button>
-    <a class="copy-md-dropdown-item" href="/search-and-outline.md" target="_blank" rel="noreferrer">
+    <a class="copy-md-dropdown-item" href="/callouts-labels-buttons.md" target="_blank" rel="noreferrer">
       <span class="vpi-file-text copy-md-dropdown-icon"></span>
       <div class="copy-md-dropdown-text">
         <span class="copy-md-dropdown-title">View as Markdown</span>
@@ -1127,91 +1127,309 @@
                             
                           </div>
                           
-                            <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">## Local search
+                            <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true">
 
-The theme includes a built-in search modal that works entirely client-side. No external service is required.
+Use these Markdown-friendly patterns for everyday docs authoring:
 
-Open search with any of these shortcuts:
+- Callouts use Just the Docs-style kramdown attributes and render as VitePress-style custom blocks.
+- Labels use the same kramdown attribute style and render as compact badges.
+- Project buttons use Liquid includes when they need dynamic URLs or live counts.
 
-- `/` (when not focused on an input)
-- `Ctrl+K` (Windows/Linux)
-- `Cmd+K` (macOS)
+These features go beyond baseline VitePress and are summarized in [Extensions to VitePress](/extensions-to-vitepress/).
 
-The plugin generates `/search.json` automatically at build time. It includes the home page and all documents from your sidebar collections. Results show matching page titles and content excerpts.
+## Callouts
 
-On docs pages, clicking a search result uses the same Turbo Frame navigation as sidebar links, so the result opens without tearing down the surrounding docs shell.
+Use a kramdown block attribute on a paragraph or blockquote:
 
-If you need custom indexing behavior, add your own `search.json` page to the site and it will override the generated default.
+```markdown
+Using this theme? [Share your story](https://example.com)! Takes 5 minutes.
+{: .note }
+```
 
+Using this theme? [Share your story](https://example.com)! Takes 5 minutes.
+{: .note }
 
+Supported callout classes are `.info`, `.note`, `.tip`, `.important`, `.warning`, `.danger`, and `.caution`.
 
+## Available Callouts
 
+This is an `info` block. Use it for neutral, supplementary information.
+{: .info }
 
+This is a `note` block. Visually identical to info; use whichever label fits better.
+{: .note }
 
-&lt;div class=&quot;tip custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;TIP&lt;/p&gt;
-  &lt;p&gt;If search doesn’t seem to find certain pages, make sure those pages belong to a collection listed in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_data/sidebar.yml&lt;/code&gt;. Only sidebar collections are indexed.
-&lt;/p&gt;
-&lt;/div&gt;
+This is a helpful `tip` block.
+{: .tip }
 
+This is an `important` block. Do not skip this.
+{: .important }
 
+This is a `warning` block. Something could go wrong.
+{: .warning }
 
-## Right-side outline
+This is a `danger` block. Data loss or security risk.
+{: .danger }
 
-The &quot;On this page&quot; outline appears on the right side of docs pages and lists all `h2` and `h3` headings on the current page.
+This is a `caution` block. Visually identical to danger.
+{: .caution }
 
-As you scroll, the outline highlights the heading that&apos;s currently at the top of the viewport. Clicking an outline link scrolls to that heading, offset so it&apos;s visible below the fixed navbar. The offset distance is configurable:
+## Inline Labels
+
+Labels follow the Just the Docs authoring style and render as compact VitePress-style badges:
+
+```markdown
+### Labels
+{: .d-inline-block }
+
+v1.9.0+
+{: .label .label-green }
+```
+
+&lt;!-- markdownlint-disable MD022 --&gt;
+### Labels
+{: .d-inline-block }
+
+v1.9.0+
+{: .label .label-green }
+&lt;!-- markdownlint-enable MD022 --&gt;
+
+Available label colors are `.label-blue`, `.label-green`, `.label-purple`, `.label-yellow`, and `.label-red`.
+
+## RubyGems Downloads Button
+
+Configure the gem once in `_config.yml`:
 
 ```yaml
 jekyll_vitepress:
-  behavior:
-    scroll_offset: 134
+  gem_downloads:
+    enabled: true
+    name: jekyll-vitepress-theme
+    text: Gem downloads
+    show_count: true
 ```
 {: data-title=&quot;_config.yml&quot;}
 
-The outline label defaults to &quot;On this page&quot; and can be changed via `jekyll_vitepress.labels.outline`.
+Then render a live downloads button anywhere in Markdown:
 
-On narrow screens, the outline collapses to keep the content area readable.
+```liquid
+{% include rubygems_downloads_button.html %}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  &lt;a class=&quot;VPMetricButton VPMetricButtonDownloads no-icon&quot; href=&quot;https://rubygems.org/gems/jekyll-vitepress-theme&quot; aria-label=&quot;View gem downloads&quot; target=&quot;_blank&quot; rel=&quot;noreferrer noopener&quot; data-rubygems-downloads-gem=&quot;jekyll-vitepress-theme&quot; data-rubygems-downloads-show-count=&quot;true&quot; data-rubygems-downloads-label=&quot;View gem downloads&quot;&gt;
+    &lt;span class=&quot;VPMetricButtonIcon VPMetricButtonDownloadsIcon&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 16 16&quot; focusable=&quot;false&quot;&gt;
+        &lt;path d=&quot;M8 1.75a.75.75 0 0 1 .75.75v5.19l1.72-1.72a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 0 1 1.06-1.06l1.72 1.72V2.5A.75.75 0 0 1 8 1.75ZM3.75 11a.75.75 0 0 1 .75.75v1h7v-1a.75.75 0 0 1 1.5 0v1.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1.5a.75.75 0 0 1 .75-.75Z&quot;&gt;&lt;/path&gt;
+      &lt;/svg&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;VPMetricButtonText&quot; hidden&gt;Gem downloads&lt;/span&gt;
+    &lt;strong class=&quot;VPMetricButtonCount&quot; data-vp-rubygems-downloads-count&gt;... downloads&lt;/strong&gt;
+  &lt;/a&gt;
+
+
+
+You can also configure each button inline:
+
+```liquid
+{% include rubygems_downloads_button.html gem=&quot;jekyll-vitepress-theme&quot; text=&quot;Gem downloads&quot; %}
+```
+
+The button fetches `https://rubygems.org/api/v1/gems/:name.json` and displays a compact count like `3.3K downloads`.
+
+## Other Project Buttons
+
+GitHub Star and GitHub Sponsors buttons are also available outside the navbar:
+
+```liquid
+{% include github_star_button.html repository=&quot;crmne/jekyll-vitepress-theme&quot; %}
+{% include github_sponsor_button.html user=&quot;crmne&quot; %}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  &lt;a class=&quot;VPMetricButton VPMetricButtonGithub no-icon&quot; href=&quot;https://github.com/crmne/jekyll-vitepress-theme&quot; aria-label=&quot;Star crmne/jekyll-vitepress-theme on GitHub&quot; target=&quot;_blank&quot; rel=&quot;noreferrer noopener&quot; data-github-star-repo=&quot;crmne/jekyll-vitepress-theme&quot; data-github-star-show-count=&quot;true&quot;&gt;
+    &lt;span class=&quot;VPMetricButtonIcon vpi-social-github&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;VPMetricButtonText&quot;&gt;Star&lt;/span&gt;
+    &lt;span class=&quot;VPMetricButtonCount&quot; data-vp-github-star-count aria-hidden=&quot;true&quot;&gt;...&lt;/span&gt;
+  &lt;/a&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  &lt;a class=&quot;VPMetricButton VPMetricButtonSponsor no-icon&quot; href=&quot;https://github.com/sponsors/crmne&quot; aria-label=&quot;Sponsor on GitHub&quot; target=&quot;_blank&quot; rel=&quot;noreferrer noopener&quot;&gt;
+    &lt;span class=&quot;VPMetricButtonIcon VPMetricButtonSponsorIcon&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 16 16&quot; focusable=&quot;false&quot;&gt;
+        &lt;path d=&quot;M7.655 14.916v-.001h-.002l-.006-.003-.018-.01a22.066 22.066 0 0 1-3.744-2.584C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.044 5.231-3.886 6.818a22.094 22.094 0 0 1-3.433 2.414 7.152 7.152 0 0 1-.31.17l-.018.01-.008.004a.75.75 0 0 1-.69 0Z&quot;&gt;&lt;/path&gt;
+      &lt;/svg&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;VPMetricButtonText&quot;&gt;Sponsor&lt;/span&gt;
+  &lt;/a&gt;
+
+
+
+## Lower-Level Custom Blocks
+
+If you need custom titles or collapsible details, use the lower-level Liquid include documented on [Custom Blocks](/custom-blocks/).
 </textarea>
                           
-                          <h2 id="local-search">Local search</h2>
-
-<p>The theme includes a built-in search modal that works entirely client-side. No external service is required.</p>
-
-<p>Open search with any of these shortcuts:</p>
+                          
+<p>Use these Markdown-friendly patterns for everyday docs authoring:</p>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">/</code> (when not focused on an input)</li>
-  <li><code class="language-plaintext highlighter-rouge">Ctrl+K</code> (Windows/Linux)</li>
-  <li><code class="language-plaintext highlighter-rouge">Cmd+K</code> (macOS)</li>
+  <li>Callouts use Just the Docs-style kramdown attributes and render as VitePress-style custom blocks.</li>
+  <li>Labels use the same kramdown attribute style and render as compact badges.</li>
+  <li>Project buttons use Liquid includes when they need dynamic URLs or live counts.</li>
 </ul>
 
-<p>The plugin generates <code class="language-plaintext highlighter-rouge">/search.json</code> automatically at build time. It includes the home page and all documents from your sidebar collections. Results show matching page titles and content excerpts.</p>
+<p>These features go beyond baseline VitePress and are summarized in <a href="/extensions-to-vitepress/">Extensions to VitePress</a>.</p>
 
-<p>On docs pages, clicking a search result uses the same Turbo Frame navigation as sidebar links, so the result opens without tearing down the surrounding docs shell.</p>
+<h2 id="callouts">Callouts</h2>
 
-<p>If you need custom indexing behavior, add your own <code class="language-plaintext highlighter-rouge">search.json</code> page to the site and it will override the generated default.</p>
+<p>Use a kramdown block attribute on a paragraph or blockquote:</p>
 
-<div class="tip custom-block">
-  <p class="custom-block-title">TIP</p>
-  <p>If search doesn’t seem to find certain pages, make sure those pages belong to a collection listed in your <code class="language-plaintext highlighter-rouge">_data/sidebar.yml</code>. Only sidebar collections are indexed.
-</p>
-</div>
-
-<h2 id="right-side-outline">Right-side outline</h2>
-
-<p>The “On this page” outline appears on the right side of docs pages and lists all <code class="language-plaintext highlighter-rouge">h2</code> and <code class="language-plaintext highlighter-rouge">h3</code> headings on the current page.</p>
-
-<p>As you scroll, the outline highlights the heading that’s currently at the top of the viewport. Clicking an outline link scrolls to that heading, offset so it’s visible below the fixed navbar. The offset distance is configurable:</p>
-
-<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
-  <span class="na">behavior</span><span class="pi">:</span>
-    <span class="na">scroll_offset</span><span class="pi">:</span> <span class="m">134</span>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Using this theme? <span class="p">[</span><span class="nv">Share your story</span><span class="p">](</span><span class="sx">https://example.com</span><span class="p">)</span>! Takes 5 minutes.
+{: .note }
 </code></pre></div></div>
 
-<p>The outline label defaults to “On this page” and can be changed via <code class="language-plaintext highlighter-rouge">jekyll_vitepress.labels.outline</code>.</p>
+<p class="note">Using this theme? <a href="https://example.com">Share your story</a>! Takes 5 minutes.</p>
 
-<p>On narrow screens, the outline collapses to keep the content area readable.</p>
+<p>Supported callout classes are <code class="language-plaintext highlighter-rouge">.info</code>, <code class="language-plaintext highlighter-rouge">.note</code>, <code class="language-plaintext highlighter-rouge">.tip</code>, <code class="language-plaintext highlighter-rouge">.important</code>, <code class="language-plaintext highlighter-rouge">.warning</code>, <code class="language-plaintext highlighter-rouge">.danger</code>, and <code class="language-plaintext highlighter-rouge">.caution</code>.</p>
+
+<h2 id="available-callouts">Available Callouts</h2>
+
+<p class="info">This is an <code class="language-plaintext highlighter-rouge">info</code> block. Use it for neutral, supplementary information.</p>
+
+<p class="note">This is a <code class="language-plaintext highlighter-rouge">note</code> block. Visually identical to info; use whichever label fits better.</p>
+
+<p class="tip">This is a helpful <code class="language-plaintext highlighter-rouge">tip</code> block.</p>
+
+<p class="important">This is an <code class="language-plaintext highlighter-rouge">important</code> block. Do not skip this.</p>
+
+<p class="warning">This is a <code class="language-plaintext highlighter-rouge">warning</code> block. Something could go wrong.</p>
+
+<p class="danger">This is a <code class="language-plaintext highlighter-rouge">danger</code> block. Data loss or security risk.</p>
+
+<p class="caution">This is a <code class="language-plaintext highlighter-rouge">caution</code> block. Visually identical to danger.</p>
+
+<h2 id="inline-labels">Inline Labels</h2>
+
+<p>Labels follow the Just the Docs authoring style and render as compact VitePress-style badges:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gu">### Labels</span>
+{: .d-inline-block }
+
+v1.9.0+
+{: .label .label-green }
+</code></pre></div></div>
+
+<!-- markdownlint-disable MD022 -->
+<h3 class="d-inline-block" id="labels">Labels</h3>
+
+<p class="label label-green">v1.9.0+</p>
+<!-- markdownlint-enable MD022 -->
+
+<p>Available label colors are <code class="language-plaintext highlighter-rouge">.label-blue</code>, <code class="language-plaintext highlighter-rouge">.label-green</code>, <code class="language-plaintext highlighter-rouge">.label-purple</code>, <code class="language-plaintext highlighter-rouge">.label-yellow</code>, and <code class="language-plaintext highlighter-rouge">.label-red</code>.</p>
+
+<h2 id="rubygems-downloads-button">RubyGems Downloads Button</h2>
+
+<p>Configure the gem once in <code class="language-plaintext highlighter-rouge">_config.yml</code>:</p>
+
+<div data-title="_config.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jekyll_vitepress</span><span class="pi">:</span>
+  <span class="na">gem_downloads</span><span class="pi">:</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">jekyll-vitepress-theme</span>
+    <span class="na">text</span><span class="pi">:</span> <span class="s">Gem downloads</span>
+    <span class="na">show_count</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+
+<p>Then render a live downloads button anywhere in Markdown:</p>
+
+<div class="language-liquid highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">{%</span><span class="w"> </span><span class="nt">include</span><span class="w"> </span>rubygems_downloads_button.html<span class="w"> </span><span class="cp">%}</span>
+</code></pre></div></div>
+
+<p><a class="VPMetricButton VPMetricButtonDownloads no-icon" href="https://rubygems.org/gems/jekyll-vitepress-theme" aria-label="View gem downloads" target="_blank" rel="noreferrer noopener" data-rubygems-downloads-gem="jekyll-vitepress-theme" data-rubygems-downloads-show-count="true" data-rubygems-downloads-label="View gem downloads">
+    <span class="VPMetricButtonIcon VPMetricButtonDownloadsIcon" aria-hidden="true">
+      <svg viewBox="0 0 16 16" focusable="false">
+        <path d="M8 1.75a.75.75 0 0 1 .75.75v5.19l1.72-1.72a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 0 1 1.06-1.06l1.72 1.72V2.5A.75.75 0 0 1 8 1.75ZM3.75 11a.75.75 0 0 1 .75.75v1h7v-1a.75.75 0 0 1 1.5 0v1.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1.5a.75.75 0 0 1 .75-.75Z"></path>
+      </svg>
+    </span>
+    <span class="VPMetricButtonText" hidden="">Gem downloads</span>
+    <strong class="VPMetricButtonCount" data-vp-rubygems-downloads-count="">… downloads</strong>
+  </a></p>
+
+<p>You can also configure each button inline:</p>
+
+<div class="language-liquid highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">{%</span><span class="w"> </span><span class="nt">include</span><span class="w"> </span>rubygems_downloads_button.html<span class="w"> </span><span class="na">gem</span><span class="o">=</span><span class="s2">"jekyll-vitepress-theme"</span><span class="w"> </span><span class="na">text</span><span class="o">=</span><span class="s2">"Gem downloads"</span><span class="w"> </span><span class="cp">%}</span>
+</code></pre></div></div>
+
+<p>The button fetches <code class="language-plaintext highlighter-rouge">https://rubygems.org/api/v1/gems/:name.json</code> and displays a compact count like <code class="language-plaintext highlighter-rouge">3.3K downloads</code>.</p>
+
+<h2 id="other-project-buttons">Other Project Buttons</h2>
+
+<p>GitHub Star and GitHub Sponsors buttons are also available outside the navbar:</p>
+
+<div class="language-liquid highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">{%</span><span class="w"> </span><span class="nt">include</span><span class="w"> </span>github_star_button.html<span class="w"> </span><span class="na">repository</span><span class="o">=</span><span class="s2">"crmne/jekyll-vitepress-theme"</span><span class="w"> </span><span class="cp">%}</span>
+<span class="cp">{%</span><span class="w"> </span><span class="nt">include</span><span class="w"> </span>github_sponsor_button.html<span class="w"> </span><span class="na">user</span><span class="o">=</span><span class="s2">"crmne"</span><span class="w"> </span><span class="cp">%}</span>
+</code></pre></div></div>
+
+<p><a class="VPMetricButton VPMetricButtonGithub no-icon" href="https://github.com/crmne/jekyll-vitepress-theme" aria-label="Star crmne/jekyll-vitepress-theme on GitHub" target="_blank" rel="noreferrer noopener" data-github-star-repo="crmne/jekyll-vitepress-theme" data-github-star-show-count="true">
+    <span class="VPMetricButtonIcon vpi-social-github" aria-hidden="true"></span>
+    <span class="VPMetricButtonText">Star</span>
+    <span class="VPMetricButtonCount" data-vp-github-star-count="" aria-hidden="true">…</span>
+  </a></p>
+
+<p><a class="VPMetricButton VPMetricButtonSponsor no-icon" href="https://github.com/sponsors/crmne" aria-label="Sponsor on GitHub" target="_blank" rel="noreferrer noopener">
+    <span class="VPMetricButtonIcon VPMetricButtonSponsorIcon" aria-hidden="true">
+      <svg viewBox="0 0 16 16" focusable="false">
+        <path d="M7.655 14.916v-.001h-.002l-.006-.003-.018-.01a22.066 22.066 0 0 1-3.744-2.584C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.044 5.231-3.886 6.818a22.094 22.094 0 0 1-3.433 2.414 7.152 7.152 0 0 1-.31.17l-.018.01-.008.004a.75.75 0 0 1-.69 0Z"></path>
+      </svg>
+    </span>
+    <span class="VPMetricButtonText">Sponsor</span>
+  </a></p>
+
+<h2 id="lower-level-custom-blocks">Lower-Level Custom Blocks</h2>
+
+<p>If you need custom titles or collapsible details, use the lower-level Liquid include documented on <a href="/custom-blocks/">Custom Blocks</a>.</p>
 
                         </div>
                       </main>
@@ -1297,7 +1515,7 @@ On narrow screens, the outline collapses to keep the content area readable.
       <div class="edit-info">
         
           <div class="edit-link">
-            <a class="VPLink link vp-external-link-icon no-icon edit-link-button" href="https://github.com/crmne/jekyll-vitepress-theme/edit/master/_core_features/search-and-outline.md" target="_blank" rel="noreferrer">
+            <a class="VPLink link vp-external-link-icon no-icon edit-link-button" href="https://github.com/crmne/jekyll-vitepress-theme/edit/master/_core_features/callouts-labels-buttons.md" target="_blank" rel="noreferrer">
               <span class="vpi-square-pen edit-link-icon"></span>
               Edit this page on GitHub
             </a>
@@ -1317,18 +1535,18 @@ On narrow screens, the outline collapses to keep the content area readable.
 
         <div class="pager">
           
-            <a class="VPLink link pager-link prev" href="/callouts-labels-buttons/" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
+            <a class="VPLink link pager-link prev" href="/custom-blocks/" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
               <span class="desc">Previous page</span>
-              <span class="title">Callouts, Labels, and Buttons</span>
+              <span class="title">Custom Blocks</span>
             </a>
           
         </div>
 
         <div class="pager">
           
-            <a class="VPLink link pager-link next" href="/markdown-extensions/" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
+            <a class="VPLink link pager-link next" href="/search-and-outline/" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
               <span class="desc">Next page</span>
-              <span class="title">Markdown Extensions</span>
+              <span class="title">Search and Outline</span>
             </a>
           
         </div>

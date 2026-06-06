@@ -13,12 +13,13 @@
   "entities": [
     {
       "name": "Jekyll",
-      "mentions": 15,
+      "mentions": 17,
       "linked_posts": [
         "/configuration/",
         "/getting-started/",
         "/overview/",
         "/what-is-jekyll-vitepress-theme/",
+        "/callouts-labels-buttons/",
         "/code-blocks/",
         "/markdown-extensions/",
         "/navigation-layout/",
@@ -27,19 +28,21 @@
         "/deployment/",
         "/extending-behavior/",
         "/configuration-reference/",
+        "/extensions-to-vitepress/",
         "/frontmatter-reference/",
         "/troubleshooting/",
-        "/vitepress-parity-and-extensions/"
+        "/vitepress-parity/"
       ]
     },
     {
       "name": "VitePress",
-      "mentions": 15,
+      "mentions": 17,
       "linked_posts": [
         "/configuration/",
         "/getting-started/",
         "/overview/",
         "/what-is-jekyll-vitepress-theme/",
+        "/callouts-labels-buttons/",
         "/code-blocks/",
         "/custom-blocks/",
         "/markdown-extensions/",
@@ -48,21 +51,24 @@
         "/customizing-styles/",
         "/extending-behavior/",
         "/configuration-reference/",
+        "/extensions-to-vitepress/",
         "/frontmatter-reference/",
         "/troubleshooting/",
-        "/vitepress-parity-and-extensions/"
+        "/vitepress-parity/"
       ]
     },
     {
       "name": "Ruby",
-      "mentions": 6,
+      "mentions": 8,
       "linked_posts": [
         "/configuration/",
         "/getting-started/",
         "/what-is-jekyll-vitepress-theme/",
+        "/callouts-labels-buttons/",
         "/code-blocks/",
-        "/troubleshooting/",
-        "/vitepress-parity-and-extensions/"
+        "/configuration-reference/",
+        "/extensions-to-vitepress/",
+        "/troubleshooting/"
       ]
     },
     {
@@ -75,33 +81,41 @@
     },
     {
       "name": "Markdown",
-      "mentions": 9,
+      "mentions": 12,
       "linked_posts": [
+        "/configuration/",
         "/getting-started/",
         "/overview/",
         "/what-is-jekyll-vitepress-theme/",
+        "/callouts-labels-buttons/",
         "/code-blocks/",
         "/custom-blocks/",
         "/markdown-extensions/",
         "/configuration-reference/",
+        "/extensions-to-vitepress/",
         "/frontmatter-reference/",
-        "/vitepress-parity-and-extensions/"
+        "/vitepress-parity/"
       ]
     },
     {
       "name": "Liquid",
-      "mentions": 2,
+      "mentions": 5,
       "linked_posts": [
+        "/configuration/",
         "/what-is-jekyll-vitepress-theme/",
-        "/custom-blocks/"
+        "/callouts-labels-buttons/",
+        "/custom-blocks/",
+        "/extensions-to-vitepress/"
       ]
     },
     {
       "name": "Kramdown",
-      "mentions": 3,
+      "mentions": 5,
       "linked_posts": [
+        "/callouts-labels-buttons/",
         "/code-blocks/",
         "/markdown-extensions/",
+        "/extensions-to-vitepress/",
         "/troubleshooting/"
       ]
     },
@@ -114,7 +128,7 @@
         "/code-blocks/",
         "/configuration-reference/",
         "/troubleshooting/",
-        "/vitepress-parity-and-extensions/"
+        "/vitepress-parity/"
       ]
     },
     {
@@ -123,7 +137,7 @@
       "linked_posts": [
         "/what-is-jekyll-vitepress-theme/",
         "/navigation-layout/",
-        "/vitepress-parity-and-extensions/"
+        "/vitepress-parity/"
       ]
     },
     {
@@ -143,7 +157,7 @@
         "/getting-started/",
         "/what-is-jekyll-vitepress-theme/",
         "/search-and-outline/",
-        "/vitepress-parity-and-extensions/"
+        "/extensions-to-vitepress/"
       ]
     },
     {
@@ -158,5 +172,5 @@
       ]
     }
   ],
-  "generated_at": "2026-05-26T14:03:54+00:00"
+  "generated_at": "2026-06-06T14:44:14+00:00"
 }
