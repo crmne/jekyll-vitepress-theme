@@ -2068,6 +2068,8 @@
     return value || '/';
   }
 
+  var pendingDocFrameHash = null;
+
   function shouldTargetDocFrameLink(link) {
     if (!link) {
       return false;
@@ -2108,6 +2110,52 @@
     return true;
   }
 
+  function rememberDocFrameHash(event) {
+    if (event.defaultPrevented || (typeof event.button === 'number' && event.button !== 0) ||
+      event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+      return;
+    }
+
+    var link = event.currentTarget;
+    if (!shouldTargetDocFrameLink(link)) {
+      return;
+    }
+
+    var url;
+    try {
+      url = new URL(link.getAttribute('href'), window.location.href);
+    } catch (error) {
+      pendingDocFrameHash = null;
+      return;
+    }
+
+    pendingDocFrameHash = url.hash || null;
+  }
+
+  function consumePendingDocFrameHash() {
+    var hash = pendingDocFrameHash;
+    pendingDocFrameHash = null;
+
+    if (!hash || !getHashTarget(hash)) {
+      return null;
+    }
+
+    return hash;
+  }
+
+  function restoreLocationHash(hash) {
+    if (!hash || window.location.hash === hash) {
+      return;
+    }
+
+    if (window.history && typeof window.history.replaceState === 'function') {
+      window.history.replaceState(window.history.state, '', window.location.pathname + window.location.search + hash);
+      return;
+    }
+
+    window.location.hash = hash;
+  }
+
   function enhanceDocFrameLinks() {
     document.querySelectorAll('.vp-doc a[href], .VPDocFooter .pager-link').forEach(function (link) {
       if (!shouldTargetDocFrameLink(link)) {
@@ -2116,6 +2164,10 @@
       link.setAttribute('data-turbo', 'true');
       link.setAttribute('data-turbo-frame', 'vp-content-frame');
       link.setAttribute('data-turbo-action', 'advance');
+      if (!link.hasAttribute('data-vp-frame-hash-bound')) {
+        link.setAttribute('data-vp-frame-hash-bound', 'true');
+        link.addEventListener('click', rememberDocFrameHash);
+      }
     });
   }
 
@@ -2333,7 +2385,11 @@
       loadMetricButtons(event.target);
       formatLastUpdatedTimes(event.target);
 
-      if (window.location.hash) {
+      var pendingHash = consumePendingDocFrameHash();
+      if (pendingHash) {
+        restoreLocationHash(pendingHash);
+        scrollToHash(pendingHash, false);
+      } else if (window.location.hash) {
         scrollToHash(window.location.hash, false);
       } else {
         window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
