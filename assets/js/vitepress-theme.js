@@ -112,6 +112,31 @@
     });
   }
 
+  function formatLastUpdatedTimes(rootElement) {
+    var rootNode = rootElement || document;
+    var language = navigator.language || document.documentElement.getAttribute('lang') || undefined;
+
+    rootNode.querySelectorAll('.VPLastUpdated time[data-vp-last-updated][datetime]').forEach(function (time) {
+      var date = new Date(time.getAttribute('datetime'));
+      if (Number.isNaN(date.getTime())) {
+        return;
+      }
+
+      try {
+        time.textContent = new Intl.DateTimeFormat(language, {
+          dateStyle: 'medium',
+          timeStyle: 'medium'
+        }).format(date);
+
+        if (language) {
+          time.setAttribute('lang', language);
+        }
+      } catch (error) {
+        // Keep the server-rendered fallback if Intl formatting is unavailable.
+      }
+    });
+  }
+
   window.__vpAppearance = {
     getMode: function () {
       return mode;
@@ -555,6 +580,7 @@
   }
 
   loadMetricButtons(document);
+  formatLastUpdatedTimes(document);
 
   function syncMobileMenus() {
     var anyOpen = navScreenOpen || sidebarOpen;
@@ -2242,6 +2268,7 @@
       syncPersistentNavState();
       refreshDocPageState();
       loadMetricButtons(event.target);
+      formatLastUpdatedTimes(event.target);
 
       if (window.location.hash) {
         scrollToHash(window.location.hash, false);

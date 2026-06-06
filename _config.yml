@@ -86,7 +86,7 @@ jekyll_vitepress:
   last_updated:
     enabled: true
     text: Last updated
-    format: "%-d %b %Y, %H:%M"
+    format: vitepress
   edit_link:
     enabled: true
     pattern: "https://github.com/crmne/jekyll-vitepress-theme/edit/master/:path"

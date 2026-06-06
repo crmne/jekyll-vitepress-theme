@@ -631,19 +631,12 @@ body.vp-search-open {
   color: var(--vp-c-text-2);
 }
 
-.VPDocFooter .last-updated {
-  margin-top: 8px;
-}
-
 .VPDocFooter .VPLastUpdated {
   margin: 0;
-  line-height: 22px;
-  font-size: 13px;
+  line-height: 24px;
+  font-size: 14px;
+  font-weight: 500;
   color: var(--vp-c-text-2);
-}
-
-.VPDocFooter .VPLastUpdated time {
-  color: var(--vp-c-text-1);
 }
 
 .VPFooter .footer-brand-links {
@@ -686,8 +679,10 @@ body.vp-search-open {
 }
 
 @media (min-width: 640px) {
-  .VPDocFooter .last-updated {
-    margin-top: 0;
+  .VPDocFooter .VPLastUpdated {
+    line-height: 32px;
+    font-size: 14px;
+    font-weight: 500;
   }
 }
 

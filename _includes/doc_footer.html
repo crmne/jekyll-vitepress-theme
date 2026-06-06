@@ -34,12 +34,20 @@
   {% assign last_updated_text = last_updated_config.text %}
 {% endif %}
 
-{% assign last_updated_format = '%-d %b %Y, %H:%M' %}
+{% assign last_updated_format = 'vitepress' %}
 {% if last_updated_config and last_updated_config.format %}
   {% assign last_updated_format = last_updated_config.format %}
 {% endif %}
+{% assign last_updated_uses_vitepress_format = false %}
+{% if last_updated_format == 'vitepress' %}
+  {% assign last_updated_uses_vitepress_format = true %}
+  {% assign last_updated_format = '%b %-d, %Y, %-I:%M:%S %p' %}
+{% endif %}
 
-{% assign last_updated_at = page_theme.last_updated_at | default: nil %}
+{% assign last_updated_at = page.last_updated_at | default: nil %}
+{% if page_theme.last_updated_at %}
+  {% assign last_updated_at = page_theme.last_updated_at %}
+{% endif %}
 {% assign show_last_updated = false %}
 {% if last_updated_enabled and last_updated_at %}
   {% assign show_last_updated = true %}
@@ -175,7 +183,7 @@
         {% endif %}
         {% if show_last_updated %}
           <div class="last-updated">
-            <p class="VPLastUpdated">{{ last_updated_text }}: <time datetime="{{ last_updated_at | date_to_xmlschema }}" lang="{{ site.lang | default: 'en-US' }}">{{ last_updated_at | date: last_updated_format }}</time></p>
+            <p class="VPLastUpdated">{{ last_updated_text }}: <time datetime="{{ last_updated_at | date_to_xmlschema }}" lang="{{ site.lang | default: 'en-US' }}"{% if last_updated_uses_vitepress_format %} data-vp-last-updated{% endif %}>{{ last_updated_at | date: last_updated_format }}</time></p>
           </div>
         {% endif %}
       </div>

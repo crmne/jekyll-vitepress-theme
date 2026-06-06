@@ -131,7 +131,7 @@ jekyll_vitepress:
 - `edit_link.text`
 - `last_updated.enabled`
 - `last_updated.text`
-- `last_updated.format`
+- `last_updated.format` (`vitepress` for browser-local VitePress-style formatting, or a Jekyll strftime string)
 - `github_star.enabled`
 - `github_star.repository` (`owner/repo`)
 - `github_star.text`
@@ -157,7 +157,7 @@ jekyll_vitepress:
   last_updated:
     enabled: true
     text: Last updated
-    format: "%-d %b %Y, %H:%M"
+    format: vitepress
   github_star:
     enabled: true
     repository: you/project
@@ -179,6 +179,7 @@ jekyll_vitepress:
 
 If `github_sponsor.url` is omitted, the theme links to `https://github.com/sponsors/:user`.
 If `gem_downloads.url` is omitted, the page-level downloads include links to `https://rubygems.org/gems/:name`.
+If `last_updated.format` is `vitepress`, the static fallback is replaced in the browser using `Intl.DateTimeFormat` with medium date and medium time, matching VitePress. Use a Jekyll strftime string such as `"%b %-d, %Y, %-I:%M:%S %p"` for a static custom format.
 
 ### Copy Page
 
