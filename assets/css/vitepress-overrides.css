@@ -46,6 +46,23 @@ body.vp-nav-screen-open .VPNav {
   pointer-events: auto;
 }
 
+.vp-menu-transition {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity 0.25s, visibility 0.25s, transform 0.25s;
+}
+
+.vp-menu-transition[aria-hidden="false"],
+.VPNavBarExtra:hover > .vp-menu-transition,
+.VPNavBarExtra.open > .vp-menu-transition {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
 .VPNavBar > .wrapper > .container > .title,
 .VPNavBar > .wrapper > .container > .content > .content-body,
 .vp-doc div[class*='language-'],
@@ -394,16 +411,6 @@ body.vp-nav-screen-open .VPNav {
     top: calc(var(--vp-nav-height) / 2 + 20px);
     right: 0;
     z-index: calc(var(--vp-z-index-nav) + 1);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(0);
-    transition: opacity 0.25s, visibility 0.25s, transform 0.25s;
-  }
-
-  .VPNavBarExtra:hover .menu,
-  .VPNavBarExtra.open .menu {
-    opacity: 1;
-    visibility: visible;
   }
 
   .VPNavBarExtra .VPMenu {

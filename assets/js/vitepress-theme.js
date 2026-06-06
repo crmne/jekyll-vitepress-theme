@@ -1439,7 +1439,33 @@
   var dropdown = document.querySelector('.copy-md-dropdown');
   var dropdownCopy = dropdown ? dropdown.querySelector('[data-action="copy"]') : null;
 
+  function setCopyPageDropdownOpen(open) {
+    if (!dropdown || !toggle) {
+      return;
+    }
+
+    if (dropdown.hidden) {
+      dropdown.hidden = false;
+    }
+
+    dropdown.setAttribute('aria-hidden', String(!open));
+    toggle.setAttribute('aria-expanded', String(open));
+  }
+
+  function isCopyPageDropdownOpen() {
+    return !!(dropdown && dropdown.getAttribute('aria-hidden') === 'false');
+  }
+
   function bindCopyPageControls() {
+    if (dropdown) {
+      if (dropdown.hidden) {
+        dropdown.hidden = false;
+      }
+      if (!dropdown.hasAttribute('aria-hidden')) {
+        dropdown.setAttribute('aria-hidden', 'true');
+      }
+    }
+
     if (copyMdBtn && !copyMdBtn.hasAttribute('data-vp-bound')) {
       copyMdBtn.setAttribute('data-vp-bound', 'true');
       copyMdBtn.addEventListener('click', function () {
@@ -1451,9 +1477,7 @@
       toggle.setAttribute('data-vp-bound', 'true');
       toggle.addEventListener('click', function (e) {
         e.stopPropagation();
-        var open = !dropdown.hidden;
-        dropdown.hidden = !dropdown.hidden;
-        toggle.setAttribute('aria-expanded', String(!open));
+        setCopyPageDropdownOpen(!isCopyPageDropdownOpen());
       });
     }
 
@@ -1461,10 +1485,7 @@
     if (dropdownCopy && !dropdownCopy.hasAttribute('data-vp-bound')) {
       dropdownCopy.setAttribute('data-vp-bound', 'true');
       dropdownCopy.addEventListener('click', function () {
-        dropdown.hidden = true;
-        if (toggle) {
-          toggle.setAttribute('aria-expanded', 'false');
-        }
+        setCopyPageDropdownOpen(false);
         copyPageMarkdown(copyMdBtn);
       });
     }
@@ -1473,19 +1494,17 @@
   bindCopyPageControls();
 
   document.addEventListener('click', function (e) {
-    if (!dropdown || !toggle || dropdown.hidden) {
+    if (!dropdown || !toggle || !isCopyPageDropdownOpen()) {
       return;
     }
     if (!dropdown.contains(e.target) && !toggle.contains(e.target)) {
-      dropdown.hidden = true;
-      toggle.setAttribute('aria-expanded', 'false');
+      setCopyPageDropdownOpen(false);
     }
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && dropdown && toggle && !dropdown.hidden) {
-      dropdown.hidden = true;
-      toggle.setAttribute('aria-expanded', 'false');
+    if (e.key === 'Escape' && dropdown && toggle && isCopyPageDropdownOpen()) {
+      setCopyPageDropdownOpen(false);
       toggle.focus();
     }
   });
