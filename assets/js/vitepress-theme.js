@@ -240,6 +240,14 @@
     });
   }
 
+  function formatExactCount(value) {
+    try {
+      return new Intl.NumberFormat('en-US').format(value);
+    } catch (error) {
+      return String(value);
+    }
+  }
+
   function formatGitHubStarCount(value) {
     var count = Number(value);
     if (!Number.isFinite(count) || count < 0) {
@@ -264,7 +272,7 @@
       return;
     }
 
-    var countElement = button.querySelector('.VPNavBarStarCount');
+    var countElement = button.querySelector('.VPNavBarStarCount, .VPMetricButtonCount[data-vp-github-star-count]');
     if (!countElement) {
       return;
     }
@@ -276,9 +284,20 @@
 
     countElement.textContent = formatted;
     countElement.hidden = false;
+
+    if (button.classList.contains('VPMetricButton')) {
+      var repository = button.getAttribute('data-github-star-repo');
+      var exactCount = formatExactCount(value);
+      button.title = exactCount + ' GitHub stars';
+      if (repository) {
+        button.setAttribute('aria-label', 'Star ' + repository + ' on GitHub: ' + exactCount + ' stars');
+      }
+    }
   }
 
   var githubStarCacheTtlMs = 6 * 60 * 60 * 1000;
+  var rubygemsDownloadsCacheTtlMs = 6 * 60 * 60 * 1000;
+  var pendingRubyGemsDownloads = {};
 
   function readCachedGitHubStarCount(repository) {
     if (!repository || !window.localStorage) {
@@ -374,9 +393,168 @@
       });
   }
 
-  document.querySelectorAll('.VPNavBarStarLink[data-github-star-repo]').forEach(function (button) {
-    loadGitHubStarCount(button);
-  });
+  function formatRubyGemsDownloads(value) {
+    var count = Number(value);
+    if (!Number.isFinite(count) || count < 0) {
+      return null;
+    }
+
+    if (count >= 1000000) {
+      var millions = (count / 1000000).toFixed(count >= 10000000 ? 0 : 1);
+      return millions.replace(/\.0$/, '') + 'M';
+    }
+
+    if (count >= 1000) {
+      var thousands = (count / 1000).toFixed(count >= 100000 ? 0 : 1);
+      return thousands.replace(/\.0$/, '') + 'K';
+    }
+
+    return String(Math.round(count));
+  }
+
+  function setRubyGemsDownloads(button, value) {
+    if (!button) {
+      return;
+    }
+
+    var countElement = button.querySelector('.VPMetricButtonCount[data-vp-rubygems-downloads-count]');
+    if (!countElement) {
+      return;
+    }
+
+    var formatted = formatRubyGemsDownloads(value);
+    if (!formatted) {
+      return;
+    }
+
+    var exactCount = formatExactCount(value);
+    var textElement = button.querySelector('.VPMetricButtonText');
+    countElement.textContent = formatted + ' downloads';
+    countElement.hidden = false;
+    if (textElement) {
+      textElement.hidden = true;
+    }
+
+    var label = button.getAttribute('data-rubygems-downloads-label') || 'View gem downloads';
+    button.title = exactCount + ' downloads on RubyGems';
+    button.setAttribute('aria-label', label + ': ' + exactCount + ' downloads');
+  }
+
+  function readCachedRubyGemsDownloads(gemName) {
+    if (!gemName || !window.localStorage) {
+      return null;
+    }
+
+    try {
+      var valueKey = 'vp-rubygems-downloads:value:' + gemName;
+      var tsKey = 'vp-rubygems-downloads:ts:' + gemName;
+
+      var rawValue = localStorage.getItem(valueKey);
+      var rawTs = localStorage.getItem(tsKey);
+      if (!rawValue || !rawTs) {
+        return null;
+      }
+
+      var downloads = Number(rawValue);
+      var cachedAt = Number(rawTs);
+      if (!Number.isFinite(downloads) || !Number.isFinite(cachedAt)) {
+        return null;
+      }
+
+      if (Date.now() - cachedAt > rubygemsDownloadsCacheTtlMs) {
+        return null;
+      }
+
+      return { downloads: downloads, cachedAt: cachedAt };
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function writeCachedRubyGemsDownloads(gemName, downloads) {
+    if (!gemName || !window.localStorage) {
+      return;
+    }
+
+    try {
+      var valueKey = 'vp-rubygems-downloads:value:' + gemName;
+      var tsKey = 'vp-rubygems-downloads:ts:' + gemName;
+      localStorage.setItem(valueKey, String(downloads));
+      localStorage.setItem(tsKey, String(Date.now()));
+    } catch (error) {
+      // Ignore storage errors.
+    }
+  }
+
+  function fetchRubyGemsDownloads(gemName) {
+    if (!pendingRubyGemsDownloads[gemName]) {
+      pendingRubyGemsDownloads[gemName] = fetch('https://rubygems.org/api/v1/gems/' + encodeURIComponent(gemName) + '.json', {
+        credentials: 'omit',
+        headers: { Accept: 'application/json' }
+      })
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error('RubyGems API request failed');
+          }
+          return response.json();
+        })
+        .then(function (data) {
+          var downloads = Number(data && data.downloads);
+          if (!Number.isFinite(downloads)) {
+            throw new Error('RubyGems response missing downloads');
+          }
+          writeCachedRubyGemsDownloads(gemName, downloads);
+          return downloads;
+        })
+        .catch(function () {
+          return null;
+        });
+    }
+
+    return pendingRubyGemsDownloads[gemName];
+  }
+
+  function loadRubyGemsDownloads(button) {
+    if (!button) {
+      return;
+    }
+
+    var showCount = button.getAttribute('data-rubygems-downloads-show-count') !== 'false';
+    if (!showCount) {
+      return;
+    }
+
+    var gemName = button.getAttribute('data-rubygems-downloads-gem');
+    if (!gemName) {
+      return;
+    }
+
+    var cached = readCachedRubyGemsDownloads(gemName);
+    if (cached && typeof cached.downloads === 'number') {
+      setRubyGemsDownloads(button, cached.downloads);
+      return;
+    }
+
+    fetchRubyGemsDownloads(gemName).then(function (downloads) {
+      if (downloads !== null) {
+        setRubyGemsDownloads(button, downloads);
+      }
+    });
+  }
+
+  function loadMetricButtons(rootElement) {
+    var rootNode = rootElement || document;
+
+    rootNode.querySelectorAll('.VPNavBarStarLink[data-github-star-repo], .VPMetricButton[data-github-star-repo]').forEach(function (button) {
+      loadGitHubStarCount(button);
+    });
+
+    rootNode.querySelectorAll('.VPMetricButton[data-rubygems-downloads-gem]').forEach(function (button) {
+      loadRubyGemsDownloads(button);
+    });
+  }
+
+  loadMetricButtons(document);
 
   function syncMobileMenus() {
     var anyOpen = navScreenOpen || sidebarOpen;
@@ -2063,6 +2241,7 @@
 
       syncPersistentNavState();
       refreshDocPageState();
+      loadMetricButtons(event.target);
 
       if (window.location.hash) {
         scrollToHash(window.location.hash, false);

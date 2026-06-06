@@ -1,0 +1,53 @@
+{% assign theme = site.jekyll_vitepress %}
+{% assign config = theme.gem_downloads %}
+{% assign explicit_gem_name = include.gem | default: include.name %}
+{% assign explicit_button_url = include.url %}
+{% assign gem_name = explicit_gem_name %}
+{% assign button_url = explicit_button_url %}
+{% assign button_text = include.text %}
+{% assign button_label = include.label %}
+{% assign show_count = include.show_count %}
+{% assign button_enabled = true %}
+{% if config and config != false %}
+  {% if config.enabled == false %}
+    {% unless explicit_gem_name or explicit_button_url %}
+      {% assign button_enabled = false %}
+    {% endunless %}
+  {% endif %}
+  {% unless gem_name %}
+    {% assign gem_name = config.gem | default: config.name %}
+  {% endunless %}
+  {% unless button_url %}
+    {% assign button_url = config.url %}
+  {% endunless %}
+  {% unless button_text %}
+    {% assign button_text = config.text %}
+  {% endunless %}
+  {% unless button_label %}
+    {% assign button_label = config.label %}
+  {% endunless %}
+  {% if show_count == nil %}
+    {% assign show_count = config.show_count %}
+  {% endif %}
+{% endif %}
+{% assign button_text = button_text | default: 'Downloads' %}
+{% assign button_label = button_label | default: 'View gem downloads' %}
+{% if show_count == nil %}
+  {% assign show_count = true %}
+{% endif %}
+{% unless button_url %}
+  {% if gem_name %}
+    {% assign button_url = 'https://rubygems.org/gems/' | append: gem_name %}
+  {% endif %}
+{% endunless %}
+{% if button_enabled and gem_name and button_url %}
+  <a class="VPMetricButton VPMetricButtonDownloads no-icon" href="{{ button_url }}" aria-label="{{ button_label | escape }}" target="_blank" rel="noreferrer noopener" data-rubygems-downloads-gem="{{ gem_name | escape }}" data-rubygems-downloads-show-count="{{ show_count }}" data-rubygems-downloads-label="{{ button_label | escape }}">
+    <span class="VPMetricButtonIcon VPMetricButtonDownloadsIcon" aria-hidden="true">
+      <svg viewBox="0 0 16 16" focusable="false">
+        <path d="M8 1.75a.75.75 0 0 1 .75.75v5.19l1.72-1.72a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 0 1 1.06-1.06l1.72 1.72V2.5A.75.75 0 0 1 8 1.75ZM3.75 11a.75.75 0 0 1 .75.75v1h7v-1a.75.75 0 0 1 1.5 0v1.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1.5a.75.75 0 0 1 .75-.75Z"></path>
+      </svg>
+    </span>
+    <span class="VPMetricButtonText"{% if show_count %} hidden{% endif %}>{{ button_text }}</span>
+    <strong class="VPMetricButtonCount" data-vp-rubygems-downloads-count{% unless show_count %} hidden{% endunless %}>{% if show_count %}... downloads{% endif %}</strong>
+  </a>
+{% endif %}

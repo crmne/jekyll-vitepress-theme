@@ -1,0 +1,45 @@
+{% assign theme = site.jekyll_vitepress %}
+{% assign config = theme.github_sponsor %}
+{% assign explicit_sponsor_user = include.user | default: include.username | default: include.account %}
+{% assign explicit_button_url = include.url %}
+{% assign sponsor_user = explicit_sponsor_user %}
+{% assign button_url = explicit_button_url %}
+{% assign button_text = include.text %}
+{% assign button_label = include.label %}
+{% assign button_enabled = true %}
+{% if config and config != false %}
+  {% if config.enabled == false %}
+    {% unless explicit_sponsor_user or explicit_button_url %}
+      {% assign button_enabled = false %}
+    {% endunless %}
+  {% endif %}
+  {% unless sponsor_user %}
+    {% assign sponsor_user = config.user | default: config.username | default: config.account %}
+  {% endunless %}
+  {% unless button_url %}
+    {% assign button_url = config.url %}
+  {% endunless %}
+  {% unless button_text %}
+    {% assign button_text = config.text %}
+  {% endunless %}
+  {% unless button_label %}
+    {% assign button_label = config.label %}
+  {% endunless %}
+{% endif %}
+{% assign button_text = button_text | default: 'Sponsor' %}
+{% assign button_label = button_label | default: 'Sponsor on GitHub' %}
+{% unless button_url %}
+  {% if sponsor_user %}
+    {% assign button_url = 'https://github.com/sponsors/' | append: sponsor_user %}
+  {% endif %}
+{% endunless %}
+{% if button_enabled and button_url %}
+  <a class="VPMetricButton VPMetricButtonSponsor no-icon" href="{{ button_url }}" aria-label="{{ button_label | escape }}" target="_blank" rel="noreferrer noopener">
+    <span class="VPMetricButtonIcon VPMetricButtonSponsorIcon" aria-hidden="true">
+      <svg viewBox="0 0 16 16" focusable="false">
+        <path d="M7.655 14.916v-.001h-.002l-.006-.003-.018-.01a22.066 22.066 0 0 1-3.744-2.584C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.044 5.231-3.886 6.818a22.094 22.094 0 0 1-3.433 2.414 7.152 7.152 0 0 1-.31.17l-.018.01-.008.004a.75.75 0 0 1-.69 0Z"></path>
+      </svg>
+    </span>
+    <span class="VPMetricButtonText">{{ button_text }}</span>
+  </a>
+{% endif %}

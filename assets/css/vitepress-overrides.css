@@ -1073,6 +1073,66 @@ body.vp-search-open {
   background-color: var(--vp-button-sponsor-active-bg);
 }
 
+.VPMetricButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+  padding: 0 12px;
+  color: var(--vp-c-text-2);
+  background: var(--vp-c-bg-soft);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none !important;
+  transition: color 0.25s, border-color 0.25s, background-color 0.25s;
+  vertical-align: middle;
+}
+
+.VPMetricButton:hover {
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-text-1);
+  background: var(--vp-c-bg-elv);
+}
+
+.VPMetricButtonIcon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  color: currentcolor;
+  line-height: 0;
+}
+
+.VPMetricButtonIcon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentcolor;
+}
+
+.VPMetricButtonCount {
+  color: var(--vp-c-text-1);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.VPMetricButtonText[hidden],
+.VPMetricButtonCount[hidden] {
+  display: none !important;
+}
+
+.vp-doc p:has(> .VPMetricButton) {
+  display: inline-block;
+  margin: 8px 8px 8px 0;
+  line-height: 1;
+}
+
 .VPFeatures {
   position: relative;
   padding: 0 24px;

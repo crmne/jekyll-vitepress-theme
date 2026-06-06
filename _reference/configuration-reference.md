@@ -122,7 +122,7 @@ jekyll_vitepress:
 ```
 {: data-title="_config.yml"}
 
-### Edit Link, Last Updated, GitHub Star, and GitHub Sponsor
+### Edit Link, Last Updated, GitHub Star, GitHub Sponsor, and Gem Downloads
 
 - `edit_link.enabled`
 - `edit_link.pattern`
@@ -139,6 +139,12 @@ jekyll_vitepress:
 - `github_sponsor.url` (optional custom sponsorship URL)
 - `github_sponsor.text`
 - `github_sponsor.label`
+- `gem_downloads.enabled`
+- `gem_downloads.name` or `gem_downloads.gem`
+- `gem_downloads.url` (optional custom downloads URL)
+- `gem_downloads.text`
+- `gem_downloads.label`
+- `gem_downloads.show_count`
 
 ```yaml
 jekyll_vitepress:
@@ -159,10 +165,18 @@ jekyll_vitepress:
     enabled: true
     user: you
     text: Sponsor
+  gem_downloads:
+    enabled: true
+    name: your_gem
+    text: Gem downloads
+    url: https://rubygems.org/gems/your_gem
+    label: View gem downloads
+    show_count: true
 ```
 {: data-title="_config.yml"}
 
 If `github_sponsor.url` is omitted, the theme links to `https://github.com/sponsors/:user`.
+If `gem_downloads.url` is omitted, the page-level downloads include links to `https://rubygems.org/gems/:name`.
 
 ### Copy Page
 

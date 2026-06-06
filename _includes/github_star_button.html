@@ -1,0 +1,41 @@
+{% assign theme = site.jekyll_vitepress %}
+{% assign config = theme.github_star %}
+{% assign explicit_repository = include.repository | default: include.repo %}
+{% assign explicit_button_url = include.url %}
+{% assign repository = explicit_repository %}
+{% assign button_text = include.text %}
+{% assign show_count = include.show_count %}
+{% assign button_enabled = true %}
+{% if config and config != false %}
+  {% if config.enabled == false %}
+    {% unless explicit_repository or explicit_button_url %}
+      {% assign button_enabled = false %}
+    {% endunless %}
+  {% endif %}
+  {% unless repository %}
+    {% assign repository = config.repository | default: config.repo %}
+  {% endunless %}
+  {% unless button_text %}
+    {% assign button_text = config.text %}
+  {% endunless %}
+  {% if show_count == nil %}
+    {% assign show_count = config.show_count %}
+  {% endif %}
+{% endif %}
+{% assign button_text = button_text | default: 'Star' %}
+{% if show_count == nil %}
+  {% assign show_count = true %}
+{% endif %}
+{% assign button_url = explicit_button_url %}
+{% unless button_url %}
+  {% if repository %}
+    {% assign button_url = 'https://github.com/' | append: repository %}
+  {% endif %}
+{% endunless %}
+{% if button_enabled and repository and button_url %}
+  <a class="VPMetricButton VPMetricButtonGithub no-icon" href="{{ button_url }}" aria-label="Star {{ repository }} on GitHub" target="_blank" rel="noreferrer noopener" data-github-star-repo="{{ repository | escape }}" data-github-star-show-count="{{ show_count }}">
+    <span class="VPMetricButtonIcon vpi-social-github" aria-hidden="true"></span>
+    <span class="VPMetricButtonText">{{ button_text }}</span>
+    <span class="VPMetricButtonCount" data-vp-github-star-count aria-hidden="true"{% unless show_count %} hidden{% endunless %}>{% if show_count %}...{% endif %}</span>
+  </a>
+{% endif %}

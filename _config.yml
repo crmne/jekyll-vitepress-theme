@@ -100,6 +100,11 @@ jekyll_vitepress:
     enabled: true
     user: crmne
     text: Sponsor
+  gem_downloads:
+    enabled: true
+    name: jekyll-vitepress-theme
+    text: Gem downloads
+    show_count: true
   labels:
     outline: On this page
     sidebar_menu: Menu
