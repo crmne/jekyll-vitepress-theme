@@ -46,6 +46,23 @@ body.vp-nav-screen-open .VPNav {
   pointer-events: auto;
 }
 
+.vp-menu-transition {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity 0.25s, visibility 0.25s, transform 0.25s;
+}
+
+.vp-menu-transition[aria-hidden="false"],
+.VPNavBarExtra:hover > .vp-menu-transition,
+.VPNavBarExtra.open > .vp-menu-transition {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
 .VPNavBar > .wrapper > .container > .title,
 .VPNavBar > .wrapper > .container > .content > .content-body,
 .vp-doc div[class*='language-'],
@@ -394,16 +411,6 @@ body.vp-nav-screen-open .VPNav {
     top: calc(var(--vp-nav-height) / 2 + 20px);
     right: 0;
     z-index: calc(var(--vp-z-index-nav) + 1);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(0);
-    transition: opacity 0.25s, visibility 0.25s, transform 0.25s;
-  }
-
-  .VPNavBarExtra:hover .menu,
-  .VPNavBarExtra.open .menu {
-    opacity: 1;
-    visibility: visible;
   }
 
   .VPNavBarExtra .VPMenu {
@@ -1115,6 +1122,10 @@ body.vp-search-open {
   color: var(--vp-c-text-1);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
+}
+
+.VPButton.VPMetricButton .VPMetricButtonCount {
+  color: inherit;
 }
 
 .VPMetricButtonText[hidden],
@@ -1927,8 +1938,7 @@ html.dark .only-light {
 }
 
 /* Copy as Markdown button group */
-.vp-doc-header,
-.vp-doc-title-row {
+.vp-doc-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1936,22 +1946,34 @@ html.dark .only-light {
   flex-wrap: wrap;
 }
 
-.vp-doc-header h1,
-.vp-doc-title-row h1 {
+.vp-doc-header:not(:has(> h1)) {
+  float: right;
+  justify-content: flex-end;
+  margin: 0 0 16px 24px;
+}
+
+.vp-doc-header h1 {
   margin-top: 0;
   margin-bottom: 0;
   flex: 1 1 320px;
   min-width: 0;
 }
 
-.vp-doc-header .copy-md-group,
-.vp-doc-title-row .copy-md-group {
+.vp-doc-header:not(:has(> h1)) .copy-md-group {
+  margin-left: 0;
+}
+
+.vp-doc-header .copy-md-group {
   margin-left: auto;
 }
 
 /* Copy page icon defs */
 .vpi-copy {
   --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'/%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.vpi-check {
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m20 6l-11 11l-5-5'/%3E%3C/svg%3E");
 }
 
 .vpi-file-text {
@@ -1967,11 +1989,12 @@ html.dark .only-light {
   border: 1px solid var(--vp-c-divider);
   border-radius: 6px;
   background: var(--vp-c-bg-soft);
-  transition: color 0.25s, border-color 0.25s, background-color 0.25s;
+  transition: border-color 0.25s, background-color 0.25s;
 }
 
 .copy-md-group:hover {
   border-color: var(--vp-c-brand-1);
+  background: var(--vp-c-bg-elv);
 }
 
 .copy-md-btn {
@@ -1990,7 +2013,7 @@ html.dark .only-light {
   white-space: nowrap;
 }
 
-.copy-md-btn .vpi-copy {
+.copy-md-icon {
   width: 14px;
   height: 14px;
 }
@@ -1998,10 +2021,6 @@ html.dark .only-light {
 .copy-md-btn:hover {
   color: var(--vp-c-text-1);
   background: var(--vp-c-bg-elv);
-}
-
-.copy-md-btn.copied {
-  color: var(--vp-c-green-1, #42b883);
 }
 
 .copy-md-toggle {

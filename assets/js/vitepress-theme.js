@@ -302,7 +302,8 @@
       return;
     }
 
-    var formatted = formatGitHubStarCount(value);
+    var metricButton = button.classList.contains('VPMetricButton');
+    var formatted = metricButton ? formatExactCount(value) : formatGitHubStarCount(value);
     if (!formatted) {
       return;
     }
@@ -310,12 +311,11 @@
     countElement.textContent = formatted;
     countElement.hidden = false;
 
-    if (button.classList.contains('VPMetricButton')) {
+    if (metricButton) {
       var repository = button.getAttribute('data-github-star-repo');
-      var exactCount = formatExactCount(value);
-      button.title = exactCount + ' GitHub stars';
+      button.title = formatted + ' GitHub stars';
       if (repository) {
-        button.setAttribute('aria-label', 'Star ' + repository + ' on GitHub: ' + exactCount + ' stars');
+        button.setAttribute('aria-label', 'Star ' + repository + ' on GitHub: ' + formatted + ' stars');
       }
     }
   }
@@ -1403,35 +1403,6 @@
     return null;
   }
 
-  function alignCopyPageButtonWithHeading() {
-    var header = document.querySelector('.vp-doc-header');
-    var group = header && header.querySelector('.copy-md-group');
-    if (!header || !group || header.querySelector('h1')) {
-      return;
-    }
-
-    var titleHeading = resolveCopyPageTitleHeading();
-    if (!titleHeading) {
-      return;
-    }
-
-    var titleRow = titleHeading.closest('.vp-doc-title-row');
-    if (!titleRow) {
-      titleRow = document.createElement('div');
-      titleRow.className = 'vp-doc-title-row';
-      titleHeading.parentNode.insertBefore(titleRow, titleHeading);
-      titleRow.appendChild(titleHeading);
-    }
-
-    titleRow.appendChild(group);
-
-    if (!header.querySelector('*')) {
-      header.hidden = true;
-    }
-  }
-
-  alignCopyPageButtonWithHeading();
-
   function copyPageMarkdown(btn) {
     if (!btn) return;
 
@@ -1449,15 +1420,23 @@
       }
     }
 
+    var icon = btn.querySelector('.copy-md-icon');
     var label = btn.querySelector('.copy-md-label');
+    function setCopied(copied) {
+      btn.classList.toggle('copied', copied);
+      if (icon) {
+        icon.classList.toggle('vpi-copy', !copied);
+        icon.classList.toggle('vpi-check', copied);
+      }
+      if (label) label.textContent = copied ? 'Copied' : 'Copy page';
+    }
+
     writeToClipboard(md)
       .then(function () {
-        btn.classList.add('copied');
-        if (label) label.textContent = 'Copied';
+        setCopied(true);
         if (btn._copyTimeout) window.clearTimeout(btn._copyTimeout);
         btn._copyTimeout = window.setTimeout(function () {
-          btn.classList.remove('copied');
-          if (label) label.textContent = 'Copy page';
+          setCopied(false);
         }, 2000);
       })
       .catch(function () {});
@@ -1468,7 +1447,33 @@
   var dropdown = document.querySelector('.copy-md-dropdown');
   var dropdownCopy = dropdown ? dropdown.querySelector('[data-action="copy"]') : null;
 
+  function setCopyPageDropdownOpen(open) {
+    if (!dropdown || !toggle) {
+      return;
+    }
+
+    if (dropdown.hidden) {
+      dropdown.hidden = false;
+    }
+
+    dropdown.setAttribute('aria-hidden', String(!open));
+    toggle.setAttribute('aria-expanded', String(open));
+  }
+
+  function isCopyPageDropdownOpen() {
+    return !!(dropdown && dropdown.getAttribute('aria-hidden') === 'false');
+  }
+
   function bindCopyPageControls() {
+    if (dropdown) {
+      if (dropdown.hidden) {
+        dropdown.hidden = false;
+      }
+      if (!dropdown.hasAttribute('aria-hidden')) {
+        dropdown.setAttribute('aria-hidden', 'true');
+      }
+    }
+
     if (copyMdBtn && !copyMdBtn.hasAttribute('data-vp-bound')) {
       copyMdBtn.setAttribute('data-vp-bound', 'true');
       copyMdBtn.addEventListener('click', function () {
@@ -1480,9 +1485,7 @@
       toggle.setAttribute('data-vp-bound', 'true');
       toggle.addEventListener('click', function (e) {
         e.stopPropagation();
-        var open = !dropdown.hidden;
-        dropdown.hidden = !dropdown.hidden;
-        toggle.setAttribute('aria-expanded', String(!open));
+        setCopyPageDropdownOpen(!isCopyPageDropdownOpen());
       });
     }
 
@@ -1490,10 +1493,7 @@
     if (dropdownCopy && !dropdownCopy.hasAttribute('data-vp-bound')) {
       dropdownCopy.setAttribute('data-vp-bound', 'true');
       dropdownCopy.addEventListener('click', function () {
-        dropdown.hidden = true;
-        if (toggle) {
-          toggle.setAttribute('aria-expanded', 'false');
-        }
+        setCopyPageDropdownOpen(false);
         copyPageMarkdown(copyMdBtn);
       });
     }
@@ -1502,19 +1502,17 @@
   bindCopyPageControls();
 
   document.addEventListener('click', function (e) {
-    if (!dropdown || !toggle || dropdown.hidden) {
+    if (!dropdown || !toggle || !isCopyPageDropdownOpen()) {
       return;
     }
     if (!dropdown.contains(e.target) && !toggle.contains(e.target)) {
-      dropdown.hidden = true;
-      toggle.setAttribute('aria-expanded', 'false');
+      setCopyPageDropdownOpen(false);
     }
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && dropdown && toggle && !dropdown.hidden) {
-      dropdown.hidden = true;
-      toggle.setAttribute('aria-expanded', 'false');
+    if (e.key === 'Escape' && dropdown && toggle && isCopyPageDropdownOpen()) {
+      setCopyPageDropdownOpen(false);
       toggle.focus();
     }
   });
@@ -2256,7 +2254,6 @@
     bindCopyPageControls();
 
     addCopyButtons();
-    alignCopyPageButtonWithHeading();
     enhanceDocFrameLinks();
 
     content = document.querySelector('.vp-doc');
