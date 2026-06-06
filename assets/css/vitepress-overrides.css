@@ -1786,6 +1786,18 @@ html.dark .only-light {
   margin-left: 8px;
 }
 
+.vp-doc h2.d-inline-block + p.label {
+  margin-top: 73px;
+}
+
+.vp-doc h3.d-inline-block + p.label {
+  margin-top: 32px;
+}
+
+.vp-doc h4.d-inline-block + p.label {
+  margin-top: 24px;
+}
+
 .vp-doc :is(p, blockquote):is(.info, .note, .tip, .important, .warning, .danger, .caution) {
   border: 1px solid transparent;
   border-radius: 8px;
