@@ -1947,6 +1947,8 @@ html.dark .only-light {
 }
 
 .vp-doc-header:not(:has(> h1)) {
+  position: relative;
+  z-index: 1;
   float: right;
   justify-content: flex-end;
   margin: 0 0 16px 24px;
