@@ -7,11 +7,11 @@
     </button>
 
     <div class="VPLocalNavOutlineDropdown" id="vp-local-outline-dropdown">
-      <button type="button" id="vp-local-outline-button">
+      <button type="button" id="vp-local-outline-button" aria-expanded="false" aria-controls="vp-local-outline-items">
         <span class="menu-text">{{ labels.outline | default: 'On this page' }}</span>
         <span class="vpi-chevron-right icon"></span>
       </button>
-      <div class="items" hidden>
+      <div class="items" id="vp-local-outline-items" hidden>
         <div class="header">
           <a class="top-link" href="#top" id="vp-local-top-link">{{ labels.return_to_top | default: 'Return to top' }}</a>
         </div>

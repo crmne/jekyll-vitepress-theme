@@ -2,7 +2,7 @@
 
 html,
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Keep appearance transitions visually consistent across key UI surfaces. */

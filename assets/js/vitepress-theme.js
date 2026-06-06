@@ -1682,20 +1682,90 @@
   }
 
   var localOutlineOpen = false;
+  var localOutlineTransitionTimer = null;
+
+  function clearLocalOutlineTransition() {
+    if (localOutlineTransitionTimer) {
+      window.clearTimeout(localOutlineTransitionTimer);
+      localOutlineTransitionTimer = null;
+    }
+
+    if (localOutlineItems) {
+      localOutlineItems.classList.remove(
+        'flyout-enter-active',
+        'flyout-enter-from',
+        'flyout-leave-active',
+        'flyout-leave-to'
+      );
+    }
+  }
+
+  function setLocalOutlineOpen(open, animate) {
+    localOutlineOpen = open;
+
+    if (localOutlineButton) {
+      localOutlineButton.classList.toggle('open', open);
+      localOutlineButton.setAttribute('aria-expanded', String(open));
+    }
+
+    if (!localOutlineItems) {
+      return;
+    }
+
+    clearLocalOutlineTransition();
+
+    if (open) {
+      localOutlineItems.hidden = false;
+      if (animate !== false) {
+        localOutlineItems.classList.add('flyout-enter-active', 'flyout-enter-from');
+        window.requestAnimationFrame(function () {
+          if (!localOutlineOpen || !localOutlineItems) {
+            return;
+          }
+
+          localOutlineItems.classList.remove('flyout-enter-from');
+          localOutlineTransitionTimer = window.setTimeout(function () {
+            if (localOutlineItems) {
+              localOutlineItems.classList.remove('flyout-enter-active');
+            }
+            localOutlineTransitionTimer = null;
+          }, 200);
+        });
+      }
+      return;
+    }
+
+    if (animate === false || localOutlineItems.hidden) {
+      localOutlineItems.hidden = true;
+      return;
+    }
+
+    localOutlineItems.classList.add('flyout-leave-active');
+    window.requestAnimationFrame(function () {
+      if (localOutlineOpen || !localOutlineItems) {
+        return;
+      }
+
+      localOutlineItems.classList.add('flyout-leave-to');
+      localOutlineTransitionTimer = window.setTimeout(function () {
+        if (localOutlineItems && !localOutlineOpen) {
+          localOutlineItems.hidden = true;
+          localOutlineItems.classList.remove('flyout-leave-active', 'flyout-leave-to');
+        }
+        localOutlineTransitionTimer = null;
+      }, 150);
+    });
+  }
 
   function closeLocalOutline() {
-    localOutlineOpen = false;
-    if (localOutlineItems) {
-      localOutlineItems.hidden = true;
-    }
-    if (localOutlineButton) {
-      localOutlineButton.classList.remove('open');
-      localOutlineButton.setAttribute('aria-expanded', 'false');
-    }
+    setLocalOutlineOpen(false, true);
   }
 
   if (localOutlineButton) {
     localOutlineButton.setAttribute('aria-expanded', 'false');
+    if (localOutlineItems && localOutlineItems.id) {
+      localOutlineButton.setAttribute('aria-controls', localOutlineItems.id);
+    }
 
     localOutlineButton.addEventListener('click', function () {
       if (!hasOutline) {
@@ -1703,12 +1773,7 @@
         return;
       }
 
-      localOutlineOpen = !localOutlineOpen;
-      if (localOutlineItems) {
-        localOutlineItems.hidden = !localOutlineOpen;
-      }
-      localOutlineButton.classList.toggle('open', localOutlineOpen);
-      localOutlineButton.setAttribute('aria-expanded', String(localOutlineOpen));
+      setLocalOutlineOpen(!localOutlineOpen, true);
     });
   }
 
@@ -2175,6 +2240,7 @@
     marker = document.getElementById('vp-outline-marker');
     hasOutline = headings.length > 0;
     localOutlineOpen = false;
+    syncLocalOutlineViewportHeight();
 
     if (!hasOutline) {
       replaceOutline('.VPDocAsideOutline .VPDocOutlineItem.root', [], true);
@@ -2225,13 +2291,10 @@
       replaceOutline('#vp-local-outline-dropdown .outline .VPDocOutlineItem', tree, true);
     }
 
-    if (localOutlineButton) {
-      localOutlineButton.classList.remove('open');
-      localOutlineButton.setAttribute('aria-expanded', 'false');
-    }
+    setLocalOutlineOpen(false, false);
 
-    if (localOutlineItems) {
-      localOutlineItems.hidden = true;
+    if (localOutlineButton && localOutlineItems && localOutlineItems.id) {
+      localOutlineButton.setAttribute('aria-controls', localOutlineItems.id);
     }
 
     bindHashLinkHandlers();
