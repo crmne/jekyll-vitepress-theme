@@ -9,7 +9,9 @@ This theme follows a Jekyll-native split:
 - Behavior and rendering options in `_config.yml` under `jekyll_vitepress`
 - Navigation/social/version/sidebar content in `_data/*.yml`
 
-For parity notes and optional extras compared to VitePress core, see [VitePress Parity and Extensions]({% link _reference/vitepress-parity-and-extensions.md %}).
+{% capture vitepress_parity_link %}{% link _reference/vitepress-parity.md %}{% endcapture %}
+{% capture extensions_link %}{% link _reference/extensions-to-vitepress.md %}{% endcapture %}
+For parity notes compared to VitePress core, see [VitePress Parity]({{ vitepress_parity_link }}). For optional extras, see [Extensions to VitePress]({{ extensions_link }}).
 
 ## Minimal setup
 

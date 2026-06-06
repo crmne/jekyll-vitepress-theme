@@ -4,7 +4,10 @@ nav_order: 2
 description: Install and run Jekyll VitePress Theme in a few minutes.
 ---
 
-This guide walks you through installing the theme and getting a working documentation site running locally. By the end, you'll have a Jekyll site with VitePress-style navigation, a persistent sidebar, Turbo-powered internal page changes, and polished default styling.
+{% capture vitepress_parity_link %}{% link _reference/vitepress-parity.md %}{% endcapture %}
+{% capture extensions_link %}{% link _reference/extensions-to-vitepress.md %}{% endcapture %}
+
+This guide walks you through installing the theme and getting a working documentation site running locally. By the end, you'll have a Jekyll site with VitePress-style navigation, a persistent sidebar, Turbo-powered internal page changes, polished default styling, and optional features beyond baseline VitePress. See [VitePress Parity]({{ vitepress_parity_link }}) and [Extensions to VitePress]({{ extensions_link }}) for the full scope.
 
 ## Add the gem
 
@@ -113,6 +116,6 @@ The `nav_order` value controls the sort order in the sidebar. Lower numbers appe
 bundle exec jekyll serve --livereload
 ```
 
-Open `http://127.0.0.1:4000`. You should see the VitePress-style layout: top nav, sidebar, content area, right outline, local search, and fast doc-to-doc navigation.
+Open `http://127.0.0.1:4000`. You should see the VitePress-style layout: top nav, sidebar, content area, right outline, local search, and fast doc-to-doc navigation. From there, enable the Jekyll-first extras documented in [Extensions to VitePress]({{ extensions_link }}) as needed.
 
-{% include alert.html type="tip" content="To add a VitePress-style landing page with a hero section and feature cards, set `layout: home` in your `index.md` frontmatter. See the [Frontmatter Reference](/frontmatter-reference/) for the full set of home layout keys." %}
+{% include alert.html type="tip" content="To add a VitePress-style landing page with a hero section and feature cards, set `layout: home` in your `index.md` frontmatter. See [VitePress Parity](/vitepress-parity/) for the mirrored baseline, the [Frontmatter Reference](/frontmatter-reference/) for home layout keys, and [Extensions to VitePress](/extensions-to-vitepress/) for features beyond VitePress." %}

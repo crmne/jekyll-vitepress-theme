@@ -1,19 +1,19 @@
 ---
 layout: home
 title: Jekyll VitePress Theme
-description: VitePress-style documentation theme and plugin for Jekyll sites.
+description: VitePress-style documentation theme and plugin for Jekyll sites, with Jekyll-first extensions beyond VitePress.
 permalink: /
 hero:
   name: Jekyll VitePress Theme
   text: Ruby Deserves Beautiful Docs
-  tagline: A Jekyll theme gem that brings VitePress-level polish to Ruby projects, with navigation, search, dark mode, code blocks, outlines, and fast Turbo page changes.
+  tagline: A Jekyll theme gem that brings VitePress-level polish to Ruby projects, then goes beyond it with Jekyll-first extensions.
   actions:
     - theme: brand
       text: Install the Gem
       link: /getting-started/#add-the-gem
     - theme: alt
-      text: See What Is Included
-      link: /vitepress-parity-and-extensions/
+      text: Compare with VitePress
+      link: /vitepress-parity/
     - theme: alt
       text: Read the Story
       link: https://paolino.me/ruby-deserves-beautiful-documentation/
@@ -30,7 +30,7 @@ features:
       width: 42
       height: 42
     title: VitePress Polish for Jekyll
-    details: Give Ruby projects a docs homepage, sidebar, outline, search, dark mode, callouts, code blocks, and doc footers that feel designed.
+    details: Match the VitePress documentation feel for homepage, sidebar, outline, search, dark mode, callouts, code blocks, and doc footers.
   - icon:
       src: /assets/images/theme/jekyll-test-tube.svg
       alt: Jekyll
@@ -51,7 +51,7 @@ features:
       width: 42
       height: 42
     title: More Than VitePress
-    details: Add GitHub Star and Sponsor buttons, versions, generated local search, and Copy Page/View as Markdown for LLM workflows.
-    link: /vitepress-parity-and-extensions/
+    details: Go beyond baseline VitePress with GitHub Star and Sponsor buttons, RubyGems downloads, versions, labels, generated local search, and Copy Page/View as Markdown.
+    link: /extensions-to-vitepress/
     link_text: See what is included
 ---

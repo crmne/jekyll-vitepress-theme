@@ -8,9 +8,12 @@ Jekyll VitePress Theme is distributed as a single gem with two jobs: it is a **t
 
 That split keeps the runtime simple. Jekyll renders static HTML. The theme adds a small amount of JavaScript for UI behavior, including Turbo Frame navigation for doc-to-doc page changes.
 
+{% capture vitepress_parity_link %}{% link _reference/vitepress-parity.md %}{% endcapture %}
+{% capture extensions_link %}{% link _reference/extensions-to-vitepress.md %}{% endcapture %}
+
 ## Theme assets
 
-The gem ships everything needed to render a VitePress-like site:
+The gem ships everything needed to render a VitePress-like site and then adds Jekyll-first features beyond baseline VitePress. See [VitePress Parity]({{ vitepress_parity_link }}) and [Extensions to VitePress]({{ extensions_link }}) for the full split:
 
 - **Layouts** (`_layouts/default.html`, `_layouts/home.html`) that compose the page structure: navbar, sidebar, content area, outline, and footer.
 - **Includes** for each UI component: navigation, search modal, sidebar, doc footer, and more.
@@ -47,4 +50,4 @@ The project targets high visual and interaction parity with VitePress for the fe
 
 It intentionally stays Jekyll-first for configuration and page authoring: no `.vue` files, no Vite config, and no frontmatter DSL that only exists in another toolchain.
 
-For a detailed feature checklist comparing what's mirrored from VitePress versus what's added on top, see [VitePress Parity and Extensions]({% link _reference/vitepress-parity-and-extensions.md %}).
+For a detailed feature checklist, see [VitePress Parity]({{ vitepress_parity_link }}). For optional features added on top of baseline VitePress, see [Extensions to VitePress]({{ extensions_link }}).

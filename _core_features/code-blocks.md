@@ -4,7 +4,10 @@ nav_order: 2
 description: Copy buttons, language labels, syntax palettes, and file-title icons.
 ---
 
-Code blocks get several VitePress-style enhancements automatically. No configuration is needed beyond choosing your syntax themes.
+{% capture vitepress_parity_link %}{% link _reference/vitepress-parity.md %}{% endcapture %}
+{% capture extensions_link %}{% link _reference/extensions-to-vitepress.md %}{% endcapture %}
+
+Code blocks get several VitePress-style enhancements automatically. They are part of [VitePress Parity]({{ vitepress_parity_link }}), while optional features beyond baseline VitePress are documented in [Extensions to VitePress]({{ extensions_link }}). No configuration is needed beyond choosing your syntax themes.
 
 ## What you get for free
 

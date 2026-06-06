@@ -1,12 +1,21 @@
 ---
 title: Custom Blocks
 nav_order: 3
-description: Callout boxes for tips, warnings, and other highlighted content.
+description: VitePress-style custom containers for tips, warnings, details, and other highlighted content.
 ---
 
-The theme includes styled callout blocks that match VitePress custom containers: colored boxes for tips, warnings, danger notices, and more. They use a built-in `alert.html` include that produces the exact VitePress HTML structure.
+{% capture vitepress_parity_link %}{% link _reference/vitepress-parity.md %}{% endcapture %}
+{% capture extensions_link %}{% link _reference/extensions-to-vitepress.md %}{% endcapture %}
 
-## Syntax
+Custom blocks are the VitePress-style containers behind the theme's callout UI. They render colored boxes for tips, warnings, danger notices, and other highlighted content. They are part of [VitePress Parity]({{ vitepress_parity_link }}); Markdown-friendly callouts, labels, and project buttons are covered in [Extensions to VitePress]({{ extensions_link }}).
+
+{% capture callouts_page_link %}{% link _core_features/callouts-labels-buttons.md %}{% endcapture %}
+{% capture custom_blocks_tip %}For everyday Markdown authoring, use the Just the Docs-style syntax on [Callouts, Labels, and Buttons]({{ callouts_page_link }}). Use this page when you need the lower-level Liquid include, custom titles, or collapsible details.{% endcapture %}
+{% include alert.html type="tip" content=custom_blocks_tip %}
+
+## Liquid Include Syntax
+
+Use the built-in `alert.html` include when you need explicit control over the block type, title, or content:
 
 ```liquid
 {% raw %}{% include alert.html type="tip" content="This is a helpful tip." %}{% endraw %}
@@ -14,7 +23,7 @@ The theme includes styled callout blocks that match VitePress custom containers:
 
 The `type` controls the color and default title. The `content` is processed as Markdown, so inline formatting like backticks and links work naturally.
 
-## Available types
+## Available Types
 
 {% include alert.html type="info" content="This is an `info` block. Use it for neutral, supplementary information." %}
 
@@ -22,7 +31,7 @@ The `type` controls the color and default title. The `content` is processed as M
 
 {% include alert.html type="tip" content="This is a helpful `tip` block." %}
 
-{% include alert.html type="important" content="This is an `important` block. Don't skip this." %}
+{% include alert.html type="important" content="This is an `important` block. Do not skip this." %}
 
 {% include alert.html type="warning" content="This is a `warning` block. Something could go wrong." %}
 
@@ -32,7 +41,7 @@ The `type` controls the color and default title. The `content` is processed as M
 
 {% include alert.html type="details" content="This is a collapsible `details` block." %}
 
-## Custom titles
+## Custom Titles
 
 Each type has a default title (`TIP`, `WARNING`, etc.). Override it with the `title` parameter:
 
@@ -42,7 +51,7 @@ Each type has a default title (`TIP`, `WARNING`, etc.). Override it with the `ti
 
 {% include alert.html type="warning" title="Breaking Change" content="The `foo` option was removed in v2.0." %}
 
-## Markdown in content
+## Markdown In Content
 
 The `content` parameter supports inline Markdown: code, links, bold, and so on:
 

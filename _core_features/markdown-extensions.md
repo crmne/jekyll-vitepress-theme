@@ -4,7 +4,10 @@ nav_order: 6
 description: Header anchors, external links, tables, and other automatic enhancements.
 ---
 
-Beyond standard Markdown, the theme automatically enhances several elements to match VitePress behavior. These work out of the box with no configuration.
+{% capture vitepress_parity_link %}{% link _reference/vitepress-parity.md %}{% endcapture %}
+{% capture extensions_link %}{% link _reference/extensions-to-vitepress.md %}{% endcapture %}
+
+Beyond standard Markdown, the theme automatically enhances several elements to match VitePress behavior. These are part of [VitePress Parity]({{ vitepress_parity_link }}); features that go beyond baseline VitePress are documented in [Extensions to VitePress]({{ extensions_link }}). These work out of the box with no configuration.
 
 ## Header anchors
 

@@ -4,10 +4,13 @@ nav_order: 2
 description: Page-level frontmatter options used by the theme.
 ---
 
+{% capture vitepress_parity_link %}{% link _reference/vitepress-parity.md %}{% endcapture %}
+{% capture extensions_link %}{% link _reference/extensions-to-vitepress.md %}{% endcapture %}
+
 ## Layouts
 
 - `layout: default`: standard docs page with sidebar and outline.
-- `layout: home`: VitePress-style landing page with hero and feature cards. Sidebar and outline are hidden.
+- `layout: home`: VitePress-style landing page with hero and feature cards. Sidebar and outline are hidden. This belongs to [VitePress Parity]({{ vitepress_parity_link }}); optional additions beyond VitePress are documented in [Extensions to VitePress]({{ extensions_link }}).
 
 ## Home layout keys
 
