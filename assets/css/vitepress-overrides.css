@@ -1124,6 +1124,10 @@ body.vp-search-open {
   font-variant-numeric: tabular-nums;
 }
 
+.VPButton.VPMetricButton .VPMetricButtonCount {
+  color: inherit;
+}
+
 .VPMetricButtonText[hidden],
 .VPMetricButtonCount[hidden] {
   display: none !important;

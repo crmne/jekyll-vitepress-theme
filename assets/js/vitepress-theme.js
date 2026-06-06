@@ -302,7 +302,8 @@
       return;
     }
 
-    var formatted = formatGitHubStarCount(value);
+    var metricButton = button.classList.contains('VPMetricButton');
+    var formatted = metricButton ? formatExactCount(value) : formatGitHubStarCount(value);
     if (!formatted) {
       return;
     }
@@ -310,12 +311,11 @@
     countElement.textContent = formatted;
     countElement.hidden = false;
 
-    if (button.classList.contains('VPMetricButton')) {
+    if (metricButton) {
       var repository = button.getAttribute('data-github-star-repo');
-      var exactCount = formatExactCount(value);
-      button.title = exactCount + ' GitHub stars';
+      button.title = formatted + ' GitHub stars';
       if (repository) {
-        button.setAttribute('aria-label', 'Star ' + repository + ' on GitHub: ' + exactCount + ' stars');
+        button.setAttribute('aria-label', 'Star ' + repository + ' on GitHub: ' + formatted + ' stars');
       }
     }
   }
