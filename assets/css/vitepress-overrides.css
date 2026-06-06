@@ -1743,6 +1743,149 @@ html.dark .only-light {
   background: var(--vp-c-danger-soft);
 }
 
+.vp-doc .d-inline-block {
+  display: inline-block;
+}
+
+.vp-doc :is(h1, h2, h3, h4, h5, h6).d-inline-block {
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+.vp-doc :is(p, span).label {
+  display: inline-block;
+  margin: 0 0 0 8px;
+  border-radius: 999px;
+  padding: 0 10px;
+  min-height: 22px;
+  color: #fff;
+  background: var(--vp-c-brand-1);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 22px;
+  vertical-align: middle;
+}
+
+.vp-doc .label.label-blue {
+  background: var(--vp-c-brand-1);
+}
+
+.vp-doc .label.label-green {
+  background: var(--vp-c-green-1);
+}
+
+.vp-doc .label.label-purple {
+  background: var(--vp-c-indigo-1);
+}
+
+.vp-doc .label.label-yellow {
+  color: var(--vp-c-text-1);
+  background: var(--vp-c-warning-2);
+}
+
+.vp-doc .label.label-red {
+  background: var(--vp-c-danger-1);
+}
+
+.vp-doc :is(h1, h2, h3, h4, h5, h6).d-inline-block + p.label {
+  margin-left: 8px;
+}
+
+.vp-doc :is(p, blockquote):is(.info, .note, .tip, .important, .warning, .danger, .caution) {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 16px;
+  line-height: 24px;
+  font-size: var(--vp-custom-block-font-size);
+}
+
+.vp-doc :is(p, blockquote):is(.info, .note, .tip, .important, .warning, .danger, .caution)::before {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.vp-doc :is(p, blockquote).info {
+  border-color: var(--vp-custom-block-info-border);
+  color: var(--vp-custom-block-info-text);
+  background-color: var(--vp-custom-block-info-bg);
+}
+
+.vp-doc :is(p, blockquote).info::before {
+  content: "INFO";
+}
+
+.vp-doc :is(p, blockquote).note {
+  border-color: var(--vp-custom-block-note-border);
+  color: var(--vp-custom-block-note-text);
+  background-color: var(--vp-custom-block-note-bg);
+}
+
+.vp-doc :is(p, blockquote).note::before {
+  content: "NOTE";
+}
+
+.vp-doc :is(p, blockquote).tip {
+  border-color: var(--vp-custom-block-tip-border);
+  color: var(--vp-custom-block-tip-text);
+  background-color: var(--vp-custom-block-tip-bg);
+}
+
+.vp-doc :is(p, blockquote).tip::before {
+  content: "TIP";
+}
+
+.vp-doc :is(p, blockquote).important {
+  border-color: var(--vp-custom-block-important-border);
+  color: var(--vp-custom-block-important-text);
+  background-color: var(--vp-custom-block-important-bg);
+}
+
+.vp-doc :is(p, blockquote).important::before {
+  content: "IMPORTANT";
+}
+
+.vp-doc :is(p, blockquote).warning {
+  border-color: var(--vp-custom-block-warning-border);
+  color: var(--vp-custom-block-warning-text);
+  background-color: var(--vp-custom-block-warning-bg);
+}
+
+.vp-doc :is(p, blockquote).warning::before {
+  content: "WARNING";
+}
+
+.vp-doc :is(p, blockquote).danger {
+  border-color: var(--vp-custom-block-danger-border);
+  color: var(--vp-custom-block-danger-text);
+  background-color: var(--vp-custom-block-danger-bg);
+}
+
+.vp-doc :is(p, blockquote).danger::before {
+  content: "DANGER";
+}
+
+.vp-doc :is(p, blockquote).caution {
+  border-color: var(--vp-custom-block-caution-border);
+  color: var(--vp-custom-block-caution-text);
+  background-color: var(--vp-custom-block-caution-bg);
+}
+
+.vp-doc :is(p, blockquote).caution::before {
+  content: "CAUTION";
+}
+
+.vp-doc blockquote:is(.info, .note, .tip, .important, .warning, .danger, .caution) > p {
+  margin: 0;
+  color: inherit;
+  line-height: 24px;
+  font-size: var(--vp-custom-block-font-size);
+}
+
+.vp-doc :is(p, blockquote):is(.info, .note, .tip, .important, .warning, .danger, .caution) a {
+  font-weight: 600;
+}
+
 
 @media (max-width: 1279px) {
   .VPDoc.has-aside .content-container {

@@ -1,6 +1,6 @@
 ---
 title: Markdown Extensions
-nav_order: 5
+nav_order: 6
 description: Header anchors, external links, tables, and other automatic enhancements.
 ---
 

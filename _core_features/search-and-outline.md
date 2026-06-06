@@ -1,6 +1,6 @@
 ---
 title: Search and Outline
-nav_order: 4
+nav_order: 5
 description: Keyboard search, generated index, and active heading tracking.
 ---
 
