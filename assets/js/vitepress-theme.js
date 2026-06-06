@@ -1403,35 +1403,6 @@
     return null;
   }
 
-  function alignCopyPageButtonWithHeading() {
-    var header = document.querySelector('.vp-doc-header');
-    var group = header && header.querySelector('.copy-md-group');
-    if (!header || !group || header.querySelector('h1')) {
-      return;
-    }
-
-    var titleHeading = resolveCopyPageTitleHeading();
-    if (!titleHeading) {
-      return;
-    }
-
-    var titleRow = titleHeading.closest('.vp-doc-title-row');
-    if (!titleRow) {
-      titleRow = document.createElement('div');
-      titleRow.className = 'vp-doc-title-row';
-      titleHeading.parentNode.insertBefore(titleRow, titleHeading);
-      titleRow.appendChild(titleHeading);
-    }
-
-    titleRow.appendChild(group);
-
-    if (!header.querySelector('*')) {
-      header.hidden = true;
-    }
-  }
-
-  alignCopyPageButtonWithHeading();
-
   function copyPageMarkdown(btn) {
     if (!btn) return;
 
@@ -2256,7 +2227,6 @@
     bindCopyPageControls();
 
     addCopyButtons();
-    alignCopyPageButtonWithHeading();
     enhanceDocFrameLinks();
 
     content = document.querySelector('.vp-doc');

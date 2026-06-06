@@ -1927,8 +1927,7 @@ html.dark .only-light {
 }
 
 /* Copy as Markdown button group */
-.vp-doc-header,
-.vp-doc-title-row {
+.vp-doc-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1936,16 +1935,24 @@ html.dark .only-light {
   flex-wrap: wrap;
 }
 
-.vp-doc-header h1,
-.vp-doc-title-row h1 {
+.vp-doc-header:not(:has(> h1)) {
+  float: right;
+  justify-content: flex-end;
+  margin: 0 0 16px 24px;
+}
+
+.vp-doc-header h1 {
   margin-top: 0;
   margin-bottom: 0;
   flex: 1 1 320px;
   min-width: 0;
 }
 
-.vp-doc-header .copy-md-group,
-.vp-doc-title-row .copy-md-group {
+.vp-doc-header:not(:has(> h1)) .copy-md-group {
+  margin-left: 0;
+}
+
+.vp-doc-header .copy-md-group {
   margin-left: auto;
 }
 
