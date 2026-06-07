@@ -5,7 +5,7 @@ description: VitePress-style documentation theme and plugin for Jekyll sites, wi
 permalink: /
 hero:
   name: Jekyll VitePress Theme
-  text: Ruby Deserves Beautiful Docs
+  text: Ruby Deserves Beautiful Documentation
   tagline: A Jekyll theme gem that brings VitePress-level polish to Ruby projects, then goes beyond it with Jekyll-first extensions.
   actions:
     - theme: brand
