@@ -174,6 +174,60 @@
   var navScreenVersionOpen = false;
   var versionOpen = false;
   var extraOpen = false;
+  var bodyScrollLocked = false;
+  var bodyInitialOverflow = '';
+  var rootInitialOverflowY = '';
+
+  function hasScrollableAncestor(element) {
+    if (!element || element === document.body || element.nodeType !== 1) {
+      return false;
+    }
+
+    var style = window.getComputedStyle(element);
+    if (
+      style.overflowX === 'scroll' ||
+      style.overflowY === 'scroll' ||
+      (style.overflowX === 'auto' && element.clientWidth < element.scrollWidth) ||
+      (style.overflowY === 'auto' && element.clientHeight < element.scrollHeight)
+    ) {
+      return true;
+    }
+
+    return hasScrollableAncestor(element.parentElement);
+  }
+
+  function preventBodyTouchMove(event) {
+    if (hasScrollableAncestor(event.target)) {
+      return;
+    }
+
+    if (event.touches && event.touches.length > 1) {
+      return;
+    }
+
+    event.preventDefault();
+  }
+
+  function setBodyScrollLocked(locked) {
+    if (locked === bodyScrollLocked) {
+      return;
+    }
+
+    if (locked) {
+      bodyInitialOverflow = document.body.style.overflow;
+      rootInitialOverflowY = root.style.overflowY;
+      root.style.overflowY = 'hidden';
+      document.body.style.overflow = 'hidden';
+      document.body.addEventListener('touchmove', preventBodyTouchMove, { passive: false });
+      bodyScrollLocked = true;
+      return;
+    }
+
+    root.style.overflowY = rootInitialOverflowY;
+    document.body.style.overflow = bodyInitialOverflow;
+    document.body.removeEventListener('touchmove', preventBodyTouchMove);
+    bodyScrollLocked = false;
+  }
 
   function setVersionOpen(open) {
     if (!versionSelector || !versionButton || !versionMenu) {
@@ -583,8 +637,6 @@
   formatLastUpdatedTimes(document);
 
   function syncMobileMenus() {
-    var anyOpen = navScreenOpen || sidebarOpen;
-
     if (sidebar) {
       sidebar.classList.toggle('open', sidebarOpen);
     }
@@ -594,7 +646,7 @@
     }
 
     if (backdrop) {
-      backdrop.classList.toggle('is-active', anyOpen);
+      backdrop.classList.toggle('is-active', sidebarOpen);
     }
 
     if (hamburger) {
@@ -612,6 +664,7 @@
 
     document.body.classList.toggle('vp-nav-screen-open', navScreenOpen);
     document.body.classList.toggle('vp-sidebar-open', sidebarOpen);
+    setBodyScrollLocked(navScreenOpen || sidebarOpen);
   }
 
   function closeMobileMenus() {
