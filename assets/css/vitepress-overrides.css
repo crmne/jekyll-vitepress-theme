@@ -631,6 +631,14 @@ body.vp-search-open {
   color: var(--vp-c-text-2);
 }
 
+.VPSearchResult mark {
+  padding: 0;
+  color: var(--vp-c-brand-1);
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .VPSearchEmpty {
   padding: 20px 16px;
   line-height: 22px;

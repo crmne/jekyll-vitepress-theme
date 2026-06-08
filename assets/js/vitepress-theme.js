@@ -174,6 +174,60 @@
   var navScreenVersionOpen = false;
   var versionOpen = false;
   var extraOpen = false;
+  var bodyScrollLocked = false;
+  var bodyInitialOverflow = '';
+  var rootInitialOverflowY = '';
+
+  function hasScrollableAncestor(element) {
+    if (!element || element === document.body || element.nodeType !== 1) {
+      return false;
+    }
+
+    var style = window.getComputedStyle(element);
+    if (
+      style.overflowX === 'scroll' ||
+      style.overflowY === 'scroll' ||
+      (style.overflowX === 'auto' && element.clientWidth < element.scrollWidth) ||
+      (style.overflowY === 'auto' && element.clientHeight < element.scrollHeight)
+    ) {
+      return true;
+    }
+
+    return hasScrollableAncestor(element.parentElement);
+  }
+
+  function preventBodyTouchMove(event) {
+    if (hasScrollableAncestor(event.target)) {
+      return;
+    }
+
+    if (event.touches && event.touches.length > 1) {
+      return;
+    }
+
+    event.preventDefault();
+  }
+
+  function setBodyScrollLocked(locked) {
+    if (locked === bodyScrollLocked) {
+      return;
+    }
+
+    if (locked) {
+      bodyInitialOverflow = document.body.style.overflow;
+      rootInitialOverflowY = root.style.overflowY;
+      root.style.overflowY = 'hidden';
+      document.body.style.overflow = 'hidden';
+      document.body.addEventListener('touchmove', preventBodyTouchMove, { passive: false });
+      bodyScrollLocked = true;
+      return;
+    }
+
+    root.style.overflowY = rootInitialOverflowY;
+    document.body.style.overflow = bodyInitialOverflow;
+    document.body.removeEventListener('touchmove', preventBodyTouchMove);
+    bodyScrollLocked = false;
+  }
 
   function setVersionOpen(open) {
     if (!versionSelector || !versionButton || !versionMenu) {
@@ -583,8 +637,6 @@
   formatLastUpdatedTimes(document);
 
   function syncMobileMenus() {
-    var anyOpen = navScreenOpen || sidebarOpen;
-
     if (sidebar) {
       sidebar.classList.toggle('open', sidebarOpen);
     }
@@ -594,7 +646,7 @@
     }
 
     if (backdrop) {
-      backdrop.classList.toggle('is-active', anyOpen);
+      backdrop.classList.toggle('is-active', sidebarOpen);
     }
 
     if (hamburger) {
@@ -612,6 +664,7 @@
 
     document.body.classList.toggle('vp-nav-screen-open', navScreenOpen);
     document.body.classList.toggle('vp-sidebar-open', sidebarOpen);
+    setBodyScrollLocked(navScreenOpen || sidebarOpen);
   }
 
   function closeMobileMenus() {
@@ -808,6 +861,37 @@
       .replace(/'/g, '&#039;');
   }
 
+  function escapeRegex(value) {
+    return String(value || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightSearchMatches(value, terms) {
+    var text = String(value || '');
+    var uniqueTerms = Array.from(new Set(terms))
+      .filter(Boolean)
+      .sort(function (a, b) {
+        return b.length - a.length;
+      });
+
+    if (!text || !uniqueTerms.length) {
+      return escapeHtml(text);
+    }
+
+    var pattern = new RegExp('(' + uniqueTerms.map(escapeRegex).join('|') + ')', 'gi');
+    var html = '';
+    var lastIndex = 0;
+    var match;
+
+    while ((match = pattern.exec(text)) !== null) {
+      html += escapeHtml(text.slice(lastIndex, match.index));
+      html += '<mark>' + escapeHtml(match[0]) + '</mark>';
+      lastIndex = pattern.lastIndex;
+    }
+
+    html += escapeHtml(text.slice(lastIndex));
+    return html;
+  }
+
   function scoreSearchItem(item, terms, query) {
     var title = String(item.title || '').toLowerCase();
     var content = String(item.content || '').toLowerCase();
@@ -934,9 +1018,9 @@
     var html = ranked
       .map(function (entry) {
         var item = entry.item;
-        var title = escapeHtml(item.title || item.url || 'Untitled');
+        var title = highlightSearchMatches(item.title || item.url || 'Untitled', terms);
         var url = escapeHtml(item.url || '/');
-        var snippet = escapeHtml(buildSnippet(item, terms));
+        var snippet = highlightSearchMatches(buildSnippet(item, terms), terms);
         var turboAttributes = searchFrameTarget && url !== '/'
           ? ' data-turbo="true" data-turbo-frame="' + escapeHtml(searchFrameTarget) + '" data-turbo-action="advance"'
           : '';
