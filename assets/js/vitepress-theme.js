@@ -861,6 +861,37 @@
       .replace(/'/g, '&#039;');
   }
 
+  function escapeRegex(value) {
+    return String(value || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightSearchMatches(value, terms) {
+    var text = String(value || '');
+    var uniqueTerms = Array.from(new Set(terms))
+      .filter(Boolean)
+      .sort(function (a, b) {
+        return b.length - a.length;
+      });
+
+    if (!text || !uniqueTerms.length) {
+      return escapeHtml(text);
+    }
+
+    var pattern = new RegExp('(' + uniqueTerms.map(escapeRegex).join('|') + ')', 'gi');
+    var html = '';
+    var lastIndex = 0;
+    var match;
+
+    while ((match = pattern.exec(text)) !== null) {
+      html += escapeHtml(text.slice(lastIndex, match.index));
+      html += '<mark>' + escapeHtml(match[0]) + '</mark>';
+      lastIndex = pattern.lastIndex;
+    }
+
+    html += escapeHtml(text.slice(lastIndex));
+    return html;
+  }
+
   function scoreSearchItem(item, terms, query) {
     var title = String(item.title || '').toLowerCase();
     var content = String(item.content || '').toLowerCase();
@@ -987,9 +1018,9 @@
     var html = ranked
       .map(function (entry) {
         var item = entry.item;
-        var title = escapeHtml(item.title || item.url || 'Untitled');
+        var title = highlightSearchMatches(item.title || item.url || 'Untitled', terms);
         var url = escapeHtml(item.url || '/');
-        var snippet = escapeHtml(buildSnippet(item, terms));
+        var snippet = highlightSearchMatches(buildSnippet(item, terms), terms);
         var turboAttributes = searchFrameTarget && url !== '/'
           ? ' data-turbo="true" data-turbo-frame="' + escapeHtml(searchFrameTarget) + '" data-turbo-action="advance"'
           : '';
