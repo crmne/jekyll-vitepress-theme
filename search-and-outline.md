@@ -23,8 +23,8 @@ If you need custom indexing behavior, add your own `search.json` page to the sit
 
 <div class="tip custom-block">
   <p class="custom-block-title">TIP</p>
-  <p>If search doesn’t seem to find certain pages, make sure those pages belong to a collection listed in your <code class="language-plaintext highlighter-rouge">_data/sidebar.yml</code>. Only sidebar collections are indexed.
-</p>
+  <p>If search doesn’t seem to find certain pages, make sure those pages belong to a collection listed in your <code class="language-plaintext highlighter-rouge">_data/sidebar.yml</code>. Only sidebar collections are indexed.</p>
+
 </div>
 
 

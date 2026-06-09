@@ -11,8 +11,8 @@ This theme targets high visual and interaction parity with [VitePress](https://v
 
 <div class="tip custom-block">
   <p class="custom-block-title">TIP</p>
-  <p>This page covers behavior that mirrors VitePress. Features added on top of baseline VitePress are documented on <a href="/extensions-to-vitepress/">Extensions to VitePress</a>.
-</p>
+  <p>This page covers behavior that mirrors VitePress. Features added on top of baseline VitePress are documented on <a href="/extensions-to-vitepress/">Extensions to VitePress</a>.</p>
+
 </div>
 
 

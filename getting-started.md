@@ -121,8 +121,8 @@ Open `http://127.0.0.1:4000`. You should see the VitePress-style layout: top nav
 
 <div class="tip custom-block">
   <p class="custom-block-title">TIP</p>
-  <p>To add a VitePress-style landing page with a hero section and feature cards, set <code class="language-plaintext highlighter-rouge">layout: home</code> in your <code class="language-plaintext highlighter-rouge">index.md</code> frontmatter. See <a href="/vitepress-parity/">VitePress Parity</a> for the mirrored baseline, the <a href="/frontmatter-reference/">Frontmatter Reference</a> for home layout keys, and <a href="/extensions-to-vitepress/">Extensions to VitePress</a> for features beyond VitePress.
-</p>
+  <p>To add a VitePress-style landing page with a hero section and feature cards, set <code class="language-plaintext highlighter-rouge">layout: home</code> in your <code class="language-plaintext highlighter-rouge">index.md</code> frontmatter. See <a href="/vitepress-parity/">VitePress Parity</a> for the mirrored baseline, the <a href="/frontmatter-reference/">Frontmatter Reference</a> for home layout keys, and <a href="/extensions-to-vitepress/">Extensions to VitePress</a> for features beyond VitePress.</p>
+
 </div>
 
 

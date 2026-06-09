@@ -11,8 +11,8 @@ Extensions to VitePress are optional features that go beyond baseline VitePress 
 
 <div class="info custom-block">
   <p class="custom-block-title">INFO</p>
-  <p>For features that intentionally mirror VitePress itself, see <a href="/vitepress-parity/">VitePress Parity</a>.
-</p>
+  <p>For features that intentionally mirror VitePress itself, see <a href="/vitepress-parity/">VitePress Parity</a>.</p>
+
 </div>
 
 

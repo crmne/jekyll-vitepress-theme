@@ -106,7 +106,13 @@ npm install
 bundle exec jekyll serve --livereload
 ```
 
-Run the local verification suite:
+Run the tests:
+
+```sh
+bundle exec rake test
+```
+
+Run the full local verification suite (tests, linters, build, smoke test, gem build):
 
 ```sh
 bundle exec rake verify
