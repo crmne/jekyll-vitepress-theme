@@ -1,0 +1,19 @@
+{%- assign la_href = include.href | default: '#' | append: '' -%}
+{%- assign la_external = false -%}
+{%- assign la_parts = la_href | split: '://' -%}
+{%- assign la_mailto = la_href | slice: 0, 7 -%}
+{%- assign la_tel = la_href | slice: 0, 4 -%}
+{%- if la_parts.size > 1 or la_mailto == 'mailto:' or la_tel == 'tel:' -%}
+  {%- assign la_external = true -%}
+{%- endif -%}
+{%- assign la_target = include.target -%}
+{%- assign la_rel = include.rel -%}
+{%- if la_external -%}
+  {%- if la_target == nil or la_target == '' -%}{%- assign la_target = '_blank' -%}{%- endif -%}
+  {%- if la_rel == nil or la_rel == '' -%}{%- assign la_rel = 'noreferrer' -%}{%- endif -%}
+  href="{{ la_href }}"
+{%- else -%}
+  href="{{ la_href | relative_url }}"
+{%- endif -%}
+{%- if la_target %} target="{{ la_target }}"{% endif -%}
+{%- if la_rel %} rel="{{ la_rel }}"{% endif -%}

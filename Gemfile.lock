@@ -108,6 +108,7 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.10)
     logger (1.7.0)
     mercenary (0.4.0)
+    minitest (5.27.0)
     overcommit (0.69.0)
       childprocess (>= 0.6.3, < 6)
       iniparse (~> 1.4)
@@ -207,6 +208,7 @@ DEPENDENCIES
   jekyll-redirect-from (~> 0.16)
   jekyll-sitemap (~> 1.4)
   jekyll-vitepress-theme!
+  minitest (~> 5.25)
   overcommit (>= 0.66)
   rubocop (>= 1.70)
   webrick (~> 1.9)
@@ -262,6 +264,7 @@ CHECKSUMS
   listen (3.10.0) sha256=c6e182db62143aeccc2e1960033bebe7445309c7272061979bb098d03760c9d2
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
   mercenary (0.4.0) sha256=b25a1e4a59adca88665e08e24acf0af30da5b5d859f7d8f38fba52c28f405138
+  minitest (5.27.0) sha256=2d3b17f8a36fe7801c1adcffdbc38233b938eb0b4966e97a6739055a45fa77d5
   overcommit (0.69.0) sha256=1509042558eb04cb780a3e15943e2b7770298f93f55e5a286b4afeb57f4f8697
   parallel (2.1.0) sha256=b35258865c2e31134c5ecb708beaaf6772adf9d5efae28e93e99260877b09356
   parser (3.3.11.1) sha256=d17ace7aabe3e72c3cc94043714be27cc6f852f104d81aa284c2281aecc65d54

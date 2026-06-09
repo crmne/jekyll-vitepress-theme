@@ -5,55 +5,13 @@
 <div class="VPHome">
   {% if home_hero %}
     {% assign hero_image = home_hero.image %}
+    {% assign hero_fallback_alt = home_hero.name | default: site.title %}
     <div class="VPHero{% if hero_image %} has-image{% endif %}">
       <div class="container">
         <div class="main">
           {% if home_hero.logo %}
-            {% assign hero_logo = home_hero.logo %}
-            {% assign hero_logo_alt = hero_logo.alt | default: home_hero.name | default: site.title %}
-            {% assign hero_logo_width = hero_logo.width | default: 560 %}
-            {% assign hero_logo_height = hero_logo.height | default: 160 %}
-            {% assign hero_logo_light = hero_logo.light %}
-            {% assign hero_logo_dark = hero_logo.dark %}
-            {% assign hero_logo_src = nil %}
-            {% if hero_logo.src %}
-              {% assign hero_logo_src = hero_logo.src %}
-            {% elsif hero_logo.path %}
-              {% assign hero_logo_src = hero_logo.path %}
-            {% elsif hero_logo_light == nil and hero_logo_dark == nil %}
-              {% assign hero_logo_src = hero_logo %}
-            {% endif %}
             <div class="hero-logo">
-              {% if hero_logo_light and hero_logo_dark %}
-                {% assign hero_logo_light_external = false %}
-                {% if hero_logo_light contains '://' or hero_logo_light contains 'data:' %}
-                  {% assign hero_logo_light_external = true %}
-                {% endif %}
-                {% assign hero_logo_dark_external = false %}
-                {% if hero_logo_dark contains '://' or hero_logo_dark contains 'data:' %}
-                  {% assign hero_logo_dark_external = true %}
-                {% endif %}
-                <img class="VPImage hero-logo-image light" src="{% if hero_logo_light_external %}{{ hero_logo_light }}{% else %}{{ hero_logo_light | relative_url }}{% endif %}" alt="{{ hero_logo_alt | escape }}" width="{{ hero_logo_width }}" height="{{ hero_logo_height }}">
-                <img class="VPImage hero-logo-image dark" src="{% if hero_logo_dark_external %}{{ hero_logo_dark }}{% else %}{{ hero_logo_dark | relative_url }}{% endif %}" alt="{{ hero_logo_alt | escape }}" width="{{ hero_logo_width }}" height="{{ hero_logo_height }}">
-              {% elsif hero_logo_light %}
-                {% assign hero_logo_light_external = false %}
-                {% if hero_logo_light contains '://' or hero_logo_light contains 'data:' %}
-                  {% assign hero_logo_light_external = true %}
-                {% endif %}
-                <img class="VPImage hero-logo-image" src="{% if hero_logo_light_external %}{{ hero_logo_light }}{% else %}{{ hero_logo_light | relative_url }}{% endif %}" alt="{{ hero_logo_alt | escape }}" width="{{ hero_logo_width }}" height="{{ hero_logo_height }}">
-              {% elsif hero_logo_dark %}
-                {% assign hero_logo_dark_external = false %}
-                {% if hero_logo_dark contains '://' or hero_logo_dark contains 'data:' %}
-                  {% assign hero_logo_dark_external = true %}
-                {% endif %}
-                <img class="VPImage hero-logo-image" src="{% if hero_logo_dark_external %}{{ hero_logo_dark }}{% else %}{{ hero_logo_dark | relative_url }}{% endif %}" alt="{{ hero_logo_alt | escape }}" width="{{ hero_logo_width }}" height="{{ hero_logo_height }}">
-              {% elsif hero_logo_src %}
-                {% assign hero_logo_src_external = false %}
-                {% if hero_logo_src contains '://' or hero_logo_src contains 'data:' %}
-                  {% assign hero_logo_src_external = true %}
-                {% endif %}
-                <img class="VPImage hero-logo-image" src="{% if hero_logo_src_external %}{{ hero_logo_src }}{% else %}{{ hero_logo_src | relative_url }}{% endif %}" alt="{{ hero_logo_alt | escape }}" width="{{ hero_logo_width }}" height="{{ hero_logo_height }}">
-              {% endif %}
+              {% include vp_image.html image=home_hero.logo class='hero-logo-image' default_alt=hero_fallback_alt default_width="560" default_height="160" %}
             </div>
           {% endif %}
 
@@ -75,31 +33,8 @@
           {% if home_hero.actions and home_hero.actions.size > 0 %}
             <div class="actions">
               {% for action in home_hero.actions %}
-                {% assign action_href = action.link | default: '#' | append: '' %}
-                {% assign action_external = false %}
-                {% assign action_href_parts = action_href | split: '://' %}
-                {% assign action_mailto = action_href | slice: 0, 7 %}
-                {% assign action_tel = action_href | slice: 0, 4 %}
-                {% if action_href_parts.size > 1 or action_mailto == 'mailto:' or action_tel == 'tel:' %}
-                  {% assign action_external = true %}
-                {% endif %}
-                {% assign action_target = action.target %}
-                {% assign action_rel = action.rel %}
-                {% if action_external %}
-                  {% if action_target == nil or action_target == '' %}
-                    {% assign action_target = '_blank' %}
-                  {% endif %}
-                  {% if action_rel == nil or action_rel == '' %}
-                    {% assign action_rel = 'noreferrer' %}
-                  {% endif %}
-                {% endif %}
                 <div class="action">
-                  <a
-                    class="VPButton medium {{ action.theme | default: 'brand' }}"
-                    href="{% if action_external %}{{ action_href }}{% else %}{{ action_href | relative_url }}{% endif %}"
-                    {% if action_target %}target="{{ action_target }}"{% endif %}
-                    {% if action_rel %}rel="{{ action_rel }}"{% endif %}
-                  >
+                  <a class="VPButton medium {{ action.theme | default: 'brand' }}" {% include link_attrs.html href=action.link target=action.target rel=action.rel %}>
                     {{ action.text }}
                   </a>
                 </div>
@@ -112,50 +47,7 @@
           <div class="image">
             <div class="image-container">
               <div class="image-bg"></div>
-              {% assign hero_alt = hero_image.alt | default: home_hero.name | default: site.title %}
-              {% assign hero_width = hero_image.width | default: 320 %}
-              {% assign hero_height = hero_image.height | default: 320 %}
-              {% assign hero_light = hero_image.light %}
-              {% assign hero_dark = hero_image.dark %}
-              {% assign hero_src = nil %}
-              {% if hero_image.src %}
-                {% assign hero_src = hero_image.src %}
-              {% elsif hero_image.path %}
-                {% assign hero_src = hero_image.path %}
-              {% elsif hero_light == nil and hero_dark == nil %}
-                {% assign hero_src = hero_image %}
-              {% endif %}
-
-              {% if hero_light and hero_dark %}
-                {% assign hero_light_external = false %}
-                {% if hero_light contains '://' or hero_light contains 'data:' %}
-                  {% assign hero_light_external = true %}
-                {% endif %}
-                {% assign hero_dark_external = false %}
-                {% if hero_dark contains '://' or hero_dark contains 'data:' %}
-                  {% assign hero_dark_external = true %}
-                {% endif %}
-                <img class="VPImage image-src light" src="{% if hero_light_external %}{{ hero_light }}{% else %}{{ hero_light | relative_url }}{% endif %}" alt="{{ hero_alt | escape }}" width="{{ hero_width }}" height="{{ hero_height }}">
-                <img class="VPImage image-src dark" src="{% if hero_dark_external %}{{ hero_dark }}{% else %}{{ hero_dark | relative_url }}{% endif %}" alt="{{ hero_alt | escape }}" width="{{ hero_width }}" height="{{ hero_height }}">
-              {% elsif hero_light %}
-                {% assign hero_light_external = false %}
-                {% if hero_light contains '://' or hero_light contains 'data:' %}
-                  {% assign hero_light_external = true %}
-                {% endif %}
-                <img class="VPImage image-src" src="{% if hero_light_external %}{{ hero_light }}{% else %}{{ hero_light | relative_url }}{% endif %}" alt="{{ hero_alt | escape }}" width="{{ hero_width }}" height="{{ hero_height }}">
-              {% elsif hero_dark %}
-                {% assign hero_dark_external = false %}
-                {% if hero_dark contains '://' or hero_dark contains 'data:' %}
-                  {% assign hero_dark_external = true %}
-                {% endif %}
-                <img class="VPImage image-src" src="{% if hero_dark_external %}{{ hero_dark }}{% else %}{{ hero_dark | relative_url }}{% endif %}" alt="{{ hero_alt | escape }}" width="{{ hero_width }}" height="{{ hero_height }}">
-              {% elsif hero_src %}
-                {% assign hero_src_external = false %}
-                {% if hero_src contains '://' or hero_src contains 'data:' %}
-                  {% assign hero_src_external = true %}
-                {% endif %}
-                <img class="VPImage image-src" src="{% if hero_src_external %}{{ hero_src }}{% else %}{{ hero_src | relative_url }}{% endif %}" alt="{{ hero_alt | escape }}" width="{{ hero_width }}" height="{{ hero_height }}">
-              {% endif %}
+              {% include vp_image.html image=hero_image class='image-src' default_alt=hero_fallback_alt default_width="320" default_height="320" %}
             </div>
           </div>
         {% endif %}
@@ -192,52 +84,13 @@
                     {% endif %}
 
                     {% if icon_is_object %}
-                      {% assign icon_alt = feature_icon.alt | default: feature.title %}
-                      {% assign icon_width = feature_icon.width | default: 48 %}
-                      {% assign icon_height = feature_icon.height | default: 48 %}
                       {% assign icon_wrap = feature_icon.wrap %}
-                      {% assign icon_light = feature_icon.light %}
-                      {% assign icon_dark = feature_icon.dark %}
-                      {% assign icon_src = nil %}
-                      {% if feature_icon.src %}
-                        {% assign icon_src = feature_icon.src %}
-                      {% elsif feature_icon.path %}
-                        {% assign icon_src = feature_icon.path %}
-                      {% elsif icon_light == nil and icon_dark == nil %}
-                        {% assign icon_src = feature_icon %}
+                      {% assign icon_class = '' %}
+                      {% if icon_wrap %}
+                        {% assign icon_class = 'icon-image' %}
                       {% endif %}
-
                       {% capture icon_images %}
-                        {% if icon_light and icon_dark %}
-                          {% assign icon_light_external = false %}
-                          {% if icon_light contains '://' or icon_light contains 'data:' %}
-                            {% assign icon_light_external = true %}
-                          {% endif %}
-                          {% assign icon_dark_external = false %}
-                          {% if icon_dark contains '://' or icon_dark contains 'data:' %}
-                            {% assign icon_dark_external = true %}
-                          {% endif %}
-                          <img class="VPImage{% if icon_wrap %} icon-image{% endif %} light" src="{% if icon_light_external %}{{ icon_light }}{% else %}{{ icon_light | relative_url }}{% endif %}" alt="{{ icon_alt | escape }}" width="{{ icon_width }}" height="{{ icon_height }}">
-                          <img class="VPImage{% if icon_wrap %} icon-image{% endif %} dark" src="{% if icon_dark_external %}{{ icon_dark }}{% else %}{{ icon_dark | relative_url }}{% endif %}" alt="{{ icon_alt | escape }}" width="{{ icon_width }}" height="{{ icon_height }}">
-                        {% elsif icon_light %}
-                          {% assign icon_light_external = false %}
-                          {% if icon_light contains '://' or icon_light contains 'data:' %}
-                            {% assign icon_light_external = true %}
-                          {% endif %}
-                          <img class="VPImage{% if icon_wrap %} icon-image{% endif %}" src="{% if icon_light_external %}{{ icon_light }}{% else %}{{ icon_light | relative_url }}{% endif %}" alt="{{ icon_alt | escape }}" width="{{ icon_width }}" height="{{ icon_height }}">
-                        {% elsif icon_dark %}
-                          {% assign icon_dark_external = false %}
-                          {% if icon_dark contains '://' or icon_dark contains 'data:' %}
-                            {% assign icon_dark_external = true %}
-                          {% endif %}
-                          <img class="VPImage{% if icon_wrap %} icon-image{% endif %}" src="{% if icon_dark_external %}{{ icon_dark }}{% else %}{{ icon_dark | relative_url }}{% endif %}" alt="{{ icon_alt | escape }}" width="{{ icon_width }}" height="{{ icon_height }}">
-                        {% elsif icon_src %}
-                          {% assign icon_src_external = false %}
-                          {% if icon_src contains '://' or icon_src contains 'data:' %}
-                            {% assign icon_src_external = true %}
-                          {% endif %}
-                          <img class="VPImage{% if icon_wrap %} icon-image{% endif %}" src="{% if icon_src_external %}{{ icon_src }}{% else %}{{ icon_src | relative_url }}{% endif %}" alt="{{ icon_alt | escape }}" width="{{ icon_width }}" height="{{ icon_height }}">
-                        {% endif %}
+                        {% include vp_image.html image=feature_icon class=icon_class default_alt=feature.title default_width="48" default_height="48" %}
                       {% endcapture %}
 
                       {% if icon_wrap %}
@@ -252,7 +105,7 @@
 
                   <h2 class="title">{{ feature.title }}</h2>
                   {% if feature.details %}
-                    <p class="details">{{ feature.details | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+                    <div class="details">{{ feature.details | markdownify }}</div>
                   {% endif %}
                   {% if feature.link_text %}
                     <div class="link-text">
@@ -263,30 +116,7 @@
               {% endcapture %}
 
               {% if feature.link %}
-                {% assign feature_href = feature.link | append: '' %}
-                {% assign feature_external = false %}
-                {% assign feature_href_parts = feature_href | split: '://' %}
-                {% assign feature_mailto = feature_href | slice: 0, 7 %}
-                {% assign feature_tel = feature_href | slice: 0, 4 %}
-                {% if feature_href_parts.size > 1 or feature_mailto == 'mailto:' or feature_tel == 'tel:' %}
-                  {% assign feature_external = true %}
-                {% endif %}
-                {% assign feature_target = feature.target %}
-                {% assign feature_rel = feature.rel %}
-                {% if feature_external %}
-                  {% if feature_target == nil or feature_target == '' %}
-                    {% assign feature_target = '_blank' %}
-                  {% endif %}
-                  {% if feature_rel == nil or feature_rel == '' %}
-                    {% assign feature_rel = 'noreferrer' %}
-                  {% endif %}
-                {% endif %}
-                <a
-                  class="VPFeature link"
-                  href="{% if feature_external %}{{ feature_href }}{% else %}{{ feature_href | relative_url }}{% endif %}"
-                  {% if feature_target %}target="{{ feature_target }}"{% endif %}
-                  {% if feature_rel %}rel="{{ feature_rel }}"{% endif %}
-                >
+                <a class="VPFeature link" {% include link_attrs.html href=feature.link target=feature.target rel=feature.rel %}>
                   {{ feature_body }}
                 </a>
               {% else %}

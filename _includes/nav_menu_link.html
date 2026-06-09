@@ -1,0 +1,10 @@
+{% assign item = include.item %}
+{% assign is_active = false %}
+{% if item.collections and item.collections contains page.collection %}
+  {% assign is_active = true %}
+{% elsif page.url == item.url %}
+  {% assign is_active = true %}
+{% endif %}
+<a class="VPLink link {{ include.link_class }}{% if is_active %} active{% endif %}" href="{{ item.url | relative_url }}" data-vp-nav-link{% if item.collections %} data-collections="{{ item.collections | join: '|' }}"{% endif %}{% if include.has_sidebar and item.collections %} data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance"{% endif %}>
+  <span>{{ item.title }}</span>
+</a>

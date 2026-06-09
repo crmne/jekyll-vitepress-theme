@@ -327,7 +327,7 @@
     }
   }
 
-  function formatGitHubStarCount(value) {
+  function formatCompactCount(value) {
     var count = Number(value);
     if (!Number.isFinite(count) || count < 0) {
       return null;
@@ -357,7 +357,7 @@
     }
 
     var metricButton = button.classList.contains('VPMetricButton');
-    var formatted = metricButton ? formatExactCount(value) : formatGitHubStarCount(value);
+    var formatted = metricButton ? formatExactCount(value) : formatCompactCount(value);
     if (!formatted) {
       return;
     }
@@ -374,63 +374,70 @@
     }
   }
 
-  var githubStarCacheTtlMs = 6 * 60 * 60 * 1000;
-  var rubygemsDownloadsCacheTtlMs = 6 * 60 * 60 * 1000;
-  var pendingRubyGemsDownloads = {};
+  var metricCacheTtlMs = 6 * 60 * 60 * 1000;
+  var pendingMetricFetches = {};
 
-  function readCachedGitHubStarCount(repository) {
-    if (!repository || !window.localStorage) {
+  function readCachedMetric(key) {
+    if (!window.localStorage) {
       return null;
     }
 
     try {
-      var valueKey = 'vp-github-stars:value:' + repository;
-      var tsKey = 'vp-github-stars:ts:' + repository;
-
-      var rawValue = localStorage.getItem(valueKey);
-      var rawTs = localStorage.getItem(tsKey);
-      if (!rawValue || !rawTs) {
+      var raw = localStorage.getItem(key);
+      if (!raw) {
         return null;
       }
 
-      var stars = Number(rawValue);
-      var cachedAt = Number(rawTs);
-      if (!Number.isFinite(stars) || !Number.isFinite(cachedAt)) {
+      var entry = JSON.parse(raw);
+      if (!entry || !Number.isFinite(entry.value) || !Number.isFinite(entry.ts)) {
         return null;
       }
 
-      if (Date.now() - cachedAt > githubStarCacheTtlMs) {
+      if (Date.now() - entry.ts > metricCacheTtlMs) {
         return null;
       }
 
-      return { stars: stars, cachedAt: cachedAt };
+      return entry.value;
     } catch (error) {
       return null;
     }
   }
 
-  function writeCachedGitHubStarCount(repository, stars) {
-    if (!repository || !window.localStorage) {
+  function writeCachedMetric(key, value) {
+    if (!window.localStorage) {
       return;
     }
 
     try {
-      var valueKey = 'vp-github-stars:value:' + repository;
-      var tsKey = 'vp-github-stars:ts:' + repository;
-      localStorage.setItem(valueKey, String(stars));
-      localStorage.setItem(tsKey, String(Date.now()));
+      localStorage.setItem(key, JSON.stringify({ value: value, ts: Date.now() }));
     } catch (error) {
       // Ignore storage errors.
     }
   }
 
-  function loadGitHubStarCount(button) {
-    if (!button) {
-      return;
+  function loadMetric(key, fetcher) {
+    var cached = readCachedMetric(key);
+    if (cached !== null) {
+      return Promise.resolve(cached);
     }
 
-    var showCount = button.getAttribute('data-github-star-show-count') !== 'false';
-    if (!showCount) {
+    if (!pendingMetricFetches[key]) {
+      pendingMetricFetches[key] = fetcher()
+        .then(function (value) {
+          writeCachedMetric(key, value);
+          return value;
+        })
+        .catch(function () {
+          // Keep the button visible without count if API lookup fails.
+          return null;
+        });
+    }
+
+    return pendingMetricFetches[key];
+  }
+
+  function loadGitHubStarCount(button) {
+    if (!button || button.getAttribute('data-github-star-show-count') === 'false') {
       return;
     }
 
@@ -439,56 +446,34 @@
       return;
     }
 
-    var cached = readCachedGitHubStarCount(repository);
-    if (cached && typeof cached.stars === 'number') {
-      setGitHubStarCount(button, cached.stars);
-      return;
-    }
+    loadMetric('vp-metric:github-stars:' + repository, function () {
+      var apiRepository = repository
+        .split('/')
+        .map(function (segment) {
+          return encodeURIComponent(segment);
+        })
+        .join('/');
 
-    var apiRepository = repository
-      .split('/')
-      .map(function (segment) {
-        return encodeURIComponent(segment);
+      return fetch('https://api.github.com/repos/' + apiRepository, {
+        headers: { Accept: 'application/vnd.github+json' }
       })
-      .join('/');
-
-    fetch('https://api.github.com/repos/' + apiRepository, {
-      headers: { Accept: 'application/vnd.github+json' }
-    })
-      .then(function (response) {
-        if (!response.ok) {
-          throw new Error('GitHub API request failed');
-        }
-        return response.json();
-      })
-      .then(function (data) {
-        if (data && typeof data.stargazers_count === 'number') {
-          setGitHubStarCount(button, data.stargazers_count);
-          writeCachedGitHubStarCount(repository, data.stargazers_count);
-        }
-      })
-      .catch(function () {
-        // Keep the button visible without count if API lookup fails.
-      });
-  }
-
-  function formatRubyGemsDownloads(value) {
-    var count = Number(value);
-    if (!Number.isFinite(count) || count < 0) {
-      return null;
-    }
-
-    if (count >= 1000000) {
-      var millions = (count / 1000000).toFixed(count >= 10000000 ? 0 : 1);
-      return millions.replace(/\.0$/, '') + 'M';
-    }
-
-    if (count >= 1000) {
-      var thousands = (count / 1000).toFixed(count >= 100000 ? 0 : 1);
-      return thousands.replace(/\.0$/, '') + 'K';
-    }
-
-    return String(Math.round(count));
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error('GitHub API request failed');
+          }
+          return response.json();
+        })
+        .then(function (data) {
+          if (!data || typeof data.stargazers_count !== 'number') {
+            throw new Error('GitHub response missing stargazers_count');
+          }
+          return data.stargazers_count;
+        });
+    }).then(function (stars) {
+      if (stars !== null) {
+        setGitHubStarCount(button, stars);
+      }
+    });
   }
 
   function setRubyGemsDownloads(button, value) {
@@ -501,7 +486,7 @@
       return;
     }
 
-    var formatted = formatRubyGemsDownloads(value);
+    var formatted = formatCompactCount(value);
     if (!formatted) {
       return;
     }
@@ -519,55 +504,18 @@
     button.setAttribute('aria-label', label + ': ' + exactCount + ' downloads');
   }
 
-  function readCachedRubyGemsDownloads(gemName) {
-    if (!gemName || !window.localStorage) {
-      return null;
-    }
-
-    try {
-      var valueKey = 'vp-rubygems-downloads:value:' + gemName;
-      var tsKey = 'vp-rubygems-downloads:ts:' + gemName;
-
-      var rawValue = localStorage.getItem(valueKey);
-      var rawTs = localStorage.getItem(tsKey);
-      if (!rawValue || !rawTs) {
-        return null;
-      }
-
-      var downloads = Number(rawValue);
-      var cachedAt = Number(rawTs);
-      if (!Number.isFinite(downloads) || !Number.isFinite(cachedAt)) {
-        return null;
-      }
-
-      if (Date.now() - cachedAt > rubygemsDownloadsCacheTtlMs) {
-        return null;
-      }
-
-      return { downloads: downloads, cachedAt: cachedAt };
-    } catch (error) {
-      return null;
-    }
-  }
-
-  function writeCachedRubyGemsDownloads(gemName, downloads) {
-    if (!gemName || !window.localStorage) {
+  function loadRubyGemsDownloads(button) {
+    if (!button || button.getAttribute('data-rubygems-downloads-show-count') === 'false') {
       return;
     }
 
-    try {
-      var valueKey = 'vp-rubygems-downloads:value:' + gemName;
-      var tsKey = 'vp-rubygems-downloads:ts:' + gemName;
-      localStorage.setItem(valueKey, String(downloads));
-      localStorage.setItem(tsKey, String(Date.now()));
-    } catch (error) {
-      // Ignore storage errors.
+    var gemName = button.getAttribute('data-rubygems-downloads-gem');
+    if (!gemName) {
+      return;
     }
-  }
 
-  function fetchRubyGemsDownloads(gemName) {
-    if (!pendingRubyGemsDownloads[gemName]) {
-      pendingRubyGemsDownloads[gemName] = fetch('https://rubygems.org/api/v1/gems/' + encodeURIComponent(gemName) + '.json', {
+    loadMetric('vp-metric:rubygems-downloads:' + gemName, function () {
+      return fetch('https://rubygems.org/api/v1/gems/' + encodeURIComponent(gemName) + '.json', {
         credentials: 'omit',
         headers: { Accept: 'application/json' }
       })
@@ -582,39 +530,9 @@
           if (!Number.isFinite(downloads)) {
             throw new Error('RubyGems response missing downloads');
           }
-          writeCachedRubyGemsDownloads(gemName, downloads);
           return downloads;
-        })
-        .catch(function () {
-          return null;
         });
-    }
-
-    return pendingRubyGemsDownloads[gemName];
-  }
-
-  function loadRubyGemsDownloads(button) {
-    if (!button) {
-      return;
-    }
-
-    var showCount = button.getAttribute('data-rubygems-downloads-show-count') !== 'false';
-    if (!showCount) {
-      return;
-    }
-
-    var gemName = button.getAttribute('data-rubygems-downloads-gem');
-    if (!gemName) {
-      return;
-    }
-
-    var cached = readCachedRubyGemsDownloads(gemName);
-    if (cached && typeof cached.downloads === 'number') {
-      setRubyGemsDownloads(button, cached.downloads);
-      return;
-    }
-
-    fetchRubyGemsDownloads(gemName).then(function (downloads) {
+    }).then(function (downloads) {
       if (downloads !== null) {
         setRubyGemsDownloads(button, downloads);
       }
@@ -1359,10 +1277,6 @@
     return normalizeFileIconKey(base);
   }
 
-  function inferFileIconFromLanguage(language) {
-    return normalizeFileIconKey(language);
-  }
-
   function addCopyButtons() {
     document.querySelectorAll('.vp-doc div.highlighter-rouge').forEach(function (block) {
       var code = block.querySelector('pre code');
@@ -1415,7 +1329,7 @@
         var wrapper = document.createElement('div');
         wrapper.className = 'vp-code-block-title';
 
-        var iconKey = inferFileIconFromTitle(title) || inferFileIconFromLanguage(language) || 'default';
+        var iconKey = inferFileIconFromTitle(title) || normalizeFileIconKey(language) || 'default';
         var titleBar = document.createElement('div');
         titleBar.className = 'vp-code-block-title-bar';
 
@@ -1461,48 +1375,11 @@
   addCopyButtons();
 
   // Copy page as Markdown - split button with dropdown
-  function markdownStartsWithH1(markdown) {
-    var value = String(markdown || '').replace(/^\s+/, '');
-    return /^#\s+\S/.test(value) || /^<h1(?:\s|>)/i.test(value) || /^[^\n]+\n=+\s*(?:\n|$)/.test(value);
-  }
-
-  function resolveCopyPageTitleHeading() {
-    var doc = document.querySelector('.vp-doc');
-    if (!doc) {
-      return null;
-    }
-
-    var headerHeading = doc.querySelector('.vp-doc-header h1');
-    if (headerHeading) {
-      return headerHeading;
-    }
-
-    var headings = Array.from(doc.querySelectorAll('h1'));
-    for (var i = 0; i < headings.length; i += 1) {
-      if (!headings[i].closest('.vp-doc-header')) {
-        return headings[i];
-      }
-    }
-
-    return null;
-  }
-
   function copyPageMarkdown(btn) {
     if (!btn) return;
 
     var textarea = document.querySelector('.vp-raw-markdown');
     if (!textarea) return;
-
-    var md = textarea.value;
-    if (!markdownStartsWithH1(md)) {
-      var titleHeading = resolveCopyPageTitleHeading();
-      if (titleHeading) {
-        var titleText = titleHeading.textContent.trim();
-        if (titleText) {
-          md = '# ' + titleText + '\n\n' + md;
-        }
-      }
-    }
 
     var icon = btn.querySelector('.copy-md-icon');
     var label = btn.querySelector('.copy-md-label');
@@ -1515,7 +1392,7 @@
       if (label) label.textContent = copied ? 'Copied' : 'Copy page';
     }
 
-    writeToClipboard(md)
+    writeToClipboard(textarea.value)
       .then(function () {
         setCopied(true);
         if (btn._copyTimeout) window.clearTimeout(btn._copyTimeout);
@@ -1614,21 +1491,25 @@
     return clone.textContent ? clone.textContent.trim() : heading.id;
   }
 
-  content.querySelectorAll('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]').forEach(function (heading) {
-    if (heading.querySelector('.header-anchor')) {
-      return;
-    }
+  function injectHeaderAnchors(contentRoot) {
+    contentRoot.querySelectorAll('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]').forEach(function (heading) {
+      if (heading.querySelector('.header-anchor')) {
+        return;
+      }
 
-    var title = getHeadingLabel(heading);
-    var anchor = document.createElement('a');
-    anchor.className = 'header-anchor';
-    anchor.href = '#' + heading.id;
-    anchor.setAttribute('aria-label', 'Permalink to "' + title + '"');
-    anchor.textContent = '\u200B';
+      var title = getHeadingLabel(heading);
+      var anchor = document.createElement('a');
+      anchor.className = 'header-anchor';
+      anchor.href = '#' + heading.id;
+      anchor.setAttribute('aria-label', 'Permalink to "' + title + '"');
+      anchor.textContent = '\u200B';
 
-    heading.appendChild(document.createTextNode(' '));
-    heading.appendChild(anchor);
-  });
+      heading.appendChild(document.createTextNode(' '));
+      heading.appendChild(anchor);
+    });
+  }
+
+  injectHeaderAnchors(content);
 
   var headings = Array.from(content.querySelectorAll('h2[id], h3[id]'));
   var asideOutline = document.querySelector('.VPDocAsideOutline');
@@ -1736,32 +1617,42 @@
     }
   }
 
-  var hasOutline = headings.length > 0;
+  var hasOutline = false;
 
-  if (!hasOutline) {
+  function rebuildOutline() {
+    hasOutline = headings.length > 0;
+
     if (asideOutline) {
-      asideOutline.classList.remove('has-outline');
+      asideOutline.classList.toggle('has-outline', hasOutline);
     }
 
     if (localNav) {
-      localNav.classList.add('empty');
+      localNav.classList.toggle('empty', !hasOutline);
     }
 
     if (localOutlineButton) {
-      var text = localOutlineButton.querySelector('.menu-text');
-      var icon = localOutlineButton.querySelector('.icon');
-      if (text) {
-        text.textContent = returnToTopLabel;
+      var menuText = localOutlineButton.querySelector('.menu-text');
+      var menuIcon = localOutlineButton.querySelector('.icon');
+      if (menuText) {
+        var outlineLabel = document.getElementById('doc-outline-aria-label');
+        if (!hasOutline) {
+          menuText.textContent = returnToTopLabel;
+        } else if (outlineLabel) {
+          menuText.textContent = outlineLabel.textContent.trim();
+        }
       }
-      if (icon) {
-        icon.style.display = 'none';
+      if (menuIcon) {
+        menuIcon.style.display = hasOutline ? '' : 'none';
       }
     }
-  } else {
-    var tree = createOutlineTree(headings);
+
+    var tree = hasOutline ? createOutlineTree(headings) : [];
     replaceOutline('.VPDocAsideOutline .VPDocOutlineItem.root', tree, true);
     replaceOutline('#vp-local-outline-dropdown .outline .VPDocOutlineItem', tree, true);
+    invalidateHeadingTops();
   }
+
+  rebuildOutline();
 
   var localOutlineOpen = false;
   var localOutlineTransitionTimer = null;
@@ -1885,6 +1776,11 @@
   }
 
   var marker = document.getElementById('vp-outline-marker');
+
+  // Aligns the marker with the active link, compensating for the outline title
+  // row above the link list (values lifted from VitePress's outline marker).
+  var outlineMarkerLinkOffset = 39;
+  var outlineMarkerRestingTop = 33;
 
   function getConfiguredScrollOffset() {
     var bodyScrollOffset = document.body ? document.body.getAttribute('data-vp-scroll-offset') : null;
@@ -2051,10 +1947,6 @@
     return offsetTop;
   }
 
-  function getOutlineScrollOffset() {
-    return getConfiguredScrollOffset();
-  }
-
   function activateOutlineHash(activeHash) {
     document.querySelectorAll('.outline-link').forEach(function (link) {
       var isActive = activeHash !== null && link.getAttribute('href') === activeHash;
@@ -2067,13 +1959,45 @@
 
     var activeAsideLink = document.querySelector('.VPDocAsideOutline .outline-link.active');
     if (activeAsideLink) {
-      marker.style.top = String(activeAsideLink.offsetTop + 39) + 'px';
+      marker.style.top = String(activeAsideLink.offsetTop + outlineMarkerLinkOffset) + 'px';
       marker.style.opacity = '1';
     } else {
-      marker.style.top = '33px';
+      marker.style.top = String(outlineMarkerRestingTop) + 'px';
       marker.style.opacity = '0';
     }
   }
+
+  var headingTops = null;
+
+  function invalidateHeadingTops() {
+    headingTops = null;
+  }
+
+  function resolveHeadingTops() {
+    if (!headingTops) {
+      headingTops = headings
+        .map(function (heading) {
+          return {
+            hash: '#' + heading.id,
+            top: getAbsoluteTop(heading)
+          };
+        })
+        .filter(function (entry) {
+          return !Number.isNaN(entry.top);
+        })
+        .sort(function (a, b) {
+          return a.top - b.top;
+        });
+    }
+
+    return headingTops;
+  }
+
+  window.addEventListener('resize', invalidateHeadingTops);
+  // Layout shifts move the headings: late-loading images ('load' doesn't
+  // bubble, hence capture) and toggled <details> blocks.
+  document.addEventListener('load', invalidateHeadingTops, true);
+  document.addEventListener('toggle', invalidateHeadingTops, true);
 
   function syncActiveHeading() {
     if (!hasOutline) {
@@ -2085,19 +2009,7 @@
     var offsetHeight = document.body ? document.body.offsetHeight : 0;
     var isBottom = Math.abs(scrollY + innerHeight - offsetHeight) < 1;
 
-    var resolvedHeadings = headings
-      .map(function (heading) {
-        return {
-          hash: '#' + heading.id,
-          top: getAbsoluteTop(heading)
-        };
-      })
-      .filter(function (entry) {
-        return !Number.isNaN(entry.top);
-      })
-      .sort(function (a, b) {
-        return a.top - b.top;
-      });
+    var resolvedHeadings = resolveHeadingTops();
 
     if (!resolvedHeadings.length) {
       activateOutlineHash(null);
@@ -2114,7 +2026,7 @@
       return;
     }
 
-    var threshold = scrollY + getOutlineScrollOffset() + 4;
+    var threshold = scrollY + getConfiguredScrollOffset() + 4;
     var activeHash = null;
 
     resolvedHeadings.forEach(function (entry) {
@@ -2129,14 +2041,6 @@
 
   syncActiveHeading();
   window.addEventListener('scroll', syncActiveHeading, { passive: true });
-
-  if (localOutlineContainer) {
-    localOutlineContainer.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        closeLocalOutline();
-      });
-    });
-  }
 
   function normalizePathname(path) {
     var value = String(path || '').trim();
@@ -2345,21 +2249,7 @@
       return;
     }
 
-    content.querySelectorAll('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]').forEach(function (heading) {
-      if (heading.querySelector('.header-anchor')) {
-        return;
-      }
-
-      var title = getHeadingLabel(heading);
-      var anchor = document.createElement('a');
-      anchor.className = 'header-anchor';
-      anchor.href = '#' + heading.id;
-      anchor.setAttribute('aria-label', 'Permalink to "' + title + '"');
-      anchor.textContent = '\u200B';
-
-      heading.appendChild(document.createTextNode(' '));
-      heading.appendChild(anchor);
-    });
+    injectHeaderAnchors(content);
 
     headings = Array.from(content.querySelectorAll('h2[id], h3[id]'));
     asideOutline = document.querySelector('.VPDocAsideOutline');
@@ -2371,59 +2261,9 @@
     localTopLink = document.getElementById('vp-local-top-link');
     returnToTopLabel = localTopLink && localTopLink.textContent ? localTopLink.textContent.trim() : 'Return to top';
     marker = document.getElementById('vp-outline-marker');
-    hasOutline = headings.length > 0;
     localOutlineOpen = false;
-    syncLocalOutlineViewportHeight();
 
-    if (!hasOutline) {
-      replaceOutline('.VPDocAsideOutline .VPDocOutlineItem.root', [], true);
-      replaceOutline('#vp-local-outline-dropdown .outline .VPDocOutlineItem', [], true);
-
-      if (asideOutline) {
-        asideOutline.classList.remove('has-outline');
-      }
-
-      if (localNav) {
-        localNav.classList.add('empty');
-      }
-
-      if (localOutlineButton) {
-        var text = localOutlineButton.querySelector('.menu-text');
-        var icon = localOutlineButton.querySelector('.icon');
-        if (text) {
-          text.textContent = returnToTopLabel;
-        }
-        if (icon) {
-          icon.style.display = 'none';
-        }
-      }
-    } else {
-      if (localNav) {
-        localNav.classList.remove('empty');
-      }
-
-      if (asideOutline) {
-        asideOutline.classList.add('has-outline');
-      }
-
-      if (localOutlineButton) {
-        var menuText = localOutlineButton.querySelector('.menu-text');
-        var menuIcon = localOutlineButton.querySelector('.icon');
-        if (menuText) {
-          menuText.textContent = document.getElementById('doc-outline-aria-label')
-            ? document.getElementById('doc-outline-aria-label').textContent.trim()
-            : menuText.textContent;
-        }
-        if (menuIcon) {
-          menuIcon.style.display = '';
-        }
-      }
-
-      var tree = createOutlineTree(headings);
-      replaceOutline('.VPDocAsideOutline .VPDocOutlineItem.root', tree, true);
-      replaceOutline('#vp-local-outline-dropdown .outline .VPDocOutlineItem', tree, true);
-    }
-
+    rebuildOutline();
     setLocalOutlineOpen(false, false);
 
     if (localOutlineButton && localOutlineItems && localOutlineItems.id) {

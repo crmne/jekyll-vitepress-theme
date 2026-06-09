@@ -26,7 +26,7 @@ description: Common setup and runtime issues.
 ## Page navigation reloads the whole document
 
 - Confirm `assets/vendor/turbo.js` and `assets/js/vitepress-theme.js` are both loading without 404 errors.
-- If you override `_includes/nav.html`, `_includes/sidebar.html`, `_includes/search.html`, or `_layouts/default.html`, keep the `turbo-frame` wrapper and the `data-turbo`, `data-turbo-frame`, and `data-turbo-action` attributes on internal doc links.
+- If you override `_includes/nav.html`, `_includes/nav_menu_link.html`, `_includes/sidebar.html`, `_includes/search.html`, or `_layouts/default.html`, keep the `turbo-frame` wrapper and the `data-turbo`, `data-turbo-frame`, and `data-turbo-action` attributes on internal doc links.
 - Links to the home page, external sites, downloads, or links with `data-turbo="false"` intentionally use normal browser navigation.
 
 ## Last updated does not appear

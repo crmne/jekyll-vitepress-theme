@@ -97,15 +97,7 @@
             <nav aria-labelledby="main-nav-aria-label" class="VPNavBarMenu menu">
               <span id="main-nav-aria-label" class="visually-hidden">Main Navigation</span>
               {% for item in nav_items %}
-                {% assign is_active = false %}
-                {% if item.collections and item.collections contains page.collection %}
-                  {% assign is_active = true %}
-                {% elsif page.url == item.url %}
-                  {% assign is_active = true %}
-                {% endif %}
-                <a class="VPLink link VPNavBarMenuLink{% if is_active %} active{% endif %}" href="{{ item.url | relative_url }}" data-vp-nav-link{% if item.collections %} data-collections="{{ item.collections | join: '|' }}"{% endif %}{% if include.has_sidebar and item.collections %} data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance"{% endif %}>
-                  <span>{{ item.title }}</span>
-                </a>
+                {% include nav_menu_link.html item=item link_class='VPNavBarMenuLink' has_sidebar=include.has_sidebar %}
               {% endfor %}
 
               {% if versions and versions.items and versions.items.size > 0 %}
@@ -118,22 +110,7 @@
                   </button>
                   <div class="menu" id="vp-version-menu" hidden>
                     {% for version in versions.items %}
-                      {% assign version_external = false %}
-                      {% assign version_link_first_char = version.url | slice: 0, 1 %}
-                      {% if version.external or version.url contains '://' %}
-                        {% assign version_external = true %}
-                      {% endif %}
-                      {% assign version_href = version.url %}
-                      {% if version_external %}
-                        {% assign version_href = version.url %}
-                      {% elsif version_absolute_links and version_link_first_char == '/' %}
-                        {% assign version_href = version.url %}
-                      {% else %}
-                        {% assign version_href = version.url | relative_url %}
-                      {% endif %}
-                      <a class="VPLink link{% if version_external %} vp-external-link-icon{% endif %}" href="{{ version_href }}"{% if version_external %} target="_blank" rel="noreferrer"{% endif %}>
-                        <span>{{ version.title }}</span>
-                      </a>
+                      {% include version_link.html version=version %}
                     {% endfor %}
                   </div>
                 </div>
@@ -164,46 +141,7 @@
 
                   <div class="group">
                     <div class="item social-links">
-                      <div class="VPSocialLinks VPNavBarExtraSocialLinks social-links-list">
-                        {% if github_star_enabled %}
-                          <div class="VPNavBarStar">
-                            <a class="VPLink link no-icon VPNavBarStarLink" href="{{ github_star_url }}" aria-label="Star {{ github_star_repository }} on GitHub" target="_blank" rel="noreferrer noopener" data-github-star-repo="{{ github_star_repository | escape }}" data-github-star-show-count="{{ github_star_show_count }}">
-                              <span class="VPNavBarStarIcon vpi-social-github" aria-hidden="true"></span>
-                              <span class="VPNavBarStarText">{{ github_star_text }}</span>
-                              <span class="VPNavBarStarCount" aria-hidden="true"{% unless github_star_show_count %} hidden{% endunless %}>{% if github_star_show_count %}...{% endif %}</span>
-                            </a>
-                          </div>
-                        {% endif %}
-                        {% if github_sponsor_enabled %}
-                          <div class="VPNavBarStar VPNavBarSponsor">
-                            <a class="VPLink link no-icon VPNavBarStarLink VPNavBarSponsorLink" href="{{ github_sponsor_url }}" aria-label="{{ github_sponsor_label | escape }}" target="_blank" rel="noreferrer noopener">
-                              <span class="VPNavBarStarIcon VPNavBarSponsorIcon" aria-hidden="true">
-                                <svg viewBox="0 0 16 16" focusable="false">
-                                  <path d="M7.655 14.916v-.001h-.002l-.006-.003-.018-.01a22.066 22.066 0 0 1-3.744-2.584C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.044 5.231-3.886 6.818a22.094 22.094 0 0 1-3.433 2.414 7.152 7.152 0 0 1-.31.17l-.018.01-.008.004a.75.75 0 0 1-.69 0Z"></path>
-                                </svg>
-                              </span>
-                              <span class="VPNavBarStarText">{{ github_sponsor_text }}</span>
-                            </a>
-                          </div>
-                        {% endif %}
-
-                        {% for social in social_links %}
-                          {% assign social_icon_name = social.icon %}
-                          {% assign social_icon_svg = social.icon_svg %}
-                          {% assign social_icon_key = social_icon_name | downcase %}
-                          {% if github_star_enabled and social_icon_key == 'github' %}
-                            {% continue %}
-                          {% endif %}
-                          {% assign social_aria = social.label | default: social_icon_name | default: 'social link' %}
-                          <a class="VPSocialLink no-icon" href="{{ social.url }}" aria-label="{{ social_aria }}" target="_blank" rel="me noopener">
-                            {% if social_icon_svg %}
-                              {{ social_icon_svg }}
-                            {% else %}
-                              <span class="vpi-social-{{ social_icon_name }}"></span>
-                            {% endif %}
-                          </a>
-                        {% endfor %}
-                      </div>
+                      {% include nav_social_links.html variant='extra' %}
                     </div>
                   </div>
                 </div>
@@ -221,45 +159,7 @@
               </button>
             </div>
 
-            <div class="VPSocialLinks VPNavBarSocialLinks social-links">
-              {% if github_star_enabled %}
-                <div class="VPNavBarStar" id="vp-nav-star">
-                  <a class="VPLink link no-icon VPNavBarStarLink" href="{{ github_star_url }}" aria-label="Star {{ github_star_repository }} on GitHub" target="_blank" rel="noreferrer noopener" data-github-star-repo="{{ github_star_repository | escape }}" data-github-star-show-count="{{ github_star_show_count }}">
-                    <span class="VPNavBarStarIcon vpi-social-github" aria-hidden="true"></span>
-                    <span class="VPNavBarStarText">{{ github_star_text }}</span>
-                    <span class="VPNavBarStarCount" aria-hidden="true"{% unless github_star_show_count %} hidden{% endunless %}>{% if github_star_show_count %}...{% endif %}</span>
-                  </a>
-                </div>
-              {% endif %}
-              {% if github_sponsor_enabled %}
-                <div class="VPNavBarStar VPNavBarSponsor" id="vp-nav-sponsor">
-                  <a class="VPLink link no-icon VPNavBarStarLink VPNavBarSponsorLink" href="{{ github_sponsor_url }}" aria-label="{{ github_sponsor_label | escape }}" target="_blank" rel="noreferrer noopener">
-                    <span class="VPNavBarStarIcon VPNavBarSponsorIcon" aria-hidden="true">
-                      <svg viewBox="0 0 16 16" focusable="false">
-                        <path d="M7.655 14.916v-.001h-.002l-.006-.003-.018-.01a22.066 22.066 0 0 1-3.744-2.584C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.044 5.231-3.886 6.818a22.094 22.094 0 0 1-3.433 2.414 7.152 7.152 0 0 1-.31.17l-.018.01-.008.004a.75.75 0 0 1-.69 0Z"></path>
-                      </svg>
-                    </span>
-                    <span class="VPNavBarStarText">{{ github_sponsor_text }}</span>
-                  </a>
-                </div>
-              {% endif %}
-              {% for social in social_links %}
-                {% assign social_icon_name = social.icon %}
-                {% assign social_icon_svg = social.icon_svg %}
-                {% assign social_icon_key = social_icon_name | downcase %}
-                {% if github_star_enabled and social_icon_key == 'github' %}
-                  {% continue %}
-                {% endif %}
-                {% assign social_aria = social.label | default: social_icon_name | default: 'social link' %}
-                <a class="VPSocialLink no-icon" href="{{ social.url }}" aria-label="{{ social_aria }}" target="_blank" rel="me noopener">
-                  {% if social_icon_svg %}
-                    {{ social_icon_svg }}
-                  {% else %}
-                    <span class="vpi-social-{{ social_icon_name }}"></span>
-                  {% endif %}
-                </a>
-              {% endfor %}
-            </div>
+            {% include nav_social_links.html variant='navbar' %}
 
             <button type="button" class="VPNavBarHamburger hamburger" id="vp-nav-hamburger" aria-label="mobile navigation" aria-expanded="false" aria-controls="VPNavScreen">
               <span class="container">
@@ -282,15 +182,7 @@
     <div class="container">
       <nav class="VPNavScreenMenu">
         {% for item in nav_items %}
-          {% assign is_active = false %}
-          {% if item.collections and item.collections contains page.collection %}
-            {% assign is_active = true %}
-          {% elsif page.url == item.url %}
-            {% assign is_active = true %}
-          {% endif %}
-          <a class="VPLink link VPNavScreenMenuLink{% if is_active %} active{% endif %}" href="{{ item.url | relative_url }}" data-vp-nav-link{% if item.collections %} data-collections="{{ item.collections | join: '|' }}"{% endif %}{% if include.has_sidebar and item.collections %} data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance"{% endif %}>
-            <span>{{ item.title }}</span>
-          </a>
+          {% include nav_menu_link.html item=item link_class='VPNavScreenMenuLink' has_sidebar=include.has_sidebar %}
         {% endfor %}
       </nav>
 
@@ -302,28 +194,7 @@
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
             {% for version in versions.items %}
-              {% assign version_external = false %}
-              {% assign version_active = false %}
-              {% assign version_link_first_char = version.url | slice: 0, 1 %}
-              {% if version.external or version.url contains '://' %}
-                {% assign version_external = true %}
-              {% endif %}
-              {% if version.title == versions.current %}
-                {% assign version_active = true %}
-              {% endif %}
-              {% assign version_href = version.url %}
-              {% if version_external %}
-                {% assign version_href = version.url %}
-              {% elsif version_absolute_links and version_link_first_char == '/' %}
-                {% assign version_href = version.url %}
-              {% else %}
-                {% assign version_href = version.url | relative_url %}
-              {% endif %}
-              <div class="item">
-                <a class="VPLink link VPNavScreenVersionLink{% if version_active %} active{% endif %}{% if version_external %} vp-external-link-icon{% endif %}" href="{{ version_href }}"{% if version_external %} target="_blank" rel="noreferrer"{% endif %}>
-                  <span>{{ version.title }}</span>
-                </a>
-              </div>
+              {% include version_link.html version=version variant='screen' %}
             {% endfor %}
           </div>
         </div>
@@ -341,45 +212,7 @@
         </button>
       </div>
 
-      <div class="VPSocialLinks VPNavScreenSocialLinks social-links">
-        {% if github_star_enabled %}
-          <div class="VPNavBarStar VPNavScreenStar">
-            <a class="VPLink link no-icon VPNavBarStarLink VPNavScreenStarLink" href="{{ github_star_url }}" aria-label="Star {{ github_star_repository }} on GitHub" target="_blank" rel="noreferrer noopener" data-github-star-repo="{{ github_star_repository | escape }}" data-github-star-show-count="{{ github_star_show_count }}">
-              <span class="VPNavBarStarIcon vpi-social-github" aria-hidden="true"></span>
-              <span class="VPNavBarStarText">{{ github_star_text }}</span>
-              <span class="VPNavBarStarCount" aria-hidden="true"{% unless github_star_show_count %} hidden{% endunless %}>{% if github_star_show_count %}...{% endif %}</span>
-            </a>
-          </div>
-        {% endif %}
-        {% if github_sponsor_enabled %}
-          <div class="VPNavBarStar VPNavScreenStar VPNavBarSponsor">
-            <a class="VPLink link no-icon VPNavBarStarLink VPNavScreenStarLink VPNavBarSponsorLink" href="{{ github_sponsor_url }}" aria-label="{{ github_sponsor_label | escape }}" target="_blank" rel="noreferrer noopener">
-              <span class="VPNavBarStarIcon VPNavBarSponsorIcon" aria-hidden="true">
-                <svg viewBox="0 0 16 16" focusable="false">
-                  <path d="M7.655 14.916v-.001h-.002l-.006-.003-.018-.01a22.066 22.066 0 0 1-3.744-2.584C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.044 5.231-3.886 6.818a22.094 22.094 0 0 1-3.433 2.414 7.152 7.152 0 0 1-.31.17l-.018.01-.008.004a.75.75 0 0 1-.69 0Z"></path>
-                </svg>
-              </span>
-              <span class="VPNavBarStarText">{{ github_sponsor_text }}</span>
-            </a>
-          </div>
-        {% endif %}
-        {% for social in social_links %}
-          {% assign social_icon_name = social.icon %}
-          {% assign social_icon_svg = social.icon_svg %}
-          {% assign social_icon_key = social_icon_name | downcase %}
-          {% if github_star_enabled and social_icon_key == 'github' %}
-            {% continue %}
-          {% endif %}
-          {% assign social_aria = social.label | default: social_icon_name | default: 'social link' %}
-          <a class="VPSocialLink no-icon" href="{{ social.url }}" aria-label="{{ social_aria }}" target="_blank" rel="me noopener">
-            {% if social_icon_svg %}
-              {{ social_icon_svg }}
-            {% else %}
-              <span class="vpi-social-{{ social_icon_name }}"></span>
-            {% endif %}
-          </a>
-        {% endfor %}
-      </div>
+      {% include nav_social_links.html variant='screen' %}
     </div>
   </div>
 </header>

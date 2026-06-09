@@ -4,6 +4,7 @@
 require 'yaml'
 require 'optparse'
 require 'time'
+require 'fileutils'
 require 'rubygems/version'
 
 options = {
@@ -138,6 +139,5 @@ manifest_out = {
   'updated_at' => Time.now.utc.iso8601
 }
 
-dirname = File.dirname(options[:manifest_out])
-Dir.mkdir(dirname) unless dirname == '.' || Dir.exist?(dirname)
+FileUtils.mkdir_p(File.dirname(options[:manifest_out]))
 File.write(options[:manifest_out], YAML.dump(manifest_out))

@@ -689,10 +689,6 @@ body.vp-search-open {
   margin-top: 12px;
 }
 
-.dark .VPFooter .footer-chatwithwork-logo {
-  filter: brightness(0) invert(1);
-}
-
 @media (min-width: 640px) {
   .VPDocFooter .VPLastUpdated {
     line-height: 32px;
@@ -1271,6 +1267,14 @@ body.vp-search-open {
   font-size: 14px;
   font-weight: 500;
   color: var(--vp-c-text-2);
+}
+
+.VPFeature .details p {
+  margin: 0;
+}
+
+.VPFeature .details p + p {
+  margin-top: 8px;
 }
 
 .VPFeature .link-text {

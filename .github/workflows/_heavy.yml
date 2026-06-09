@@ -54,6 +54,9 @@ jobs:
       - name: Install Node dependencies
         run: npm ci
 
+      - name: Run Ruby tests
+        run: bundle exec rake test
+
       - name: Run Node linters
         run: npm run lint
 

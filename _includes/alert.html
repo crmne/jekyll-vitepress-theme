@@ -12,11 +12,11 @@
 {% if alert_type == "details" %}
 <details class="details custom-block">
   <summary>{{ alert_title }}</summary>
-  <p>{{ include.content | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+  {{ include.content | markdownify }}
 </details>
 {% else %}
 <div class="{{ alert_type }} custom-block">
   <p class="custom-block-title">{{ alert_title }}</p>
-  <p>{{ include.content | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+  {{ include.content | markdownify }}
 </div>
 {% endif %}

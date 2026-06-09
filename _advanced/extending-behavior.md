@@ -35,10 +35,14 @@ Common overrides:
 - `_includes/nav.html`: customize the top navigation
 - `_includes/sidebar.html`: change sidebar rendering
 - `_includes/doc_footer.html`: modify the doc footer layout
+- `_includes/doc_content.html`: change the doc page body (auto title, copy page button, content)
+- `_includes/nav_social_links.html`: change the social links block shared by the nav bar, the extra menu, and the mobile nav screen
+- `_includes/nav_menu_link.html`: change how individual nav menu links render
+- `_includes/version_link.html`: change how version selector entries render
 
 ## Layout overrides
 
-You can also override `_layouts/default.html` entirely. This gives you full control over the page structure, but means you'll need to update your override if the theme changes its layout in future versions.
+You can also override `_layouts/default.html` entirely. This gives you full control over the page structure, but means you'll need to update your override if the theme changes its layout in future versions. Note that the doc page body lives in `_includes/doc_content.html` — if that's all you want to change, override the include instead of the layout.
 
 ## Custom JS and CSS
 

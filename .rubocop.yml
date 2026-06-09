@@ -32,3 +32,11 @@ Naming/FileName:
 
 Style/IfUnlessModifier:
   Enabled: false
+
+Metrics/AbcSize:
+  Exclude:
+    - "test/**/*"
+
+Metrics/ClassLength:
+  Exclude:
+    - "test/**/*"

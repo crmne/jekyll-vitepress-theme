@@ -99,7 +99,7 @@
   {% endif %}
 {% endif %}
 
-{% if page_theme.doc_footer and page_theme.doc_footer != false %}
+{% if page_theme.doc_footer %}
   {% if page_theme.doc_footer.prev == false %}
     {% assign prev_enabled = false %}
   {% elsif page_theme.doc_footer.prev %}
@@ -127,7 +127,7 @@
 {% assign next_title = nil %}
 
 {% if prev_enabled %}
-  {% if page_theme.prev and page_theme.prev != false and page_theme.prev.link %}
+  {% if page_theme.prev and page_theme.prev.link %}
     {% assign prev_url = page_theme.prev.link %}
     {% assign prev_title = page_theme.prev.text | default: page_theme.prev.link %}
   {% elsif prev_doc %}
@@ -137,7 +137,7 @@
 {% endif %}
 
 {% if next_enabled %}
-  {% if page_theme.next and page_theme.next != false and page_theme.next.link %}
+  {% if page_theme.next and page_theme.next.link %}
     {% assign next_url = page_theme.next.link %}
     {% assign next_title = page_theme.next.text | default: page_theme.next.link %}
   {% elsif next_doc %}

@@ -1,0 +1,27 @@
+{% assign version = include.version %}
+{% assign version_external = false %}
+{% if version.external or version.url contains '://' %}
+  {% assign version_external = true %}
+{% endif %}
+{% assign version_href = version.url %}
+{% unless version_external %}
+  {% assign version_link_first_char = version.url | slice: 0, 1 %}
+  {% unless version_absolute_links and version_link_first_char == '/' %}
+    {% assign version_href = version.url | relative_url %}
+  {% endunless %}
+{% endunless %}
+{% if include.variant == 'screen' %}
+  {% assign version_active = false %}
+  {% if version.title == versions.current %}
+    {% assign version_active = true %}
+  {% endif %}
+  <div class="item">
+    <a class="VPLink link VPNavScreenVersionLink{% if version_active %} active{% endif %}{% if version_external %} vp-external-link-icon{% endif %}" href="{{ version_href }}"{% if version_external %} target="_blank" rel="noreferrer"{% endif %}>
+      <span>{{ version.title }}</span>
+    </a>
+  </div>
+{% else %}
+  <a class="VPLink link{% if version_external %} vp-external-link-icon{% endif %}" href="{{ version_href }}"{% if version_external %} target="_blank" rel="noreferrer"{% endif %}>
+    <span>{{ version.title }}</span>
+  </a>
+{% endif %}

@@ -87,8 +87,6 @@ module Jekyll
         return nil unless File.file?(source_path)
 
         File.mtime(source_path).utc
-      rescue StandardError
-        nil
       end
     end
 
@@ -178,17 +176,20 @@ module Jekyll
       module_function
 
       def enabled?(item)
-        theme_config = item.site.config['jekyll_vitepress']
-        copy_page_disabled = theme_config.is_a?(Hash) &&
-                             theme_config['copy_page'].is_a?(Hash) &&
-                             theme_config['copy_page']['enabled'] == false
+        site_enabled?(item.site) && page_enabled?(item)
+      end
 
-        unless copy_page_disabled
-          page_theme = item.data['jekyll_vitepress']
-          copy_page_disabled = page_theme == false || (page_theme.is_a?(Hash) && page_theme['copy_page'] == false)
-        end
+      def site_enabled?(site)
+        theme_config = site.config['jekyll_vitepress']
+        copy_page = theme_config['copy_page'] if theme_config.is_a?(Hash)
 
-        !copy_page_disabled
+        !(copy_page.is_a?(Hash) && copy_page['enabled'] == false)
+      end
+
+      def page_enabled?(item)
+        page_theme = item.data['jekyll_vitepress']
+
+        page_theme != false && !(page_theme.is_a?(Hash) && page_theme['copy_page'] == false)
       end
 
       def resolved_markdown(item, payload)
@@ -212,6 +213,12 @@ module Jekyll
         }
       end
 
+      def with_title(markdown, title)
+        return markdown if markdown.to_s.empty? || title.to_s.empty? || leading_h1?(markdown)
+
+        "# #{title}\n\n#{markdown}"
+      end
+
       def leading_h1?(markdown)
         return false if markdown.nil?
 
@@ -232,36 +239,24 @@ Jekyll::Hooks.register :site, :post_read do |site|
   Jekyll::VitePressTheme::SearchIndex.apply(site)
 end
 
-Jekyll::Hooks.register :documents, :pre_render do |document, payload|
-  if Jekyll::VitePressTheme::CopyPage.enabled?(document)
-    document.data['_raw_markdown'] = Jekyll::VitePressTheme::CopyPage.resolved_markdown(document, payload)
+capture_page_state = lambda do |item, payload|
+  if Jekyll::VitePressTheme::CopyPage.enabled?(item)
+    raw = Jekyll::VitePressTheme::CopyPage.resolved_markdown(item, payload)
+    item.data['_raw_markdown'] = Jekyll::VitePressTheme::CopyPage.with_title(raw, item.data['title'])
   end
 
-  next if document.data.key?('last_updated_at')
+  next if item.data.key?('last_updated_at')
 
-  updated_at = Jekyll::VitePressTheme::LastUpdated.source_file_time(document.site, document.path)
-  document.data['last_updated_at'] = updated_at if updated_at
+  updated_at = Jekyll::VitePressTheme::LastUpdated.source_file_time(item.site, item.path)
+  item.data['last_updated_at'] = updated_at if updated_at
 end
 
-Jekyll::Hooks.register :pages, :pre_render do |page, payload|
-  if Jekyll::VitePressTheme::CopyPage.enabled?(page)
-    page.data['_raw_markdown'] = Jekyll::VitePressTheme::CopyPage.resolved_markdown(page, payload)
-  end
-
-  next if page.data.key?('last_updated_at')
-
-  updated_at = Jekyll::VitePressTheme::LastUpdated.source_file_time(page.site, page.path)
-  page.data['last_updated_at'] = updated_at if updated_at
-end
+Jekyll::Hooks.register :documents, :pre_render, &capture_page_state
+Jekyll::Hooks.register :pages, :pre_render, &capture_page_state
 
 # Write raw .md files after site build using the same content as "Copy page"
 Jekyll::Hooks.register :site, :post_write do |site|
-  theme_config = site.config['jekyll_vitepress']
-  if theme_config.is_a?(Hash) &&
-     theme_config['copy_page'].is_a?(Hash) &&
-     theme_config['copy_page']['enabled'] == false
-    next
-  end
+  next unless Jekyll::VitePressTheme::CopyPage.site_enabled?(site)
 
   items = site.pages.select { |p| p.output_ext == '.html' } +
           site.collections.values.flat_map(&:docs)
@@ -274,15 +269,8 @@ Jekyll::Hooks.register :site, :post_write do |site|
     md_path = "#{base_path}.md"
     md_path = '/index.md' if item.url == '/'
 
-    title = item.data['title']
-    body = if title && !title.empty? && !Jekyll::VitePressTheme::CopyPage.leading_h1?(raw)
-             "# #{title}\n\n#{raw}"
-           else
-             raw
-           end
-
     dest = File.join(site.dest, md_path)
     FileUtils.mkdir_p(File.dirname(dest))
-    File.write(dest, body)
+    File.write(dest, raw)
   end
 end

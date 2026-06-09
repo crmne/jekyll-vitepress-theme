@@ -21,7 +21,7 @@ Use the built-in `alert.html` include when you need explicit control over the bl
 {% raw %}{% include alert.html type="tip" content="This is a helpful tip." %}{% endraw %}
 ```
 
-The `type` controls the color and default title. The `content` is processed as Markdown, so inline formatting like backticks and links work naturally.
+The `type` controls the color and default title. The `content` is processed as Markdown, so formatting like backticks, links, and multiple paragraphs work naturally.
 
 ## Available Types
 
@@ -53,10 +53,28 @@ Each type has a default title (`TIP`, `WARNING`, etc.). Override it with the `ti
 
 ## Markdown In Content
 
-The `content` parameter supports inline Markdown: code, links, bold, and so on:
+The `content` parameter supports Markdown: code, links, bold, even multiple paragraphs:
 
 ```liquid
 {% raw %}{% include alert.html type="tip" content="Set `layout: home` in your frontmatter. See the [Frontmatter Reference](/frontmatter-reference/) for details." %}{% endraw %}
 ```
 
 {% include alert.html type="tip" content="Set `layout: home` in your frontmatter. See the [Frontmatter Reference](/frontmatter-reference/) for details." %}
+
+For multi-paragraph content, build the string with `capture` first:
+
+```liquid
+{% raw %}{% capture upgrade_note %}
+Upgrade with `bundle update jekyll-vitepress-theme`.
+
+Then rebuild your site to pick up the new assets.
+{% endcapture %}
+{% include alert.html type="note" content=upgrade_note %}{% endraw %}
+```
+
+{% capture upgrade_note %}
+Upgrade with `bundle update jekyll-vitepress-theme`.
+
+Then rebuild your site to pick up the new assets.
+{% endcapture %}
+{% include alert.html type="note" content=upgrade_note %}
