@@ -48,15 +48,15 @@ class VersionManifestTest < Minitest::Test
 
       release = manifest['items'].find { |item| item['id'] == 'v1.2.3' }
       assert_equal 'v1.2.3 (latest)', release['title']
-      assert_equal '/repo/v/1.2.3/', release['url']
+      assert_equal '/repo/', release['url']
     end
   end
 
   def test_release_mode_sorts_versions_descending
     Dir.mktmpdir do |dir|
       in_path = write_manifest(dir, 'items' => [
-                                 { 'id' => 'v1.10.0', 'url' => '/v/1.10.0/' },
-                                 { 'id' => 'v1.2.0', 'url' => '/v/1.2.0/' }
+                                 { 'id' => 'v1.10.0', 'url' => '/v1.10.0/' },
+                                 { 'id' => 'v1.2.0', 'url' => '/v1.2.0/' }
                                ])
       out_path = File.join(dir, 'out.yml')
       _, stderr, status = run_script(
@@ -70,14 +70,16 @@ class VersionManifestTest < Minitest::Test
 
       assert_equal %w[v1.10.0 v1.9.0 v1.2.0], release_ids
       assert_equal 'v1.9.0', manifest['latest']
+      assert_equal '/', manifest['items'].find { |item| item['id'] == 'v1.9.0' }['url']
+      assert_equal '/v1.10.0/', manifest['items'].find { |item| item['id'] == 'v1.10.0' }['url']
     end
   end
 
   def test_next_mode_keeps_existing_latest
     Dir.mktmpdir do |dir|
       in_path = write_manifest(dir, 'latest' => 'v2.0.0', 'items' => [
-                                 { 'id' => 'v2.0.0', 'url' => '/v/2.0.0/' },
-                                 { 'id' => 'v1.0.0', 'url' => '/v/1.0.0/' }
+                                 { 'id' => 'v2.0.0', 'url' => '/v2.0.0/' },
+                                 { 'id' => 'v1.0.0', 'url' => '/v1.0.0/' }
                                ])
       out_path = File.join(dir, 'out.yml')
       _, stderr, status = run_script(
@@ -90,10 +92,26 @@ class VersionManifestTest < Minitest::Test
       assert_equal 'next', manifest['current']
       assert_equal 'v2.0.0', manifest['latest']
       assert_equal 'v2.0.0 (latest)', manifest['items'].find { |item| item['id'] == 'v2.0.0' }['title']
+      assert_equal '/', manifest['items'].find { |item| item['id'] == 'v2.0.0' }['url']
+      assert_equal '/v1.0.0/', manifest['items'].find { |item| item['id'] == 'v1.0.0' }['url']
     end
   end
 
   def test_recovers_release_id_from_url_when_id_missing
+    Dir.mktmpdir do |dir|
+      in_path = write_manifest(dir, 'items' => [{ 'url' => '/repo/v3.1.4/' }])
+      out_path = File.join(dir, 'out.yml')
+      _, stderr, status = run_script(
+        '--mode', 'next', '--manifest-in', in_path, '--manifest-out', out_path, '--repository', 'owner/repo'
+      )
+
+      assert status.success?, stderr
+      manifest = YAML.safe_load_file(out_path, permitted_classes: [Time])
+      assert_includes manifest['items'].map { |item| item['id'] }, 'v3.1.4'
+    end
+  end
+
+  def test_does_not_recover_legacy_slash_separated_release_url
     Dir.mktmpdir do |dir|
       in_path = write_manifest(dir, 'items' => [{ 'url' => '/repo/v/3.1.4/' }])
       out_path = File.join(dir, 'out.yml')
@@ -103,7 +121,7 @@ class VersionManifestTest < Minitest::Test
 
       assert status.success?, stderr
       manifest = YAML.safe_load_file(out_path, permitted_classes: [Time])
-      assert_includes manifest['items'].map { |item| item['id'] }, 'v3.1.4'
+      refute_includes manifest['items'].map { |item| item['id'] }, 'v3.1.4'
     end
   end
 

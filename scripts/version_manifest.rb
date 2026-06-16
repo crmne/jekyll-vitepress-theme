@@ -77,10 +77,20 @@ def release_id_from_item(item)
   link = item['url'] || item[:url] || item['link'] || item[:link]
   return nil unless link
 
-  match = link.to_s.match(%r{/v/(\d+\.\d+\.\d+[A-Za-z0-9.-]*)/?})
+  match = link.to_s.match(%r{(?:\A|/)v(\d+\.\d+\.\d+[A-Za-z0-9.-]*)(?:/|\z)})
   return nil unless match
 
   release_id_for(match[1])
+end
+
+def root_url_for(base_path)
+  "#{base_path}/"
+end
+
+def release_url_for(base_path, release_id, latest_id)
+  return root_url_for(base_path) if release_id == latest_id
+
+  "#{base_path}/#{release_id}/"
 end
 
 base_path = normalize_base_path(options[:base_path])
@@ -121,7 +131,7 @@ release_ids.each do |rid|
   items << {
     'id' => rid,
     'title' => title,
-    'url' => "#{base_path}/v/#{rid.delete_prefix('v')}/"
+    'url' => release_url_for(base_path, rid, latest_id)
   }
 end
 

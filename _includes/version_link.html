@@ -12,7 +12,8 @@
 {% endunless %}
 {% if include.variant == 'screen' %}
   {% assign version_active = false %}
-  {% if version.title == versions.current %}
+  {% assign version_key = version.id | default: version.title %}
+  {% if version_key == versions.current or version.title == versions.current %}
     {% assign version_active = true %}
   {% endif %}
   <div class="item">

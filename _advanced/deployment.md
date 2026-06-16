@@ -22,18 +22,21 @@ This keeps CI simple and avoids the complexity of managing multiple doc versions
 
 ## Multi-version docs (optional)
 
-If your project needs versioned documentation, such as `/next/` for the development branch, `/latest/` for the current release, and `/v/1.0.0/` for specific versions, the theme includes scripts to support this pattern:
+If your project needs versioned documentation, such as `/next/` for the development branch, `/` for the current release, and `/v1.0.0/` for older releases, the theme includes scripts to support this pattern:
 
 - `scripts/version_manifest.rb` generates `_data/versions.yml` from your release history
 - `scripts/publish_gh_pages.sh` handles publishing in two modes:
   - `next`: publishes to the `/next/` path
-  - `release`: publishes to both `/v/x.y.z/` and `/latest/`
+  - `release`: publishes the current release to `/` and an immutable snapshot to `/v1.2.3/`
 
 A typical CI flow:
 
-1. **On every push to the default branch**, build docs with `baseurl: /next` and publish with `publish_gh_pages.sh next`.
-2. **On release**, build for `/v/x.y.z` and `/latest`, then publish with `publish_gh_pages.sh release`.
+1. **On every push to the default branch**, build docs with a `/next` base URL and publish with `publish_gh_pages.sh next`.
+2. **On release**, build once for the site root and once for `/v1.2.3`, then publish with `publish_gh_pages.sh release`.
 3. `_data/versions.yml` on the `gh-pages` branch becomes the source of truth for the version selector dropdown.
+
+By default, the publish script reads `_site_next` for `next`, `_site_current` for the root release build, and `_site_release` for the
+`/v1.2.3/` release snapshot.
 
 When `_data/versions.yml` is present and contains version items, the theme renders a version selector in the navbar automatically.
 
