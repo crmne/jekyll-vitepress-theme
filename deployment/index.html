@@ -681,6 +681,7 @@
 
   
   
+  
   <div class="item">
     <a class="VPLink link VPNavScreenVersionLink vp-external-link-icon" href="https://github.com/crmne/jekyll-vitepress-theme/releases" target="_blank" rel="noreferrer">
       <span>Changelog</span>
@@ -1177,18 +1178,21 @@ This keeps CI simple and avoids the complexity of managing multiple doc versions
 
 ## Multi-version docs (optional)
 
-If your project needs versioned documentation, such as `/next/` for the development branch, `/latest/` for the current release, and `/v/1.0.0/` for specific versions, the theme includes scripts to support this pattern:
+If your project needs versioned documentation, such as `/next/` for the development branch, `/` for the current release, and `/v1.0.0/` for older releases, the theme includes scripts to support this pattern:
 
 - `scripts/version_manifest.rb` generates `_data/versions.yml` from your release history
 - `scripts/publish_gh_pages.sh` handles publishing in two modes:
   - `next`: publishes to the `/next/` path
-  - `release`: publishes to both `/v/x.y.z/` and `/latest/`
+  - `release`: publishes the current release to `/` and an immutable snapshot to `/v1.2.3/`
 
 A typical CI flow:
 
-1. **On every push to the default branch**, build docs with `baseurl: /next` and publish with `publish_gh_pages.sh next`.
-2. **On release**, build for `/v/x.y.z` and `/latest`, then publish with `publish_gh_pages.sh release`.
+1. **On every push to the default branch**, build docs with a `/next` base URL and publish with `publish_gh_pages.sh next`.
+2. **On release**, build once for the site root and once for `/v1.2.3`, then publish with `publish_gh_pages.sh release`.
 3. `_data/versions.yml` on the `gh-pages` branch becomes the source of truth for the version selector dropdown.
+
+By default, the publish script reads `_site_next` for `next`, `_site_current` for the root release build, and `_site_release` for the
+`/v1.2.3/` release snapshot.
 
 When `_data/versions.yml` is present and contains version items, the theme renders a version selector in the navbar automatically.
 
@@ -1227,14 +1231,14 @@ In your repository&apos;s GitHub Pages settings, configure the source to serve f
 
 <h2 id="multi-version-docs-optional">Multi-version docs (optional)</h2>
 
-<p>If your project needs versioned documentation, such as <code class="language-plaintext highlighter-rouge">/next/</code> for the development branch, <code class="language-plaintext highlighter-rouge">/latest/</code> for the current release, and <code class="language-plaintext highlighter-rouge">/v/1.0.0/</code> for specific versions, the theme includes scripts to support this pattern:</p>
+<p>If your project needs versioned documentation, such as <code class="language-plaintext highlighter-rouge">/next/</code> for the development branch, <code class="language-plaintext highlighter-rouge">/</code> for the current release, and <code class="language-plaintext highlighter-rouge">/v1.0.0/</code> for older releases, the theme includes scripts to support this pattern:</p>
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">scripts/version_manifest.rb</code> generates <code class="language-plaintext highlighter-rouge">_data/versions.yml</code> from your release history</li>
   <li><code class="language-plaintext highlighter-rouge">scripts/publish_gh_pages.sh</code> handles publishing in two modes:
     <ul>
       <li><code class="language-plaintext highlighter-rouge">next</code>: publishes to the <code class="language-plaintext highlighter-rouge">/next/</code> path</li>
-      <li><code class="language-plaintext highlighter-rouge">release</code>: publishes to both <code class="language-plaintext highlighter-rouge">/v/x.y.z/</code> and <code class="language-plaintext highlighter-rouge">/latest/</code></li>
+      <li><code class="language-plaintext highlighter-rouge">release</code>: publishes the current release to <code class="language-plaintext highlighter-rouge">/</code> and an immutable snapshot to <code class="language-plaintext highlighter-rouge">/v1.2.3/</code></li>
     </ul>
   </li>
 </ul>
@@ -1242,10 +1246,13 @@ In your repository&apos;s GitHub Pages settings, configure the source to serve f
 <p>A typical CI flow:</p>
 
 <ol>
-  <li><strong>On every push to the default branch</strong>, build docs with <code class="language-plaintext highlighter-rouge">baseurl: /next</code> and publish with <code class="language-plaintext highlighter-rouge">publish_gh_pages.sh next</code>.</li>
-  <li><strong>On release</strong>, build for <code class="language-plaintext highlighter-rouge">/v/x.y.z</code> and <code class="language-plaintext highlighter-rouge">/latest</code>, then publish with <code class="language-plaintext highlighter-rouge">publish_gh_pages.sh release</code>.</li>
+  <li><strong>On every push to the default branch</strong>, build docs with a <code class="language-plaintext highlighter-rouge">/next</code> base URL and publish with <code class="language-plaintext highlighter-rouge">publish_gh_pages.sh next</code>.</li>
+  <li><strong>On release</strong>, build once for the site root and once for <code class="language-plaintext highlighter-rouge">/v1.2.3</code>, then publish with <code class="language-plaintext highlighter-rouge">publish_gh_pages.sh release</code>.</li>
   <li><code class="language-plaintext highlighter-rouge">_data/versions.yml</code> on the <code class="language-plaintext highlighter-rouge">gh-pages</code> branch becomes the source of truth for the version selector dropdown.</li>
 </ol>
+
+<p>By default, the publish script reads <code class="language-plaintext highlighter-rouge">_site_next</code> for <code class="language-plaintext highlighter-rouge">next</code>, <code class="language-plaintext highlighter-rouge">_site_current</code> for the root release build, and <code class="language-plaintext highlighter-rouge">_site_release</code> for the
+<code class="language-plaintext highlighter-rouge">/v1.2.3/</code> release snapshot.</p>
 
 <p>When <code class="language-plaintext highlighter-rouge">_data/versions.yml</code> is present and contains version items, the theme renders a version selector in the navbar automatically.</p>
 
@@ -1349,7 +1356,7 @@ In your repository&apos;s GitHub Pages settings, configure the source to serve f
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-06-10T08:27:10+00:00" lang="en-US" data-vp-last-updated>Jun 10, 2026, 8:27:10 AM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-06-16T15:15:49+00:00" lang="en-US" data-vp-last-updated>Jun 16, 2026, 3:15:49 PM</time></p>
           </div>
         
       </div>

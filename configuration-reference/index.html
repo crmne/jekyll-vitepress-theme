@@ -681,6 +681,7 @@
 
   
   
+  
   <div class="item">
     <a class="VPLink link VPNavScreenVersionLink vp-external-link-icon" href="https://github.com/crmne/jekyll-vitepress-theme/releases" target="_blank" rel="noreferrer">
       <span>Changelog</span>
@@ -1451,8 +1452,12 @@ If this file exists, it drives the version selector:
 ```yaml
 current: auto
 items:
-  - title: v1.0.0 (current)
+  - id: v2.0.0
+    title: v2.0.0 (latest)
     url: /
+  - id: v1.0.0
+    title: v1.0.0
+    url: /v1.0.0/
   - title: Changelog
     url: https://github.com/you/project/releases
     external: true
@@ -1758,8 +1763,12 @@ If <code class="language-plaintext highlighter-rouge">last_updated.format</code>
 
 <div data-title="_data/versions.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">current</span><span class="pi">:</span> <span class="s">auto</span>
 <span class="na">items</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">v1.0.0 (current)</span>
+  <span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s">v2.0.0</span>
+    <span class="na">title</span><span class="pi">:</span> <span class="s">v2.0.0 (latest)</span>
     <span class="na">url</span><span class="pi">:</span> <span class="s">/</span>
+  <span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s">v1.0.0</span>
+    <span class="na">title</span><span class="pi">:</span> <span class="s">v1.0.0</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">/v1.0.0/</span>
   <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Changelog</span>
     <span class="na">url</span><span class="pi">:</span> <span class="s">https://github.com/you/project/releases</span>
     <span class="na">external</span><span class="pi">:</span> <span class="kc">true</span>
@@ -1876,7 +1885,7 @@ If <code class="language-plaintext highlighter-rouge">last_updated.format</code>
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-06-10T08:27:10+00:00" lang="en-US" data-vp-last-updated>Jun 10, 2026, 8:27:10 AM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-06-16T15:15:49+00:00" lang="en-US" data-vp-last-updated>Jun 16, 2026, 3:15:49 PM</time></p>
           </div>
         
       </div>

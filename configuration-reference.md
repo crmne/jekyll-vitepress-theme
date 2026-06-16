@@ -292,8 +292,12 @@ If this file exists, it drives the version selector:
 ```yaml
 current: auto
 items:
-  - title: v1.0.0 (current)
+  - id: v2.0.0
+    title: v2.0.0 (latest)
     url: /
+  - id: v1.0.0
+    title: v1.0.0
+    url: /v1.0.0/
   - title: Changelog
     url: https://github.com/you/project/releases
     external: true
