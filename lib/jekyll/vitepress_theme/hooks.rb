@@ -3,6 +3,231 @@ require 'rouge'
 
 module Jekyll
   module VitePressTheme
+    # rubocop:disable Metrics/ModuleLength
+    module Sidebar
+      module_function
+
+      DATA_KEY = 'jekyll_vitepress_sidebar'.freeze
+      MAX_ITEM_LEVEL = 5
+
+      def apply(site)
+        generated_sidebar = generate(site)
+        site.data[DATA_KEY] = generated_sidebar if generated_sidebar
+      rescue StandardError => e
+        Jekyll.logger.warn('jekyll-vitepress-theme', "Sidebar hierarchy generation failed: #{e.message}")
+      end
+
+      def generate(site)
+        sidebar_groups = site.data['sidebar']
+        return nil unless sidebar_groups.respond_to?(:each)
+
+        groups = sidebar_groups.filter_map { |group| generated_group(site, group) }
+
+        {
+          'groups' => groups,
+          'collections' => groups.to_h { |group| [group['collection'], collection_data(group)] }
+        }
+      end
+
+      def generated_group(site, group)
+        collection_name = group_value(group, 'collection')
+        docs = collection_docs(site, collection_name)
+        return nil if docs.empty?
+
+        collection_data = build_collection(collection_name, docs)
+        return nil if collection_data['docs'].empty?
+
+        group_hash(group).merge(collection_data)
+      end
+
+      def collection_data(group)
+        group.slice('collection', 'items', 'docs', 'active_urls')
+      end
+
+      def build_collection(collection_name, docs)
+        ordered_docs = sort_docs(docs)
+        nodes = ordered_docs.to_h { |doc| [doc, node_for(doc)] }
+        roots = attach_nodes(collection_name, ordered_docs, nodes)
+
+        finalize_nodes(roots, 1)
+        flat_docs = flatten_docs(roots)
+        {
+          'collection' => collection_name.to_s,
+          'items' => roots,
+          'docs' => flat_docs,
+          'active_urls' => flat_docs.filter_map { |doc| doc_url(doc) }
+        }
+      end
+
+      def attach_nodes(collection_name, docs, nodes)
+        docs.each_with_object([]) do |doc, roots|
+          parent_doc = parent_doc_for(doc, docs)
+          if valid_parent?(doc, parent_doc, docs)
+            nodes[parent_doc]['children'] << nodes[doc]
+          else
+            warn_missing_parent(collection_name, doc) if parent_title(doc)
+            roots << nodes[doc]
+          end
+        end
+      end
+
+      def valid_parent?(doc, parent_doc, docs)
+        parent_doc && !attaching_creates_cycle?(doc, parent_doc, docs)
+      end
+
+      def collection_docs(site, collection_name)
+        return [] unless collection_name
+
+        collection = site.collections[collection_name.to_s]
+        return [] unless collection
+
+        collection.docs
+      end
+
+      def group_hash(group)
+        return group if group.is_a?(Hash)
+
+        group.respond_to?(:to_h) ? group.to_h : {}
+      end
+
+      def group_value(group, key)
+        group_hash(group)[key] || group_hash(group)[key.to_sym]
+      end
+
+      def sort_docs(docs)
+        docs.sort_by { |doc| sort_key(doc) }
+      end
+
+      def sort_key(doc)
+        nav_order = data_value(doc, 'nav_order')
+        order_bucket = nav_order.nil? ? 1 : 0
+        numeric_order = numeric?(nav_order)
+        order_type = numeric_order ? 0 : 1
+        order_value = numeric_order ? nav_order.to_f : nav_order.to_s
+
+        [order_bucket, order_type, order_value, title(doc).downcase, doc_url(doc).to_s]
+      end
+
+      def numeric?(value)
+        value.is_a?(Numeric) || value.to_s.match?(/\A-?\d+(?:\.\d+)?\z/)
+      end
+
+      def node_for(doc)
+        {
+          'doc' => doc,
+          'title' => title(doc),
+          'url' => doc_url(doc),
+          'collapsed' => truthy?(data_value(doc, 'collapsed')),
+          'children' => [],
+          'active_urls' => []
+        }
+      end
+
+      def parent_doc_for(doc, docs)
+        direct_parent = parent_title(doc)
+        return nil unless direct_parent
+
+        candidates = docs.select { |candidate| candidate != doc && title(candidate) == direct_parent }
+        grand_parent = normalized_string(data_value(doc, 'grand_parent'))
+        return candidates.first unless grand_parent
+
+        candidates.find { |candidate| ancestor_titles(candidate, docs).include?(grand_parent) }
+      end
+
+      def attaching_creates_cycle?(doc, parent_doc, docs)
+        current = parent_doc
+        seen = []
+
+        while current
+          return true if current == doc || seen.include?(current)
+
+          seen << current
+          current = parent_doc_for(current, docs)
+        end
+
+        false
+      end
+
+      def ancestor_titles(doc, docs)
+        titles = []
+        current = parent_doc_for(doc, docs)
+        seen = []
+
+        while current && !seen.include?(current)
+          seen << current
+          titles << title(current)
+          current = parent_doc_for(current, docs)
+        end
+
+        titles
+      end
+
+      def finalize_nodes(nodes, level)
+        nodes.sort_by! { |node| sort_key(node['doc']) }
+        nodes.each do |node|
+          finalize_children(node, level)
+
+          node['active_urls'] = [node['url'], *node['children'].flat_map { |child| child['active_urls'] }].compact
+        end
+      end
+
+      def finalize_children(node, level)
+        if level >= MAX_ITEM_LEVEL
+          warn_depth_limit(node) unless node['children'].empty?
+          node['children'] = []
+        else
+          finalize_nodes(node['children'], level + 1)
+        end
+      end
+
+      def flatten_docs(nodes)
+        nodes.flat_map do |node|
+          [node['doc'], *flatten_docs(node['children'])]
+        end
+      end
+
+      def data_value(doc, key)
+        data = doc.respond_to?(:data) ? doc.data : {}
+        data[key] || data[key.to_sym]
+      end
+
+      def title(doc)
+        normalized_string(data_value(doc, 'title')) || ''
+      end
+
+      def parent_title(doc)
+        normalized_string(data_value(doc, 'parent'))
+      end
+
+      def doc_url(doc)
+        doc.url if doc.respond_to?(:url)
+      end
+
+      def normalized_string(value)
+        string = value.to_s.strip
+        string.empty? ? nil : string
+      end
+
+      def truthy?(value)
+        value == true || value.to_s.casecmp('true').zero?
+      end
+
+      def warn_missing_parent(collection_name, doc)
+        Jekyll.logger.warn(
+          'jekyll-vitepress-theme',
+          "Missing sidebar parent '#{parent_title(doc)}' for '#{title(doc)}' in #{collection_name}; rendering it at the collection root."
+        )
+      end
+
+      def warn_depth_limit(node)
+        Jekyll.logger.warn(
+          'jekyll-vitepress-theme',
+          "Sidebar item '#{node['title']}' is deeper than #{MAX_ITEM_LEVEL} item levels; nested children were not rendered."
+        )
+      end
+    end
+    # rubocop:enable Metrics/ModuleLength
+
     module SearchIndex
       module_function
 
@@ -19,9 +244,14 @@ module Jekyll
           }
           {% assign first = false %}
         {% endif %}
-        {% assign sidebar_groups = site.data.sidebar %}
+        {% assign generated_sidebar = site.data.jekyll_vitepress_sidebar %}
+        {% assign sidebar_groups = generated_sidebar.groups | default: site.data.sidebar %}
         {% for group in sidebar_groups %}
-          {% assign docs = site[group.collection] | sort: 'nav_order' %}
+          {% if group.docs %}
+            {% assign docs = group.docs %}
+          {% else %}
+            {% assign docs = site[group.collection] | sort: 'nav_order' %}
+          {% endif %}
           {% for doc in docs %}
             {% if doc.title and doc.url %}
               {% unless first %},{% endunless %}
@@ -236,6 +466,7 @@ end
 Jekyll::Hooks.register :site, :post_read do |site|
   Jekyll::VitePressTheme::VersionLabel.apply(site)
   Jekyll::VitePressTheme::RougeStyles.apply(site)
+  Jekyll::VitePressTheme::Sidebar.apply(site)
   Jekyll::VitePressTheme::SearchIndex.apply(site)
 end
 

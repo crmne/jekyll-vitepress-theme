@@ -3,42 +3,60 @@
   <nav class="nav" id="VPSidebarNav" aria-labelledby="sidebar-aria-label" tabindex="-1">
     <span class="visually-hidden" id="sidebar-aria-label">Sidebar Navigation</span>
 
-    {% assign sidebar_groups = site.data.sidebar %}
+    {% assign generated_sidebar = site.data.jekyll_vitepress_sidebar %}
+    {% assign sidebar_groups = generated_sidebar.groups | default: site.data.sidebar %}
     {% for group in sidebar_groups %}
-      {% assign docs = site[group.collection] | sort: 'nav_order' %}
-      {% if docs.size > 0 %}
+      {% if group.items %}
+        {% assign sidebar_items = group.items %}
+      {% else %}
+        {% assign docs = site[group.collection] | sort: 'nav_order' %}
+        {% assign sidebar_items = docs %}
+      {% endif %}
+      {% if sidebar_items.size > 0 %}
         {% assign has_active = false %}
-        {% for doc in docs %}
-          {% if doc.url == page.url %}
-            {% assign has_active = true %}
-          {% endif %}
-        {% endfor %}
+        {% if group.active_urls contains page.url %}
+          {% assign has_active = true %}
+        {% else %}
+          {% for doc in docs %}
+            {% if doc.url == page.url %}
+              {% assign has_active = true %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+        {% assign collapsed = false %}
+        {% if group.collapsed and has_active == false %}
+          {% assign collapsed = true %}
+        {% endif %}
 
         <div class="group no-transition">
-          <section class="VPSidebarItem level-0 collapsible{% if has_active %} has-active{% endif %}" data-vp-sidebar-group data-collection="{{ group.collection }}">
-            <div class="item" role="button" tabindex="0">
+          <section class="VPSidebarItem level-0 collapsible{% if has_active %} has-active{% endif %}{% if collapsed %} collapsed{% endif %}" data-vp-sidebar-group data-collection="{{ group.collection }}">
+            <div class="item" role="button" tabindex="0" aria-expanded="{% if collapsed %}false{% else %}true{% endif %}">
               <div class="indicator"></div>
               <h2 class="text">{{ group.title }}</h2>
-              <div class="caret" role="button" aria-label="toggle section" tabindex="0">
+              <div class="caret" role="button" aria-label="toggle section" tabindex="0" aria-expanded="{% if collapsed %}false{% else %}true{% endif %}">
                 <span class="vpi-chevron-right caret-icon"></span>
               </div>
             </div>
 
             <div class="items">
-              {% for doc in docs %}
-                {% assign active = false %}
-                {% if doc.url == page.url %}
-                  {% assign active = true %}
-                {% endif %}
-                <div class="VPSidebarItem level-1 is-link{% if active %} is-active{% endif %}">
-                  <div class="item">
-                    <div class="indicator"></div>
-                    <a class="VPLink link link" href="{{ doc.url | relative_url }}" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
-                      <p class="text">{{ doc.title }}</p>
-                    </a>
+              {% if group.items %}
+                {% include sidebar_items.html nodes=group.items level=1 %}
+              {% else %}
+                {% for doc in docs %}
+                  {% assign active = false %}
+                  {% if doc.url == page.url %}
+                    {% assign active = true %}
+                  {% endif %}
+                  <div class="VPSidebarItem level-1 is-link{% if active %} is-active{% endif %}">
+                    <div class="item">
+                      <div class="indicator"></div>
+                      <a class="VPLink link link" href="{{ doc.url | relative_url }}" data-vp-sidebar-link data-turbo="true" data-turbo-frame="vp-content-frame" data-turbo-action="advance">
+                        <p class="text">{{ doc.title }}</p>
+                      </a>
+                    </div>
                   </div>
-                </div>
-              {% endfor %}
+                {% endfor %}
+              {% endif %}
             </div>
           </section>
         </div>

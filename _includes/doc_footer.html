@@ -56,7 +56,14 @@
 {% assign prev_doc = nil %}
 {% assign next_doc = nil %}
 {% if page.collection %}
-  {% assign docs = site[page.collection] | sort: 'nav_order' %}
+  {% assign generated_sidebar = site.data.jekyll_vitepress_sidebar %}
+  {% assign sidebar_collections = generated_sidebar.collections %}
+  {% assign sidebar_collection = sidebar_collections[page.collection] %}
+  {% if sidebar_collection and sidebar_collection.docs %}
+    {% assign docs = sidebar_collection.docs %}
+  {% else %}
+    {% assign docs = site[page.collection] | sort: 'nav_order' %}
+  {% endif %}
   {% assign found_current = false %}
   {% for doc in docs %}
     {% if found_current and next_doc == nil %}

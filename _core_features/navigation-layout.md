@@ -1,6 +1,7 @@
 ---
 title: Navigation and Layout
 nav_order: 1
+has_children: true
 description: How header, sidebar, content, and outline areas are composed.
 ---
 
@@ -34,7 +35,7 @@ Pages with `layout: home` skip the sidebar and outline, rendering the hero and f
 
 ## Sidebar
 
-Sidebar entries are driven by two things: your `_data/sidebar.yml` file and the `nav_order` frontmatter on each document.
+Sidebar entries are driven by two things: your `_data/sidebar.yml` file and navigation frontmatter on each document.
 
 ```yaml
 - title: Introduction
@@ -44,7 +45,9 @@ Sidebar entries are driven by two things: your `_data/sidebar.yml` file and the 
 ```
 {: data-title="_data/sidebar.yml"}
 
-Each group pulls documents from the named Jekyll collection and sorts them by `nav_order`. The currently active page is highlighted automatically. If a collection has no documents with frontmatter, that group won't render any links.
+Each group pulls documents from the named Jekyll collection and sorts root documents by `nav_order`. The currently active page is highlighted automatically. If a collection has no documents with frontmatter, that group won't render any links.
+
+Documents can also form nested sidebar groups with Jekyll-style frontmatter. This documentation section uses that feature for its own [Nested Sidebar Items]({% link _core_features/nested-sidebar-items.md %}) page.
 
 ## Top navigation
 
