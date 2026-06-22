@@ -47,6 +47,10 @@ These keys can be set in any page's frontmatter to control theme behavior on a p
 
 - `description`: used in `<meta name="description">` and search results.
 - `nav_order`: controls sort order within sidebar groups. Lower numbers appear first.
+- `parent`: nests the page under another page in the same collection, matched by title.
+- `grand_parent`: disambiguates `parent` when the same parent title appears in more than one branch.
+- `has_children`: optional compatibility marker for parent pages. Child pages are discovered from their `parent` value.
+- `collapsed: true`: renders this page's child branch closed by default, unless the active page is inside it.
 - `markdown_styles: false`: renders body content without the `.vp-doc` markdown wrapper styles. Useful for home pages with custom HTML.
 - `jekyll_vitepress.auto_title: false`: disables the automatic `<h1>` injection. By default, if a page has a `title` but no `<h1>` in its content, the theme renders one automatically.
 - `jekyll_vitepress.footer: false`: hides the global footer on this page.

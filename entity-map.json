@@ -13,7 +13,7 @@
   "entities": [
     {
       "name": "Jekyll",
-      "mentions": 18,
+      "mentions": 19,
       "linked_posts": [
         "/configuration/",
         "/getting-started/",
@@ -24,6 +24,7 @@
         "/custom-blocks/",
         "/markdown-extensions/",
         "/navigation-layout/",
+        "/nested-sidebar-items/",
         "/search-and-outline/",
         "/customizing-styles/",
         "/deployment/",
@@ -37,7 +38,7 @@
     },
     {
       "name": "VitePress",
-      "mentions": 17,
+      "mentions": 18,
       "linked_posts": [
         "/configuration/",
         "/getting-started/",
@@ -48,6 +49,7 @@
         "/custom-blocks/",
         "/markdown-extensions/",
         "/navigation-layout/",
+        "/nested-sidebar-items/",
         "/search-and-outline/",
         "/customizing-styles/",
         "/extending-behavior/",
@@ -148,8 +150,10 @@
     },
     {
       "name": "Documentation Themes",
-      "mentions": 0,
-      "linked_posts": []
+      "mentions": 1,
+      "linked_posts": [
+        "/nested-sidebar-items/"
+      ]
     },
     {
       "name": "Local Search",
@@ -173,5 +177,5 @@
       ]
     }
   ],
-  "generated_at": "2026-06-16T15:20:12+00:00"
+  "generated_at": "2026-06-22T10:47:03+00:00"
 }

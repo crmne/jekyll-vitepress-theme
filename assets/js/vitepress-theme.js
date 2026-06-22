@@ -684,12 +684,28 @@
   syncNavTop();
   window.addEventListener('scroll', syncNavTop, { passive: true });
 
-  document.querySelectorAll('.VPSidebarItem.level-0.collapsible').forEach(function (section) {
+  function setSidebarSectionCollapsed(section, collapsed) {
+    section.classList.toggle('collapsed', collapsed);
+
+    var item = section.querySelector(':scope > .item');
+    var caret = section.querySelector(':scope > .item .caret');
+    var expanded = String(!collapsed);
+
+    if (item) {
+      item.setAttribute('aria-expanded', expanded);
+    }
+
+    if (caret) {
+      caret.setAttribute('aria-expanded', expanded);
+    }
+  }
+
+  document.querySelectorAll('.VPSidebarItem.collapsible').forEach(function (section) {
     var item = section.querySelector(':scope > .item');
     var caret = section.querySelector(':scope > .item .caret');
 
     function toggleSection() {
-      section.classList.toggle('collapsed');
+      setSidebarSectionCollapsed(section, !section.classList.contains('collapsed'));
     }
 
     if (item) {
@@ -701,6 +717,10 @@
       });
 
       item.addEventListener('keydown', function (event) {
+        if (event.target.closest('a')) {
+          return;
+        }
+
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
           toggleSection();
@@ -2174,7 +2194,7 @@
       return null;
     }
 
-    var activeItems = Array.from(sidebar.querySelectorAll('.VPSidebarItem.level-1.is-link.is-active'));
+    var activeItems = Array.from(sidebar.querySelectorAll('.VPSidebarItem.is-link.is-active'));
 
     if (!activeItems.length) {
       return null;
@@ -2212,16 +2232,19 @@
     }
 
     document.querySelectorAll('[data-vp-sidebar-link]').forEach(function (link) {
-      var item = link.closest('.VPSidebarItem.level-1.is-link');
+      var item = link.closest('.VPSidebarItem.is-link');
       var active = normalizePathname(link.getAttribute('href')) === currentPath;
       if (item) {
         item.classList.toggle('is-active', active);
       }
     });
 
-    document.querySelectorAll('[data-vp-sidebar-group]').forEach(function (group) {
-      var hasActiveLink = !!group.querySelector('.VPSidebarItem.level-1.is-link.is-active');
+    document.querySelectorAll('.VPSidebarItem.collapsible').forEach(function (group) {
+      var hasActiveLink = group.classList.contains('is-active') || !!group.querySelector('.VPSidebarItem.is-link.is-active');
       group.classList.toggle('has-active', hasActiveLink);
+      if (hasActiveLink) {
+        setSidebarSectionCollapsed(group, false);
+      }
     });
 
     document.querySelectorAll('[data-vp-nav-link]').forEach(function (link) {

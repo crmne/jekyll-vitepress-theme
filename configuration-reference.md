@@ -258,6 +258,26 @@ Collection-driven sidebar groups:
 ```
 {: data-title="_data/sidebar.yml"}
 
+Within each collection, page frontmatter controls hierarchy:
+
+```yaml
+---
+title: Tools
+nav_order: 2
+has_children: true
+---
+```
+
+```yaml
+---
+title: Tool Parameters
+parent: Tools
+nav_order: 1
+---
+```
+
+The theme supports nested items using `parent`, optional `grand_parent`, and `nav_order`, matching common Jekyll documentation conventions while rendering a VitePress-style sidebar tree. Set `collapsed: true` on a parent page to close that branch by default.
+
 ### Social links (`_data/social_links.yml`)
 
 - `icon`: built-in icon slug
