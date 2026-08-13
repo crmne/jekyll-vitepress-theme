@@ -384,7 +384,18 @@ module Jekyll
       module_function
 
       AUTO_VALUE = 'auto'.freeze
+      VERSION_PATTERN = /VERSION\s*=\s*['"]([^'"]+)['"]/
 
+      # Resolves `current: auto` to the version of the project being documented.
+      # Configure where to read it from:
+      #
+      #   jekyll_vitepress:
+      #     version:
+      #       value: "2.0.0"              # literal, wins over file
+      #       file: lib/my_gem/version.rb # or a file holding VERSION = '...'
+      #
+      # With neither, it falls back to this theme's own version, which is only
+      # ever right for the theme's own documentation.
       def apply(site)
         versions = site.data['versions']
         return unless versions.is_a?(Hash)
@@ -392,9 +403,33 @@ module Jekyll
         current_value = versions['current'] || versions[:current]
         return unless auto_value?(current_value)
 
-        versions['current'] = "v#{Jekyll::VitePressTheme::VERSION}"
+        versions['current'] = "v#{site_version(site) || Jekyll::VitePressTheme::VERSION}"
       rescue StandardError => e
         Jekyll.logger.warn('jekyll-vitepress-theme', "Version label resolution failed: #{e.message}")
+      end
+
+      def site_version(site)
+        config = site.config.dig('jekyll_vitepress', 'version')
+        return nil unless config.is_a?(Hash)
+
+        literal = config['value'].to_s.strip
+        return normalize(literal) unless literal.empty?
+
+        version_from_file(site, config['file'])
+      end
+
+      def version_from_file(site, path)
+        return nil if path.to_s.strip.empty?
+
+        full_path = File.expand_path(path.to_s, site.source)
+        return nil unless File.file?(full_path)
+
+        match = File.read(full_path)[VERSION_PATTERN]
+        match && normalize(Regexp.last_match(1))
+      end
+
+      def normalize(value)
+        value.to_s.strip.sub(/\Av/, '')
       end
 
       def auto_value?(value)
