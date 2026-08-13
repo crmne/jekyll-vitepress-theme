@@ -78,6 +78,14 @@ bundle install
 bundle exec jekyll serve --livereload
 ```
 
+### Metadata and jekyll-seo-tag
+
+The theme writes the page description, canonical link, Open Graph, and Twitter
+card tags itself. Calling `{% seo %}` as well emits a second copy of each, so
+drop it when you switch to this theme, or drop the theme's tags if you prefer
+jekyll-seo-tag's. Its JSON-LD has no equivalent here, so keep that plugin if
+you want structured data.
+
 ## Screenshots
 
 | Home | Docs |
