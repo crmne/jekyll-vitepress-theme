@@ -103,8 +103,20 @@
               {% if versions and versions.items and versions.items.size > 0 %}
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu">
+                    {%- comment -%}
+                      `current` names an item, by id or title, the way
+                      version_link.html matches it. Show that item's title so a
+                      manifest holding ids does not label the button "next".
+                    {%- endcomment -%}
+                    {%- assign version_current_label = versions.current -%}
+                    {%- for version_item in versions.items -%}
+                      {%- assign version_item_key = version_item.id | default: version_item.title -%}
+                      {%- if version_item_key == versions.current or version_item.title == versions.current -%}
+                        {%- assign version_current_label = version_item.title -%}
+                      {%- endif -%}
+                    {%- endfor -%}
                     <span class="text">
-                      <span>{{ versions.current | default: 'Version' }}</span>
+                      <span>{{ version_current_label | default: 'Version' }}</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
