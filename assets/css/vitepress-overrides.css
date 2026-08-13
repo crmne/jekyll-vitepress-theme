@@ -329,6 +329,11 @@ body.vp-nav-screen-open .VPNav {
   width: 100%;
   height: 100%;
   fill: currentcolor;
+
+  /* These icons draw a 16-unit viewBox into a 13-14px box. Their paths touch
+     the viewBox edge, so at a fractional scale the SVG viewport clips the
+     outermost column and the shape looks flat on one side. */
+  overflow: visible;
 }
 
 .VPNavBarStarText,
@@ -1120,6 +1125,11 @@ body.vp-search-open {
   width: 100%;
   height: 100%;
   fill: currentcolor;
+
+  /* These icons draw a 16-unit viewBox into a 13-14px box. Their paths touch
+     the viewBox edge, so at a fractional scale the SVG viewport clips the
+     outermost column and the shape looks flat on one side. */
+  overflow: visible;
 }
 
 .VPMetricButtonCount {
