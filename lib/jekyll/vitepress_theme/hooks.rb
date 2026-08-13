@@ -17,9 +17,26 @@ module Jekyll
         Jekyll.logger.warn('jekyll-vitepress-theme', "Sidebar hierarchy generation failed: #{e.message}")
       end
 
+      # A site with collection documents and no _data/sidebar.yml builds a page
+      # with an empty sidebar and no other complaint, which is a slow thing to
+      # notice. Overriding `data_dir` without carrying the file over is the
+      # usual cause.
+      def warn_missing_sidebar_data(site)
+        return if site.collections.values.all? { |collection| collection.docs.empty? }
+
+        Jekyll.logger.warn(
+          'jekyll-vitepress-theme',
+          'No _data/sidebar.yml found, so the sidebar will be empty. ' \
+          'If you set a custom data_dir, copy the theme data files into it.'
+        )
+      end
+
       def generate(site)
         sidebar_groups = site.data['sidebar']
-        return nil unless sidebar_groups.respond_to?(:each)
+        unless sidebar_groups.respond_to?(:each)
+          warn_missing_sidebar_data(site)
+          return nil
+        end
 
         groups = sidebar_groups.filter_map { |group| generated_group(site, group) }
 
