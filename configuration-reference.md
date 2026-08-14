@@ -96,6 +96,79 @@ jekyll_vitepress:
 ```
 {: data-title="_config.yml"}
 
+### SEO and Discovery
+
+Core SEO is enabled by default. The theme generates page metadata, Open Graph and Twitter cards, JSON-LD, `sitemap.xml`, and `robots.txt` without `jekyll-seo-tag` or `jekyll-sitemap`.
+
+- `seo.enabled` (defaults to `true`; `false` disables the theme's SEO output)
+- `seo.index` (defaults to `true`; `false` emits site-wide `noindex` and disallows crawling)
+- `seo.title_separator` (defaults to ` | `)
+- `seo.title_template` (optional; supports `:page` and `:site`)
+- `seo.robots` (default indexable-page directive)
+- `seo.image.path`, `alt`, `width`, `height` (default social and structured-data image)
+- `seo.page_type` (defaults to `WebPage`; article-style documentation may use `Article`)
+- `seo.publisher.type` (`Organization` or `Person`), `name`, `url`, `logo`, `same_as`
+- `seo.schema.enabled` (defaults to `true`)
+- `seo.sitemap` and `seo.robots_txt` (both default to `true`)
+- `seo.robots_txt_rules` (optional extra literal rules)
+
+```yaml
+title: My Project Docs
+description: Install, configure, and use My Project.
+url: https://docs.example.com
+baseurl: ""
+lang: en-US
+author:
+  name: Your Name
+  url: https://example.com
+
+jekyll_vitepress:
+  seo:
+    page_type: Article
+    title_template: ":page | :site"
+    image:
+      path: /assets/images/social-card.png
+      alt: My Project documentation
+      width: 1200
+      height: 630
+    publisher:
+      type: Organization
+      name: My Project
+      url: https://example.com
+      logo: /assets/images/logo.png
+      same_as:
+        - https://github.com/example/project
+```
+{: data-title="_config.yml"}
+
+The theme also understands the standard Jekyll `twitter`, `facebook`, `webmaster_verifications`, `author`, `locale`, and `logo` keys. A source `sitemap.xml` or `robots.txt` takes precedence over generated output. `seo: false` in page frontmatter disables all theme metadata for that page, which is useful when a custom head include owns it instead.
+
+### LLM Discovery
+
+The theme generates two AI-readable files without an additional plugin:
+
+- `/llms.txt`: a concise index grouped in sidebar/collection order, with canonical URLs and page descriptions
+- `/llms-full.txt`: the complete Markdown content of every eligible page in one file
+
+Redirects, `404` pages, `noindex` pages, and pages canonicalized to another URL are excluded. A page can be excluded independently with `llms: false`. Source files named `llms.txt` or `llms-full.txt` override the corresponding generated output.
+
+- `llms.enabled` (defaults to `true`)
+- `llms.full` (defaults to `true`; set to `false` to omit `llms-full.txt`)
+- `llms.title` and `llms.description` (default to the site values)
+- `llms.details` (optional introductory Markdown without headings)
+
+```yaml
+jekyll_vitepress:
+  llms:
+    enabled: true
+    full: true
+    details: >-
+      Start with the installation and API reference sections.
+```
+{: data-title="_config.yml"}
+
+`llms.txt` is an emerging convention intended to help agents find authoritative documentation at inference time; it is not a search-ranking control or a replacement for `robots.txt` and `sitemap.xml`.
+
 ### Footer and Doc Footer
 
 - `footer.enabled`
@@ -181,7 +254,7 @@ If `last_updated.format` is `vitepress`, the static fallback is replaced in the 
 
 - `copy_page.enabled` (defaults to `true`)
 
-Copy page adds a split button to each doc page header. The main button copies the page as raw Markdown. The dropdown includes a "View as Markdown" link that opens the page as a plain `.md` file (generated alongside the HTML at build time).
+Copy page adds a split button to each doc page header. The main button copies the page as raw Markdown. The dropdown includes a "View as Markdown" link that opens the page as a plain `.md` file (generated alongside the HTML at build time). The link is marked `nofollow`, and the generated `robots.txt` excludes `.md` files so search engines favor the canonical HTML pages.
 
 To disable:
 

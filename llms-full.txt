@@ -1,0 +1,2032 @@
+# Jekyll VitePress Theme — Full Documentation
+
+> Jekyll VitePress Theme is a VitePress-style documentation theme and plugin gem for Jekyll that also adds Jekyll-first extensions beyond VitePress.
+
+---
+
+# Jekyll VitePress Theme
+
+Canonical URL: https://jekyll-vitepress.dev/
+
+VitePress-style documentation theme and plugin for Jekyll sites, with Jekyll-first extensions beyond VitePress.
+
+---
+
+# What Is Jekyll VitePress Theme?
+
+Canonical URL: https://jekyll-vitepress.dev/what-is-jekyll-vitepress-theme/
+
+[Jekyll](https://jekyllrb.com/) is a static site generator written in [Ruby](https://www.ruby-lang.org/). It turns [Markdown](https://www.markdownguide.org/), [Liquid](https://shopify.github.io/liquid/) templates, and [data files](https://jekyllrb.com/docs/datafiles/) into static HTML you can deploy almost anywhere. There is no application server and no database, just files on a CDN.
+
+Jekyll powers a huge number of documentation sites and blogs, particularly in the Ruby ecosystem and [GitHub Pages](https://pages.github.com/) workflows. If you've ever pushed a `docs/` folder to GitHub and had a site appear, you've likely used Jekyll.
+
+## What this theme is
+
+[Jekyll VitePress Theme](https://github.com/crmne/jekyll-vitepress-theme) is a Jekyll theme **and** plugin gem that recreates the [VitePress](https://vitepress.dev/) documentation experience inside a Ruby project, then adds Jekyll-first features beyond baseline VitePress. See [VitePress Parity](/vitepress-parity/) for what is mirrored and [Extensions to VitePress](/extensions-to-vitepress/) for what is added on top:
+
+- **Top navigation** with mobile nav screen, social links, and optional GitHub star count
+- **Left sidebar** driven by your Jekyll collections and data files
+- **Right "On this page" outline** that tracks your scroll position
+- **Turbo Frame page navigation** that swaps doc content while keeping the shell in place
+- **Code blocks** with copy buttons, language labels, and file-title bars with icons
+- **Custom blocks** for tips, warnings, and callouts that match VitePress containers
+- **Home layout** with hero section and feature cards
+- **Doc footer** with edit link, previous/next pager, and automatic last-updated timestamps
+- **Built-in local search** triggered with `/` or `Ctrl/Cmd+K`
+- **Dark mode** with an appearance toggle that respects system preference
+- **Markdown enhancements:** header anchors, external link icons, styled tables, and automatic title injection
+
+Everything is configured through `_config.yml` and `_data/*.yml` files. There is no Vite app to maintain, no JavaScript bundle step, and no second documentation stack sitting beside your Ruby app or gem.
+
+## Why this exists
+
+[VitePress](https://vitepress.dev/) has one of the best documentation experiences available today, but it comes from the Node.js and Vite ecosystem. That is a good fit for JavaScript projects. It can feel like the wrong trade-off when the rest of your project is Ruby.
+
+This theme brings that visual and interaction model to Jekyll while adding Ruby/Jekyll-specific conveniences. You write Markdown, configure YAML, render static HTML, and still get fast page changes through Turbo Frames.
+
+---
+
+# Getting Started
+
+Canonical URL: https://jekyll-vitepress.dev/getting-started/
+
+This guide walks you through installing the theme and getting a working documentation site running locally. By the end, you'll have a Jekyll site with VitePress-style navigation, a persistent sidebar, Turbo-powered internal page changes, polished default styling, and optional features beyond baseline VitePress. See [VitePress Parity](/vitepress-parity/) and [Extensions to VitePress](/extensions-to-vitepress/) for the full scope.
+
+## Add the gem
+
+Add the theme to your `Gemfile`:
+
+```ruby
+gem "jekyll-vitepress-theme"
+```
+{: data-title="Gemfile"}
+
+Then install it:
+
+```sh
+bundle install
+```
+
+## Enable theme and plugin
+
+The gem serves double duty. It provides layouts and assets as a **theme**, and registers Jekyll hooks as a **plugin**. You need to enable both:
+
+```yaml
+theme: jekyll-vitepress-theme
+plugins:
+  - jekyll-vitepress-theme
+```
+{: data-title="_config.yml"}
+
+Set the production identity used by canonical URLs, structured data, the sitemap, and social cards:
+
+```yaml
+title: My Project Docs
+description: Learn how to install, configure, and use My Project.
+url: https://docs.example.com
+lang: en-US
+logo: /assets/images/social-card.png
+```
+{: data-title="_config.yml"}
+
+`url` must be the absolute public origin, without `baseurl`. If the site is published below a path, set that path separately with `baseurl`. The build warns when it cannot produce absolute indexing URLs.
+
+## Define your collections
+
+Jekyll VitePress Theme uses [collections](https://jekyllrb.com/docs/collections/) to organize your documentation into groups. Define them in `_config.yml`:
+
+```yaml
+collections:
+  guides:
+    output: true
+    permalink: "/:name/"
+  reference:
+    output: true
+    permalink: "/:name/"
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+```
+{: data-title="_config.yml"}
+
+Each collection becomes a folder (e.g., `_guides/`, `_reference/`) where you place your Markdown files. The `permalink: "/:name/"` setting gives each document a clean URL based on its filename.
+
+## Configure branding and data files
+
+Theme behavior lives in `_config.yml` under `jekyll_vitepress`:
+
+```yaml
+jekyll_vitepress:
+  branding:
+    site_title: My Project
+  seo:
+    image:
+      path: /assets/images/social-card.png
+      alt: My Project documentation
+      width: 1200
+      height: 630
+  syntax:
+    light_theme: github
+    dark_theme: github.dark
+```
+{: data-title="_config.yml"}
+
+Navigation and sidebar structure live in `_data/` files. The **navigation** defines your top navbar links and maps them to collections (so the correct nav item highlights when viewing pages from those collections):
+
+```yaml
+- title: Guide
+  url: /getting-started/
+  collections: [guides]
+- title: Reference
+  url: /api-reference/
+  collections: [reference]
+```
+{: data-title="_data/navigation.yml"}
+
+The **sidebar** defines the left-hand navigation groups. Each group pulls its entries from a collection, sorted by `nav_order` frontmatter:
+
+```yaml
+- title: Guides
+  collection: guides
+- title: Reference
+  collection: reference
+```
+{: data-title="_data/sidebar.yml"}
+
+## Create your first page
+
+Create a document inside one of your collection folders:
+
+```markdown
+---
+title: Introduction
+nav_order: 1
+---
+
+Welcome to My Project! This is your first documentation page.
+```
+{: data-title="_guides/introduction.md"}
+
+The `nav_order` value controls the sort order in the sidebar. Lower numbers appear first.
+
+## Run locally
+
+```sh
+bundle exec jekyll serve --livereload
+```
+
+Open `http://127.0.0.1:4000`. You should see the VitePress-style layout: top nav, sidebar, content area, right outline, local search, and fast doc-to-doc navigation. From there, enable the Jekyll-first extras documented in [Extensions to VitePress](/extensions-to-vitepress/) as needed.
+
+<div class="tip custom-block">
+  <p class="custom-block-title">TIP</p>
+  <p>To add a VitePress-style landing page with a hero section and feature cards, set <code class="language-plaintext highlighter-rouge">layout: home</code> in your <code class="language-plaintext highlighter-rouge">index.md</code> frontmatter. See <a href="/vitepress-parity/">VitePress Parity</a> for the mirrored baseline, the <a href="/frontmatter-reference/">Frontmatter Reference</a> for home layout keys, and <a href="/extensions-to-vitepress/">Extensions to VitePress</a> for features beyond VitePress.</p>
+
+</div>
+
+---
+
+# Configuration
+
+Canonical URL: https://jekyll-vitepress.dev/configuration/
+
+All theme configuration follows a Jekyll-native pattern: rendering options go in `_config.yml` under `jekyll_vitepress`, while navigation and other displayed lists go in `_data/*.yml` files. There's nothing custom to learn. If you know Jekyll, you already know how this works.
+
+## Branding and syntax highlighting
+
+At minimum, set your site title. You can also configure a logo and syntax highlighting themes:
+
+```yaml
+jekyll_vitepress:
+  branding:
+    site_title: Your Project
+    logo:
+      default: /assets/images/logo.svg
+      light: /assets/images/logo-light.svg
+      dark: /assets/images/logo-dark.svg
+      alt: Your Project
+      width: 24
+      height: 24
+
+  syntax:
+    light_theme: github
+    dark_theme: github.dark
+```
+{: data-title="_config.yml"}
+
+The `light_theme` and `dark_theme` values accept any installed [Rouge](https://github.com/rouge-ruby/rouge) theme name. The theme automatically generates scoped CSS for both modes at build time, so your code blocks look right in light and dark mode without any extra work.
+
+## Typography and tokens
+
+You can customize fonts and override VitePress CSS variables (tokens) for branding:
+
+```yaml
+jekyll_vitepress:
+  typography:
+    google_fonts_url: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    body_font_family: "'Inter', ui-sans-serif, system-ui, sans-serif"
+    code_font_family: "'JetBrains Mono', ui-monospace, monospace"
+
+  tokens:
+    light:
+      --vp-c-brand-1: "#3451b2"
+    dark:
+      --vp-c-brand-1: "#a8b1ff"
+```
+{: data-title="_config.yml"}
+
+Set `google_fonts_url: false` to disable external font loading entirely (useful if you want to serve fonts locally or use system fonts).
+
+## Navigation and sidebar
+
+Navigation links appear in the top navbar. Each link has a `title`, a `url` (where clicking it navigates), and a list of `collections` it "owns". This controls which nav item stays highlighted as the user browses pages within those collections:
+
+```yaml
+- title: Guide
+  url: /what-is-jekyll-vitepress-theme/
+  collections: [introduction, core_features, advanced]
+- title: Reference
+  url: /configuration-reference/
+  collections: [reference]
+```
+{: data-title="_data/navigation.yml"}
+
+Sidebar groups map directly to collections. Documents within each collection are sorted by their `nav_order` frontmatter value:
+
+```yaml
+- title: Introduction
+  collection: introduction
+- title: Core Features
+  collection: core_features
+```
+{: data-title="_data/sidebar.yml"}
+
+## Social links
+
+Social icons appear in the top navbar. Use a built-in icon slug, or provide custom inline SVG:
+
+```yaml
+- icon: github
+  url: https://github.com/you/project
+  label: GitHub
+- icon: x
+  url: https://x.com/you
+  label: X
+```
+{: data-title="_data/social_links.yml"}
+
+For a full list of built-in icon slugs and custom SVG support, see the [Configuration Reference](/configuration-reference/).
+
+## Edit link
+
+Point users to the source file on GitHub with an edit link in the doc footer:
+
+```yaml
+jekyll_vitepress:
+  edit_link:
+    enabled: true
+    pattern: "https://github.com/you/project/edit/main/:path"
+    text: Edit this page on GitHub
+```
+{: data-title="_config.yml"}
+
+The `:path` placeholder is replaced with the source file's path at build time.
+
+## Version selector
+
+If `_data/versions.yml` exists, the theme renders a version selector dropdown in the navbar:
+
+```yaml
+current: auto
+items:
+  - id: v2.0.0
+    title: v2.0.0 (latest)
+    url: /
+  - id: v1.0.0
+    title: v1.0.0
+    url: /v1.0.0/
+  - title: Changelog
+    url: https://github.com/you/project/releases
+    external: true
+```
+{: data-title="_data/versions.yml"}
+
+Set `current: auto` to automatically resolve to `v#{Jekyll::VitePressTheme::VERSION}` at build time. This is handy if your docs version should track your gem version.
+
+## GitHub and RubyGems buttons
+
+Show a GitHub star button with live count in the navbar:
+
+```yaml
+jekyll_vitepress:
+  github_star:
+    enabled: true
+    repository: you/project
+    text: Star
+    show_count: true
+```
+{: data-title="_config.yml"}
+
+You can also show a GitHub Sponsors button next to it:
+
+```yaml
+jekyll_vitepress:
+  github_sponsor:
+    enabled: true
+    user: you
+    text: Sponsor
+```
+{: data-title="_config.yml"}
+
+Use `url` instead of `user` if you want to point to a custom sponsorship page.
+
+Configure RubyGems downloads once if you want to reuse a live downloads button in pages:
+
+```yaml
+jekyll_vitepress:
+  gem_downloads:
+    enabled: true
+    name: your_gem
+    text: Gem downloads
+    url: https://rubygems.org/gems/your_gem
+    label: View gem downloads
+    show_count: true
+```
+{: data-title="_config.yml"}
+
+Then render it anywhere in Markdown:
+
+```liquid
+{% include rubygems_downloads_button.html %}
+```
+
+## Extension hooks
+
+Need custom `<head>` tags (analytics, verification meta, extra fonts)? Create any of these include files in your site to inject markup without forking the theme's layouts:
+
+- `_includes/jekyll_vitepress/head_end.html`: appended inside `<head>`
+- `_includes/jekyll_vitepress/doc_footer_end.html`: appended after the doc footer
+- `_includes/jekyll_vitepress/layout_end.html`: appended before `</body>`
+
+If these files don't exist in your site, the theme's empty defaults are used.
+
+For complete configuration keys and detailed examples, see the [Configuration Reference](/configuration-reference/).
+
+---
+
+# Overview
+
+Canonical URL: https://jekyll-vitepress.dev/overview/
+
+Jekyll VitePress Theme is distributed as a single gem with two jobs: it is a **theme** that provides layouts, includes, and assets, and it is a **plugin** that registers Jekyll hooks for build-time behavior.
+
+That split keeps the runtime simple. Jekyll renders static HTML. The theme adds a small amount of JavaScript for UI behavior, including Turbo Frame navigation for doc-to-doc page changes.
+
+## Theme assets
+
+The gem ships everything needed to render a VitePress-like site and then adds Jekyll-first features beyond baseline VitePress. See [VitePress Parity](/vitepress-parity/) and [Extensions to VitePress](/extensions-to-vitepress/) for the full split:
+
+- **Layouts** (`_layouts/default.html`, `_layouts/home.html`) that compose the page structure: navbar, sidebar, content area, outline, and footer.
+- **Includes** for each UI component: navigation, search modal, sidebar, doc footer, and more.
+- **Stylesheets** (`assets/css/`) split into core layout styles, component styles, and token overrides.
+- **JavaScript** (`assets/js/vitepress-theme.js`) for interactive behavior: sidebar toggle, scroll-tracked outline, search modal, appearance switcher, code block copy buttons, page-level "Copy page", and Turbo Frame refresh hooks.
+- **Turbo runtime** (`assets/vendor/turbo.js`) for fast internal docs navigation without a full page reload.
+
+There is no app bundle to build. The shipped assets are plain HTML, CSS, JavaScript, and a vendored Turbo runtime.
+
+## Plugin behavior
+
+The plugin side registers Jekyll hooks that run automatically at build time:
+
+- **Last-updated timestamps:** before each page renders, the plugin reads the source file's modification time and sets `last_updated_at` in frontmatter. This means your doc footers can show "Last updated" dates without you touching frontmatter manually.
+- **Rouge syntax theme generation:** after reading site config, the plugin validates your configured Rouge theme names and generates scoped CSS for light and dark modes. Invalid theme names fall back to defaults with a warning.
+- **Version label resolution:** if `_data/versions.yml` sets `current: auto`, the plugin replaces it with the gem's version string (e.g., `v1.0.0`) at build time.
+- **Copy page markdown export:** before doc pages render, the plugin captures their raw Markdown for the "Copy page" button. After the site is written, it emits a plain `.md` sibling for each generated HTML doc page so "View as Markdown" works without external hosting assumptions. Disable this with `jekyll_vitepress.copy_page.enabled: false`.
+- **SEO and discovery:** each HTML page gets normalized search/social metadata and JSON-LD from the same canonical URL model used to generate `sitemap.xml` and `robots.txt`. The build excludes redirects, `404` pages, external-canonical duplicates, and `noindex` pages from the sitemap, and warns about missing or duplicate metadata.
+- **LLM discovery:** the plugin generates a concise `llms.txt` index and a complete `llms-full.txt` Markdown bundle from eligible pages and output collections. Both are theme-native and require no additional plugin.
+
+## VitePress parity scope
+
+The project targets high visual and interaction parity with VitePress for the features that matter most in documentation:
+
+- Top nav, sidebar, local nav, and right outline
+- Fast internal page navigation with a persistent docs shell
+- Header anchors and scroll tracking
+- External link icons
+- Styled tables (striped rows, responsive scroll)
+- Custom containers (tip, warning, danger, info, and more)
+- Doc footer pager and edit-link support
+- Appearance switcher (auto, dark, light)
+- Code block copy buttons, language labels, title bars, and file icons
+- Rouge-native light/dark syntax themes
+- Automatic page title injection
+
+It intentionally stays Jekyll-first for configuration and page authoring: no `.vue` files, no Vite config, and no frontmatter DSL that only exists in another toolchain.
+
+For a detailed feature checklist, see [VitePress Parity](/vitepress-parity/). For optional features added on top of baseline VitePress, see [Extensions to VitePress](/extensions-to-vitepress/).
+
+---
+
+# Navigation and Layout
+
+Canonical URL: https://jekyll-vitepress.dev/navigation-layout/
+
+The default layout mirrors the standard VitePress docs structure: a fixed top navbar, a left sidebar for section navigation, a main content area, and a right-side outline that tracks your scroll position. This is part of the [VitePress Parity](/vitepress-parity/) layer; optional features beyond that baseline are documented in [Extensions to VitePress](/extensions-to-vitepress/).
+
+Internal docs navigation is handled with Turbo Frames. When a reader clicks a doc link, the theme swaps the docs content frame and keeps the surrounding shell in place, including the sidebar, navbar, search modal, and appearance controls.
+
+## Page structure
+
+Every docs page renders inside this layout:
+
+```text
+┌──────────────────────────────────────────────┐
+│                  Top Navbar                  │
+├────────┬───────────────────────┬─────────────┤
+│        │                       │ On this page│
+│Sidebar │      Content          │  - Heading  │
+│        │                       │  - Heading  │
+│        │                       │  - Heading  │
+│        ├───────────────────────┤             │
+│        │     Doc Footer        │             │
+├────────┴───────────────────────┴─────────────┤
+│              Global Footer                   │
+└──────────────────────────────────────────────┘
+```
+
+Pages with `layout: home` skip the sidebar and outline, rendering the hero and feature cards at full width instead.
+
+## Sidebar
+
+Sidebar entries are driven by two things: your `_data/sidebar.yml` file and navigation frontmatter on each document.
+
+```yaml
+- title: Introduction
+  collection: introduction
+- title: Core Features
+  collection: core_features
+```
+{: data-title="_data/sidebar.yml"}
+
+Each group pulls documents from the named Jekyll collection and sorts root documents by `nav_order`. The currently active page is highlighted automatically. If a collection has no documents with frontmatter, that group won't render any links.
+
+Documents can also form nested sidebar groups with Jekyll-style frontmatter. This documentation section uses that feature for its own [Nested Sidebar Items](/nested-sidebar-items/) page.
+
+## Top navigation
+
+The navbar links are defined in `_data/navigation.yml`. Each entry has a `title`, a `url`, and optionally a `collections` array:
+
+```yaml
+- title: Guide
+  url: /introduction/
+  collections: [introduction, core_features, advanced]
+- title: Reference
+  url: /configuration-reference/
+  collections: [reference]
+```
+{: data-title="_data/navigation.yml"}
+
+The `collections` array determines which nav link stays highlighted as the user navigates within those collections. For example, when viewing any page from the `core_features` collection, the "Guide" nav link remains active.
+
+On docs pages, nav links that point to sidebar collections target the same Turbo Frame as sidebar links. This gives header navigation the same fast content swap behavior as clicking through the sidebar.
+
+## Page navigation
+
+The docs content area is wrapped in a Turbo Frame. Links that point to another doc page opt into that frame, so only the content changes. The browser URL and page title still update, while persistent shell state such as sidebar scroll position and collapsed sidebar groups remains intact.
+
+External links, downloads, home page links, and links that explicitly opt out of Turbo use normal browser navigation.
+
+## Mobile navigation
+
+On smaller screens, the sidebar collapses behind a menu button. Tapping it reveals a full-screen navigation overlay with the same sidebar groups. The menu button label is configurable via `jekyll_vitepress.labels.sidebar_menu` (defaults to "Menu").
+
+## Home layout
+
+Set `layout: home` in your page's frontmatter to render a landing page with a hero section and feature cards. Home pages do not show the sidebar or outline; they are full-width by design. See the [Frontmatter Reference](/frontmatter-reference/) for all available home layout keys.
+
+---
+
+# Nested Sidebar Items
+
+Canonical URL: https://jekyll-vitepress.dev/nested-sidebar-items/
+
+Jekyll VitePress keeps sidebar configuration Jekyll-native: `_data/sidebar.yml` names the collection groups, and page frontmatter controls hierarchy inside each collection.
+
+## Parent pages
+
+Give the parent page a title and `nav_order`. `has_children` is optional, but it documents intent and keeps the frontmatter familiar for sites migrating from other Jekyll documentation themes.
+
+```yaml
+---
+title: Chat
+nav_order: 1
+has_children: true
+---
+```
+{: data-title="_core_features/chat.md"}
+
+## Child pages
+
+Set `parent` to the parent page title. Child pages are rendered below their parent and sorted by their own `nav_order`.
+
+```yaml
+---
+title: Streaming
+parent: Chat
+nav_order: 2
+---
+```
+{: data-title="_core_features/streaming.md"}
+
+Use `grand_parent` when two branches reuse the same parent title:
+
+```yaml
+---
+title: Options
+parent: Setup
+grand_parent: Reference
+nav_order: 1
+---
+```
+{: data-title="_reference/options.md"}
+
+## Collapsed branches
+
+Add `collapsed: true` to a parent page to close that branch by default. Active branches are always opened so the current page stays visible.
+
+```yaml
+---
+title: Advanced Topics
+nav_order: 4
+has_children: true
+collapsed: true
+---
+```
+{: data-title="_advanced/advanced-topics.md"}
+
+Nested sidebar items follow the VitePress default theme shape and render up to six visible levels, counting the collection group as the root level.
+
+---
+
+# Code Blocks
+
+Canonical URL: https://jekyll-vitepress.dev/code-blocks/
+
+Code blocks get several VitePress-style enhancements automatically. They are part of [VitePress Parity](/vitepress-parity/), while optional features beyond baseline VitePress are documented in [Extensions to VitePress](/extensions-to-vitepress/). No configuration is needed beyond choosing your syntax themes.
+
+## What you get for free
+
+Every fenced code block renders with:
+
+- A **copy button** in the top-right corner
+- A **language label** showing the block's language (e.g., `ruby`, `yaml`, `sh`)
+
+These work with any standard Markdown fenced code block:
+
+````markdown
+```ruby
+puts "Hello, world!"
+```
+````
+
+## Syntax highlighting
+
+Syntax colors come from [Rouge](https://github.com/rouge-ruby/rouge) themes, configured in `_config.yml`:
+
+```yaml
+jekyll_vitepress:
+  syntax:
+    light_theme: github
+    dark_theme: github.dark
+```
+{: data-title="_config.yml"}
+
+The theme generates scoped CSS for both modes at build time. When the user toggles between light and dark mode, code blocks switch palettes automatically. Any installed Rouge theme name works here. If you specify an invalid name, the plugin falls back to `github` / `github.dark` and logs a warning.
+
+## Title bars
+
+You can add a file-title bar to any code block using Kramdown's [Inline Attribute List](https://kramdown.gettalong.de/syntax.html#inline-attribute-lists) syntax. Place `{: data-title="filename"}` on the line immediately after the closing fence:
+
+````markdown
+```ruby
+class WeatherTool
+  def call(city:)
+    "sunny in #{city}"
+  end
+end
+```
+{: data-title="app/tools/weather_tool.rb"}
+````
+
+This renders a title bar above the code block showing the filename, complete with a file-type icon inferred from the extension. The theme includes built-in icons for common file types.
+
+## Titled block examples
+
+```ruby
+class WeatherTool
+  def call(city:)
+    "sunny in #{city}"
+  end
+end
+```
+{: data-title="app/tools/weather_tool.rb"}
+
+```ts
+export function formatDate(input: string): string {
+  return new Date(input).toISOString()
+}
+```
+{: data-title="src/utils/date.ts"}
+
+```yaml
+jekyll_vitepress:
+  branding:
+    site_title: My Docs
+```
+{: data-title="_config.yml"}
+
+<div class="tip custom-block">
+  <p class="custom-block-title">TIP</p>
+  <p>The <code class="language-plaintext highlighter-rouge">{: data-title="..."}</code> syntax is a Kramdown feature called an Inline Attribute List (IAL). It must appear on its own line directly after the code fence, with no blank line in between.</p>
+
+</div>
+
+---
+
+# Custom Blocks
+
+Canonical URL: https://jekyll-vitepress.dev/custom-blocks/
+
+Custom blocks are the VitePress-style containers behind the theme's callout UI. They render colored boxes for tips, warnings, danger notices, and other highlighted content. They are part of [VitePress Parity](/vitepress-parity/); Markdown-friendly callouts, labels, and project buttons are covered in [Extensions to VitePress](/extensions-to-vitepress/).
+
+<div class="tip custom-block">
+  <p class="custom-block-title">TIP</p>
+  <p>For everyday Markdown authoring, use the Just the Docs-style syntax on <a href="/callouts-labels-buttons/">Callouts, Labels, and Buttons</a>. Use this page when you need the lower-level Liquid include, custom titles, or collapsible details.</p>
+
+</div>
+
+## Liquid Include Syntax
+
+Use the built-in `alert.html` include when you need explicit control over the block type, title, or content:
+
+```liquid
+{% include alert.html type="tip" content="This is a helpful tip." %}
+```
+
+The `type` controls the color and default title. The `content` is processed as Markdown, so formatting like backticks, links, and multiple paragraphs work naturally.
+
+## Available Types
+
+<div class="info custom-block">
+  <p class="custom-block-title">INFO</p>
+  <p>This is an <code class="language-plaintext highlighter-rouge">info</code> block. Use it for neutral, supplementary information.</p>
+
+</div>
+
+<div class="note custom-block">
+  <p class="custom-block-title">NOTE</p>
+  <p>This is a <code class="language-plaintext highlighter-rouge">note</code> block. Visually identical to info; use whichever label fits better.</p>
+
+</div>
+
+<div class="tip custom-block">
+  <p class="custom-block-title">TIP</p>
+  <p>This is a helpful <code class="language-plaintext highlighter-rouge">tip</code> block.</p>
+
+</div>
+
+<div class="important custom-block">
+  <p class="custom-block-title">IMPORTANT</p>
+  <p>This is an <code class="language-plaintext highlighter-rouge">important</code> block. Do not skip this.</p>
+
+</div>
+
+<div class="warning custom-block">
+  <p class="custom-block-title">WARNING</p>
+  <p>This is a <code class="language-plaintext highlighter-rouge">warning</code> block. Something could go wrong.</p>
+
+</div>
+
+<div class="danger custom-block">
+  <p class="custom-block-title">DANGER</p>
+  <p>This is a <code class="language-plaintext highlighter-rouge">danger</code> block. Data loss or security risk.</p>
+
+</div>
+
+<div class="caution custom-block">
+  <p class="custom-block-title">CAUTION</p>
+  <p>This is a <code class="language-plaintext highlighter-rouge">caution</code> block. Visually identical to danger.</p>
+
+</div>
+
+<details class="details custom-block">
+  <summary>Details</summary>
+  <p>This is a collapsible <code class="language-plaintext highlighter-rouge">details</code> block.</p>
+
+</details>
+
+## Custom Titles
+
+Each type has a default title (`TIP`, `WARNING`, etc.). Override it with the `title` parameter:
+
+```liquid
+{% include alert.html type="warning" title="Breaking Change" content="The `foo` option was removed in v2.0." %}
+```
+
+<div class="warning custom-block">
+  <p class="custom-block-title">Breaking Change</p>
+  <p>The <code class="language-plaintext highlighter-rouge">foo</code> option was removed in v2.0.</p>
+
+</div>
+
+## Markdown In Content
+
+The `content` parameter supports Markdown: code, links, bold, even multiple paragraphs:
+
+```liquid
+{% include alert.html type="tip" content="Set `layout: home` in your frontmatter. See the [Frontmatter Reference](/frontmatter-reference/) for details." %}
+```
+
+<div class="tip custom-block">
+  <p class="custom-block-title">TIP</p>
+  <p>Set <code class="language-plaintext highlighter-rouge">layout: home</code> in your frontmatter. See the <a href="/frontmatter-reference/">Frontmatter Reference</a> for details.</p>
+
+</div>
+
+For multi-paragraph content, build the string with `capture` first:
+
+```liquid
+{% capture upgrade_note %}
+Upgrade with `bundle update jekyll-vitepress-theme`.
+
+Then rebuild your site to pick up the new assets.
+{% endcapture %}
+{% include alert.html type="note" content=upgrade_note %}
+```
+
+<div class="note custom-block">
+  <p class="custom-block-title">NOTE</p>
+  
+<p>Upgrade with <code class="language-plaintext highlighter-rouge">bundle update jekyll-vitepress-theme</code>.</p>
+
+<p>Then rebuild your site to pick up the new assets.</p>
+
+</div>
+
+---
+
+# Callouts, Labels, and Buttons
+
+Canonical URL: https://jekyll-vitepress.dev/callouts-labels-buttons/
+
+Use these Markdown-friendly patterns for everyday docs authoring:
+
+- Callouts use Just the Docs-style kramdown attributes and render as VitePress-style custom blocks.
+- Labels use the same kramdown attribute style and render as compact badges.
+- Project buttons use Liquid includes when they need dynamic URLs or live counts.
+
+These features go beyond baseline VitePress and are summarized in [Extensions to VitePress](/extensions-to-vitepress/).
+
+## Callouts
+
+Use a kramdown block attribute on a paragraph or blockquote:
+
+```markdown
+Using this theme? [Share your story](https://example.com)! Takes 5 minutes.
+{: .note }
+```
+
+Using this theme? [Share your story](https://example.com)! Takes 5 minutes.
+{: .note }
+
+Supported callout classes are `.info`, `.note`, `.tip`, `.important`, `.warning`, `.danger`, and `.caution`.
+
+## Available Callouts
+
+This is an `info` block. Use it for neutral, supplementary information.
+{: .info }
+
+This is a `note` block. Visually identical to info; use whichever label fits better.
+{: .note }
+
+This is a helpful `tip` block.
+{: .tip }
+
+This is an `important` block. Do not skip this.
+{: .important }
+
+This is a `warning` block. Something could go wrong.
+{: .warning }
+
+This is a `danger` block. Data loss or security risk.
+{: .danger }
+
+This is a `caution` block. Visually identical to danger.
+{: .caution }
+
+## Inline Labels
+
+Labels follow the Just the Docs authoring style and render as compact VitePress-style badges:
+
+```markdown
+### Labels
+{: .d-inline-block }
+
+v1.9.0+
+{: .label .label-green }
+```
+
+<!-- markdownlint-disable MD022 -->
+### Labels
+{: .d-inline-block }
+
+v1.9.0+
+{: .label .label-green }
+<!-- markdownlint-enable MD022 -->
+
+Available label colors are `.label-blue`, `.label-green`, `.label-purple`, `.label-yellow`, and `.label-red`.
+
+## RubyGems Downloads Button
+
+Configure the gem once in `_config.yml`:
+
+```yaml
+jekyll_vitepress:
+  gem_downloads:
+    enabled: true
+    name: jekyll-vitepress-theme
+    text: Gem downloads
+    show_count: true
+```
+{: data-title="_config.yml"}
+
+Then render a live downloads button anywhere in Markdown:
+
+```liquid
+{% include rubygems_downloads_button.html %}
+```
+
+  <a class="VPMetricButton VPMetricButtonDownloads no-icon" href="https://rubygems.org/gems/jekyll-vitepress-theme" aria-label="View gem downloads" target="_blank" rel="noreferrer noopener" data-rubygems-downloads-gem="jekyll-vitepress-theme" data-rubygems-downloads-show-count="true" data-rubygems-downloads-label="View gem downloads">
+    <span class="VPMetricButtonIcon VPMetricButtonDownloadsIcon" aria-hidden="true">
+      <svg viewBox="0 0 16 16" focusable="false">
+        <path d="M8 1.75a.75.75 0 0 1 .75.75v5.19l1.72-1.72a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 0 1 1.06-1.06l1.72 1.72V2.5A.75.75 0 0 1 8 1.75ZM3.75 11a.75.75 0 0 1 .75.75v1h7v-1a.75.75 0 0 1 1.5 0v1.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1.5a.75.75 0 0 1 .75-.75Z"></path>
+      </svg>
+    </span>
+    <span class="VPMetricButtonText" hidden>Gem downloads</span>
+    <strong class="VPMetricButtonCount" data-vp-rubygems-downloads-count>... downloads</strong>
+  </a>
+
+You can also configure each button inline:
+
+```liquid
+{% include rubygems_downloads_button.html gem="jekyll-vitepress-theme" text="Gem downloads" %}
+```
+
+The button fetches `https://rubygems.org/api/v1/gems/:name.json` and displays a compact count like `3.3K downloads`.
+
+## Other Project Buttons
+
+GitHub Star and GitHub Sponsors buttons are also available outside the navbar:
+
+```liquid
+{% include github_star_button.html repository="crmne/jekyll-vitepress-theme" %}
+{% include github_sponsor_button.html user="crmne" %}
+```
+
+  <a class="VPMetricButton VPMetricButtonGithub no-icon" href="https://github.com/crmne/jekyll-vitepress-theme" aria-label="Star crmne/jekyll-vitepress-theme on GitHub" target="_blank" rel="noreferrer noopener" data-github-star-repo="crmne/jekyll-vitepress-theme" data-github-star-show-count="true">
+    <span class="VPMetricButtonIcon vpi-social-github" aria-hidden="true"></span>
+    <span class="VPMetricButtonText">Star</span>
+    <span class="VPMetricButtonCount" data-vp-github-star-count aria-hidden="true">...</span>
+  </a>
+
+  <a class="VPMetricButton VPMetricButtonSponsor no-icon" href="https://github.com/sponsors/crmne" aria-label="Sponsor on GitHub" target="_blank" rel="noreferrer noopener">
+    <span class="VPMetricButtonIcon VPMetricButtonSponsorIcon" aria-hidden="true">
+      <svg viewBox="0 0 16 16" focusable="false">
+        <path d="M7.655 14.916v-.001h-.002l-.006-.003-.018-.01a22.066 22.066 0 0 1-3.744-2.584C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.044 5.231-3.886 6.818a22.094 22.094 0 0 1-3.433 2.414 7.152 7.152 0 0 1-.31.17l-.018.01-.008.004a.75.75 0 0 1-.69 0Z"></path>
+      </svg>
+    </span>
+    <span class="VPMetricButtonText">Sponsor</span>
+  </a>
+
+## Lower-Level Custom Blocks
+
+If you need custom titles or collapsible details, use the lower-level Liquid include documented on [Custom Blocks](/custom-blocks/).
+
+---
+
+# Search and Outline
+
+Canonical URL: https://jekyll-vitepress.dev/search-and-outline/
+
+## Local search
+
+The theme includes a built-in search modal that works entirely client-side. No external service is required.
+
+Open search with any of these shortcuts:
+
+- `/` (when not focused on an input)
+- `Ctrl+K` (Windows/Linux)
+- `Cmd+K` (macOS)
+
+The plugin generates `/search.json` automatically at build time. It includes the home page and all documents from your sidebar collections. Results show matching page titles and content excerpts.
+
+On docs pages, clicking a search result uses the same Turbo Frame navigation as sidebar links, so the result opens without tearing down the surrounding docs shell.
+
+If you need custom indexing behavior, add your own `search.json` page to the site and it will override the generated default.
+
+<div class="tip custom-block">
+  <p class="custom-block-title">TIP</p>
+  <p>If search doesn’t seem to find certain pages, make sure those pages belong to a collection listed in your <code class="language-plaintext highlighter-rouge">_data/sidebar.yml</code>. Only sidebar collections are indexed.</p>
+
+</div>
+
+## Right-side outline
+
+The "On this page" outline appears on the right side of docs pages and lists all `h2` and `h3` headings on the current page.
+
+As you scroll, the outline highlights the heading that's currently at the top of the viewport. Clicking an outline link scrolls to that heading, offset so it's visible below the fixed navbar. The offset distance is configurable:
+
+```yaml
+jekyll_vitepress:
+  behavior:
+    scroll_offset: 134
+```
+{: data-title="_config.yml"}
+
+The outline label defaults to "On this page" and can be changed via `jekyll_vitepress.labels.outline`.
+
+On narrow screens, the outline collapses to keep the content area readable.
+
+---
+
+# Markdown Extensions
+
+Canonical URL: https://jekyll-vitepress.dev/markdown-extensions/
+
+Beyond standard Markdown, the theme automatically enhances several elements to match VitePress behavior. These are part of [VitePress Parity](/vitepress-parity/); features that go beyond baseline VitePress are documented in [Extensions to VitePress](/extensions-to-vitepress/). These work out of the box with no configuration.
+
+## Header anchors
+
+Every heading (`h1` through `h6`) that has an `id` attribute automatically gets a clickable anchor link. Hover over any heading on this page to see the `#` appear. Clicking it updates the URL hash so you can share a direct link to that section.
+
+Kramdown generates heading IDs from the heading text by default. You can also set a custom anchor:
+
+```markdown
+## My Custom Section {#custom-id}
+```
+
+## Links
+
+### Internal links
+
+Standard Markdown links work as expected. Use relative paths or absolute paths:
+
+```markdown
+[Getting Started](/getting-started/)
+[Configuration]({% link _reference/configuration-reference.md %})
+```
+
+The second form uses Jekyll's `{% link %}` tag, which validates that the target file exists at build time. If you rename or delete a page, the build will fail instead of producing a broken link.
+
+### External links
+
+Links pointing to external URLs automatically get a visual indicator. A small arrow icon appears after the link text, signaling to readers that clicking will take them away from the docs. This is applied via CSS to any link whose `href` contains `://`.
+
+[VitePress documentation](https://vitepress.dev/) shows the arrow icon.
+
+## Tables
+
+Standard GitHub-flavored Markdown tables render with VitePress styling: striped rows, bordered cells, and horizontal scroll on narrow screens:
+
+```markdown
+| Feature        | Status    | Notes             |
+|----------------|-----------|-------------------|
+| Header anchors | Automatic | No config needed  |
+| External links | Automatic | Arrow icon added  |
+| Tables         | Automatic | Striped rows      |
+```
+
+| Feature        | Status    | Notes             |
+|----------------|-----------|-------------------|
+| Header anchors | Automatic | No config needed  |
+| External links | Automatic | Arrow icon added  |
+| Tables         | Automatic | Striped rows      |
+
+Column alignment works with the standard `:` syntax:
+
+```markdown
+| Left | Center | Right |
+|:-----|:------:|------:|
+| a    |   b    |     c |
+```
+
+| Left | Center | Right |
+|:-----|:------:|------:|
+| a    |   b    |     c |
+
+## Frontmatter
+
+The theme uses standard Jekyll/YAML frontmatter for page metadata. At minimum, each doc page should have a `title` and `nav_order`:
+
+```yaml
+---
+title: My Page
+nav_order: 1
+description: A brief description for search and meta tags.
+---
+```
+
+See the [Frontmatter Reference](/frontmatter-reference/) for all available keys.
+
+## Automatic title injection
+
+If a page has a `title` in its frontmatter but no `<h1>` in its content, the theme automatically renders the title as an `h1` at the top of the page. This keeps your Markdown clean. You don't need to repeat the title as a heading.
+
+To disable this behavior on a specific page, set `jekyll_vitepress.auto_title: false` in the frontmatter.
+
+---
+
+# Customizing Styles
+
+Canonical URL: https://jekyll-vitepress.dev/customizing-styles/
+
+The theme's visual design is built on CSS custom properties (tokens), making it straightforward to adjust colors, fonts, and spacing without touching any CSS files directly.
+
+## Brand colors
+
+The most common customization is changing the brand color. Use `jekyll_vitepress.tokens.light` and `jekyll_vitepress.tokens.dark` to override VitePress CSS variables:
+
+```yaml
+jekyll_vitepress:
+  tokens:
+    light:
+      --vp-c-brand-1: "#3451b2"
+      --vp-c-brand-2: "#3a5ccc"
+      --vp-c-brand-3: "#2f4bab"
+    dark:
+      --vp-c-brand-1: "#a8b1ff"
+      --vp-c-brand-2: "#bac2ff"
+      --vp-c-brand-3: "#939eff"
+```
+{: data-title="_config.yml"}
+
+Brand tokens affect links, the active nav highlight, the hero button, and other accent elements throughout the theme. The numbered variants (`brand-1`, `brand-2`, `brand-3`) control different states. `brand-1` is the primary color, `brand-2` is used for hover states, and `brand-3` for active/pressed states.
+
+Any VitePress CSS variable can be overridden this way. To discover available tokens, inspect the theme's `assets/css/vitepress-overrides.css` or refer to the [VitePress theme configuration docs](https://vitepress.dev/reference/default-theme-config).
+
+## Fonts
+
+Font stacks are controlled through typography settings:
+
+```yaml
+jekyll_vitepress:
+  typography:
+    body_font_family: "'Inter', ui-sans-serif, system-ui, sans-serif"
+    code_font_family: "'JetBrains Mono', ui-monospace, monospace"
+    google_fonts_url: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+```
+{: data-title="_config.yml"}
+
+The `google_fonts_url` is loaded as a stylesheet in `<head>`. Set it to `false` to disable external font loading. This is useful if you're self-hosting fonts or prefer system fonts.
+
+## Appearance mode
+
+The theme ships with three appearance modes: **auto** (follows system preference), **dark**, and **light**. Users cycle through them with the appearance toggle in the navbar.
+
+The user's choice is persisted in `localStorage`, so it sticks across page loads. When set to "auto", the theme tracks the operating system's `prefers-color-scheme` media query in real time.
+
+No configuration is needed. This works out of the box. The toggle labels are customizable via `jekyll_vitepress.labels.appearance_menu`, `switch_to_dark`, and `switch_to_light`.
+
+---
+
+# Extending Behavior
+
+Canonical URL: https://jekyll-vitepress.dev/extending-behavior/
+
+Because this is Jekyll, extension is straightforward. Override a file and you are done. The theme provides several levels of customization, from simple hooks to full layout overrides.
+
+## Hook includes (non-destructive)
+
+The easiest way to add custom markup is through the theme's hook includes. Create any of these files in your site and they'll be injected at the right point:
+
+- `_includes/jekyll_vitepress/head_end.html`: injected just before `</head>`. Use this for analytics scripts, meta tags, or extra stylesheets.
+- `_includes/jekyll_vitepress/doc_footer_end.html`: injected after the doc footer. Use this for feedback widgets, related pages, or custom CTAs.
+- `_includes/jekyll_vitepress/layout_end.html`: injected just before `</body>`. Use this for chat widgets, global scripts, or modals.
+
+For example, to add a simple feedback prompt after every doc page:
+
+```html
+<div class="my-feedback">
+  Was this page helpful?
+  <a href="/feedback/">Let us know</a>.
+</div>
+```
+{: data-title="_includes/jekyll_vitepress/doc_footer_end.html"}
+
+If these files don't exist in your site, the theme's empty defaults are used. There are no errors and no output.
+
+## Include overrides
+
+For deeper changes, override any of the theme's built-in includes by creating a file with the same path in your site's `_includes/` directory. Jekyll will use your version instead of the gem's.
+
+Common overrides:
+
+- `_includes/nav.html`: customize the top navigation
+- `_includes/sidebar.html`: change sidebar rendering
+- `_includes/doc_footer.html`: modify the doc footer layout
+- `_includes/doc_content.html`: change the doc page body (auto title, copy page button, content)
+- `_includes/nav_social_links.html`: change the social links block shared by the nav bar, the extra menu, and the mobile nav screen
+- `_includes/nav_menu_link.html`: change how individual nav menu links render
+- `_includes/version_link.html`: change how version selector entries render
+
+## Layout overrides
+
+You can also override `_layouts/default.html` entirely. This gives you full control over the page structure, but means you'll need to update your override if the theme changes its layout in future versions. Note that the doc page body lives in `_includes/doc_content.html` — if that's all you want to change, override the include instead of the layout.
+
+## Custom JS and CSS
+
+To add your own JavaScript or CSS, use the `head_end.html` hook include:
+
+```html
+<link rel="stylesheet" href="/assets/css/custom.css">
+<script src="/assets/js/custom.js" defer></script>
+```
+{: data-title="_includes/jekyll_vitepress/head_end.html"}
+
+<div class="warning custom-block">
+  <p class="custom-block-title">WARNING</p>
+  <p>If you override includes or layouts that contain interactive elements (sidebar, outline, search), keep the existing class names and DOM structure intact. The theme’s JavaScript relies on these to wire up sidebar toggling, scroll tracking, and search behavior.</p>
+
+</div>
+
+<div class="tip custom-block">
+  <p class="custom-block-title">TIP</p>
+  <p>If you override nav, sidebar, search, or the default layout, preserve the Turbo Frame attributes on internal docs links. Those attributes are what keep navigation fast while leaving the sidebar and navbar in place.</p>
+
+</div>
+
+---
+
+# Deployment
+
+Canonical URL: https://jekyll-vitepress.dev/deployment/
+
+## Single docs site (recommended)
+
+The simplest and recommended approach is deploying one canonical docs site at `/`. This is the standard GitHub Pages workflow:
+
+1. Build Jekyll at the repository root.
+2. Publish the output to the `gh-pages` branch (or configure GitHub Pages to build from your default branch).
+
+With GitHub Actions, a minimal workflow looks like:
+
+```yaml
+- uses: actions/jekyll-build-pages@v1
+- uses: actions/deploy-pages@v4
+```
+
+This keeps CI simple and avoids the complexity of managing multiple doc versions.
+
+## Multi-version docs (optional)
+
+If your project needs versioned documentation, such as `/next/` for the development branch, `/` for the current release, and `/v1.0.0/` for older releases, the theme includes scripts to support this pattern:
+
+- `scripts/version_manifest.rb` generates `_data/versions.yml` from your release history
+- `scripts/publish_gh_pages.sh` handles publishing in two modes:
+  - `next`: publishes to the `/next/` path
+  - `release`: publishes the current release to `/` and an immutable snapshot to `/v1.2.3/`
+
+A typical CI flow:
+
+1. **On every push to the default branch**, build docs with a `/next` base URL and publish with `publish_gh_pages.sh next`.
+2. **On release**, build once for the site root and once for `/v1.2.3`, then publish with `publish_gh_pages.sh release`.
+3. `_data/versions.yml` on the `gh-pages` branch becomes the source of truth for the version selector dropdown.
+
+By default, the publish script reads `_site_next` for `next`, `_site_current` for the root release build, and `_site_release` for the
+`/v1.2.3/` release snapshot.
+
+When `_data/versions.yml` is present and contains version items, the theme renders a version selector in the navbar automatically.
+
+<div class="warning custom-block">
+  <p class="custom-block-title">WARNING</p>
+  <p>Multi-version mode adds operational complexity. Caching behavior, legacy paths, and rebuild coordination all need attention. Only use it when you genuinely need immutable version snapshots. For most projects, a single docs site with a changelog link is sufficient.</p>
+
+</div>
+
+In your repository's GitHub Pages settings, configure the source to serve from branch `gh-pages` (root).
+
+---
+
+# SEO and Discovery
+
+Canonical URL: https://jekyll-vitepress.dev/seo-and-discovery/
+
+Jekyll VitePress Theme makes the indexing signals for a documentation site part of the theme instead of an optional assembly of plugins. The HTML head, JSON-LD graph, sitemap, and robots file all use the same canonical URL resolver, including `baseurl` when the site is published below a path.
+
+## What is generated
+
+Each indexable HTML page receives:
+
+- A unique title and description, with build warnings when either is missing
+- An absolute self-referential canonical URL
+- A complete robots directive with unrestricted image, text, and video previews
+- Open Graph locale, title, description, URL, type, and image metadata
+- Twitter card, title, description, image, and optional account metadata
+- One JSON-LD graph containing `WebSite`, `WebPage` and an optional `Article`, plus publisher and author identity, the primary image, and a breadcrumb trail built from nested sidebar parents
+- Optional language alternates and webmaster verification tags
+
+At site level, the plugin creates `sitemap.xml` and `robots.txt`. Redirects, `404` pages, pages with an external canonical, `noindex` pages, and pages with `sitemap: false` stay out of the sitemap. Modification dates appear only when supplied explicitly; a fresh deployment is not misrepresented as a content update. When Copy Page is enabled, its plain `.md` companions remain available to people and LLM tools, while `nofollow` links and a robots rule keep crawlers focused on the canonical HTML pages.
+
+The plugin also creates `llms.txt` and `llms-full.txt`. The concise file is an index of canonical pages grouped in documentation order; the full companion contains their resolved Markdown in one document. This follows the proposed [llms.txt convention](https://llmstxt.org/) for inference-time documentation discovery. It complements the search files above but is not an SEO ranking signal.
+
+## Production minimum
+
+```yaml
+title: My Project Docs
+description: Install, configure, and use My Project.
+url: https://docs.example.com
+lang: en-US
+
+jekyll_vitepress:
+  seo:
+    image:
+      path: /assets/images/social-card.png
+      alt: My Project documentation
+      width: 1200
+      height: 630
+```
+{: data-title="_config.yml"}
+
+Use an absolute production `url` without a trailing slash or `baseurl`. If you deploy to `https://example.com/docs/`, configure `url: https://example.com` and `baseurl: /docs`.
+
+Write a specific `description` for every important page. The site description is a safe fallback, but unique summaries give search engines and link previews a more useful explanation of each result.
+
+## Publishers, authors, and technical articles
+
+The default structured page type is `WebPage`. Documentation projects with article-style guides can opt into Google's supported `Article` type and identify the responsible publisher:
+
+```yaml
+author:
+  name: Your Name
+  url: https://example.com/about/
+
+jekyll_vitepress:
+  seo:
+    page_type: Article
+    publisher:
+      type: Organization
+      name: My Project
+      url: https://example.com
+      logo: /assets/images/logo.png
+      same_as:
+        - https://github.com/example/project
+```
+{: data-title="_config.yml"}
+
+Set `seo.type` in page frontmatter when only a subset of pages should be articles. Add accurate `date_published` or `date_modified` values when you have them. The theme intentionally does not turn checkout/build timestamps into content dates.
+
+## Control indexing and canonicalization
+
+Use `noindex: true` for a page that should remain reachable but absent from search results. It is automatically omitted from the sitemap. Use `canonical_url` instead when the content is a duplicate or cross-publication and another URL should consolidate its signals:
+
+```yaml
+---
+title: Legacy Setup
+canonical_url: https://docs.example.com/setup/
+---
+```
+
+For a staging build, set `jekyll_vitepress.seo.index: false`. This emits `noindex` on every themed page, writes a site-wide `Disallow: /`, and suppresses sitemap discovery. This setting is an explicit deployment control; remember to leave it `true` in production.
+
+## Multilingual pages
+
+Set the page's own `lang` and list every equivalent URL, including the current language and an optional `x-default` entry:
+
+```yaml
+lang: de-DE
+alternates:
+  - lang: en
+    url: /guide/
+  - lang: de
+    url: /de/anleitung/
+  - lang: x-default
+    url: /guide/
+```
+
+The theme emits both `hreflang` links and Open Graph alternate locales. Each translated page should point back to the full same set.
+
+## Avoid duplicate generators
+
+Do not also render `{% seo %}` or enable another sitemap/robots generator unless you disable the theme layer with `jekyll_vitepress.seo.enabled: false`. A source `sitemap.xml` or `robots.txt` intentionally overrides the corresponding generated file.
+
+After publishing, submit `/sitemap.xml` in Google Search Console and Bing Webmaster Tools. Validate representative pages with the rendered HTML, a structured-data validator, and each platform's link-preview debugger; those external tools evaluate the deployed response, including redirects and HTTP headers that a static build cannot verify.
+
+---
+
+# Configuration Reference
+
+Canonical URL: https://jekyll-vitepress.dev/configuration-reference/
+
+This theme follows a Jekyll-native split:
+
+- Behavior and rendering options in `_config.yml` under `jekyll_vitepress`
+- Navigation/social/version/sidebar content in `_data/*.yml`
+
+For parity notes compared to VitePress core, see [VitePress Parity](/vitepress-parity/). For optional extras, see [Extensions to VitePress](/extensions-to-vitepress/).
+
+## Minimal setup
+
+```yaml
+jekyll_vitepress:
+  branding:
+    site_title: My Docs
+```
+{: data-title="_config.yml"}
+
+```yaml
+- title: Guide
+  url: /getting-started/
+  collections: [introduction, core_features, advanced]
+```
+{: data-title="_data/navigation.yml"}
+
+```yaml
+- title: Getting Started
+  collection: introduction
+```
+{: data-title="_data/sidebar.yml"}
+
+## `_config.yml` (`jekyll_vitepress`)
+
+### Branding
+
+- `branding.site_title`
+- `branding.logo.default`
+- `branding.logo.light`
+- `branding.logo.dark`
+- `branding.logo.alt`
+- `branding.logo.width`
+- `branding.logo.height`
+
+```yaml
+jekyll_vitepress:
+  branding:
+    site_title: My Project
+    logo:
+      default: /assets/images/logo.svg
+      light: /assets/images/logo-light.svg
+      dark: /assets/images/logo-dark.svg
+      alt: My Project
+      width: 24
+      height: 24
+```
+{: data-title="_config.yml"}
+
+### Typography and Tokens
+
+- `typography.body_font_family`
+- `typography.code_font_family`
+- `typography.google_fonts_url` (`false` disables external font loading)
+- `tokens.light`
+- `tokens.dark`
+
+```yaml
+jekyll_vitepress:
+  typography:
+    body_font_family: "'Inter', ui-sans-serif, system-ui, sans-serif"
+    code_font_family: "'JetBrains Mono', ui-monospace, monospace"
+    google_fonts_url: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+  tokens:
+    light:
+      --vp-c-brand-1: "#3451b2"
+      --vp-c-brand-2: "#3a5ccc"
+    dark:
+      --vp-c-brand-1: "#a8b1ff"
+      --vp-c-brand-2: "#bac2ff"
+```
+{: data-title="_config.yml"}
+
+### Syntax Highlighting (Rouge)
+
+- `syntax.light_theme`
+- `syntax.dark_theme`
+
+These values map directly to installed Rouge theme names.
+
+```yaml
+jekyll_vitepress:
+  syntax:
+    light_theme: github
+    dark_theme: github.dark
+```
+{: data-title="_config.yml"}
+
+### SEO and Discovery
+
+Core SEO is enabled by default. The theme generates page metadata, Open Graph and Twitter cards, JSON-LD, `sitemap.xml`, and `robots.txt` without `jekyll-seo-tag` or `jekyll-sitemap`.
+
+- `seo.enabled` (defaults to `true`; `false` disables the theme's SEO output)
+- `seo.index` (defaults to `true`; `false` emits site-wide `noindex` and disallows crawling)
+- `seo.title_separator` (defaults to ` | `)
+- `seo.title_template` (optional; supports `:page` and `:site`)
+- `seo.robots` (default indexable-page directive)
+- `seo.image.path`, `alt`, `width`, `height` (default social and structured-data image)
+- `seo.page_type` (defaults to `WebPage`; article-style documentation may use `Article`)
+- `seo.publisher.type` (`Organization` or `Person`), `name`, `url`, `logo`, `same_as`
+- `seo.schema.enabled` (defaults to `true`)
+- `seo.sitemap` and `seo.robots_txt` (both default to `true`)
+- `seo.robots_txt_rules` (optional extra literal rules)
+
+```yaml
+title: My Project Docs
+description: Install, configure, and use My Project.
+url: https://docs.example.com
+baseurl: ""
+lang: en-US
+author:
+  name: Your Name
+  url: https://example.com
+
+jekyll_vitepress:
+  seo:
+    page_type: Article
+    title_template: ":page | :site"
+    image:
+      path: /assets/images/social-card.png
+      alt: My Project documentation
+      width: 1200
+      height: 630
+    publisher:
+      type: Organization
+      name: My Project
+      url: https://example.com
+      logo: /assets/images/logo.png
+      same_as:
+        - https://github.com/example/project
+```
+{: data-title="_config.yml"}
+
+The theme also understands the standard Jekyll `twitter`, `facebook`, `webmaster_verifications`, `author`, `locale`, and `logo` keys. A source `sitemap.xml` or `robots.txt` takes precedence over generated output. `seo: false` in page frontmatter disables all theme metadata for that page, which is useful when a custom head include owns it instead.
+
+### LLM Discovery
+
+The theme generates two AI-readable files without an additional plugin:
+
+- `/llms.txt`: a concise index grouped in sidebar/collection order, with canonical URLs and page descriptions
+- `/llms-full.txt`: the complete Markdown content of every eligible page in one file
+
+Redirects, `404` pages, `noindex` pages, and pages canonicalized to another URL are excluded. A page can be excluded independently with `llms: false`. Source files named `llms.txt` or `llms-full.txt` override the corresponding generated output.
+
+- `llms.enabled` (defaults to `true`)
+- `llms.full` (defaults to `true`; set to `false` to omit `llms-full.txt`)
+- `llms.title` and `llms.description` (default to the site values)
+- `llms.details` (optional introductory Markdown without headings)
+
+```yaml
+jekyll_vitepress:
+  llms:
+    enabled: true
+    full: true
+    details: >-
+      Start with the installation and API reference sections.
+```
+{: data-title="_config.yml"}
+
+`llms.txt` is an emerging convention intended to help agents find authoritative documentation at inference time; it is not a search-ranking control or a replacement for `robots.txt` and `sitemap.xml`.
+
+### Footer and Doc Footer
+
+- `footer.enabled`
+- `footer.show_on_docs` (defaults to `false`; footer only shows on home page unless set to `true`)
+- `footer.message`
+- `footer.copyright`
+- `doc_footer.enabled`
+- `doc_footer.previous_label`
+- `doc_footer.next_label`
+
+```yaml
+jekyll_vitepress:
+  footer:
+    enabled: true
+    message: Released under the MIT License.
+    copyright: © 2026-present You
+    show_on_docs: false
+  doc_footer:
+    enabled: true
+    previous_label: Previous page
+    next_label: Next page
+```
+{: data-title="_config.yml"}
+
+### Edit Link, Last Updated, GitHub Star, GitHub Sponsor, and Gem Downloads
+
+- `edit_link.enabled`
+- `edit_link.pattern`
+- `edit_link.text`
+- `last_updated.enabled`
+- `last_updated.text`
+- `last_updated.format` (`vitepress` for browser-local VitePress-style formatting, or a Jekyll strftime string)
+- `github_star.enabled`
+- `github_star.repository` (`owner/repo`)
+- `github_star.text`
+- `github_star.show_count`
+- `github_sponsor.enabled`
+- `github_sponsor.user` (GitHub Sponsors account name)
+- `github_sponsor.url` (optional custom sponsorship URL)
+- `github_sponsor.text`
+- `github_sponsor.label`
+- `gem_downloads.enabled`
+- `gem_downloads.name` or `gem_downloads.gem`
+- `gem_downloads.url` (optional custom downloads URL)
+- `gem_downloads.text`
+- `gem_downloads.label`
+- `gem_downloads.show_count`
+
+```yaml
+jekyll_vitepress:
+  edit_link:
+    enabled: true
+    pattern: "https://github.com/you/project/edit/main/docs/:path"
+    text: Edit this page on GitHub
+  last_updated:
+    enabled: true
+    text: Last updated
+    format: vitepress
+  github_star:
+    enabled: true
+    repository: you/project
+    text: Star
+    show_count: true
+  github_sponsor:
+    enabled: true
+    user: you
+    text: Sponsor
+  gem_downloads:
+    enabled: true
+    name: your_gem
+    text: Gem downloads
+    url: https://rubygems.org/gems/your_gem
+    label: View gem downloads
+    show_count: true
+```
+{: data-title="_config.yml"}
+
+If `github_sponsor.url` is omitted, the theme links to `https://github.com/sponsors/:user`.
+If `gem_downloads.url` is omitted, the page-level downloads include links to `https://rubygems.org/gems/:name`.
+If `last_updated.format` is `vitepress`, the static fallback is replaced in the browser using `Intl.DateTimeFormat` with medium date and medium time, matching VitePress. Use a Jekyll strftime string such as `"%b %-d, %Y, %-I:%M:%S %p"` for a static custom format.
+
+### Copy Page
+
+- `copy_page.enabled` (defaults to `true`)
+
+Copy page adds a split button to each doc page header. The main button copies the page as raw Markdown. The dropdown includes a "View as Markdown" link that opens the page as a plain `.md` file (generated alongside the HTML at build time). The link is marked `nofollow`, and the generated `robots.txt` excludes `.md` files so search engines favor the canonical HTML pages.
+
+To disable:
+
+```yaml
+jekyll_vitepress:
+  copy_page:
+    enabled: false
+```
+{: data-title="_config.yml"}
+
+Per-page disable via frontmatter:
+
+```yaml
+jekyll_vitepress:
+  copy_page: false
+```
+{: data-title="page frontmatter"}
+
+### Labels and Behavior
+
+- `labels.outline`
+- `labels.sidebar_menu`
+- `labels.return_to_top`
+- `labels.skip_to_content`
+- `labels.appearance_menu`
+- `labels.switch_to_dark`
+- `labels.switch_to_light`
+- `behavior.scroll_offset`
+
+```yaml
+jekyll_vitepress:
+  labels:
+    outline: On this page
+    sidebar_menu: Menu
+    return_to_top: Return to top
+    skip_to_content: Skip to content
+    appearance_menu: Appearance
+    switch_to_dark: Switch to dark theme
+    switch_to_light: Switch to light theme
+  behavior:
+    scroll_offset: 134
+```
+{: data-title="_config.yml"}
+
+## `_data` files
+
+### Navigation (`_data/navigation.yml`)
+
+Top navbar links:
+
+```yaml
+- title: Guide
+  url: /what-is-jekyll-vitepress-theme/
+  collections: [introduction, core_features, advanced]
+- title: Reference
+  url: /configuration-reference/
+  collections: [reference]
+```
+{: data-title="_data/navigation.yml"}
+
+### Sidebar (`_data/sidebar.yml`)
+
+Collection-driven sidebar groups:
+
+```yaml
+- title: Introduction
+  collection: introduction
+- title: Core Features
+  collection: core_features
+- title: Advanced
+  collection: advanced
+- title: Reference
+  collection: reference
+```
+{: data-title="_data/sidebar.yml"}
+
+Within each collection, page frontmatter controls hierarchy:
+
+```yaml
+---
+title: Tools
+nav_order: 2
+has_children: true
+---
+```
+
+```yaml
+---
+title: Tool Parameters
+parent: Tools
+nav_order: 1
+---
+```
+
+The theme supports nested items using `parent`, optional `grand_parent`, and `nav_order`, matching common Jekyll documentation conventions while rendering a VitePress-style sidebar tree. Set `collapsed: true` on a parent page to close that branch by default.
+
+### Social links (`_data/social_links.yml`)
+
+- `icon`: built-in icon slug
+- `url`: link target
+- `label`: aria label
+- `icon_svg`: optional custom inline SVG
+
+```yaml
+- icon: github
+  url: https://github.com/you/project
+  label: GitHub
+- icon: x
+  url: https://x.com/you
+  label: X
+- icon: custom
+  url: https://bsky.app/profile/you
+  label: Bluesky
+  icon_svg: '<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 11.388c0-.756 1.676-3.35 3.43-4.594 2.296-1.627 3.726-1.348 4.3-.225.672 1.316-.53 4.77-2.257 6.48-.958.949-1.786 1.433-2.84 1.356-.67-.05-1.167-.35-1.586-.824-.49-.554-.732-1.346-1.047-2.193-.315.847-.557 1.64-1.047 2.193-.419.474-.916.775-1.586.824-1.054.077-1.882-.407-2.84-1.356C5.8 11.339 4.6 7.885 5.271 6.57c.574-1.124 2.004-1.402 4.3.225 1.754 1.243 3.43 3.838 3.43 4.594Z"/></svg>'
+```
+{: data-title="_data/social_links.yml"}
+
+Built-in icon slugs are:
+`github`, `gitlab`, `bitbucket`, `discord`, `slack`, `x`, `twitter`,
+`mastodon`, `linkedin`, `youtube`, `facebook`, `instagram`, `reddit`,
+`bluesky`, `telegram`, `twitch`, `npm`, `medium`, `devdotto`, `dribbble`,
+`stackoverflow`, `rss`, and `blog` (alias of `rss`).
+
+### Versions (`_data/versions.yml`)
+
+If this file exists, it drives the version selector:
+
+```yaml
+current: auto
+items:
+  - id: v2.0.0
+    title: v2.0.0 (latest)
+    url: /
+  - id: v1.0.0
+    title: v1.0.0
+    url: /v1.0.0/
+  - title: Changelog
+    url: https://github.com/you/project/releases
+    external: true
+```
+{: data-title="_data/versions.yml"}
+
+`current: auto` resolves to `v#{Jekyll::VitePressTheme::VERSION}` at build time.
+
+## Theme hooks (Jekyll include overrides)
+
+Use these optional include files to inject custom markup without forking layouts:
+
+- `_includes/jekyll_vitepress/head_end.html`
+- `_includes/jekyll_vitepress/doc_footer_end.html`
+- `_includes/jekyll_vitepress/layout_end.html`
+
+If the files are absent in your site, the theme's empty defaults are used.
+
+```html
+<div class="my-doc-footer">
+  Need help? <a href="/support/">Contact support</a>.
+</div>
+```
+{: data-title="_includes/jekyll_vitepress/doc_footer_end.html"}
+
+---
+
+# Frontmatter Reference
+
+Canonical URL: https://jekyll-vitepress.dev/frontmatter-reference/
+
+## Layouts
+
+- `layout: default`: standard docs page with sidebar and outline.
+- `layout: home`: VitePress-style landing page with hero and feature cards. Sidebar and outline are hidden. This belongs to [VitePress Parity](/vitepress-parity/); optional additions beyond VitePress are documented in [Extensions to VitePress](/extensions-to-vitepress/).
+
+## Home layout keys
+
+The home layout supports a `hero` section and a `features` list:
+
+```yaml
+layout: home
+hero:
+  name: Project Name
+  text: Project Tagline
+  tagline: Supporting sentence
+  image:
+    src: /path/to/image.svg
+    alt: Logo
+    width: 320
+    height: 320
+  actions:
+    - theme: brand
+      text: Get Started
+      link: /getting-started/
+    - theme: alt
+      text: GitHub
+      link: https://github.com/you/project
+features:
+  - icon: ⚡
+    title: Fast
+    details: Feature description
+    link_text: Learn more
+    link: /getting-started/
+```
+{: data-title="index.md"}
+
+Action buttons support two themes: `brand` (solid, primary color) and `alt` (outlined, secondary). Feature cards can optionally include `link` and `link_text` to make them clickable.
+
+## Optional page keys
+
+These keys can be set in any page's frontmatter to control theme behavior on a per-page basis:
+
+- `description`: used in `<meta name="description">` and search results.
+- `canonical_url`: overrides the page's self-referential canonical URL. A page canonicalized to another URL is omitted from the generated sitemap.
+- `image`: social/structured-data image as a path or an object with `path` (or `src`), `alt`, `width`, and `height`.
+- `author`: page author as a name or an object with `name`, `url`, and optional `twitter`.
+- `lang` or `locale`: overrides the page language, HTML `lang`, and Open Graph locale.
+- `robots`: overrides the complete robots directive; `noindex: true` and `nofollow: true` are convenient boolean alternatives.
+- `alternates`: language variants, each with `lang` (or `hreflang`) and `url`.
+- `date_published`, `date_modified`, or `last_modified_at`: explicit structured-data dates. The sitemap uses only explicit modification dates instead of unreliable build-time file timestamps.
+- `seo.title`, `seo.description`, `seo.canonical_url`, `seo.image`, `seo.author`, `seo.robots`, `seo.noindex`, `seo.nofollow`, `seo.type`, and `seo.alternates`: grouped forms of the page-level SEO overrides.
+- `seo: false`: disables theme-owned metadata for the page, so a custom head integration can take over.
+- `sitemap: false`: omits the URL from `sitemap.xml` without changing its robots directive.
+- `llms: false`: excludes the page from both `llms.txt` and `llms-full.txt` without changing normal search indexing.
+- `nav_order`: controls sort order within sidebar groups. Lower numbers appear first.
+- `parent`: nests the page under another page in the same collection, matched by title.
+- `grand_parent`: disambiguates `parent` when the same parent title appears in more than one branch.
+- `has_children`: optional compatibility marker for parent pages. Child pages are discovered from their `parent` value.
+- `collapsed: true`: renders this page's child branch closed by default, unless the active page is inside it.
+- `markdown_styles: false`: renders body content without the `.vp-doc` markdown wrapper styles. Useful for home pages with custom HTML.
+- `jekyll_vitepress.auto_title: false`: disables the automatic `<h1>` injection. By default, if a page has a `title` but no `<h1>` in its content, the theme renders one automatically.
+- `jekyll_vitepress.footer: false`: hides the global footer on this page.
+- `jekyll_vitepress.doc_footer: false`: hides the entire doc footer (prev/next pager, edit link, last updated).
+- `jekyll_vitepress.edit_link: false`: hides the edit link for this page only.
+- `jekyll_vitepress.last_updated: false`: hides the last-updated timestamp for this page only.
+- `jekyll_vitepress.last_updated_at`: manually override the last-updated timestamp instead of using the file's modification time.
+- `jekyll_vitepress.prev: false` / `jekyll_vitepress.next: false`: disables one side of the pager navigation.
+
+## SEO example
+
+```yaml
+---
+title: API Authentication
+description: Authenticate API requests with scoped access tokens.
+image:
+  path: /assets/images/api-auth-card.png
+  alt: API authentication flow
+  width: 1200
+  height: 630
+seo:
+  type: Article
+alternates:
+  - lang: en
+    url: /api/authentication/
+  - lang: de
+    url: /de/api/authentifizierung/
+  - lang: x-default
+    url: /api/authentication/
+---
+```
+{: data-title="page frontmatter"}
+
+## Custom prev / next links
+
+You can override the auto-computed pager links with custom titles and URLs:
+
+```yaml
+jekyll_vitepress:
+  prev:
+    text: Custom previous title
+    link: /some/page/
+  next:
+    text: Custom next title
+    link: /another/page/
+```
+{: data-title="example-page.md"}
+
+---
+
+# VitePress Parity
+
+Canonical URL: https://jekyll-vitepress.dev/vitepress-parity/
+
+This theme targets high visual and interaction parity with [VitePress](https://vitepress.dev/) while keeping configuration and authoring idiomatic to [Jekyll](https://jekyllrb.com/).
+
+<div class="tip custom-block">
+  <p class="custom-block-title">TIP</p>
+  <p>This page covers behavior that mirrors VitePress. Features added on top of baseline VitePress are documented on <a href="/extensions-to-vitepress/">Extensions to VitePress</a>.</p>
+
+</div>
+
+## Mirrored Features
+
+The theme intentionally mirrors these VitePress documentation features:
+
+- **[Top nav, mobile nav, and social links](/navigation-layout/):** persistent header navigation with responsive mobile behavior.
+- **[Left sidebar and right outline](/navigation-layout/):** docs shell layout with collection-driven sidebar navigation and page-local outline.
+- **[Fast doc-to-doc navigation](/overview/#theme-assets):** Turbo Frames keep the surrounding docs shell mounted between page changes.
+- **[Home layout](/frontmatter-reference/#home-layout):** VitePress-style hero, actions, image, and feature cards from frontmatter.
+- **[Doc footer behavior](/configuration-reference/#footer-and-doc-footer):** previous/next pager, edit link, and last-updated metadata.
+- **[Appearance switcher](/configuration-reference/#labels-and-behavior):** `auto`, `dark`, and `light` modes with persisted preference.
+- **[Search trigger UX](/search-and-outline/#local-search):** keyboard search with `/`, `Ctrl+K`, and `Cmd+K`.
+- **[Code block UX](/code-blocks/):** copy buttons, language labels, file title bars, file icons, and syntax palettes.
+- **[Markdown enhancements](/markdown-extensions/):** heading anchors, external link indicators, and table styling.
+- **[Custom containers](/custom-blocks/):** `info`, `note`, `tip`, `important`, `warning`, `danger`, `caution`, and `details` blocks.
+- **[Automatic page title injection](/frontmatter-reference/#layouts):** doc pages render the frontmatter `title` as the page heading.
+
+## Jekyll-First Differences
+
+These differences are intentional. The functionality is equivalent where possible, but the implementation uses Jekyll conventions:
+
+- **[Configuration](/configuration/):** theme options live in `_config.yml` under `jekyll_vitepress`, not in `.vitepress/config.js`.
+- **[Navigation data](/navigation-layout/#top-navigation):** nav, sidebar, social, and version data live in `_data/*.yml`, not JavaScript config.
+- **[Syntax highlighting](/code-blocks/#syntax-highlighting):** highlighting uses Rouge themes instead of Shiki.
+- **[Last updated](/configuration-reference/#edit-link-last-updated-github-star-github-sponsor-and-gem-downloads):** timestamps are populated by Jekyll plugin hooks instead of Git history.
+- **[Extension hooks](/extending-behavior/):** customization uses layout/include overrides and custom scripts instead of Vue slots.
+- **[Turbo navigation](/overview/#theme-assets):** fast page changes use Turbo Frames around the docs content instead of a client-side router.
+
+## Practical Guidance
+
+If you want output that looks as close to VitePress as possible, keep the optional extras disabled and rely on the default structure, styling, and frontmatter patterns.
+
+If you want productized docs behavior beyond VitePress parity, enable the extras documented on [Extensions to VitePress](/extensions-to-vitepress/).
+
+---
+
+# Extensions to VitePress
+
+Canonical URL: https://jekyll-vitepress.dev/extensions-to-vitepress/
+
+Extensions to VitePress are optional features that go beyond baseline VitePress behavior while preserving the same visual language. Enable them case by case in `_config.yml` or use their Liquid includes directly in page content.
+
+<div class="info custom-block">
+  <p class="custom-block-title">INFO</p>
+  <p>For features that intentionally mirror VitePress itself, see <a href="/vitepress-parity/">VitePress Parity</a>.</p>
+
+</div>
+
+## Optional Extras
+
+These features are not part of baseline VitePress:
+
+- **[GitHub star widget](/configuration/#github-and-rubygems-buttons):** a navbar or page-level button showing a live star count from the GitHub API, configured via `jekyll_vitepress.github_star`.
+- **[GitHub Sponsors widget](/configuration/#github-and-rubygems-buttons):** a navbar or page-level button linking to GitHub Sponsors or a custom sponsorship URL, configured via `jekyll_vitepress.github_sponsor`.
+- **[RubyGems downloads button](/callouts-labels-buttons/#rubygems-downloads-button):** a reusable page-level button showing live gem download counts from the RubyGems API, configured via `jekyll_vitepress.gem_downloads`.
+- **[Just the Docs-style callouts](/callouts-labels-buttons/#callouts):** kramdown attribute syntax such as `{: .note }` rendered with VitePress-style custom block UI.
+- **[Inline labels](/callouts-labels-buttons/#inline-labels):** Just the Docs-style labels such as `{: .label .label-green }` rendered as compact badges.
+- **[Local search index](/search-and-outline/#local-search):** a generated `search.json` index for client-side search across sidebar collection content.
+- **[Version selector](/configuration/#version-selector):** a data-driven dropdown from `_data/versions.yml`, including `current: auto` support.
+- **[Copy page](/configuration-reference/#copy-page):** a split button offering "Copy page" and "View as Markdown" for LLM-friendly docs workflows.
+- **[LLM discovery files](/configuration-reference/#llm-discovery):** generated `llms.txt` and `llms-full.txt` files covering canonical pages and documentation collections.
+
+## Configuration Model
+
+Most extensions are independent. You can enable the GitHub star widget without enabling RubyGems downloads, or use Just the Docs-style labels without using page metric buttons.
+
+```yaml
+jekyll_vitepress:
+  github_star:
+    enabled: true
+    repository: owner/repo
+  gem_downloads:
+    enabled: true
+    name: your_gem
+```
+{: data-title="_config.yml"}
+
+For the complete list of configuration keys, see the [Configuration Reference](/configuration-reference/).
+
+## Page-Level Includes
+
+Some extensions are available as Liquid includes so they can be used anywhere in Markdown:
+
+```liquid
+{% include github_star_button.html repository="owner/repo" %}
+{% include github_sponsor_button.html user="owner" %}
+{% include rubygems_downloads_button.html gem="your_gem" %}
+```
+
+When an include has explicit parameters, it can render a one-off button even if the corresponding global navbar widget is disabled.
+
+---
+
+# Troubleshooting
+
+Canonical URL: https://jekyll-vitepress.dev/troubleshooting/
+
+## Search modal does not open
+
+- Confirm `search.json` is generated and reachable at `/search.json`. You can test this by visiting `http://127.0.0.1:4000/search.json` in your browser during local development.
+- If you provide a custom `search.json`, make sure it returns a JSON array of objects with `title`, `url`, and `content` fields.
+- Confirm `assets/js/vitepress-theme.js` is loaded. Check your browser's DevTools console for 404 errors.
+- If search works but misses certain pages, make sure those pages belong to a collection listed in `_data/sidebar.yml`. Only sidebar collections are indexed.
+
+## Sidebar is empty
+
+- Verify `_data/sidebar.yml` exists and each entry points to a valid collection name that matches a collection defined in `_config.yml`.
+- Ensure each collection has at least one document with frontmatter (the `---` block at the top of the file). Files without frontmatter are not processed by Jekyll.
+- Check that your collections are configured with `output: true` in `_config.yml`.
+
+## Nav links do not render
+
+- Verify `_data/navigation.yml` exists.
+- Ensure each item has both `title` and `url` keys.
+- If nav items don't highlight correctly, check that the `collections` array references valid collection names.
+
+## Page navigation reloads the whole document
+
+- Confirm `assets/vendor/turbo.js` and `assets/js/vitepress-theme.js` are both loading without 404 errors.
+- If you override `_includes/nav.html`, `_includes/nav_menu_link.html`, `_includes/sidebar.html`, `_includes/search.html`, or `_layouts/default.html`, keep the `turbo-frame` wrapper and the `data-turbo`, `data-turbo-frame`, and `data-turbo-action` attributes on internal doc links.
+- Links to the home page, external sites, downloads, or links with `data-turbo="false"` intentionally use normal browser navigation.
+
+## Last updated does not appear
+
+- Ensure the plugin is enabled in `_config.yml`:
+
+```yaml
+plugins:
+  - jekyll-vitepress-theme
+```
+{: data-title="_config.yml"}
+
+- Check that `jekyll_vitepress.last_updated.enabled` is not set to `false`.
+- If a specific page has `jekyll_vitepress.last_updated: false` in its frontmatter, the timestamp is hidden for that page only.
+
+## Theme looks unstyled
+
+- Confirm the gem is installed: run `bundle list | grep vitepress` and check the output.
+- Make sure `theme: jekyll-vitepress-theme` is set in `_config.yml` (not just in `plugins`).
+- Check your browser's DevTools Network tab for 404s on CSS files. The theme expects these paths:
+  - `assets/css/vitepress-core.css`
+  - `assets/css/vitepress-components.css`
+  - `assets/css/vitepress-overrides.css`
+
+## Code blocks have no syntax colors
+
+- Verify your Rouge theme names are valid. Invalid names produce a build warning and fall back to `github` / `github.dark`.
+- Ensure `plugins: [jekyll-vitepress-theme]` is set. The Rouge CSS generation happens in the plugin hooks.
+- Check that your Kramdown config uses Rouge as the syntax highlighter (this is the Jekyll default, but a custom `_config.yml` might override it).
+
+## Dark mode code blocks use the wrong colors
+
+- Make sure you've set both `light_theme` and `dark_theme` under `jekyll_vitepress.syntax`. If only one is set, both modes may use the same palette.
+
+## Appearance toggle doesn't persist
+
+- The toggle stores its state in `localStorage`. If your browser blocks localStorage (private/incognito mode in some browsers), the preference won't persist across page loads.
+
+## Build fails with "Unknown Rouge theme" warning
+
+- This is a warning, not an error. The build will still succeed and fall back to the default themes. To fix it, check your `jekyll_vitepress.syntax.light_theme` and `dark_theme` values against the list of [available Rouge themes](https://github.com/rouge-ruby/rouge/tree/master/lib/rouge/themes).

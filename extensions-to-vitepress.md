@@ -29,6 +29,7 @@ These features are not part of baseline VitePress:
 - **[Local search index](/search-and-outline/#local-search):** a generated `search.json` index for client-side search across sidebar collection content.
 - **[Version selector](/configuration/#version-selector):** a data-driven dropdown from `_data/versions.yml`, including `current: auto` support.
 - **[Copy page](/configuration-reference/#copy-page):** a split button offering "Copy page" and "View as Markdown" for LLM-friendly docs workflows.
+- **[LLM discovery files](/configuration-reference/#llm-discovery):** generated `llms.txt` and `llms-full.txt` files covering canonical pages and documentation collections.
 
 ## Configuration Model
 

@@ -46,6 +46,17 @@ Action buttons support two themes: `brand` (solid, primary color) and `alt` (out
 These keys can be set in any page's frontmatter to control theme behavior on a per-page basis:
 
 - `description`: used in `<meta name="description">` and search results.
+- `canonical_url`: overrides the page's self-referential canonical URL. A page canonicalized to another URL is omitted from the generated sitemap.
+- `image`: social/structured-data image as a path or an object with `path` (or `src`), `alt`, `width`, and `height`.
+- `author`: page author as a name or an object with `name`, `url`, and optional `twitter`.
+- `lang` or `locale`: overrides the page language, HTML `lang`, and Open Graph locale.
+- `robots`: overrides the complete robots directive; `noindex: true` and `nofollow: true` are convenient boolean alternatives.
+- `alternates`: language variants, each with `lang` (or `hreflang`) and `url`.
+- `date_published`, `date_modified`, or `last_modified_at`: explicit structured-data dates. The sitemap uses only explicit modification dates instead of unreliable build-time file timestamps.
+- `seo.title`, `seo.description`, `seo.canonical_url`, `seo.image`, `seo.author`, `seo.robots`, `seo.noindex`, `seo.nofollow`, `seo.type`, and `seo.alternates`: grouped forms of the page-level SEO overrides.
+- `seo: false`: disables theme-owned metadata for the page, so a custom head integration can take over.
+- `sitemap: false`: omits the URL from `sitemap.xml` without changing its robots directive.
+- `llms: false`: excludes the page from both `llms.txt` and `llms-full.txt` without changing normal search indexing.
 - `nav_order`: controls sort order within sidebar groups. Lower numbers appear first.
 - `parent`: nests the page under another page in the same collection, matched by title.
 - `grand_parent`: disambiguates `parent` when the same parent title appears in more than one branch.
@@ -59,6 +70,30 @@ These keys can be set in any page's frontmatter to control theme behavior on a p
 - `jekyll_vitepress.last_updated: false`: hides the last-updated timestamp for this page only.
 - `jekyll_vitepress.last_updated_at`: manually override the last-updated timestamp instead of using the file's modification time.
 - `jekyll_vitepress.prev: false` / `jekyll_vitepress.next: false`: disables one side of the pager navigation.
+
+## SEO example
+
+```yaml
+---
+title: API Authentication
+description: Authenticate API requests with scoped access tokens.
+image:
+  path: /assets/images/api-auth-card.png
+  alt: API authentication flow
+  width: 1200
+  height: 630
+seo:
+  type: Article
+alternates:
+  - lang: en
+    url: /api/authentication/
+  - lang: de
+    url: /de/api/authentifizierung/
+  - lang: x-default
+    url: /api/authentication/
+---
+```
+{: data-title="page frontmatter"}
 
 ## Custom prev / next links
 

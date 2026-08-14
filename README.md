@@ -26,6 +26,7 @@ The unusual part is navigation. Jekyll VitePress uses Turbo Frames like a Rails 
 - **[VitePress polish for Jekyll](https://jekyll-vitepress.dev/vitepress-parity/):** match VitePress for the docs homepage, sidebar, outline, search, dark mode, callouts, code blocks, and doc footers.
 - **Jekyll-native setup:** keep your Markdown, Liquid, YAML, and static hosting. Add the gem, set a few options, and publish.
 - **Fast docs navigation:** Turbo Frames update the content area while the nav, sidebar, and shell stay mounted.
+- **Search and AI discovery by default:** ship canonical metadata, social cards, JSON-LD, nested breadcrumbs, sitemap, robots controls, `llms.txt`, and `llms-full.txt` without another discovery plugin.
 - **[More than VitePress](https://jekyll-vitepress.dev/extensions-to-vitepress/):** add GitHub Star and Sponsor buttons, RubyGems downloads, versions, labels, generated local search, and Copy Page/View as Markdown for LLM workflows.
 - **Static Ruby output:** build with Jekyll and deploy the generated HTML to GitHub Pages, any CDN, or any static host.
 
@@ -78,13 +79,15 @@ bundle install
 bundle exec jekyll serve --livereload
 ```
 
-### Metadata and jekyll-seo-tag
+### SEO is built in
 
-The theme writes the page description, canonical link, Open Graph, and Twitter
-card tags itself. Calling `{% seo %}` as well emits a second copy of each, so
-drop it when you switch to this theme, or drop the theme's tags if you prefer
-jekyll-seo-tag's. Its JSON-LD has no equivalent here, so keep that plugin if
-you want structured data.
+Every site using the theme gets one consistent set of search and social metadata, JSON-LD (`WebSite`, `WebPage` or `Article`, `Organization`/`Person`, image, and nested breadcrumbs), `sitemap.xml`, and `robots.txt`. Canonical overrides, `noindex`, language alternates, social images, authors, publishers, and webmaster verification tokens are configurable without another plugin.
+
+Set at least `title`, `description`, and an absolute production `url` in `_config.yml`. The build warns about missing and duplicate metadata. Do not also render `{% seo %}` or enable another sitemap/robots generator; that creates duplicated or contradictory signals.
+
+### LLM discovery is built in
+
+The theme also creates `/llms.txt`, a concise canonical documentation index, and `/llms-full.txt`, a single Markdown bundle containing every eligible page and collection document. Redirects, `404` pages, `noindex` pages, and external-canonical duplicates are excluded. Both files understand `baseurl` and can be configured or disabled without `jekyll-ai-visible-content`.
 
 ## Screenshots
 

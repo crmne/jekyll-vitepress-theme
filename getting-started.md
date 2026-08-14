@@ -31,6 +31,19 @@ plugins:
 ```
 {: data-title="_config.yml"}
 
+Set the production identity used by canonical URLs, structured data, the sitemap, and social cards:
+
+```yaml
+title: My Project Docs
+description: Learn how to install, configure, and use My Project.
+url: https://docs.example.com
+lang: en-US
+logo: /assets/images/social-card.png
+```
+{: data-title="_config.yml"}
+
+`url` must be the absolute public origin, without `baseurl`. If the site is published below a path, set that path separately with `baseurl`. The build warns when it cannot produce absolute indexing URLs.
+
 ## Define your collections
 
 Jekyll VitePress Theme uses [collections](https://jekyllrb.com/docs/collections/) to organize your documentation into groups. Define them in `_config.yml`:
@@ -62,6 +75,12 @@ Theme behavior lives in `_config.yml` under `jekyll_vitepress`:
 jekyll_vitepress:
   branding:
     site_title: My Project
+  seo:
+    image:
+      path: /assets/images/social-card.png
+      alt: My Project documentation
+      width: 1200
+      height: 630
   syntax:
     light_theme: github
     dark_theme: github.dark
