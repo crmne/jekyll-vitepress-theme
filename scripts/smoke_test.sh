@@ -11,6 +11,10 @@ fi
 required_files=(
   "${SITE_DIR}/index.html"
   "${SITE_DIR}/search.json"
+  "${SITE_DIR}/sitemap.xml"
+  "${SITE_DIR}/robots.txt"
+  "${SITE_DIR}/llms.txt"
+  "${SITE_DIR}/llms-full.txt"
   "${SITE_DIR}/getting-started/index.html"
   "${SITE_DIR}/configuration-reference/index.html"
 )
@@ -28,5 +32,20 @@ grep -q "VPVersionSelector" "${SITE_DIR}/getting-started/index.html" || { echo "
 grep -q "id=\"vp-search\"" "${SITE_DIR}/getting-started/index.html" || { echo "Smoke test failed: search container missing"; exit 1; }
 grep -q "VPDocFooter" "${SITE_DIR}/getting-started/index.html" || { echo "Smoke test failed: doc footer missing"; exit 1; }
 grep -q '"url": "/getting-started/"' "${SITE_DIR}/search.json" || { echo "Smoke test failed: generated search index missing docs content"; exit 1; }
+grep -q '<link rel="canonical" href="https://jekyll-vitepress.dev/getting-started/">' "${SITE_DIR}/getting-started/index.html" || { echo "Smoke test failed: canonical URL missing"; exit 1; }
+grep -q '"@type":"Article"' "${SITE_DIR}/getting-started/index.html" || { echo "Smoke test failed: Article JSON-LD missing"; exit 1; }
+grep -q '"@type":"BreadcrumbList"' "${SITE_DIR}/getting-started/index.html" || { echo "Smoke test failed: breadcrumb JSON-LD missing"; exit 1; }
+grep -q '<loc>https://jekyll-vitepress.dev/getting-started/</loc>' "${SITE_DIR}/sitemap.xml" || { echo "Smoke test failed: canonical URL missing from sitemap"; exit 1; }
+grep -Fq 'Disallow: /*.md$' "${SITE_DIR}/robots.txt" || { echo "Smoke test failed: generated Markdown is crawlable"; exit 1; }
+grep -q 'Sitemap: https://jekyll-vitepress.dev/sitemap.xml' "${SITE_DIR}/robots.txt" || { echo "Smoke test failed: sitemap missing from robots.txt"; exit 1; }
+grep -q 'rel="nofollow noreferrer"' "${SITE_DIR}/getting-started/index.html" || { echo "Smoke test failed: Markdown duplicate link is followable"; exit 1; }
+grep -q '\[Getting Started\](https://jekyll-vitepress.dev/getting-started/)' "${SITE_DIR}/llms.txt" || { echo "Smoke test failed: canonical docs missing from llms.txt"; exit 1; }
+grep -q '^# Getting Started$' "${SITE_DIR}/llms-full.txt" || { echo "Smoke test failed: docs content missing from llms-full.txt"; exit 1; }
+grep -q 'This guide walks you through installing the theme' "${SITE_DIR}/llms-full.txt" || { echo "Smoke test failed: full docs body missing from llms-full.txt"; exit 1; }
+
+json_ld_count="$(grep -c 'application/ld+json' "${SITE_DIR}/getting-started/index.html")"
+canonical_count="$(grep -c 'rel="canonical"' "${SITE_DIR}/getting-started/index.html")"
+[[ "${json_ld_count}" == "1" ]] || { echo "Smoke test failed: duplicate JSON-LD (${json_ld_count})"; exit 1; }
+[[ "${canonical_count}" == "1" ]] || { echo "Smoke test failed: duplicate canonical links (${canonical_count})"; exit 1; }
 
 echo "Smoke test passed for ${SITE_DIR}"

@@ -6,8 +6,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Carmine Paolino']
   spec.email         = ['carmine@paolino.me']
 
-  spec.summary       = 'A VitePress-like docs theme for Jekyll.'
-  spec.description   = 'Jekyll VitePress Theme brings the VitePress default theme look and behavior to Jekyll sites.'
+  spec.summary       = 'A polished, SEO-ready VitePress-style documentation theme for Jekyll.'
+  spec.description   = 'Jekyll VitePress Theme brings VitePress-style documentation UX, search, ' \
+                       'structured metadata, and Jekyll-native extensions to Ruby static sites.'
   spec.homepage      = 'https://jekyll-vitepress.dev'
   spec.license       = 'MIT'
   spec.required_ruby_version = '>= 3.1'
@@ -31,6 +32,7 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ['lib']
 
+  spec.add_dependency 'cgi', '>= 0.3', '< 1.0'
   spec.add_dependency 'jekyll', '>= 4.3', '< 5.0'
   spec.add_dependency 'rouge', '>= 3.0', '< 5.0'
 end

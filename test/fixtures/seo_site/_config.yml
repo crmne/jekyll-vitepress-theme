@@ -1,0 +1,29 @@
+title: Downstream Docs
+description: Documentation built with Jekyll VitePress Theme.
+url: https://docs.example.test
+baseurl: /manual
+lang: en-GB
+logo: /social-card.png
+
+theme: jekyll-vitepress-theme
+plugins:
+  - jekyll-vitepress-theme
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+jekyll_vitepress:
+  seo:
+    title_template: ":site — :page"
+    image:
+      path: /social-card.png
+      alt: Downstream documentation
+      width: 1200
+      height: 630
+  llms:
+    title: Downstream Docs
+    description: Documentation built with Jekyll VitePress Theme.
+    details: ""

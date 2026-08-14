@@ -54,4 +54,9 @@ features:
     details: Go beyond baseline VitePress with GitHub Star and Sponsor buttons, RubyGems downloads, versions, labels, generated local search, and Copy Page/View as Markdown.
     link: /extensions-to-vitepress/
     link_text: See what is included
+  - icon: 🔎
+    title: Search-Ready by Default
+    details: Publish canonical metadata, social cards, JSON-LD, nested breadcrumbs, sitemap, robots controls, and language alternates without another SEO plugin.
+    link: /seo-and-discovery/
+    link_text: Explore SEO and discovery
 ---

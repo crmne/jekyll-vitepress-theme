@@ -31,6 +31,8 @@ The plugin side registers Jekyll hooks that run automatically at build time:
 - **Rouge syntax theme generation:** after reading site config, the plugin validates your configured Rouge theme names and generates scoped CSS for light and dark modes. Invalid theme names fall back to defaults with a warning.
 - **Version label resolution:** if `_data/versions.yml` sets `current: auto`, the plugin replaces it with the gem's version string (e.g., `v1.0.0`) at build time.
 - **Copy page markdown export:** before doc pages render, the plugin captures their raw Markdown for the "Copy page" button. After the site is written, it emits a plain `.md` sibling for each generated HTML doc page so "View as Markdown" works without external hosting assumptions. Disable this with `jekyll_vitepress.copy_page.enabled: false`.
+- **SEO and discovery:** each HTML page gets normalized search/social metadata and JSON-LD from the same canonical URL model used to generate `sitemap.xml` and `robots.txt`. The build excludes redirects, `404` pages, external-canonical duplicates, and `noindex` pages from the sitemap, and warns about missing or duplicate metadata.
+- **LLM discovery:** the plugin generates a concise `llms.txt` index and a complete `llms-full.txt` Markdown bundle from eligible pages and output collections. Both are theme-native and require no additional plugin.
 
 ## VitePress parity scope
 

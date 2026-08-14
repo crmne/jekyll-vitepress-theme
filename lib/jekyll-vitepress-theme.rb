@@ -1,3 +1,5 @@
 require 'jekyll'
 require_relative 'jekyll/vitepress_theme/version'
+require_relative 'jekyll/vitepress_theme/seo'
+require_relative 'jekyll/vitepress_theme/llms'
 require_relative 'jekyll/vitepress_theme/hooks'

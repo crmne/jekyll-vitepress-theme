@@ -5,6 +5,9 @@ baseurl: ""
 lang: en-US
 timezone: UTC
 logo: /assets/images/favicon/web-app-manifest-512x512.png
+author:
+  name: Carmine Paolino
+  url: https://paolino.me
 # This repo's docs site keeps its own include overrides outside gem payload.
 includes_dir: docs/_includes
 
@@ -56,6 +59,27 @@ defaults:
       layout: default
 
 jekyll_vitepress:
+  seo:
+    page_type: Article
+    image:
+      path: /assets/images/screenshots/home-light.png
+      alt: Jekyll VitePress Theme documentation homepage
+      width: 1600
+      height: 1000
+    publisher:
+      type: Organization
+      name: Jekyll VitePress Theme
+      url: https://jekyll-vitepress.dev
+      logo: /assets/images/favicon/web-app-manifest-512x512.png
+      same_as:
+        - https://github.com/crmne/jekyll-vitepress-theme
+        - https://rubygems.org/gems/jekyll-vitepress-theme
+  llms:
+    title: Jekyll VitePress Theme
+    description: Jekyll VitePress Theme is a VitePress-style documentation theme and plugin gem for Jekyll that also adds Jekyll-first extensions beyond VitePress.
+    full: true
+    details: >-
+      Jekyll VitePress Theme provides a VitePress-like documentation experience with Jekyll-native navigation, search, Markdown extensions, project integrations, SEO, and AI-readable discovery files. The canonical documentation is [jekyll-vitepress.dev](https://jekyll-vitepress.dev), the source is on [GitHub](https://github.com/crmne/jekyll-vitepress-theme), and releases are published on [RubyGems](https://rubygems.org/gems/jekyll-vitepress-theme).
   branding:
     site_title: Jekyll VitePress
     logo:
@@ -116,118 +140,9 @@ jekyll_vitepress:
   behavior:
     scroll_offset: 134
 
-ai_visible_content:
-  enabled: true
-  entity:
-    type: Organization
-    id_slug: jekyll-vitepress-theme
-    name: Jekyll VitePress Theme
-    alternate_names:
-      - Jekyll VitePress
-      - jekyll-vitepress-theme
-    description: a Jekyll theme and plugin gem that brings a VitePress-style documentation experience and Jekyll-first extensions to Ruby static sites.
-    image: /assets/images/favicon/web-app-manifest-512x512.png
-    knows_about:
-      - Jekyll
-      - VitePress
-      - Ruby
-      - GitHub Pages
-      - Markdown
-      - Liquid
-      - Kramdown
-      - Rouge
-      - Turbo Frames
-      - Static Site Generation
-      - Documentation Themes
-      - Local Search
-      - Dark Mode
-    same_as:
-      - https://github.com/crmne/jekyll-vitepress-theme
-      - https://rubygems.org/gems/jekyll-vitepress-theme
-  json_ld:
-    auto_inject: true
-    include_website_schema: false
-    include_breadcrumbs: true
-    include_blog_posting: false
-    include_faq: true
-    include_how_to: true
-    article_body: excerpt
-    compact: false
-  crawlers:
-    allow_gptbot: true
-    allow_perplexitybot: true
-    allow_claudebot: true
-    allow_googlebot: true
-    allow_bingbot: true
-    custom_rules:
-      - user_agent: OAI-SearchBot
-        directive: Allow
-        path: /
-      - user_agent: ChatGPT-User
-        directive: Allow
-        path: /
-      - user_agent: Claude-SearchBot
-        directive: Allow
-        path: /
-      - user_agent: Claude-User
-        directive: Allow
-        path: /
-    generate_robots_txt: true
-  llms_txt:
-    enabled: true
-    title: Jekyll VitePress Theme
-    description: Jekyll VitePress Theme is a VitePress-style documentation theme and plugin gem for Jekyll that also adds Jekyll-first extensions beyond VitePress.
-    include_full_text: false
-    sections:
-      - heading: Project
-        content: |-
-          Jekyll VitePress Theme gives Jekyll sites a VitePress-like documentation experience while going beyond baseline VitePress with Jekyll-first extensions: top navigation, sidebars, page outlines, local search, dark mode, code blocks, callouts, labels, project buttons, edit links, doc footers, and Turbo-powered content navigation.
-
-          For the mirrored VitePress behavior, see https://jekyll-vitepress.dev/vitepress-parity/. For features added beyond baseline VitePress, see https://jekyll-vitepress.dev/extensions-to-vitepress/.
-
-          The canonical documentation is https://jekyll-vitepress.dev. The source code is published at https://github.com/crmne/jekyll-vitepress-theme, and the Ruby gem is published at https://rubygems.org/gems/jekyll-vitepress-theme.
-      - heading: Documentation
-        content: |-
-          - [What Is Jekyll VitePress Theme?](https://jekyll-vitepress.dev/what-is-jekyll-vitepress-theme/): What Jekyll is, and what this theme adds on top.
-          - [Getting Started](https://jekyll-vitepress.dev/getting-started/): Install and run Jekyll VitePress Theme in a few minutes.
-          - [Configuration](https://jekyll-vitepress.dev/configuration/): Configure branding, nav, sidebars, edit links, and theme tokens.
-          - [Overview](https://jekyll-vitepress.dev/overview/): How the theme is structured and where Turbo, Jekyll, and VitePress-style UI meet.
-          - [Navigation and Layout](https://jekyll-vitepress.dev/navigation-layout/): How header, sidebar, content, and outline areas are composed.
-          - [Search and Outline](https://jekyll-vitepress.dev/search-and-outline/): Keyboard search, generated index, and active heading tracking.
-          - [Markdown Extensions](https://jekyll-vitepress.dev/markdown-extensions/): Header anchors, external links, tables, and other automatic enhancements.
-          - [Code Blocks](https://jekyll-vitepress.dev/code-blocks/): Copy buttons, language labels, syntax palettes, and file-title icons.
-          - [Custom Blocks](https://jekyll-vitepress.dev/custom-blocks/): VitePress-style custom containers for tips, warnings, details, and other highlighted content.
-          - [Callouts, Labels, and Buttons](https://jekyll-vitepress.dev/callouts-labels-buttons/): Just the Docs-style callout syntax, inline labels, and reusable project buttons rendered with VitePress-style UI.
-          - [Customizing Styles](https://jekyll-vitepress.dev/customizing-styles/): Override tokens, fonts, and appearance behavior.
-          - [Extending Behavior](https://jekyll-vitepress.dev/extending-behavior/): Extend via layout/include overrides and custom scripts.
-          - [Deployment](https://jekyll-vitepress.dev/deployment/): Deploy a single docs site by default, with optional multi-version mode.
-          - [Configuration Reference](https://jekyll-vitepress.dev/configuration-reference/): Complete jekyll_vitepress and _data/* reference with practical examples.
-          - [Frontmatter Reference](https://jekyll-vitepress.dev/frontmatter-reference/): Page-level frontmatter options used by the theme.
-          - [VitePress Parity](https://jekyll-vitepress.dev/vitepress-parity/): What this theme mirrors from VitePress and where the Jekyll implementation intentionally differs.
-          - [Extensions to VitePress](https://jekyll-vitepress.dev/extensions-to-vitepress/): Optional Jekyll-first extensions to baseline VitePress behavior.
-          - [Troubleshooting](https://jekyll-vitepress.dev/troubleshooting/): Common setup and runtime issues.
-  linking:
-    enable_entity_links: false
-    apply_to_metadata: false
-    enable_related_posts: false
-  validation:
-    warn_name_inconsistency: true
-    warn_missing_same_as: true
-    warn_missing_dates: true
-    warn_orphan_pages: true
-    warn_missing_descriptions: true
-    fail_build_on_error: false
-    content_only: true
-    verbose: false
-    max_examples: 5
-  ai_resources:
-    enabled: false
-
 plugins:
   - jekyll-vitepress-theme
-  - jekyll-ai-visible-content
   - jekyll-redirect-from
-  - jekyll-sitemap
 
 exclude:
   - _site
@@ -235,6 +150,7 @@ exclude:
   - vendor
   - node_modules
   - scripts
+  - test
   - lib
   - "*.gem"
   - jekyll-vitepress-theme.gemspec

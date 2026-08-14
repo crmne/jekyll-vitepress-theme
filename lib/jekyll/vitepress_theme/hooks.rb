@@ -520,18 +520,28 @@ Jekyll::Hooks.register :site, :post_read do |site|
   Jekyll::VitePressTheme::RougeStyles.apply(site)
   Jekyll::VitePressTheme::Sidebar.apply(site)
   Jekyll::VitePressTheme::SearchIndex.apply(site)
+  Jekyll::VitePressTheme::SEO.apply(site)
+  Jekyll::VitePressTheme::LLMS.apply(site)
 end
 
 capture_page_state = lambda do |item, payload|
   if Jekyll::VitePressTheme::CopyPage.enabled?(item)
     raw = Jekyll::VitePressTheme::CopyPage.resolved_markdown(item, payload)
     item.data['_raw_markdown'] = Jekyll::VitePressTheme::CopyPage.with_title(raw, item.data['title'])
+    payload['page']['_raw_markdown'] = item.data['_raw_markdown'] if payload['page'].is_a?(Hash)
   end
 
-  next if item.data.key?('last_updated_at')
+  unless item.data.key?('last_updated_at')
+    updated_at = Jekyll::VitePressTheme::LastUpdated.source_file_time(item.site, item.path)
+    item.data['last_updated_at'] = updated_at if updated_at
+  end
+  payload['page']['last_updated_at'] = item.data['last_updated_at'] if payload['page'].is_a?(Hash)
 
-  updated_at = Jekyll::VitePressTheme::LastUpdated.source_file_time(item.site, item.path)
-  item.data['last_updated_at'] = updated_at if updated_at
+  Jekyll::VitePressTheme::SEO.prepare(item)
+  if payload['page'].is_a?(Hash)
+    payload['page']['_seo'] = item.data['_seo']
+    payload['page']['_seo_disabled'] = item.data['_seo_disabled']
+  end
 end
 
 Jekyll::Hooks.register :documents, :pre_render, &capture_page_state

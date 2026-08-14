@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: 'en-US' }}">
+<html lang="{{ page._seo.language | default: page.lang | default: page.locale | default: site.lang | default: site.locale | default: 'en-US' }}"{% if page.dir or site.dir %} dir="{{ page.dir | default: site.dir }}"{% endif %}>
   {% include head.html %}
   {% assign theme = site.jekyll_vitepress %}
   {% assign behavior = theme.behavior %}
@@ -32,10 +32,12 @@
 
         <div class="VPContent{% if has_sidebar %} has-sidebar{% endif %}{% if is_home %} is-home{% endif %}" id="VPContent">
           {% if has_sidebar %}
-            {% assign frame_page_title = site.title %}
-            {% if page.title and page.title != site.title %}
-              {% capture frame_page_title %}{{ page.title }} | {{ site.title }}{% endcapture %}
-            {% endif %}
+            {% assign frame_page_title = page._seo.title | default: site.title %}
+            {% unless page._seo.title %}
+              {% if page.title and page.title != site.title %}
+                {% capture frame_page_title %}{{ page.title }} | {{ site.title }}{% endcapture %}
+              {% endif %}
+            {% endunless %}
             <turbo-frame id="vp-content-frame" target="_top">
               <div id="vp-page-state" hidden data-title="{{ frame_page_title | strip | escape }}" data-url="{{ page.url | relative_url }}" data-collection="{{ page.collection | default: '' | escape }}"></div>
               <div class="VPDoc has-sidebar has-aside">

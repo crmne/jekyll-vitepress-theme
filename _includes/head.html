@@ -1,37 +1,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% assign page_title = page.title | default: site.title %}
-  {% capture full_title %}{% if page_title and page_title != site.title %}{{ page_title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}{% endcapture %}
-  {% assign full_title = full_title | strip %}
-  {% assign page_description = page.description | default: site.description %}
-  {% assign canonical_url = page.canonical_url | default: page.url | absolute_url %}
-  {% assign page_image = page.image %}
-  {% assign seo_image = site.logo | default: '/assets/images/favicon/web-app-manifest-512x512.png' %}
-  {% if page_image %}
-    {% if page_image.src %}
-      {% assign seo_image = page_image.src %}
-    {% elsif page_image.path %}
-      {% assign seo_image = page_image.path %}
-    {% else %}
-      {% assign seo_image = page_image %}
-    {% endif %}
-  {% endif %}
-  {% assign seo_image_url = seo_image | absolute_url %}
-  <title>{{ full_title }}</title>
-  <meta name="description" content="{{ page_description | escape }}">
-  <meta name="robots" content="index,follow,max-image-preview:large">
-  <link rel="canonical" href="{{ canonical_url }}">
-  <meta property="og:site_name" content="{{ site.title | escape }}">
-  <meta property="og:title" content="{{ full_title | escape }}">
-  <meta property="og:description" content="{{ page_description | escape }}">
-  <meta property="og:url" content="{{ canonical_url }}">
-  <meta property="og:type" content="{% if page.url == '/' %}website{% else %}article{% endif %}">
-  <meta property="og:image" content="{{ seo_image_url }}">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ full_title | escape }}">
-  <meta name="twitter:description" content="{{ page_description | escape }}">
-  <meta name="twitter:image" content="{{ seo_image_url }}">
+  {% include seo.html %}
 
   {% assign theme = site.jekyll_vitepress %}
   {% assign branding = theme.branding %}
