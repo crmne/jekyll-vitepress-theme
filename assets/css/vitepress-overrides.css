@@ -2112,12 +2112,6 @@ html.dark .only-light {
   background: var(--vp-c-bg-soft);
 }
 
-a.copy-md-dropdown-item,
-a.copy-md-dropdown-item:hover {
-  text-decoration: none;
-  color: var(--vp-c-text-1);
-}
-
 .copy-md-dropdown-icon {
   flex-shrink: 0;
   width: 18px;
