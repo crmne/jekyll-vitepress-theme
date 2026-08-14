@@ -1427,6 +1427,7 @@
   var toggle = document.querySelector('.copy-md-toggle');
   var dropdown = document.querySelector('.copy-md-dropdown');
   var dropdownCopy = dropdown ? dropdown.querySelector('[data-action="copy"]') : null;
+  var dropdownView = dropdown ? dropdown.querySelector('[data-action="view-markdown"]') : null;
 
   function setCopyPageDropdownOpen(open) {
     if (!dropdown || !toggle) {
@@ -1476,6 +1477,16 @@
       dropdownCopy.addEventListener('click', function () {
         setCopyPageDropdownOpen(false);
         copyPageMarkdown(copyMdBtn);
+      });
+    }
+
+    dropdownView = dropdown ? dropdown.querySelector('[data-action="view-markdown"]') : null;
+    if (dropdownView && !dropdownView.hasAttribute('data-vp-bound')) {
+      dropdownView.setAttribute('data-vp-bound', 'true');
+      dropdownView.addEventListener('click', function () {
+        var url = dropdownView.getAttribute('data-url');
+        setCopyPageDropdownOpen(false);
+        if (url) window.open(url, '_blank', 'noopener,noreferrer');
       });
     }
   }
@@ -2262,6 +2273,7 @@
     toggle = document.querySelector('.copy-md-toggle');
     dropdown = document.querySelector('.copy-md-dropdown');
     dropdownCopy = dropdown ? dropdown.querySelector('[data-action="copy"]') : null;
+    dropdownView = dropdown ? dropdown.querySelector('[data-action="view-markdown"]') : null;
     bindCopyPageControls();
 
     addCopyButtons();

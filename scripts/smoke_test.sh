@@ -38,7 +38,11 @@ grep -q '"@type":"BreadcrumbList"' "${SITE_DIR}/getting-started/index.html" || {
 grep -q '<loc>https://jekyll-vitepress.dev/getting-started/</loc>' "${SITE_DIR}/sitemap.xml" || { echo "Smoke test failed: canonical URL missing from sitemap"; exit 1; }
 grep -Fq 'Disallow: /*.md$' "${SITE_DIR}/robots.txt" || { echo "Smoke test failed: generated Markdown is crawlable"; exit 1; }
 grep -q 'Sitemap: https://jekyll-vitepress.dev/sitemap.xml' "${SITE_DIR}/robots.txt" || { echo "Smoke test failed: sitemap missing from robots.txt"; exit 1; }
-grep -q 'rel="nofollow noreferrer"' "${SITE_DIR}/getting-started/index.html" || { echo "Smoke test failed: Markdown duplicate link is followable"; exit 1; }
+grep -q 'data-action="view-markdown"' "${SITE_DIR}/getting-started/index.html" || { echo "Smoke test failed: Markdown view control missing"; exit 1; }
+if grep -qE '<a[^>]+href="/[^"]+\.md"' "${SITE_DIR}/getting-started/index.html"; then
+  echo "Smoke test failed: Markdown duplicate exposed as a crawlable link"
+  exit 1
+fi
 grep -q '\[Getting Started\](https://jekyll-vitepress.dev/getting-started/)' "${SITE_DIR}/llms.txt" || { echo "Smoke test failed: canonical docs missing from llms.txt"; exit 1; }
 grep -q '^# Getting Started$' "${SITE_DIR}/llms-full.txt" || { echo "Smoke test failed: docs content missing from llms-full.txt"; exit 1; }
 grep -q 'This guide walks you through installing the theme' "${SITE_DIR}/llms-full.txt" || { echo "Smoke test failed: full docs body missing from llms-full.txt"; exit 1; }

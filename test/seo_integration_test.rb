@@ -31,7 +31,8 @@ class SeoIntegrationTest < Minitest::Test
       refute_includes sitemap, '/private/'
       assert_includes robots, 'Disallow: /*.md$'
       assert_includes robots, 'Sitemap: https://docs.example.test/manual/sitemap.xml'
-      assert_includes private_page, 'rel="nofollow noreferrer"'
+      assert_includes private_page, 'data-action="view-markdown"'
+      refute_match(%r{<a[^>]+href="/[^"]+\.md"}, private_page)
       assert_includes private_page, 'data-title="Downstream Docs — Internal Preview"'
       assert_llm_discovery(llms, llms_full)
 
