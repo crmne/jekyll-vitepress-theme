@@ -11,8 +11,6 @@ apply unless a more specific instruction in this repository says otherwise.
 - Keep history linear. Make one focused commit per topic, never create merge
   commits, update with fast-forward-only pulls, and rebase unpublished work
   when necessary.
-- Create releases only from tags whose commits are reachable from the default
-  branch. Never publish a release from an unmerged branch.
 - Keep changes within the requested scope. Preserve existing behavior unless
   the task explicitly changes it.
 - Add focused regression tests for changed behavior and update documentation
