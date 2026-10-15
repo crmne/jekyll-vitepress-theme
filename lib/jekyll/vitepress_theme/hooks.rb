@@ -318,24 +318,6 @@ module Jekyll
       end
     end
 
-    module LastUpdated
-      module_function
-
-      def source_file_time(site, path)
-        return nil unless path
-
-        source_path = if Pathname.new(path).absolute?
-                        path
-                      else
-                        File.join(site.source, path)
-                      end
-
-        return nil unless File.file?(source_path)
-
-        File.mtime(source_path).utc
-      end
-    end
-
     module RougeStyles
       module_function
 

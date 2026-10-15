@@ -252,6 +252,17 @@ jekyll_vitepress:
 
 If `github_sponsor.url` is omitted, the theme links to `https://github.com/sponsors/:user`.
 If `gem_downloads.url` is omitted, the page-level downloads include links to `https://rubygems.org/gems/:name`.
+The last-updated date is the time of the last commit that touched the page's source file, read from Git once per build. A file that is untracked, has uncommitted changes, or lives outside a Git repository uses its file modification time, so a local preview shows the page you are editing as just updated. A moved or renamed page reports the commit that moved it. Set `jekyll_vitepress.last_updated_at` in a page's frontmatter to pin a date.
+
+CI checkouts are often shallow, which hides older history. In a shallow clone, pages whose last change is older than the fetched history use their file modification time, which is the checkout time, and the build prints a warning. Fetch the full history so every page gets its real date. With GitHub Actions:
+
+```yaml
+- uses: actions/checkout@v6
+  with:
+    fetch-depth: 0
+```
+{: data-title=".github/workflows/docs.yml"}
+
 If `last_updated.format` is `vitepress`, the static fallback is replaced in the browser using `Intl.DateTimeFormat` with medium date and medium time, matching VitePress. Use a Jekyll strftime string such as `"%b %-d, %Y, %-I:%M:%S %p"` for a static custom format.
 
 ### Copy Page

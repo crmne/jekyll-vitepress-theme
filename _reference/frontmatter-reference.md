@@ -72,7 +72,7 @@ These keys can be set in any page's frontmatter to control theme behavior on a p
 - `jekyll_vitepress.doc_footer: false`: hides the entire doc footer (prev/next pager, edit link, last updated).
 - `jekyll_vitepress.edit_link: false`: hides the edit link for this page only.
 - `jekyll_vitepress.last_updated: false`: hides the last-updated timestamp for this page only.
-- `jekyll_vitepress.last_updated_at`: manually override the last-updated timestamp instead of using the file's modification time.
+- `jekyll_vitepress.last_updated_at`: manually override the last-updated timestamp instead of using the page's last Git commit date.
 - `jekyll_vitepress.prev: false` / `jekyll_vitepress.next: false`: disables one side of the pager navigation.
 
 ## SEO example
