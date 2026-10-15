@@ -4,7 +4,7 @@ PATH
     jekyll-vitepress-theme (1.10.0)
       cgi (>= 0.3, < 1.0)
       jekyll (>= 4.3, < 5.0)
-      rouge (>= 3.0, < 5.0)
+      rouge (>= 4.1, < 6.0)
 
 GEM
   remote: https://rubygems.org/
