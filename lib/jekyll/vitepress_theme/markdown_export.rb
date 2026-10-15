@@ -11,7 +11,7 @@ module Jekyll
     # the exported .md files, and llms-full.txt all share it. Fenced code
     # blocks and code spans pass through untouched, and a page without HTML
     # comes back unchanged.
-    # rubocop:disable Metrics/AbcSize, Metrics/ModuleLength
+    # rubocop:disable-next Metrics/AbcSize, Metrics/ModuleLength
     module MarkdownExport
       module_function
 
@@ -277,7 +277,7 @@ module Jekyll
       def dedent(text)
         lines = text.split("\n", -1)
         indents = lines.drop(1).reject { |line| line.strip.empty? || line.match?(/\A[ \t]*#{BLOCK_CODE_PATTERN.source}/) }
-                               .map { |line| line[/\A[ \t]*/].length }
+                       .map { |line| line[/\A[ \t]*/].length }
         indent = indents.min.to_i
         return text if indent.zero?
 
@@ -632,6 +632,5 @@ module Jekyll
         nil
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/ModuleLength
   end
 end

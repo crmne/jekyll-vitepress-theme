@@ -10,7 +10,7 @@ module Jekyll
     # Generates the metadata shared by the HTML head, sitemap, and robots.txt.
     # Keeping those outputs on one canonical URL resolver prevents contradictory
     # indexing signals across theme consumers.
-    # rubocop:disable Metrics/AbcSize, Metrics/ModuleLength
+    # rubocop:disable-next Metrics/AbcSize, Metrics/ModuleLength
     module SEO
       module_function
 
@@ -588,6 +588,5 @@ module Jekyll
         CGI.escapeHTML(value.to_s)
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/ModuleLength
   end
 end

@@ -4,7 +4,7 @@ gemspec
 
 group :development do
   gem "jekyll-redirect-from", "~> 0.16"
-  gem "minitest", "~> 5.25"
+  gem "minitest", ">= 5.25"
   gem "overcommit", ">= 0.66"
   gem "rubocop", ">= 1.70"
   gem "webrick", "~> 1.9"

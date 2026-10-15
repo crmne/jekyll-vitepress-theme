@@ -4,7 +4,7 @@ module Jekyll
   module VitePressTheme
     # Generates the proposed llms.txt index and its full-text companion from
     # the same canonical, indexable content used by the theme's SEO layer.
-    # rubocop:disable Metrics/AbcSize, Metrics/ModuleLength
+    # rubocop:disable-next Metrics/AbcSize, Metrics/ModuleLength
     module LLMS
       module_function
 
@@ -231,6 +231,5 @@ module Jekyll
         value.is_a?(Hash) ? value : {}
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/ModuleLength
   end
 end

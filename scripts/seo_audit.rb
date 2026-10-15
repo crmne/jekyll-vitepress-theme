@@ -11,7 +11,7 @@ abort "SEO audit failed: site directory not found (#{site_dir})" unless site_dir
 errors = []
 records = []
 
-# rubocop:disable Metrics/BlockLength
+# rubocop:disable-next Metrics/BlockLength
 site_dir.glob('**/*.html').sort.each do |path|
   html = path.read
   next if html.match?(/<meta[^>]+http-equiv=["']refresh["']/i)
@@ -75,7 +75,6 @@ site_dir.glob('**/*.html').sort.each do |path|
     noindex: robots.to_s.downcase.split(',').map(&:strip).intersect?(%w[noindex none])
   }
 end
-# rubocop:enable Metrics/BlockLength
 
 %i[title description canonical].each do |field|
   records.group_by { |record| record[field] }.each do |value, matches|

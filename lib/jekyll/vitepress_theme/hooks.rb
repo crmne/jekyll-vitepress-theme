@@ -3,7 +3,7 @@ require 'rouge'
 
 module Jekyll
   module VitePressTheme
-    # rubocop:disable Metrics/ModuleLength
+    # rubocop:disable-next Metrics/ModuleLength
     module Sidebar
       module_function
 
@@ -243,7 +243,6 @@ module Jekyll
         )
       end
     end
-    # rubocop:enable Metrics/ModuleLength
 
     module SearchIndex
       module_function
