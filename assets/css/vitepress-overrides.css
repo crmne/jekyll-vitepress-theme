@@ -985,7 +985,7 @@ body.vp-search-open {
   height: 100%;
   padding: 18px;
   object-fit: contain;
-  filter: drop-shadow(-2px 4px 6px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(-2px 4px 6px rgb(0, 0, 0, 0.2));
   transform: translate(-50%, -50%);
 }
 
