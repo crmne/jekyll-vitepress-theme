@@ -19,5 +19,9 @@
     "markdownlint-cli2": "^0",
     "stylelint": "^17",
     "stylelint-config-standard": "^40"
+  },
+  "overrides": {
+    "katex": "^0.18.2",
+    "smol-toml": "^1.9.1"
   }
 }
