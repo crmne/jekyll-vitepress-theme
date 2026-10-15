@@ -14,10 +14,10 @@
   "devDependencies": {
     "@hotwired/turbo": "^8",
     "@iconify-json/simple-icons": "^1",
-    "eslint": "^9",
-    "globals": "^16",
+    "eslint": "^10",
+    "globals": "^17",
     "markdownlint-cli2": "^0",
-    "stylelint": "^16",
-    "stylelint-config-standard": "^37"
+    "stylelint": "^17",
+    "stylelint-config-standard": "^40"
   }
 }
