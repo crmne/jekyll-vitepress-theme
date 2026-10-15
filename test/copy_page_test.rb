@@ -6,6 +6,7 @@ class CopyPageTest < Minitest::Test
   FakeSite = Struct.new(:config)
   FakeItem = Struct.new(:site, :data)
   FakeDocument = Struct.new(:content)
+  FakePage = Struct.new(:site, :data, :content)
 
   def site(config = {})
     FakeSite.new(config)
@@ -90,5 +91,30 @@ class CopyPageTest < Minitest::Test
     document = FakeDocument.new("<p>See <a href=\"/chat/\">the guide</a>.</p>\n\n```html\n<p>kept</p>\n```\n")
 
     assert_equal "See [the guide](/chat/).\n\n```html\n<p>kept</p>\n```\n", CopyPage.resolved_markdown(document, {})
+  end
+
+  def test_resolved_markdown_starts_home_pages_with_their_hero
+    hero = {
+      'name' => 'RubyLLM',
+      'text' => 'The Ruby <span class="highlight">AI framework</span>',
+      'tagline' => 'Build AI features <em class="x">the Ruby way</em>.',
+      'actions' => [
+        { 'text' => 'Get started', 'link' => '/getting-started/' },
+        { 'text' => 'GitHub', 'link' => 'https://github.com/crmne/ruby_llm' }
+      ]
+    }
+    page = FakePage.new(site('baseurl' => '/next'), { 'title' => 'RubyLLM', 'hero' => hero }, "<h2>Install</h2>\n")
+
+    expected = "The Ruby AI framework\n\nBuild AI features *the Ruby way*.\n\n" \
+               "[Get started](/next/getting-started/) · [GitHub](https://github.com/crmne/ruby_llm)\n\n## Install\n"
+
+    assert_equal expected, CopyPage.resolved_markdown(page, {})
+    assert_equal "# RubyLLM\n\n#{expected}", CopyPage.with_title(expected, 'RubyLLM')
+  end
+
+  def test_hero_name_appears_when_it_differs_from_the_title
+    page = FakePage.new(site, { 'title' => 'Home', 'hero' => { 'name' => 'Acme', 'text' => 'Docs' } }, '')
+
+    assert_equal "**Acme**\n\nDocs\n", CopyPage.resolved_markdown(page, {})
   end
 end

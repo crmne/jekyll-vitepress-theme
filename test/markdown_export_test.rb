@@ -262,6 +262,54 @@ class MarkdownExportTest < Minitest::Test
     assert_equal "Lead paragraph.\n\n> Remember this.\n", convert(markdown)
   end
 
+  def test_code_titles_from_ials_precede_their_fence
+    markdown = <<~MARKDOWN
+      Configure it:
+      ```yaml
+      title: Docs
+      ```
+      {: data-title="_config.yml"}
+
+      ```ruby
+      requires_approval
+      ```
+      {: .home-code-card data-title="Require human approval" data-href="/next/tool-execution/#requiring-approval" }
+
+      - In a list:
+
+        ```ruby
+        chat.ask "Hi"
+        ```
+        {: data-title='app/models/chat.rb' }
+    MARKDOWN
+
+    expected = <<~MARKDOWN
+      Configure it:
+
+      **_config.yml**
+
+      ```yaml
+      title: Docs
+      ```
+
+      **[Require human approval](/next/tool-execution/#requiring-approval)**
+
+      ```ruby
+      requires_approval
+      ```
+
+      - In a list:
+
+        **app/models/chat.rb**
+
+        ```ruby
+        chat.ask "Hi"
+        ```
+    MARKDOWN
+
+    assert_equal expected, convert(markdown)
+  end
+
   def test_highlighted_html_code_becomes_a_fenced_block
     html = <<~HTML
       <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">chat</span><span class="p">.</span><span class="nf">ask</span> <span class="s2">"&lt;hi&gt;"</span>
@@ -328,6 +376,8 @@ class MarkdownExportTest < Minitest::Test
       Ask a question with `chat.ask`.
 
       [Chat guide](/next/chat/)
+
+      **Ask**
 
       ```ruby
       chat = RubyLLM.chat

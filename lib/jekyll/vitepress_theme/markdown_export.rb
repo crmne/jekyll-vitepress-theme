@@ -113,6 +113,7 @@ module Jekyll
             prose = +''
             block = lines[index..closing].join
             newline = block.end_with?("\n") ? "\n" : ''
+            output << code_title(lines[closing + 1], match[1], output)
             output << register(codes, block.chomp, BLOCK_CODE) << newline
             index = closing + 1
           else
@@ -126,6 +127,25 @@ module Jekyll
       def closing_fence_index(lines, start, fence)
         closing = /\A(?:[ \t]*>)*[ \t]*#{Regexp.escape(fence[0])}{#{fence.length},}[ \t]*\z/
         ((start + 1)...lines.length).find { |i| lines[i].chomp.match?(closing) } || (lines.length - 1)
+      end
+
+      # The IAL after a fence gives the code block its title bar, so the title
+      # moves to a line of its own before the fence when the IAL goes.
+      def code_title(line, prefix, output)
+        return '' unless line&.match?(IAL_LINE_PATTERN)
+
+        title = ial_value(line, 'data-title')
+        return '' if title.empty?
+
+        href = ial_value(line, 'data-href')
+        title = "[#{title}](#{href})" unless href.empty?
+        separator = output.empty? || output.end_with?("\n\n") ? '' : "#{prefix.rstrip}\n"
+        "#{separator}#{prefix}**#{title}**\n#{prefix.rstrip}\n"
+      end
+
+      def ial_value(line, name)
+        match = line.match(/(?:\A|[\s{:])#{Regexp.escape(name)}=(?:"([^"]*)"|'([^']*)')/)
+        match ? decode(match[1] || match[2]).strip : ''
       end
 
       def protect_spans(text, codes)

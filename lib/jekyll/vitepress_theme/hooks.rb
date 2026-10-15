@@ -475,7 +475,51 @@ module Jekyll
       end
 
       def resolved_markdown(item, payload)
-        MarkdownExport.convert(rendered_markdown(item, payload))
+        markdown = MarkdownExport.convert(rendered_markdown(item, payload))
+        hero = hero_markdown(item)
+        return markdown if hero.empty?
+
+        markdown.to_s.strip.empty? ? "#{hero}\n" : "#{hero}\n\n#{markdown}"
+      end
+
+      # A home page keeps its headline, tagline, and calls to action in the
+      # hero front matter rather than in the page content.
+      def hero_markdown(item)
+        data = item.respond_to?(:data) && item.data.is_a?(Hash) ? item.data : {}
+        hero = data['hero']
+        return '' unless hero.is_a?(Hash)
+
+        [hero_name(hero, data['title']), inline_markdown(hero['text']), inline_markdown(hero['tagline']),
+         hero_actions(item, hero['actions'])].reject(&:empty?).join("\n\n")
+      end
+
+      def hero_name(hero, title)
+        name = inline_markdown(hero['name'])
+        name.empty? || name == inline_markdown(title) ? '' : "**#{name}**"
+      end
+
+      def inline_markdown(text)
+        MarkdownExport.convert(text.to_s).strip
+      end
+
+      def hero_actions(item, actions)
+        return '' unless actions.is_a?(Array)
+
+        actions.filter_map do |action|
+          next unless action.is_a?(Hash)
+
+          text = inline_markdown(action['text'])
+          link = action['link'].to_s.strip
+          next if text.empty?
+
+          link.empty? ? text : "[#{text}](#{site_relative(item, link)})"
+        end.join(' · ')
+      end
+
+      def site_relative(item, link)
+        return link if link.include?('://') || link.start_with?('mailto:', 'tel:')
+
+        "#{item.site.config['baseurl'].to_s.sub(%r{/+\z}, '')}/#{link.sub(%r{\A/+}, '')}"
       end
 
       def rendered_markdown(item, payload)
