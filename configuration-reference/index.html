@@ -475,7 +475,7 @@
               
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu"><span class="text">
-                      <span>v1.10.0</span>
+                      <span>v1.10.1</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -670,7 +670,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.10.0</span>
+            <span class="button-text">v1.10.1</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1711,6 +1711,18 @@ jekyll_vitepress:
 
 If `github_sponsor.url` is omitted, the theme links to `https://github.com/sponsors/:user`.
 If `gem_downloads.url` is omitted, the page-level downloads include links to `https://rubygems.org/gems/:name`.
+The last-updated date is the time of the last commit that touched the page&apos;s source file, read from Git once per build. A file that is untracked, has uncommitted changes, or lives outside a Git repository uses its file modification time, so a local preview shows the page you are editing as just updated. A moved or renamed page reports the commit that moved it. Set `jekyll_vitepress.last_updated_at` in a page&apos;s frontmatter to pin a date.
+
+CI checkouts are often shallow, which hides older history. In a shallow clone, pages whose last change is older than the fetched history use their file modification time, which is the checkout time, and the build prints a warning. Fetch the full history so every page gets its real date. With GitHub Actions:
+
+**.github/workflows/docs.yml**
+
+```yaml
+- uses: actions/checkout@v6
+  with:
+    fetch-depth: 0
+```
+
 If `last_updated.format` is `vitepress`, the static fallback is replaced in the browser using `Intl.DateTimeFormat` with medium date and medium time, matching VitePress. Use a Jekyll strftime string such as `&quot;%b %-d, %Y, %-I:%M:%S %p&quot;` for a static custom format.
 
 ### Copy Page
@@ -2141,7 +2153,16 @@ If the files are absent in your site, the theme&apos;s empty defaults are used.
 
 <p>If <code class="language-plaintext highlighter-rouge">github_sponsor.url</code> is omitted, the theme links to <code class="language-plaintext highlighter-rouge">https://github.com/sponsors/:user</code>.
 If <code class="language-plaintext highlighter-rouge">gem_downloads.url</code> is omitted, the page-level downloads include links to <code class="language-plaintext highlighter-rouge">https://rubygems.org/gems/:name</code>.
-If <code class="language-plaintext highlighter-rouge">last_updated.format</code> is <code class="language-plaintext highlighter-rouge">vitepress</code>, the static fallback is replaced in the browser using <code class="language-plaintext highlighter-rouge">Intl.DateTimeFormat</code> with medium date and medium time, matching VitePress. Use a Jekyll strftime string such as <code class="language-plaintext highlighter-rouge">"%b %-d, %Y, %-I:%M:%S %p"</code> for a static custom format.</p>
+The last-updated date is the time of the last commit that touched the page’s source file, read from Git once per build. A file that is untracked, has uncommitted changes, or lives outside a Git repository uses its file modification time, so a local preview shows the page you are editing as just updated. A moved or renamed page reports the commit that moved it. Set <code class="language-plaintext highlighter-rouge">jekyll_vitepress.last_updated_at</code> in a page’s frontmatter to pin a date.</p>
+
+<p>CI checkouts are often shallow, which hides older history. In a shallow clone, pages whose last change is older than the fetched history use their file modification time, which is the checkout time, and the build prints a warning. Fetch the full history so every page gets its real date. With GitHub Actions:</p>
+
+<div data-title=".github/workflows/docs.yml" class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v6</span>
+  <span class="na">with</span><span class="pi">:</span>
+    <span class="na">fetch-depth</span><span class="pi">:</span> <span class="m">0</span>
+</code></pre></div></div>
+
+<p>If <code class="language-plaintext highlighter-rouge">last_updated.format</code> is <code class="language-plaintext highlighter-rouge">vitepress</code>, the static fallback is replaced in the browser using <code class="language-plaintext highlighter-rouge">Intl.DateTimeFormat</code> with medium date and medium time, matching VitePress. Use a Jekyll strftime string such as <code class="language-plaintext highlighter-rouge">"%b %-d, %Y, %-I:%M:%S %p"</code> for a static custom format.</p>
 
 <h3 id="copy-page">Copy Page</h3>
 
@@ -2391,7 +2412,7 @@ If <code class="language-plaintext highlighter-rouge">last_updated.format</code>
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T09:00:55+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 9:00:55 AM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T09:05:48+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 9:05:48 AM</time></p>
           </div>
         
       </div>

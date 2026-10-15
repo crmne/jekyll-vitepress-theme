@@ -29,7 +29,7 @@ These differences are intentional. The functionality is equivalent where possibl
 - **[Configuration](/configuration/):** theme options live in `_config.yml` under `jekyll_vitepress`, not in `.vitepress/config.js`.
 - **[Navigation data](/navigation-layout/#top-navigation):** nav, sidebar, social, and version data live in `_data/*.yml`, not JavaScript config.
 - **[Syntax highlighting](/code-blocks/#syntax-highlighting):** highlighting uses Rouge themes instead of Shiki.
-- **[Last updated](/configuration-reference/#edit-link-last-updated-github-star-github-sponsor-and-gem-downloads):** timestamps are populated by Jekyll plugin hooks instead of Git history.
+- **[Last updated](/configuration-reference/#edit-link-last-updated-github-star-github-sponsor-and-gem-downloads):** timestamps come from Git history, like VitePress, through a Jekyll plugin hook. Files Git cannot date fall back to their modification time.
 - **[Extension hooks](/extending-behavior/):** customization uses layout/include overrides and custom scripts instead of Vue slots.
 - **[Turbo navigation](/overview/#theme-assets):** fast page changes use Turbo Frames around the docs content instead of a client-side router.
 

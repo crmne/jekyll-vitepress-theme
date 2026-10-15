@@ -475,7 +475,7 @@
               
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu"><span class="text">
-                      <span>v1.10.0</span>
+                      <span>v1.10.1</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -670,7 +670,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.10.0</span>
+            <span class="button-text">v1.10.1</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1521,7 +1521,7 @@ These keys can be set in any page&apos;s frontmatter to control theme behavior o
 - `jekyll_vitepress.doc_footer: false`: hides the entire doc footer (prev/next pager, edit link, last updated).
 - `jekyll_vitepress.edit_link: false`: hides the edit link for this page only.
 - `jekyll_vitepress.last_updated: false`: hides the last-updated timestamp for this page only.
-- `jekyll_vitepress.last_updated_at`: manually override the last-updated timestamp instead of using the file&apos;s modification time.
+- `jekyll_vitepress.last_updated_at`: manually override the last-updated timestamp instead of using the page&apos;s last Git commit date.
 - `jekyll_vitepress.prev: false` / `jekyll_vitepress.next: false`: disables one side of the pager navigation.
 
 ## SEO example
@@ -1633,7 +1633,7 @@ jekyll_vitepress:
   <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.doc_footer: false</code>: hides the entire doc footer (prev/next pager, edit link, last updated).</li>
   <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.edit_link: false</code>: hides the edit link for this page only.</li>
   <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.last_updated: false</code>: hides the last-updated timestamp for this page only.</li>
-  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.last_updated_at</code>: manually override the last-updated timestamp instead of using the file’s modification time.</li>
+  <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.last_updated_at</code>: manually override the last-updated timestamp instead of using the page’s last Git commit date.</li>
   <li><code class="language-plaintext highlighter-rouge">jekyll_vitepress.prev: false</code> / <code class="language-plaintext highlighter-rouge">jekyll_vitepress.next: false</code>: disables one side of the pager navigation.</li>
 </ul>
 
@@ -1764,7 +1764,7 @@ jekyll_vitepress:
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T09:00:55+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 9:00:55 AM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T09:05:48+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 9:05:48 AM</time></p>
           </div>
         
       </div>

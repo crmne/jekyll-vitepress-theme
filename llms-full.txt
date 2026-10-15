@@ -420,7 +420,7 @@ There is no app bundle to build. The shipped assets are plain HTML, CSS, JavaScr
 
 The plugin side registers Jekyll hooks that run automatically at build time:
 
-- **Last-updated timestamps:** before each page renders, the plugin reads the source file's modification time and sets `last_updated_at` in frontmatter. This means your doc footers can show "Last updated" dates without you touching frontmatter manually.
+- **Last-updated timestamps:** before each page renders, the plugin sets `last_updated_at` to the date of the last Git commit that touched the page's source file, read from one `git log` pass per build. Untracked and locally edited files, and sites outside a Git repository, use the file's modification time. This means your doc footers can show "Last updated" dates without you touching frontmatter manually.
 - **Rouge syntax theme generation:** after reading site config, the plugin validates your configured Rouge theme names and generates scoped CSS for light and dark modes. Invalid theme names fall back to defaults with a warning.
 - **Version label resolution:** if `_data/versions.yml` sets `current: auto`, the plugin replaces it with the gem's version string (e.g., `v1.0.0`) at build time.
 - **Copy page markdown export:** before doc pages render, the plugin captures their raw Markdown for the "Copy page" button. After the site is written, it emits a plain `.md` sibling for each generated HTML doc page so "View as Markdown" works without external hosting assumptions. HTML in the page source, written inline or produced by includes, is converted to Markdown, and fenced code stays exactly as written. Disable this with `jekyll_vitepress.copy_page.enabled: false`.
@@ -1557,6 +1557,18 @@ jekyll_vitepress:
 
 If `github_sponsor.url` is omitted, the theme links to `https://github.com/sponsors/:user`.
 If `gem_downloads.url` is omitted, the page-level downloads include links to `https://rubygems.org/gems/:name`.
+The last-updated date is the time of the last commit that touched the page's source file, read from Git once per build. A file that is untracked, has uncommitted changes, or lives outside a Git repository uses its file modification time, so a local preview shows the page you are editing as just updated. A moved or renamed page reports the commit that moved it. Set `jekyll_vitepress.last_updated_at` in a page's frontmatter to pin a date.
+
+CI checkouts are often shallow, which hides older history. In a shallow clone, pages whose last change is older than the fetched history use their file modification time, which is the checkout time, and the build prints a warning. Fetch the full history so every page gets its real date. With GitHub Actions:
+
+**.github/workflows/docs.yml**
+
+```yaml
+- uses: actions/checkout@v6
+  with:
+    fetch-depth: 0
+```
+
 If `last_updated.format` is `vitepress`, the static fallback is replaced in the browser using `Intl.DateTimeFormat` with medium date and medium time, matching VitePress. Use a Jekyll strftime string such as `"%b %-d, %Y, %-I:%M:%S %p"` for a static custom format.
 
 ### Copy Page
@@ -1805,7 +1817,7 @@ These keys can be set in any page's frontmatter to control theme behavior on a p
 - `jekyll_vitepress.doc_footer: false`: hides the entire doc footer (prev/next pager, edit link, last updated).
 - `jekyll_vitepress.edit_link: false`: hides the edit link for this page only.
 - `jekyll_vitepress.last_updated: false`: hides the last-updated timestamp for this page only.
-- `jekyll_vitepress.last_updated_at`: manually override the last-updated timestamp instead of using the file's modification time.
+- `jekyll_vitepress.last_updated_at`: manually override the last-updated timestamp instead of using the page's last Git commit date.
 - `jekyll_vitepress.prev: false` / `jekyll_vitepress.next: false`: disables one side of the pager navigation.
 
 ## SEO example
@@ -1884,7 +1896,7 @@ These differences are intentional. The functionality is equivalent where possibl
 - **[Configuration](/configuration/):** theme options live in `_config.yml` under `jekyll_vitepress`, not in `.vitepress/config.js`.
 - **[Navigation data](/navigation-layout/#top-navigation):** nav, sidebar, social, and version data live in `_data/*.yml`, not JavaScript config.
 - **[Syntax highlighting](/code-blocks/#syntax-highlighting):** highlighting uses Rouge themes instead of Shiki.
-- **[Last updated](/configuration-reference/#edit-link-last-updated-github-star-github-sponsor-and-gem-downloads):** timestamps are populated by Jekyll plugin hooks instead of Git history.
+- **[Last updated](/configuration-reference/#edit-link-last-updated-github-star-github-sponsor-and-gem-downloads):** timestamps come from Git history, like VitePress, through a Jekyll plugin hook. Files Git cannot date fall back to their modification time.
 - **[Extension hooks](/extending-behavior/):** customization uses layout/include overrides and custom scripts instead of Vue slots.
 - **[Turbo navigation](/overview/#theme-assets):** fast page changes use Turbo Frames around the docs content instead of a client-side router.
 
@@ -1994,6 +2006,13 @@ plugins:
 
 - Check that `jekyll_vitepress.last_updated.enabled` is not set to `false`.
 - If a specific page has `jekyll_vitepress.last_updated: false` in its frontmatter, the timestamp is hidden for that page only.
+
+## Last updated shows the build time
+
+- Every page showing the same date, close to when the site was built, means Git could not date the pages. The build prints a warning when the checkout is shallow.
+- Fetch the full history in CI. With GitHub Actions, set `fetch-depth: 0` on `actions/checkout`.
+- Make sure the build runs inside the Git checkout and that `git` is installed on the build machine.
+- Pages with uncommitted changes intentionally use their file modification time.
 
 ## Theme looks unstyled
 

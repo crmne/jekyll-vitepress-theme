@@ -23,7 +23,7 @@ There is no app bundle to build. The shipped assets are plain HTML, CSS, JavaScr
 
 The plugin side registers Jekyll hooks that run automatically at build time:
 
-- **Last-updated timestamps:** before each page renders, the plugin reads the source file's modification time and sets `last_updated_at` in frontmatter. This means your doc footers can show "Last updated" dates without you touching frontmatter manually.
+- **Last-updated timestamps:** before each page renders, the plugin sets `last_updated_at` to the date of the last Git commit that touched the page's source file, read from one `git log` pass per build. Untracked and locally edited files, and sites outside a Git repository, use the file's modification time. This means your doc footers can show "Last updated" dates without you touching frontmatter manually.
 - **Rouge syntax theme generation:** after reading site config, the plugin validates your configured Rouge theme names and generates scoped CSS for light and dark modes. Invalid theme names fall back to defaults with a warning.
 - **Version label resolution:** if `_data/versions.yml` sets `current: auto`, the plugin replaces it with the gem's version string (e.g., `v1.0.0`) at build time.
 - **Copy page markdown export:** before doc pages render, the plugin captures their raw Markdown for the "Copy page" button. After the site is written, it emits a plain `.md` sibling for each generated HTML doc page so "View as Markdown" works without external hosting assumptions. HTML in the page source, written inline or produced by includes, is converted to Markdown, and fenced code stays exactly as written. Disable this with `jekyll_vitepress.copy_page.enabled: false`.

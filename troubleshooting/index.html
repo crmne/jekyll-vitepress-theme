@@ -475,7 +475,7 @@
               
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu"><span class="text">
-                      <span>v1.10.0</span>
+                      <span>v1.10.1</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -670,7 +670,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.10.0</span>
+            <span class="button-text">v1.10.1</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1494,6 +1494,13 @@ plugins:
 - Check that `jekyll_vitepress.last_updated.enabled` is not set to `false`.
 - If a specific page has `jekyll_vitepress.last_updated: false` in its frontmatter, the timestamp is hidden for that page only.
 
+## Last updated shows the build time
+
+- Every page showing the same date, close to when the site was built, means Git could not date the pages. The build prints a warning when the checkout is shallow.
+- Fetch the full history in CI. With GitHub Actions, set `fetch-depth: 0` on `actions/checkout`.
+- Make sure the build runs inside the Git checkout and that `git` is installed on the build machine.
+- Pages with uncommitted changes intentionally use their file modification time.
+
 ## Theme looks unstyled
 
 - Confirm the gem is installed: run `bundle list | grep vitepress` and check the output.
@@ -1568,6 +1575,15 @@ plugins:
 <ul>
   <li>Check that <code class="language-plaintext highlighter-rouge">jekyll_vitepress.last_updated.enabled</code> is not set to <code class="language-plaintext highlighter-rouge">false</code>.</li>
   <li>If a specific page has <code class="language-plaintext highlighter-rouge">jekyll_vitepress.last_updated: false</code> in its frontmatter, the timestamp is hidden for that page only.</li>
+</ul>
+
+<h2 id="last-updated-shows-the-build-time">Last updated shows the build time</h2>
+
+<ul>
+  <li>Every page showing the same date, close to when the site was built, means Git could not date the pages. The build prints a warning when the checkout is shallow.</li>
+  <li>Fetch the full history in CI. With GitHub Actions, set <code class="language-plaintext highlighter-rouge">fetch-depth: 0</code> on <code class="language-plaintext highlighter-rouge">actions/checkout</code>.</li>
+  <li>Make sure the build runs inside the Git checkout and that <code class="language-plaintext highlighter-rouge">git</code> is installed on the build machine.</li>
+  <li>Pages with uncommitted changes intentionally use their file modification time.</li>
 </ul>
 
 <h2 id="theme-looks-unstyled">Theme looks unstyled</h2>
@@ -1702,7 +1718,7 @@ plugins:
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T09:00:55+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 9:00:55 AM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T09:05:48+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 9:05:48 AM</time></p>
           </div>
         
       </div>

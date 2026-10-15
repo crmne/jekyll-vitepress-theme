@@ -39,6 +39,13 @@ plugins:
 - Check that `jekyll_vitepress.last_updated.enabled` is not set to `false`.
 - If a specific page has `jekyll_vitepress.last_updated: false` in its frontmatter, the timestamp is hidden for that page only.
 
+## Last updated shows the build time
+
+- Every page showing the same date, close to when the site was built, means Git could not date the pages. The build prints a warning when the checkout is shallow.
+- Fetch the full history in CI. With GitHub Actions, set `fetch-depth: 0` on `actions/checkout`.
+- Make sure the build runs inside the Git checkout and that `git` is installed on the build machine.
+- Pages with uncommitted changes intentionally use their file modification time.
+
 ## Theme looks unstyled
 
 - Confirm the gem is installed: run `bundle list | grep vitepress` and check the output.

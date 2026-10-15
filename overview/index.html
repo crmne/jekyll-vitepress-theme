@@ -475,7 +475,7 @@
               
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu"><span class="text">
-                      <span>v1.10.0</span>
+                      <span>v1.10.1</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -670,7 +670,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.10.0</span>
+            <span class="button-text">v1.10.1</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1478,7 +1478,7 @@ There is no app bundle to build. The shipped assets are plain HTML, CSS, JavaScr
 
 The plugin side registers Jekyll hooks that run automatically at build time:
 
-- **Last-updated timestamps:** before each page renders, the plugin reads the source file&apos;s modification time and sets `last_updated_at` in frontmatter. This means your doc footers can show &quot;Last updated&quot; dates without you touching frontmatter manually.
+- **Last-updated timestamps:** before each page renders, the plugin sets `last_updated_at` to the date of the last Git commit that touched the page&apos;s source file, read from one `git log` pass per build. Untracked and locally edited files, and sites outside a Git repository, use the file&apos;s modification time. This means your doc footers can show &quot;Last updated&quot; dates without you touching frontmatter manually.
 - **Rouge syntax theme generation:** after reading site config, the plugin validates your configured Rouge theme names and generates scoped CSS for light and dark modes. Invalid theme names fall back to defaults with a warning.
 - **Version label resolution:** if `_data/versions.yml` sets `current: auto`, the plugin replaces it with the gem&apos;s version string (e.g., `v1.0.0`) at build time.
 - **Copy page markdown export:** before doc pages render, the plugin captures their raw Markdown for the &quot;Copy page&quot; button. After the site is written, it emits a plain `.md` sibling for each generated HTML doc page so &quot;View as Markdown&quot; works without external hosting assumptions. HTML in the page source, written inline or produced by includes, is converted to Markdown, and fenced code stays exactly as written. Disable this with `jekyll_vitepress.copy_page.enabled: false`.
@@ -1529,7 +1529,7 @@ For a detailed feature checklist, see [VitePress Parity](/vitepress-parity/). Fo
 <p>The plugin side registers Jekyll hooks that run automatically at build time:</p>
 
 <ul>
-  <li><strong>Last-updated timestamps:</strong> before each page renders, the plugin reads the source file’s modification time and sets <code class="language-plaintext highlighter-rouge">last_updated_at</code> in frontmatter. This means your doc footers can show “Last updated” dates without you touching frontmatter manually.</li>
+  <li><strong>Last-updated timestamps:</strong> before each page renders, the plugin sets <code class="language-plaintext highlighter-rouge">last_updated_at</code> to the date of the last Git commit that touched the page’s source file, read from one <code class="language-plaintext highlighter-rouge">git log</code> pass per build. Untracked and locally edited files, and sites outside a Git repository, use the file’s modification time. This means your doc footers can show “Last updated” dates without you touching frontmatter manually.</li>
   <li><strong>Rouge syntax theme generation:</strong> after reading site config, the plugin validates your configured Rouge theme names and generates scoped CSS for light and dark modes. Invalid theme names fall back to defaults with a warning.</li>
   <li><strong>Version label resolution:</strong> if <code class="language-plaintext highlighter-rouge">_data/versions.yml</code> sets <code class="language-plaintext highlighter-rouge">current: auto</code>, the plugin replaces it with the gem’s version string (e.g., <code class="language-plaintext highlighter-rouge">v1.0.0</code>) at build time.</li>
   <li><strong>Copy page markdown export:</strong> before doc pages render, the plugin captures their raw Markdown for the “Copy page” button. After the site is written, it emits a plain <code class="language-plaintext highlighter-rouge">.md</code> sibling for each generated HTML doc page so “View as Markdown” works without external hosting assumptions. HTML in the page source, written inline or produced by includes, is converted to Markdown, and fenced code stays exactly as written. Disable this with <code class="language-plaintext highlighter-rouge">jekyll_vitepress.copy_page.enabled: false</code>.</li>
@@ -1651,7 +1651,7 @@ For a detailed feature checklist, see [VitePress Parity](/vitepress-parity/). Fo
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T09:00:55+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 9:00:55 AM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T09:05:48+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 9:05:48 AM</time></p>
           </div>
         
       </div>

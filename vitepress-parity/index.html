@@ -475,7 +475,7 @@
               
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu"><span class="text">
-                      <span>v1.10.0</span>
+                      <span>v1.10.1</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -670,7 +670,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.10.0</span>
+            <span class="button-text">v1.10.1</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1484,7 +1484,7 @@ These differences are intentional. The functionality is equivalent where possibl
 - **[Configuration](/configuration/):** theme options live in `_config.yml` under `jekyll_vitepress`, not in `.vitepress/config.js`.
 - **[Navigation data](/navigation-layout/#top-navigation):** nav, sidebar, social, and version data live in `_data/*.yml`, not JavaScript config.
 - **[Syntax highlighting](/code-blocks/#syntax-highlighting):** highlighting uses Rouge themes instead of Shiki.
-- **[Last updated](/configuration-reference/#edit-link-last-updated-github-star-github-sponsor-and-gem-downloads):** timestamps are populated by Jekyll plugin hooks instead of Git history.
+- **[Last updated](/configuration-reference/#edit-link-last-updated-github-star-github-sponsor-and-gem-downloads):** timestamps come from Git history, like VitePress, through a Jekyll plugin hook. Files Git cannot date fall back to their modification time.
 - **[Extension hooks](/extending-behavior/):** customization uses layout/include overrides and custom scripts instead of Vue slots.
 - **[Turbo navigation](/overview/#theme-assets):** fast page changes use Turbo Frames around the docs content instead of a client-side router.
 
@@ -1529,7 +1529,7 @@ If you want productized docs behavior beyond VitePress parity, enable the extras
   <li><strong><a href="/configuration/">Configuration</a>:</strong> theme options live in <code class="language-plaintext highlighter-rouge">_config.yml</code> under <code class="language-plaintext highlighter-rouge">jekyll_vitepress</code>, not in <code class="language-plaintext highlighter-rouge">.vitepress/config.js</code>.</li>
   <li><strong><a href="/navigation-layout/#top-navigation">Navigation data</a>:</strong> nav, sidebar, social, and version data live in <code class="language-plaintext highlighter-rouge">_data/*.yml</code>, not JavaScript config.</li>
   <li><strong><a href="/code-blocks/#syntax-highlighting">Syntax highlighting</a>:</strong> highlighting uses Rouge themes instead of Shiki.</li>
-  <li><strong><a href="/configuration-reference/#edit-link-last-updated-github-star-github-sponsor-and-gem-downloads">Last updated</a>:</strong> timestamps are populated by Jekyll plugin hooks instead of Git history.</li>
+  <li><strong><a href="/configuration-reference/#edit-link-last-updated-github-star-github-sponsor-and-gem-downloads">Last updated</a>:</strong> timestamps come from Git history, like VitePress, through a Jekyll plugin hook. Files Git cannot date fall back to their modification time.</li>
   <li><strong><a href="/extending-behavior/">Extension hooks</a>:</strong> customization uses layout/include overrides and custom scripts instead of Vue slots.</li>
   <li><strong><a href="/overview/#theme-assets">Turbo navigation</a>:</strong> fast page changes use Turbo Frames around the docs content instead of a client-side router.</li>
 </ul>
@@ -1632,7 +1632,7 @@ If you want productized docs behavior beyond VitePress parity, enable the extras
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T09:00:55+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 9:00:55 AM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T09:05:48+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 9:05:48 AM</time></p>
           </div>
         
       </div>
