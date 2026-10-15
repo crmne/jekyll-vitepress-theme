@@ -61,6 +61,18 @@ jobs:
             exit 1
           fi
 
+      - name: Check release notes
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          notes="packaging/release-notes/v${VERSION}.md"
+          if [ ! -s "$notes" ]; then
+            echo "$notes is missing or empty. Commit the release notes before releasing." >&2
+            exit 1
+          fi
+
       - name: Check if version needs publishing
         id: check_version
         env:
@@ -164,28 +176,7 @@ jobs:
             prerelease_args=(--prerelease)
           fi
 
-          previous_tag=$(git tag --sort=-v:refname --list 'v*' | grep -v "^${TAG}$" | head -n 1 || true)
-          if [ -n "$previous_tag" ]; then
-            commit_range="${previous_tag}..${release_target}"
-          else
-            commit_range="$release_target"
-          fi
-
-          commits=$(git log --reverse --format='* %H %s' "$commit_range" | grep -Ev '^\* [0-9a-f]+ (docs|test|chore):' || true)
-          if [ -z "$commits" ]; then
-            commits=$(git log --reverse --format='* %H %s' "$commit_range")
-          fi
-
-          {
-            echo "## Changelog"
-            echo "$commits"
-            if [ -n "$previous_tag" ]; then
-              echo
-              echo "**Full Changelog**: https://github.com/${GITHUB_REPOSITORY}/compare/${previous_tag}...${TAG}"
-            fi
-          } > release-notes.md
-
           gh release create "$TAG" \
             --target "$release_target" \
-            --notes-file release-notes.md \
+            --notes-file "packaging/release-notes/v${VERSION}.md" \
             "${prerelease_args[@]}"
