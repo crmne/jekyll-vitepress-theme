@@ -475,7 +475,7 @@
               
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu"><span class="text">
-                      <span>v1.9.1</span>
+                      <span>v1.10.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -670,7 +670,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.9.1</span>
+            <span class="button-text">v1.10.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1461,6 +1461,8 @@ The theme&apos;s visual design is built on CSS custom properties (tokens), makin
 
 The most common customization is changing the brand color. Use `jekyll_vitepress.tokens.light` and `jekyll_vitepress.tokens.dark` to override VitePress CSS variables:
 
+**_config.yml**
+
 ```yaml
 jekyll_vitepress:
   tokens:
@@ -1473,7 +1475,6 @@ jekyll_vitepress:
       --vp-c-brand-2: &quot;#bac2ff&quot;
       --vp-c-brand-3: &quot;#939eff&quot;
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 Brand tokens affect links, the active nav highlight, the hero button, and other accent elements throughout the theme. The numbered variants (`brand-1`, `brand-2`, `brand-3`) control different states. `brand-1` is the primary color, `brand-2` is used for hover states, and `brand-3` for active/pressed states.
 
@@ -1483,6 +1484,8 @@ Any VitePress CSS variable can be overridden this way. To discover available tok
 
 Font stacks are controlled through typography settings:
 
+**_config.yml**
+
 ```yaml
 jekyll_vitepress:
   typography:
@@ -1490,7 +1493,6 @@ jekyll_vitepress:
     code_font_family: &quot;&apos;JetBrains Mono&apos;, ui-monospace, monospace&quot;
     google_fonts_url: &quot;https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap&quot;
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 The `google_fonts_url` is loaded as a stylesheet in `&lt;head&gt;`. Set it to `false` to disable external font loading. This is useful if you&apos;re self-hosting fonts or prefer system fonts.
 
@@ -1638,7 +1640,7 @@ No configuration is needed. This works out of the box. The toggle labels are cus
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-13T13:04:33+00:00" lang="en-US" data-vp-last-updated>Oct 13, 2026, 1:04:33 PM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T00:57:41+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 12:57:41 AM</time></p>
           </div>
         
       </div>

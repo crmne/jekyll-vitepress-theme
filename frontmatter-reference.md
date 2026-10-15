@@ -1,8 +1,5 @@
 # Frontmatter Reference
 
-
-
-
 ## Layouts
 
 - `layout: default`: standard docs page with sidebar and outline.
@@ -11,6 +8,8 @@
 ## Home layout keys
 
 The home layout supports a `hero` section and a `features` list:
+
+**index.md**
 
 ```yaml
 layout: home
@@ -37,7 +36,6 @@ features:
     link_text: Learn more
     link: /getting-started/
 ```
-{: data-title="index.md"}
 
 Action buttons support two themes: `brand` (solid, primary color) and `alt` (outlined, secondary). Feature cards can optionally include `link` and `link_text` to make them clickable.
 
@@ -73,6 +71,8 @@ These keys can be set in any page's frontmatter to control theme behavior on a p
 
 ## SEO example
 
+**page frontmatter**
+
 ```yaml
 ---
 title: API Authentication
@@ -93,11 +93,12 @@ alternates:
     url: /api/authentication/
 ---
 ```
-{: data-title="page frontmatter"}
 
 ## Custom prev / next links
 
 You can override the auto-computed pager links with custom titles and URLs:
+
+**example-page.md**
 
 ```yaml
 jekyll_vitepress:
@@ -108,4 +109,3 @@ jekyll_vitepress:
     text: Custom next title
     link: /another/page/
 ```
-{: data-title="example-page.md"}

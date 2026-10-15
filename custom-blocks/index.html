@@ -475,7 +475,7 @@
               
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu"><span class="text">
-                      <span>v1.9.1</span>
+                      <span>v1.10.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -670,7 +670,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.9.1</span>
+            <span class="button-text">v1.10.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1455,25 +1455,11 @@
     
       <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true"># Custom Blocks
 
-
-
-
 Custom blocks are the VitePress-style containers behind the theme&apos;s callout UI. They render colored boxes for tips, warnings, danger notices, and other highlighted content. They are part of [VitePress Parity](/vitepress-parity/); Markdown-friendly callouts, labels, and project buttons are covered in [Extensions to VitePress](/extensions-to-vitepress/).
 
-
-
-
-
-
-
-
-&lt;div class=&quot;tip custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;TIP&lt;/p&gt;
-  &lt;p&gt;For everyday Markdown authoring, use the Just the Docs-style syntax on &lt;a href=&quot;/callouts-labels-buttons/&quot;&gt;Callouts, Labels, and Buttons&lt;/a&gt;. Use this page when you need the lower-level Liquid include, custom titles, or collapsible details.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
+&gt; **TIP**
+&gt;
+&gt; For everyday Markdown authoring, use the Just the Docs-style syntax on [Callouts, Labels, and Buttons](/callouts-labels-buttons/). Use this page when you need the lower-level Liquid include, custom titles, or collapsible details.
 
 ## Liquid Include Syntax
 
@@ -1487,109 +1473,37 @@ The `type` controls the color and default title. The `content` is processed as M
 
 ## Available Types
 
-
-
-
-
-
-&lt;div class=&quot;info custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;INFO&lt;/p&gt;
-  &lt;p&gt;This is an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;info&lt;/code&gt; block. Use it for neutral, supplementary information.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
-
-
-
-
-
-
-&lt;div class=&quot;note custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;NOTE&lt;/p&gt;
-  &lt;p&gt;This is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;note&lt;/code&gt; block. Visually identical to info; use whichever label fits better.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
-
-
-
-
-
-
-&lt;div class=&quot;tip custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;TIP&lt;/p&gt;
-  &lt;p&gt;This is a helpful &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tip&lt;/code&gt; block.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
-
-
-
-
-
-
-&lt;div class=&quot;important custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;IMPORTANT&lt;/p&gt;
-  &lt;p&gt;This is an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;important&lt;/code&gt; block. Do not skip this.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
-
-
-
-
-
-
-&lt;div class=&quot;warning custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;WARNING&lt;/p&gt;
-  &lt;p&gt;This is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;warning&lt;/code&gt; block. Something could go wrong.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
-
-
-
-
-
-
-&lt;div class=&quot;danger custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;DANGER&lt;/p&gt;
-  &lt;p&gt;This is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;danger&lt;/code&gt; block. Data loss or security risk.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
-
-
-
-
-
-
-&lt;div class=&quot;caution custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;CAUTION&lt;/p&gt;
-  &lt;p&gt;This is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;caution&lt;/code&gt; block. Visually identical to danger.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
-
-
-
-
-
-
-&lt;details class=&quot;details custom-block&quot;&gt;
-  &lt;summary&gt;Details&lt;/summary&gt;
-  &lt;p&gt;This is a collapsible &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;details&lt;/code&gt; block.&lt;/p&gt;
-
-&lt;/details&gt;
-
-
+&gt; **INFO**
+&gt;
+&gt; This is an `info` block. Use it for neutral, supplementary information.
+
+&gt; **NOTE**
+&gt;
+&gt; This is a `note` block. Visually identical to info; use whichever label fits better.
+
+&gt; **TIP**
+&gt;
+&gt; This is a helpful `tip` block.
+
+&gt; **IMPORTANT**
+&gt;
+&gt; This is an `important` block. Do not skip this.
+
+&gt; **WARNING**
+&gt;
+&gt; This is a `warning` block. Something could go wrong.
+
+&gt; **DANGER**
+&gt;
+&gt; This is a `danger` block. Data loss or security risk.
+
+&gt; **CAUTION**
+&gt;
+&gt; This is a `caution` block. Visually identical to danger.
+
+&gt; **Details**
+&gt;
+&gt; This is a collapsible `details` block.
 
 ## Custom Titles
 
@@ -1599,18 +1513,9 @@ Each type has a default title (`TIP`, `WARNING`, etc.). Override it with the `ti
 {% include alert.html type=&quot;warning&quot; title=&quot;Breaking Change&quot; content=&quot;The `foo` option was removed in v2.0.&quot; %}
 ```
 
-
-
-
-
-
-&lt;div class=&quot;warning custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;Breaking Change&lt;/p&gt;
-  &lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;foo&lt;/code&gt; option was removed in v2.0.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
+&gt; **Breaking Change**
+&gt;
+&gt; The `foo` option was removed in v2.0.
 
 ## Markdown In Content
 
@@ -1620,18 +1525,9 @@ The `content` parameter supports Markdown: code, links, bold, even multiple para
 {% include alert.html type=&quot;tip&quot; content=&quot;Set `layout: home` in your frontmatter. See the [Frontmatter Reference](/frontmatter-reference/) for details.&quot; %}
 ```
 
-
-
-
-
-
-&lt;div class=&quot;tip custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;TIP&lt;/p&gt;
-  &lt;p&gt;Set &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;layout: home&lt;/code&gt; in your frontmatter. See the &lt;a href=&quot;/frontmatter-reference/&quot;&gt;Frontmatter Reference&lt;/a&gt; for details.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
+&gt; **TIP**
+&gt;
+&gt; Set `layout: home` in your frontmatter. See the [Frontmatter Reference](/frontmatter-reference/) for details.
 
 For multi-paragraph content, build the string with `capture` first:
 
@@ -1644,22 +1540,11 @@ Then rebuild your site to pick up the new assets.
 {% include alert.html type=&quot;note&quot; content=upgrade_note %}
 ```
 
-
-
-
-
-
-
-&lt;div class=&quot;note custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;NOTE&lt;/p&gt;
-  
-&lt;p&gt;Upgrade with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bundle update jekyll-vitepress-theme&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Then rebuild your site to pick up the new assets.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
+&gt; **NOTE**
+&gt;
+&gt; Upgrade with `bundle update jekyll-vitepress-theme`.
+&gt;
+&gt; Then rebuild your site to pick up the new assets.
 </textarea>
     
     
@@ -1868,7 +1753,7 @@ Then rebuild your site to pick up the new assets.
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-13T13:04:33+00:00" lang="en-US" data-vp-last-updated>Oct 13, 2026, 1:04:33 PM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T00:57:41+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 12:57:41 AM</time></p>
           </div>
         
       </div>

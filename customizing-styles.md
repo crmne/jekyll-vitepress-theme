@@ -6,6 +6,8 @@ The theme's visual design is built on CSS custom properties (tokens), making it 
 
 The most common customization is changing the brand color. Use `jekyll_vitepress.tokens.light` and `jekyll_vitepress.tokens.dark` to override VitePress CSS variables:
 
+**_config.yml**
+
 ```yaml
 jekyll_vitepress:
   tokens:
@@ -18,7 +20,6 @@ jekyll_vitepress:
       --vp-c-brand-2: "#bac2ff"
       --vp-c-brand-3: "#939eff"
 ```
-{: data-title="_config.yml"}
 
 Brand tokens affect links, the active nav highlight, the hero button, and other accent elements throughout the theme. The numbered variants (`brand-1`, `brand-2`, `brand-3`) control different states. `brand-1` is the primary color, `brand-2` is used for hover states, and `brand-3` for active/pressed states.
 
@@ -28,6 +29,8 @@ Any VitePress CSS variable can be overridden this way. To discover available tok
 
 Font stacks are controlled through typography settings:
 
+**_config.yml**
+
 ```yaml
 jekyll_vitepress:
   typography:
@@ -35,7 +38,6 @@ jekyll_vitepress:
     code_font_family: "'JetBrains Mono', ui-monospace, monospace"
     google_fonts_url: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
 ```
-{: data-title="_config.yml"}
 
 The `google_fonts_url` is loaded as a stylesheet in `<head>`. Set it to `false` to disable external font loading. This is useful if you're self-hosting fonts or prefer system fonts.
 

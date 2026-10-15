@@ -475,7 +475,7 @@
               
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu"><span class="text">
-                      <span>v1.9.1</span>
+                      <span>v1.10.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -670,7 +670,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.9.1</span>
+            <span class="button-text">v1.10.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1455,8 +1455,6 @@
     
       <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true"># Callouts, Labels, and Buttons
 
-
-
 Use these Markdown-friendly patterns for everyday docs authoring:
 
 - Callouts use Just the Docs-style kramdown attributes and render as VitePress-style custom blocks.
@@ -1475,32 +1473,24 @@ Using this theme? [Share your story](https://example.com)! Takes 5 minutes.
 ```
 
 Using this theme? [Share your story](https://example.com)! Takes 5 minutes.
-{: .note }
 
 Supported callout classes are `.info`, `.note`, `.tip`, `.important`, `.warning`, `.danger`, and `.caution`.
 
 ## Available Callouts
 
 This is an `info` block. Use it for neutral, supplementary information.
-{: .info }
 
 This is a `note` block. Visually identical to info; use whichever label fits better.
-{: .note }
 
 This is a helpful `tip` block.
-{: .tip }
 
 This is an `important` block. Do not skip this.
-{: .important }
 
 This is a `warning` block. Something could go wrong.
-{: .warning }
 
 This is a `danger` block. Data loss or security risk.
-{: .danger }
 
 This is a `caution` block. Visually identical to danger.
-{: .caution }
 
 ## Inline Labels
 
@@ -1514,19 +1504,17 @@ v1.9.0+
 {: .label .label-green }
 ```
 
-&lt;!-- markdownlint-disable MD022 --&gt;
 ### Labels
-{: .d-inline-block }
 
 v1.9.0+
-{: .label .label-green }
-&lt;!-- markdownlint-enable MD022 --&gt;
 
 Available label colors are `.label-blue`, `.label-green`, `.label-purple`, `.label-yellow`, and `.label-red`.
 
 ## RubyGems Downloads Button
 
 Configure the gem once in `_config.yml`:
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
@@ -1536,7 +1524,6 @@ jekyll_vitepress:
     text: Gem downloads
     show_count: true
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 Then render a live downloads button anywhere in Markdown:
 
@@ -1544,33 +1531,7 @@ Then render a live downloads button anywhere in Markdown:
 {% include rubygems_downloads_button.html %}
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  &lt;a class=&quot;VPMetricButton VPMetricButtonDownloads no-icon&quot; href=&quot;https://rubygems.org/gems/jekyll-vitepress-theme&quot; aria-label=&quot;View gem downloads&quot; target=&quot;_blank&quot; rel=&quot;noreferrer noopener&quot; data-rubygems-downloads-gem=&quot;jekyll-vitepress-theme&quot; data-rubygems-downloads-show-count=&quot;true&quot; data-rubygems-downloads-label=&quot;View gem downloads&quot;&gt;
-    &lt;span class=&quot;VPMetricButtonIcon VPMetricButtonDownloadsIcon&quot; aria-hidden=&quot;true&quot;&gt;
-      &lt;svg viewBox=&quot;0 0 16 16&quot; focusable=&quot;false&quot;&gt;
-        &lt;path d=&quot;M8 1.75a.75.75 0 0 1 .75.75v5.19l1.72-1.72a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 0 1 1.06-1.06l1.72 1.72V2.5A.75.75 0 0 1 8 1.75ZM3.75 11a.75.75 0 0 1 .75.75v1h7v-1a.75.75 0 0 1 1.5 0v1.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1.5a.75.75 0 0 1 .75-.75Z&quot;&gt;&lt;/path&gt;
-      &lt;/svg&gt;
-    &lt;/span&gt;
-    &lt;span class=&quot;VPMetricButtonText&quot; hidden&gt;Gem downloads&lt;/span&gt;
-    &lt;strong class=&quot;VPMetricButtonCount&quot; data-vp-rubygems-downloads-count&gt;... downloads&lt;/strong&gt;
-  &lt;/a&gt;
-
-
+[Gem downloads **... downloads**](https://rubygems.org/gems/jekyll-vitepress-theme)
 
 You can also configure each button inline:
 
@@ -1589,51 +1550,9 @@ GitHub Star and GitHub Sponsors buttons are also available outside the navbar:
 {% include github_sponsor_button.html user=&quot;crmne&quot; %}
 ```
 
+[Star](https://github.com/crmne/jekyll-vitepress-theme)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  &lt;a class=&quot;VPMetricButton VPMetricButtonGithub no-icon&quot; href=&quot;https://github.com/crmne/jekyll-vitepress-theme&quot; aria-label=&quot;Star crmne/jekyll-vitepress-theme on GitHub&quot; target=&quot;_blank&quot; rel=&quot;noreferrer noopener&quot; data-github-star-repo=&quot;crmne/jekyll-vitepress-theme&quot; data-github-star-show-count=&quot;true&quot;&gt;
-    &lt;span class=&quot;VPMetricButtonIcon vpi-social-github&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
-    &lt;span class=&quot;VPMetricButtonText&quot;&gt;Star&lt;/span&gt;
-    &lt;span class=&quot;VPMetricButtonCount&quot; data-vp-github-star-count aria-hidden=&quot;true&quot;&gt;...&lt;/span&gt;
-  &lt;/a&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  &lt;a class=&quot;VPMetricButton VPMetricButtonSponsor no-icon&quot; href=&quot;https://github.com/sponsors/crmne&quot; aria-label=&quot;Sponsor on GitHub&quot; target=&quot;_blank&quot; rel=&quot;noreferrer noopener&quot;&gt;
-    &lt;span class=&quot;VPMetricButtonIcon VPMetricButtonSponsorIcon&quot; aria-hidden=&quot;true&quot;&gt;
-      &lt;svg viewBox=&quot;0 0 16 16&quot; focusable=&quot;false&quot;&gt;
-        &lt;path d=&quot;M7.655 14.916v-.001h-.002l-.006-.003-.018-.01a22.066 22.066 0 0 1-3.744-2.584C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.044 5.231-3.886 6.818a22.094 22.094 0 0 1-3.433 2.414 7.152 7.152 0 0 1-.31.17l-.018.01-.008.004a.75.75 0 0 1-.69 0Z&quot;&gt;&lt;/path&gt;
-      &lt;/svg&gt;
-    &lt;/span&gt;
-    &lt;span class=&quot;VPMetricButtonText&quot;&gt;Sponsor&lt;/span&gt;
-  &lt;/a&gt;
-
-
+[Sponsor](https://github.com/sponsors/crmne)
 
 ## Lower-Level Custom Blocks
 
@@ -1851,7 +1770,7 @@ v1.9.0+
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-13T13:04:33+00:00" lang="en-US" data-vp-last-updated>Oct 13, 2026, 1:04:33 PM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T00:57:41+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 12:57:41 AM</time></p>
           </div>
         
       </div>

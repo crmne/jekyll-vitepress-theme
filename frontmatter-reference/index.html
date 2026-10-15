@@ -475,7 +475,7 @@
               
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu"><span class="text">
-                      <span>v1.9.1</span>
+                      <span>v1.10.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -670,7 +670,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.9.1</span>
+            <span class="button-text">v1.10.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1455,9 +1455,6 @@
     
       <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true"># Frontmatter Reference
 
-
-
-
 ## Layouts
 
 - `layout: default`: standard docs page with sidebar and outline.
@@ -1466,6 +1463,8 @@
 ## Home layout keys
 
 The home layout supports a `hero` section and a `features` list:
+
+**index.md**
 
 ```yaml
 layout: home
@@ -1492,7 +1491,6 @@ features:
     link_text: Learn more
     link: /getting-started/
 ```
-{: data-title=&quot;index.md&quot;}
 
 Action buttons support two themes: `brand` (solid, primary color) and `alt` (outlined, secondary). Feature cards can optionally include `link` and `link_text` to make them clickable.
 
@@ -1528,6 +1526,8 @@ These keys can be set in any page&apos;s frontmatter to control theme behavior o
 
 ## SEO example
 
+**page frontmatter**
+
 ```yaml
 ---
 title: API Authentication
@@ -1548,11 +1548,12 @@ alternates:
     url: /api/authentication/
 ---
 ```
-{: data-title=&quot;page frontmatter&quot;}
 
 ## Custom prev / next links
 
 You can override the auto-computed pager links with custom titles and URLs:
+
+**example-page.md**
 
 ```yaml
 jekyll_vitepress:
@@ -1563,7 +1564,6 @@ jekyll_vitepress:
     text: Custom next title
     link: /another/page/
 ```
-{: data-title=&quot;example-page.md&quot;}
 </textarea>
     
     
@@ -1764,7 +1764,7 @@ jekyll_vitepress:
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-13T13:04:33+00:00" lang="en-US" data-vp-last-updated>Oct 13, 2026, 1:04:33 PM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T00:57:41+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 12:57:41 AM</time></p>
           </div>
         
       </div>

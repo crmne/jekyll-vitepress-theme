@@ -475,7 +475,7 @@
               
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu"><span class="text">
-                      <span>v1.9.1</span>
+                      <span>v1.10.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -670,7 +670,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.9.1</span>
+            <span class="button-text">v1.10.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1455,19 +1455,17 @@
     
       <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true"># Getting Started
 
-
-
-
 This guide walks you through installing the theme and getting a working documentation site running locally. By the end, you&apos;ll have a Jekyll site with VitePress-style navigation, a persistent sidebar, Turbo-powered internal page changes, polished default styling, and optional features beyond baseline VitePress. See [VitePress Parity](/vitepress-parity/) and [Extensions to VitePress](/extensions-to-vitepress/) for the full scope.
 
 ## Add the gem
 
 Add the theme to your `Gemfile`:
 
+**Gemfile**
+
 ```ruby
 gem &quot;jekyll-vitepress-theme&quot;
 ```
-{: data-title=&quot;Gemfile&quot;}
 
 Then install it:
 
@@ -1479,14 +1477,17 @@ bundle install
 
 The gem serves double duty. It provides layouts and assets as a **theme**, and registers Jekyll hooks as a **plugin**. You need to enable both:
 
+**_config.yml**
+
 ```yaml
 theme: jekyll-vitepress-theme
 plugins:
   - jekyll-vitepress-theme
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 Set the production identity used by canonical URLs, structured data, the sitemap, and social cards:
+
+**_config.yml**
 
 ```yaml
 title: My Project Docs
@@ -1495,13 +1496,14 @@ url: https://docs.example.com
 lang: en-US
 logo: /assets/images/social-card.png
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 `url` must be the absolute public origin, without `baseurl`. If the site is published below a path, set that path separately with `baseurl`. The build warns when it cannot produce absolute indexing URLs.
 
 ## Define your collections
 
 Jekyll VitePress Theme uses [collections](https://jekyllrb.com/docs/collections/) to organize your documentation into groups. Define them in `_config.yml`:
+
+**_config.yml**
 
 ```yaml
 collections:
@@ -1518,13 +1520,14 @@ defaults:
     values:
       layout: default
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 Each collection becomes a folder (e.g., `_guides/`, `_reference/`) where you place your Markdown files. The `permalink: &quot;/:name/&quot;` setting gives each document a clean URL based on its filename.
 
 ## Configure branding and data files
 
 Theme behavior lives in `_config.yml` under `jekyll_vitepress`:
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
@@ -1540,9 +1543,10 @@ jekyll_vitepress:
     light_theme: github
     dark_theme: github.dark
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 Navigation and sidebar structure live in `_data/` files. The **navigation** defines your top navbar links and maps them to collections (so the correct nav item highlights when viewing pages from those collections):
+
+**_data/navigation.yml**
 
 ```yaml
 - title: Guide
@@ -1552,9 +1556,10 @@ Navigation and sidebar structure live in `_data/` files. The **navigation** defi
   url: /api-reference/
   collections: [reference]
 ```
-{: data-title=&quot;_data/navigation.yml&quot;}
 
 The **sidebar** defines the left-hand navigation groups. Each group pulls its entries from a collection, sorted by `nav_order` frontmatter:
+
+**_data/sidebar.yml**
 
 ```yaml
 - title: Guides
@@ -1562,11 +1567,12 @@ The **sidebar** defines the left-hand navigation groups. Each group pulls its en
 - title: Reference
   collection: reference
 ```
-{: data-title=&quot;_data/sidebar.yml&quot;}
 
 ## Create your first page
 
 Create a document inside one of your collection folders:
+
+**_guides/introduction.md**
 
 ```markdown
 ---
@@ -1576,7 +1582,6 @@ nav_order: 1
 
 Welcome to My Project! This is your first documentation page.
 ```
-{: data-title=&quot;_guides/introduction.md&quot;}
 
 The `nav_order` value controls the sort order in the sidebar. Lower numbers appear first.
 
@@ -1588,18 +1593,9 @@ bundle exec jekyll serve --livereload
 
 Open `http://127.0.0.1:4000`. You should see the VitePress-style layout: top nav, sidebar, content area, right outline, local search, and fast doc-to-doc navigation. From there, enable the Jekyll-first extras documented in [Extensions to VitePress](/extensions-to-vitepress/) as needed.
 
-
-
-
-
-
-&lt;div class=&quot;tip custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;TIP&lt;/p&gt;
-  &lt;p&gt;To add a VitePress-style landing page with a hero section and feature cards, set &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;layout: home&lt;/code&gt; in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;index.md&lt;/code&gt; frontmatter. See &lt;a href=&quot;/vitepress-parity/&quot;&gt;VitePress Parity&lt;/a&gt; for the mirrored baseline, the &lt;a href=&quot;/frontmatter-reference/&quot;&gt;Frontmatter Reference&lt;/a&gt; for home layout keys, and &lt;a href=&quot;/extensions-to-vitepress/&quot;&gt;Extensions to VitePress&lt;/a&gt; for features beyond VitePress.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
+&gt; **TIP**
+&gt;
+&gt; To add a VitePress-style landing page with a hero section and feature cards, set `layout: home` in your `index.md` frontmatter. See [VitePress Parity](/vitepress-parity/) for the mirrored baseline, the [Frontmatter Reference](/frontmatter-reference/) for home layout keys, and [Extensions to VitePress](/extensions-to-vitepress/) for features beyond VitePress.
 </textarea>
     
     
@@ -1814,7 +1810,7 @@ Welcome to My Project! This is your first documentation page.
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-13T13:04:33+00:00" lang="en-US" data-vp-last-updated>Oct 13, 2026, 1:04:33 PM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T00:57:41+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 12:57:41 AM</time></p>
           </div>
         
       </div>

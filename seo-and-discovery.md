@@ -20,6 +20,8 @@ The plugin also creates `llms.txt` and `llms-full.txt`. The concise file is an i
 
 ## Production minimum
 
+**_config.yml**
+
 ```yaml
 title: My Project Docs
 description: Install, configure, and use My Project.
@@ -34,7 +36,6 @@ jekyll_vitepress:
       width: 1200
       height: 630
 ```
-{: data-title="_config.yml"}
 
 Use an absolute production `url` without a trailing slash or `baseurl`. If you deploy to `https://example.com/docs/`, configure `url: https://example.com` and `baseurl: /docs`.
 
@@ -43,6 +44,8 @@ Write a specific `description` for every important page. The site description is
 ## Publishers, authors, and technical articles
 
 The default structured page type is `WebPage`. Documentation projects with article-style guides can opt into Google's supported `Article` type and identify the responsible publisher:
+
+**_config.yml**
 
 ```yaml
 author:
@@ -60,7 +63,6 @@ jekyll_vitepress:
       same_as:
         - https://github.com/example/project
 ```
-{: data-title="_config.yml"}
 
 Set `seo.type` in page frontmatter when only a subset of pages should be articles. Add accurate `date_published` or `date_modified` values when you have them. The theme intentionally does not turn checkout/build timestamps into content dates.
 

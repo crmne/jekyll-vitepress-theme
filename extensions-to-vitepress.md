@@ -2,20 +2,9 @@
 
 Extensions to VitePress are optional features that go beyond baseline VitePress behavior while preserving the same visual language. Enable them case by case in `_config.yml` or use their Liquid includes directly in page content.
 
-
-
-
-
-
-
-
-<div class="info custom-block">
-  <p class="custom-block-title">INFO</p>
-  <p>For features that intentionally mirror VitePress itself, see <a href="/vitepress-parity/">VitePress Parity</a>.</p>
-
-</div>
-
-
+> **INFO**
+>
+> For features that intentionally mirror VitePress itself, see [VitePress Parity](/vitepress-parity/).
 
 ## Optional Extras
 
@@ -35,6 +24,8 @@ These features are not part of baseline VitePress:
 
 Most extensions are independent. You can enable the GitHub star widget without enabling RubyGems downloads, or use Just the Docs-style labels without using page metric buttons.
 
+**_config.yml**
+
 ```yaml
 jekyll_vitepress:
   github_star:
@@ -44,7 +35,6 @@ jekyll_vitepress:
     enabled: true
     name: your_gem
 ```
-{: data-title="_config.yml"}
 
 For the complete list of configuration keys, see the [Configuration Reference](/configuration-reference/).
 

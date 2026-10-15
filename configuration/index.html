@@ -475,7 +475,7 @@
               
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu"><span class="text">
-                      <span>v1.9.1</span>
+                      <span>v1.10.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -670,7 +670,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.9.1</span>
+            <span class="button-text">v1.10.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1461,6 +1461,8 @@ All theme configuration follows a Jekyll-native pattern: rendering options go in
 
 At minimum, set your site title. You can also configure a logo and syntax highlighting themes:
 
+**_config.yml**
+
 ```yaml
 jekyll_vitepress:
   branding:
@@ -1477,13 +1479,14 @@ jekyll_vitepress:
     light_theme: github
     dark_theme: github.dark
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 The `light_theme` and `dark_theme` values accept any installed [Rouge](https://github.com/rouge-ruby/rouge) theme name. The theme automatically generates scoped CSS for both modes at build time, so your code blocks look right in light and dark mode without any extra work.
 
 ## Typography and tokens
 
 You can customize fonts and override VitePress CSS variables (tokens) for branding:
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
@@ -1498,13 +1501,14 @@ jekyll_vitepress:
     dark:
       --vp-c-brand-1: &quot;#a8b1ff&quot;
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 Set `google_fonts_url: false` to disable external font loading entirely (useful if you want to serve fonts locally or use system fonts).
 
 ## Navigation and sidebar
 
 Navigation links appear in the top navbar. Each link has a `title`, a `url` (where clicking it navigates), and a list of `collections` it &quot;owns&quot;. This controls which nav item stays highlighted as the user browses pages within those collections:
+
+**_data/navigation.yml**
 
 ```yaml
 - title: Guide
@@ -1514,9 +1518,10 @@ Navigation links appear in the top navbar. Each link has a `title`, a `url` (whe
   url: /configuration-reference/
   collections: [reference]
 ```
-{: data-title=&quot;_data/navigation.yml&quot;}
 
 Sidebar groups map directly to collections. Documents within each collection are sorted by their `nav_order` frontmatter value:
+
+**_data/sidebar.yml**
 
 ```yaml
 - title: Introduction
@@ -1524,11 +1529,12 @@ Sidebar groups map directly to collections. Documents within each collection are
 - title: Core Features
   collection: core_features
 ```
-{: data-title=&quot;_data/sidebar.yml&quot;}
 
 ## Social links
 
 Social icons appear in the top navbar. Use a built-in icon slug, or provide custom inline SVG:
+
+**_data/social_links.yml**
 
 ```yaml
 - icon: github
@@ -1538,13 +1544,14 @@ Social icons appear in the top navbar. Use a built-in icon slug, or provide cust
   url: https://x.com/you
   label: X
 ```
-{: data-title=&quot;_data/social_links.yml&quot;}
 
 For a full list of built-in icon slugs and custom SVG support, see the [Configuration Reference](/configuration-reference/).
 
 ## Edit link
 
 Point users to the source file on GitHub with an edit link in the doc footer:
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
@@ -1553,13 +1560,14 @@ jekyll_vitepress:
     pattern: &quot;https://github.com/you/project/edit/main/:path&quot;
     text: Edit this page on GitHub
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 The `:path` placeholder is replaced with the source file&apos;s path at build time.
 
 ## Version selector
 
 If `_data/versions.yml` exists, the theme renders a version selector dropdown in the navbar:
+
+**_data/versions.yml**
 
 ```yaml
 current: auto
@@ -1574,13 +1582,14 @@ items:
     url: https://github.com/you/project/releases
     external: true
 ```
-{: data-title=&quot;_data/versions.yml&quot;}
 
 Set `current: auto` to automatically resolve to `v#{Jekyll::VitePressTheme::VERSION}` at build time. This is handy if your docs version should track your gem version.
 
 ## GitHub and RubyGems buttons
 
 Show a GitHub star button with live count in the navbar:
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
@@ -1590,9 +1599,10 @@ jekyll_vitepress:
     text: Star
     show_count: true
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 You can also show a GitHub Sponsors button next to it:
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
@@ -1601,11 +1611,12 @@ jekyll_vitepress:
     user: you
     text: Sponsor
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 Use `url` instead of `user` if you want to point to a custom sponsorship page.
 
 Configure RubyGems downloads once if you want to reuse a live downloads button in pages:
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
@@ -1617,7 +1628,6 @@ jekyll_vitepress:
     label: View gem downloads
     show_count: true
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 Then render it anywhere in Markdown:
 
@@ -1893,7 +1903,7 @@ For complete configuration keys and detailed examples, see the [Configuration Re
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-13T13:04:33+00:00" lang="en-US" data-vp-last-updated>Oct 13, 2026, 1:04:33 PM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T00:57:41+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 12:57:41 AM</time></p>
           </div>
         
       </div>

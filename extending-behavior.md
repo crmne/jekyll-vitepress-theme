@@ -12,13 +12,14 @@ The easiest way to add custom markup is through the theme's hook includes. Creat
 
 For example, to add a simple feedback prompt after every doc page:
 
+**_includes/jekyll_vitepress/doc_footer_end.html**
+
 ```html
 <div class="my-feedback">
   Was this page helpful?
   <a href="/feedback/">Let us know</a>.
 </div>
 ```
-{: data-title="_includes/jekyll_vitepress/doc_footer_end.html"}
 
 If these files don't exist in your site, the theme's empty defaults are used. There are no errors and no output.
 
@@ -44,34 +45,17 @@ You can also override `_layouts/default.html` entirely. This gives you full cont
 
 To add your own JavaScript or CSS, use the `head_end.html` hook include:
 
+**_includes/jekyll_vitepress/head_end.html**
+
 ```html
 <link rel="stylesheet" href="/assets/css/custom.css">
 <script src="/assets/js/custom.js" defer></script>
 ```
-{: data-title="_includes/jekyll_vitepress/head_end.html"}
 
+> **WARNING**
+>
+> If you override includes or layouts that contain interactive elements (sidebar, outline, search), keep the existing class names and DOM structure intact. The theme’s JavaScript relies on these to wire up sidebar toggling, scroll tracking, and search behavior.
 
-
-
-
-
-<div class="warning custom-block">
-  <p class="custom-block-title">WARNING</p>
-  <p>If you override includes or layouts that contain interactive elements (sidebar, outline, search), keep the existing class names and DOM structure intact. The theme’s JavaScript relies on these to wire up sidebar toggling, scroll tracking, and search behavior.</p>
-
-</div>
-
-
-
-
-
-
-
-
-<div class="tip custom-block">
-  <p class="custom-block-title">TIP</p>
-  <p>If you override nav, sidebar, search, or the default layout, preserve the Turbo Frame attributes on internal docs links. Those attributes are what keep navigation fast while leaving the sidebar and navbar in place.</p>
-
-</div>
-
-
+> **TIP**
+>
+> If you override nav, sidebar, search, or the default layout, preserve the Turbo Frame attributes on internal docs links. Those attributes are what keep navigation fast while leaving the sidebar and navbar in place.

@@ -5,31 +5,32 @@ This theme follows a Jekyll-native split:
 - Behavior and rendering options in `_config.yml` under `jekyll_vitepress`
 - Navigation/social/version/sidebar content in `_data/*.yml`
 
-
-
 For parity notes compared to VitePress core, see [VitePress Parity](/vitepress-parity/). For optional extras, see [Extensions to VitePress](/extensions-to-vitepress/).
 
 ## Minimal setup
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
   branding:
     site_title: My Docs
 ```
-{: data-title="_config.yml"}
+
+**_data/navigation.yml**
 
 ```yaml
 - title: Guide
   url: /getting-started/
   collections: [introduction, core_features, advanced]
 ```
-{: data-title="_data/navigation.yml"}
+
+**_data/sidebar.yml**
 
 ```yaml
 - title: Getting Started
   collection: introduction
 ```
-{: data-title="_data/sidebar.yml"}
 
 ## `_config.yml` (`jekyll_vitepress`)
 
@@ -43,6 +44,8 @@ jekyll_vitepress:
 - `branding.logo.width`
 - `branding.logo.height`
 
+**_config.yml**
+
 ```yaml
 jekyll_vitepress:
   branding:
@@ -55,7 +58,6 @@ jekyll_vitepress:
       width: 24
       height: 24
 ```
-{: data-title="_config.yml"}
 
 ### Typography and Tokens
 
@@ -64,6 +66,8 @@ jekyll_vitepress:
 - `typography.google_fonts_url` (`false` disables external font loading)
 - `tokens.light`
 - `tokens.dark`
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
@@ -79,7 +83,6 @@ jekyll_vitepress:
       --vp-c-brand-1: "#a8b1ff"
       --vp-c-brand-2: "#bac2ff"
 ```
-{: data-title="_config.yml"}
 
 ### Syntax Highlighting (Rouge)
 
@@ -88,13 +91,14 @@ jekyll_vitepress:
 
 These values map directly to installed Rouge theme names.
 
+**_config.yml**
+
 ```yaml
 jekyll_vitepress:
   syntax:
     light_theme: github
     dark_theme: github.dark
 ```
-{: data-title="_config.yml"}
 
 ### SEO and Discovery
 
@@ -111,6 +115,8 @@ Core SEO is enabled by default. The theme generates page metadata, Open Graph an
 - `seo.schema.enabled` (defaults to `true`)
 - `seo.sitemap` and `seo.robots_txt` (both default to `true`)
 - `seo.robots_txt_rules` (optional extra literal rules)
+
+**_config.yml**
 
 ```yaml
 title: My Project Docs
@@ -139,7 +145,6 @@ jekyll_vitepress:
       same_as:
         - https://github.com/example/project
 ```
-{: data-title="_config.yml"}
 
 The theme also understands the standard Jekyll `twitter`, `facebook`, `webmaster_verifications`, `author`, `locale`, and `logo` keys. A source `sitemap.xml` or `robots.txt` takes precedence over generated output. `seo: false` in page frontmatter disables all theme metadata for that page, which is useful when a custom head include owns it instead.
 
@@ -157,6 +162,8 @@ Redirects, `404` pages, `noindex` pages, and pages canonicalized to another URL 
 - `llms.title` and `llms.description` (default to the site values)
 - `llms.details` (optional introductory Markdown without headings)
 
+**_config.yml**
+
 ```yaml
 jekyll_vitepress:
   llms:
@@ -165,7 +172,6 @@ jekyll_vitepress:
     details: >-
       Start with the installation and API reference sections.
 ```
-{: data-title="_config.yml"}
 
 `llms.txt` is an emerging convention intended to help agents find authoritative documentation at inference time; it is not a search-ranking control or a replacement for `robots.txt` and `sitemap.xml`.
 
@@ -179,6 +185,8 @@ jekyll_vitepress:
 - `doc_footer.previous_label`
 - `doc_footer.next_label`
 
+**_config.yml**
+
 ```yaml
 jekyll_vitepress:
   footer:
@@ -191,7 +199,6 @@ jekyll_vitepress:
     previous_label: Previous page
     next_label: Next page
 ```
-{: data-title="_config.yml"}
 
 ### Edit Link, Last Updated, GitHub Star, GitHub Sponsor, and Gem Downloads
 
@@ -216,6 +223,8 @@ jekyll_vitepress:
 - `gem_downloads.text`
 - `gem_downloads.label`
 - `gem_downloads.show_count`
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
@@ -244,7 +253,6 @@ jekyll_vitepress:
     label: View gem downloads
     show_count: true
 ```
-{: data-title="_config.yml"}
 
 If `github_sponsor.url` is omitted, the theme links to `https://github.com/sponsors/:user`.
 If `gem_downloads.url` is omitted, the page-level downloads include links to `https://rubygems.org/gems/:name`.
@@ -254,24 +262,26 @@ If `last_updated.format` is `vitepress`, the static fallback is replaced in the 
 
 - `copy_page.enabled` (defaults to `true`)
 
-Copy page adds a split button to each doc page header. The main button copies the page as raw Markdown. The dropdown includes a "View as Markdown" link that opens the page as a plain `.md` file (generated alongside the HTML at build time). The link is marked `nofollow`, and the generated `robots.txt` excludes `.md` files so search engines favor the canonical HTML pages.
+Copy page adds a split button to each doc page header. The main button copies the page as Markdown, with Liquid rendered and any HTML from the page or its includes converted to Markdown. The dropdown includes a "View as Markdown" link that opens the page as a plain `.md` file (generated alongside the HTML at build time). The link is marked `nofollow`, and the generated `robots.txt` excludes `.md` files so search engines favor the canonical HTML pages.
 
 To disable:
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
   copy_page:
     enabled: false
 ```
-{: data-title="_config.yml"}
 
 Per-page disable via frontmatter:
+
+**page frontmatter**
 
 ```yaml
 jekyll_vitepress:
   copy_page: false
 ```
-{: data-title="page frontmatter"}
 
 ### Labels and Behavior
 
@@ -283,6 +293,8 @@ jekyll_vitepress:
 - `labels.switch_to_dark`
 - `labels.switch_to_light`
 - `behavior.scroll_offset`
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
@@ -297,13 +309,14 @@ jekyll_vitepress:
   behavior:
     scroll_offset: 134
 ```
-{: data-title="_config.yml"}
 
 ## `_data` files
 
 ### Navigation (`_data/navigation.yml`)
 
 Top navbar links:
+
+**_data/navigation.yml**
 
 ```yaml
 - title: Guide
@@ -313,11 +326,12 @@ Top navbar links:
   url: /configuration-reference/
   collections: [reference]
 ```
-{: data-title="_data/navigation.yml"}
 
 ### Sidebar (`_data/sidebar.yml`)
 
 Collection-driven sidebar groups:
+
+**_data/sidebar.yml**
 
 ```yaml
 - title: Introduction
@@ -329,7 +343,6 @@ Collection-driven sidebar groups:
 - title: Reference
   collection: reference
 ```
-{: data-title="_data/sidebar.yml"}
 
 Within each collection, page frontmatter controls hierarchy:
 
@@ -358,6 +371,8 @@ The theme supports nested items using `parent`, optional `grand_parent`, and `na
 - `label`: aria label
 - `icon_svg`: optional custom inline SVG
 
+**_data/social_links.yml**
+
 ```yaml
 - icon: github
   url: https://github.com/you/project
@@ -370,7 +385,6 @@ The theme supports nested items using `parent`, optional `grand_parent`, and `na
   label: Bluesky
   icon_svg: '<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 11.388c0-.756 1.676-3.35 3.43-4.594 2.296-1.627 3.726-1.348 4.3-.225.672 1.316-.53 4.77-2.257 6.48-.958.949-1.786 1.433-2.84 1.356-.67-.05-1.167-.35-1.586-.824-.49-.554-.732-1.346-1.047-2.193-.315.847-.557 1.64-1.047 2.193-.419.474-.916.775-1.586.824-1.054.077-1.882-.407-2.84-1.356C5.8 11.339 4.6 7.885 5.271 6.57c.574-1.124 2.004-1.402 4.3.225 1.754 1.243 3.43 3.838 3.43 4.594Z"/></svg>'
 ```
-{: data-title="_data/social_links.yml"}
 
 Built-in icon slugs are:
 `github`, `gitlab`, `bitbucket`, `discord`, `slack`, `x`, `twitter`,
@@ -381,6 +395,8 @@ Built-in icon slugs are:
 ### Versions (`_data/versions.yml`)
 
 If this file exists, it drives the version selector:
+
+**_data/versions.yml**
 
 ```yaml
 current: auto
@@ -395,7 +411,6 @@ items:
     url: https://github.com/you/project/releases
     external: true
 ```
-{: data-title="_data/versions.yml"}
 
 `current: auto` resolves to `v#{Jekyll::VitePressTheme::VERSION}` at build time.
 
@@ -409,9 +424,10 @@ Use these optional include files to inject custom markup without forking layouts
 
 If the files are absent in your site, the theme's empty defaults are used.
 
+**_includes/jekyll_vitepress/doc_footer_end.html**
+
 ```html
 <div class="my-doc-footer">
   Need help? <a href="/support/">Contact support</a>.
 </div>
 ```
-{: data-title="_includes/jekyll_vitepress/doc_footer_end.html"}

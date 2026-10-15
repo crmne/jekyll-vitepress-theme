@@ -475,7 +475,7 @@
               
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu"><span class="text">
-                      <span>v1.9.1</span>
+                      <span>v1.10.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -670,7 +670,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.9.1</span>
+            <span class="button-text">v1.10.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1475,6 +1475,8 @@ The plugin also creates `llms.txt` and `llms-full.txt`. The concise file is an i
 
 ## Production minimum
 
+**_config.yml**
+
 ```yaml
 title: My Project Docs
 description: Install, configure, and use My Project.
@@ -1489,7 +1491,6 @@ jekyll_vitepress:
       width: 1200
       height: 630
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 Use an absolute production `url` without a trailing slash or `baseurl`. If you deploy to `https://example.com/docs/`, configure `url: https://example.com` and `baseurl: /docs`.
 
@@ -1498,6 +1499,8 @@ Write a specific `description` for every important page. The site description is
 ## Publishers, authors, and technical articles
 
 The default structured page type is `WebPage`. Documentation projects with article-style guides can opt into Google&apos;s supported `Article` type and identify the responsible publisher:
+
+**_config.yml**
 
 ```yaml
 author:
@@ -1515,7 +1518,6 @@ jekyll_vitepress:
       same_as:
         - https://github.com/example/project
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 Set `seo.type` in page frontmatter when only a subset of pages should be articles. Add accurate `date_published` or `date_modified` values when you have them. The theme intentionally does not turn checkout/build timestamps into content dates.
 
@@ -1744,7 +1746,7 @@ After publishing, submit `/sitemap.xml` in Google Search Console and Bing Webmas
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-13T13:04:33+00:00" lang="en-US" data-vp-last-updated>Oct 13, 2026, 1:04:33 PM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T00:57:41+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 12:57:41 AM</time></p>
           </div>
         
       </div>

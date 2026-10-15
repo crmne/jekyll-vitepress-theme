@@ -6,6 +6,8 @@ Jekyll VitePress keeps sidebar configuration Jekyll-native: `_data/sidebar.yml` 
 
 Give the parent page a title and `nav_order`. `has_children` is optional, but it documents intent and keeps the frontmatter familiar for sites migrating from other Jekyll documentation themes.
 
+**_core_features/chat.md**
+
 ```yaml
 ---
 title: Chat
@@ -13,11 +15,12 @@ nav_order: 1
 has_children: true
 ---
 ```
-{: data-title="_core_features/chat.md"}
 
 ## Child pages
 
 Set `parent` to the parent page title. Child pages are rendered below their parent and sorted by their own `nav_order`.
+
+**_core_features/streaming.md**
 
 ```yaml
 ---
@@ -26,9 +29,10 @@ parent: Chat
 nav_order: 2
 ---
 ```
-{: data-title="_core_features/streaming.md"}
 
 Use `grand_parent` when two branches reuse the same parent title:
+
+**_reference/options.md**
 
 ```yaml
 ---
@@ -38,11 +42,12 @@ grand_parent: Reference
 nav_order: 1
 ---
 ```
-{: data-title="_reference/options.md"}
 
 ## Collapsed branches
 
 Add `collapsed: true` to a parent page to close that branch by default. Active branches are always opened so the current page stays visible.
+
+**_advanced/advanced-topics.md**
 
 ```yaml
 ---
@@ -52,6 +57,5 @@ has_children: true
 collapsed: true
 ---
 ```
-{: data-title="_advanced/advanced-topics.md"}
 
 Nested sidebar items follow the VitePress default theme shape and render up to six visible levels, counting the collection group as the root level.

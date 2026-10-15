@@ -16,18 +16,9 @@ On docs pages, clicking a search result uses the same Turbo Frame navigation as 
 
 If you need custom indexing behavior, add your own `search.json` page to the site and it will override the generated default.
 
-
-
-
-
-
-<div class="tip custom-block">
-  <p class="custom-block-title">TIP</p>
-  <p>If search doesn’t seem to find certain pages, make sure those pages belong to a collection listed in your <code class="language-plaintext highlighter-rouge">_data/sidebar.yml</code>. Only sidebar collections are indexed.</p>
-
-</div>
-
-
+> **TIP**
+>
+> If search doesn’t seem to find certain pages, make sure those pages belong to a collection listed in your `_data/sidebar.yml`. Only sidebar collections are indexed.
 
 ## Right-side outline
 
@@ -35,12 +26,13 @@ The "On this page" outline appears on the right side of docs pages and lists all
 
 As you scroll, the outline highlights the heading that's currently at the top of the viewport. Clicking an outline link scrolls to that heading, offset so it's visible below the fixed navbar. The offset distance is configurable:
 
+**_config.yml**
+
 ```yaml
 jekyll_vitepress:
   behavior:
     scroll_offset: 134
 ```
-{: data-title="_config.yml"}
 
 The outline label defaults to "On this page" and can be changed via `jekyll_vitepress.labels.outline`.
 

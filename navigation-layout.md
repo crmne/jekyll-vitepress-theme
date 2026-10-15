@@ -1,8 +1,5 @@
 # Navigation and Layout
 
-
-
-
 The default layout mirrors the standard VitePress docs structure: a fixed top navbar, a left sidebar for section navigation, a main content area, and a right-side outline that tracks your scroll position. This is part of the [VitePress Parity](/vitepress-parity/) layer; optional features beyond that baseline are documented in [Extensions to VitePress](/extensions-to-vitepress/).
 
 Internal docs navigation is handled with Turbo Frames. When a reader clicks a doc link, the theme swaps the docs content frame and keeps the surrounding shell in place, including the sidebar, navbar, search modal, and appearance controls.
@@ -32,13 +29,14 @@ Pages with `layout: home` skip the sidebar and outline, rendering the hero and f
 
 Sidebar entries are driven by two things: your `_data/sidebar.yml` file and navigation frontmatter on each document.
 
+**_data/sidebar.yml**
+
 ```yaml
 - title: Introduction
   collection: introduction
 - title: Core Features
   collection: core_features
 ```
-{: data-title="_data/sidebar.yml"}
 
 Each group pulls documents from the named Jekyll collection and sorts root documents by `nav_order`. The currently active page is highlighted automatically. If a collection has no documents with frontmatter, that group won't render any links.
 
@@ -48,6 +46,8 @@ Documents can also form nested sidebar groups with Jekyll-style frontmatter. Thi
 
 The navbar links are defined in `_data/navigation.yml`. Each entry has a `title`, a `url`, and optionally a `collections` array:
 
+**_data/navigation.yml**
+
 ```yaml
 - title: Guide
   url: /introduction/
@@ -56,7 +56,6 @@ The navbar links are defined in `_data/navigation.yml`. Each entry has a `title`
   url: /configuration-reference/
   collections: [reference]
 ```
-{: data-title="_data/navigation.yml"}
 
 The `collections` array determines which nav link stays highlighted as the user navigates within those collections. For example, when viewing any page from the `core_features` collection, the "Guide" nav link remains active.
 

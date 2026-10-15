@@ -475,7 +475,7 @@
               
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu"><span class="text">
-                      <span>v1.9.1</span>
+                      <span>v1.10.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -670,7 +670,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.9.1</span>
+            <span class="button-text">v1.10.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1471,18 +1471,9 @@ On docs pages, clicking a search result uses the same Turbo Frame navigation as 
 
 If you need custom indexing behavior, add your own `search.json` page to the site and it will override the generated default.
 
-
-
-
-
-
-&lt;div class=&quot;tip custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;TIP&lt;/p&gt;
-  &lt;p&gt;If search doesn’t seem to find certain pages, make sure those pages belong to a collection listed in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_data/sidebar.yml&lt;/code&gt;. Only sidebar collections are indexed.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
+&gt; **TIP**
+&gt;
+&gt; If search doesn’t seem to find certain pages, make sure those pages belong to a collection listed in your `_data/sidebar.yml`. Only sidebar collections are indexed.
 
 ## Right-side outline
 
@@ -1490,12 +1481,13 @@ The &quot;On this page&quot; outline appears on the right side of docs pages and
 
 As you scroll, the outline highlights the heading that&apos;s currently at the top of the viewport. Clicking an outline link scrolls to that heading, offset so it&apos;s visible below the fixed navbar. The offset distance is configurable:
 
+**_config.yml**
+
 ```yaml
 jekyll_vitepress:
   behavior:
     scroll_offset: 134
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 The outline label defaults to &quot;On this page&quot; and can be changed via `jekyll_vitepress.labels.outline`.
 
@@ -1633,7 +1625,7 @@ On narrow screens, the outline collapses to keep the content area readable.
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-13T13:04:33+00:00" lang="en-US" data-vp-last-updated>Oct 13, 2026, 1:04:33 PM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T00:57:41+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 12:57:41 AM</time></p>
           </div>
         
       </div>

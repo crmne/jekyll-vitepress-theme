@@ -1,18 +1,16 @@
 # Getting Started
 
-
-
-
 This guide walks you through installing the theme and getting a working documentation site running locally. By the end, you'll have a Jekyll site with VitePress-style navigation, a persistent sidebar, Turbo-powered internal page changes, polished default styling, and optional features beyond baseline VitePress. See [VitePress Parity](/vitepress-parity/) and [Extensions to VitePress](/extensions-to-vitepress/) for the full scope.
 
 ## Add the gem
 
 Add the theme to your `Gemfile`:
 
+**Gemfile**
+
 ```ruby
 gem "jekyll-vitepress-theme"
 ```
-{: data-title="Gemfile"}
 
 Then install it:
 
@@ -24,14 +22,17 @@ bundle install
 
 The gem serves double duty. It provides layouts and assets as a **theme**, and registers Jekyll hooks as a **plugin**. You need to enable both:
 
+**_config.yml**
+
 ```yaml
 theme: jekyll-vitepress-theme
 plugins:
   - jekyll-vitepress-theme
 ```
-{: data-title="_config.yml"}
 
 Set the production identity used by canonical URLs, structured data, the sitemap, and social cards:
+
+**_config.yml**
 
 ```yaml
 title: My Project Docs
@@ -40,13 +41,14 @@ url: https://docs.example.com
 lang: en-US
 logo: /assets/images/social-card.png
 ```
-{: data-title="_config.yml"}
 
 `url` must be the absolute public origin, without `baseurl`. If the site is published below a path, set that path separately with `baseurl`. The build warns when it cannot produce absolute indexing URLs.
 
 ## Define your collections
 
 Jekyll VitePress Theme uses [collections](https://jekyllrb.com/docs/collections/) to organize your documentation into groups. Define them in `_config.yml`:
+
+**_config.yml**
 
 ```yaml
 collections:
@@ -63,13 +65,14 @@ defaults:
     values:
       layout: default
 ```
-{: data-title="_config.yml"}
 
 Each collection becomes a folder (e.g., `_guides/`, `_reference/`) where you place your Markdown files. The `permalink: "/:name/"` setting gives each document a clean URL based on its filename.
 
 ## Configure branding and data files
 
 Theme behavior lives in `_config.yml` under `jekyll_vitepress`:
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
@@ -85,9 +88,10 @@ jekyll_vitepress:
     light_theme: github
     dark_theme: github.dark
 ```
-{: data-title="_config.yml"}
 
 Navigation and sidebar structure live in `_data/` files. The **navigation** defines your top navbar links and maps them to collections (so the correct nav item highlights when viewing pages from those collections):
+
+**_data/navigation.yml**
 
 ```yaml
 - title: Guide
@@ -97,9 +101,10 @@ Navigation and sidebar structure live in `_data/` files. The **navigation** defi
   url: /api-reference/
   collections: [reference]
 ```
-{: data-title="_data/navigation.yml"}
 
 The **sidebar** defines the left-hand navigation groups. Each group pulls its entries from a collection, sorted by `nav_order` frontmatter:
+
+**_data/sidebar.yml**
 
 ```yaml
 - title: Guides
@@ -107,11 +112,12 @@ The **sidebar** defines the left-hand navigation groups. Each group pulls its en
 - title: Reference
   collection: reference
 ```
-{: data-title="_data/sidebar.yml"}
 
 ## Create your first page
 
 Create a document inside one of your collection folders:
+
+**_guides/introduction.md**
 
 ```markdown
 ---
@@ -121,7 +127,6 @@ nav_order: 1
 
 Welcome to My Project! This is your first documentation page.
 ```
-{: data-title="_guides/introduction.md"}
 
 The `nav_order` value controls the sort order in the sidebar. Lower numbers appear first.
 
@@ -133,15 +138,6 @@ bundle exec jekyll serve --livereload
 
 Open `http://127.0.0.1:4000`. You should see the VitePress-style layout: top nav, sidebar, content area, right outline, local search, and fast doc-to-doc navigation. From there, enable the Jekyll-first extras documented in [Extensions to VitePress](/extensions-to-vitepress/) as needed.
 
-
-
-
-
-
-<div class="tip custom-block">
-  <p class="custom-block-title">TIP</p>
-  <p>To add a VitePress-style landing page with a hero section and feature cards, set <code class="language-plaintext highlighter-rouge">layout: home</code> in your <code class="language-plaintext highlighter-rouge">index.md</code> frontmatter. See <a href="/vitepress-parity/">VitePress Parity</a> for the mirrored baseline, the <a href="/frontmatter-reference/">Frontmatter Reference</a> for home layout keys, and <a href="/extensions-to-vitepress/">Extensions to VitePress</a> for features beyond VitePress.</p>
-
-</div>
-
-
+> **TIP**
+>
+> To add a VitePress-style landing page with a hero section and feature cards, set `layout: home` in your `index.md` frontmatter. See [VitePress Parity](/vitepress-parity/) for the mirrored baseline, the [Frontmatter Reference](/frontmatter-reference/) for home layout keys, and [Extensions to VitePress](/extensions-to-vitepress/) for features beyond VitePress.

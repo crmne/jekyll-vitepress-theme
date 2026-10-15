@@ -475,7 +475,7 @@
               
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu"><span class="text">
-                      <span>v1.9.1</span>
+                      <span>v1.10.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -670,7 +670,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.9.1</span>
+            <span class="button-text">v1.10.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1467,13 +1467,14 @@ The easiest way to add custom markup is through the theme&apos;s hook includes. 
 
 For example, to add a simple feedback prompt after every doc page:
 
+**_includes/jekyll_vitepress/doc_footer_end.html**
+
 ```html
 &lt;div class=&quot;my-feedback&quot;&gt;
   Was this page helpful?
   &lt;a href=&quot;/feedback/&quot;&gt;Let us know&lt;/a&gt;.
 &lt;/div&gt;
 ```
-{: data-title=&quot;_includes/jekyll_vitepress/doc_footer_end.html&quot;}
 
 If these files don&apos;t exist in your site, the theme&apos;s empty defaults are used. There are no errors and no output.
 
@@ -1499,37 +1500,20 @@ You can also override `_layouts/default.html` entirely. This gives you full cont
 
 To add your own JavaScript or CSS, use the `head_end.html` hook include:
 
+**_includes/jekyll_vitepress/head_end.html**
+
 ```html
 &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/custom.css&quot;&gt;
 &lt;script src=&quot;/assets/js/custom.js&quot; defer&gt;&lt;/script&gt;
 ```
-{: data-title=&quot;_includes/jekyll_vitepress/head_end.html&quot;}
 
+&gt; **WARNING**
+&gt;
+&gt; If you override includes or layouts that contain interactive elements (sidebar, outline, search), keep the existing class names and DOM structure intact. The theme’s JavaScript relies on these to wire up sidebar toggling, scroll tracking, and search behavior.
 
-
-
-
-
-&lt;div class=&quot;warning custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;WARNING&lt;/p&gt;
-  &lt;p&gt;If you override includes or layouts that contain interactive elements (sidebar, outline, search), keep the existing class names and DOM structure intact. The theme’s JavaScript relies on these to wire up sidebar toggling, scroll tracking, and search behavior.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
-
-
-
-
-
-
-&lt;div class=&quot;tip custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;TIP&lt;/p&gt;
-  &lt;p&gt;If you override nav, sidebar, search, or the default layout, preserve the Turbo Frame attributes on internal docs links. Those attributes are what keep navigation fast while leaving the sidebar and navbar in place.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
+&gt; **TIP**
+&gt;
+&gt; If you override nav, sidebar, search, or the default layout, preserve the Turbo Frame attributes on internal docs links. Those attributes are what keep navigation fast while leaving the sidebar and navbar in place.
 </textarea>
     
     <p>Because this is Jekyll, extension is straightforward. Override a file and you are done. The theme provides several levels of customization, from simple hooks to full layout overrides.</p>
@@ -1687,7 +1671,7 @@ To add your own JavaScript or CSS, use the `head_end.html` hook include:
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-13T13:04:33+00:00" lang="en-US" data-vp-last-updated>Oct 13, 2026, 1:04:33 PM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T00:57:41+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 12:57:41 AM</time></p>
           </div>
         
       </div>

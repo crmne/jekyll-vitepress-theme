@@ -475,7 +475,7 @@
               
                 <div class="VPVersionSelector" id="vp-version-selector">
                   <button type="button" class="button" id="vp-version-button" aria-haspopup="true" aria-expanded="false" aria-controls="vp-version-menu"><span class="text">
-                      <span>v1.9.1</span>
+                      <span>v1.10.0</span>
                       <span class="vpi-chevron-down text-icon"></span>
                     </span>
                   </button>
@@ -670,7 +670,7 @@
       
         <div class="VPNavScreenVersion VPNavScreenMenuGroup version" id="vp-nav-screen-version-group">
           <button type="button" class="button" id="vp-nav-screen-version-button" aria-controls="vp-nav-screen-version-items" aria-expanded="false">
-            <span class="button-text">v1.9.1</span>
+            <span class="button-text">v1.10.0</span>
             <span class="vpi-plus button-icon" aria-hidden="true"></span>
           </button>
           <div class="items" id="vp-nav-screen-version-items" aria-hidden="true">
@@ -1455,9 +1455,6 @@
     
       <textarea class="vp-raw-markdown" style="display:none" aria-hidden="true"># Code Blocks
 
-
-
-
 Code blocks get several VitePress-style enhancements automatically. They are part of [VitePress Parity](/vitepress-parity/), while optional features beyond baseline VitePress are documented in [Extensions to VitePress](/extensions-to-vitepress/). No configuration is needed beyond choosing your syntax themes.
 
 ## What you get for free
@@ -1479,13 +1476,14 @@ puts &quot;Hello, world!&quot;
 
 Syntax colors come from [Rouge](https://github.com/rouge-ruby/rouge) themes, configured in `_config.yml`:
 
+**_config.yml**
+
 ```yaml
 jekyll_vitepress:
   syntax:
     light_theme: github
     dark_theme: github.dark
 ```
-{: data-title=&quot;_config.yml&quot;}
 
 The theme generates scoped CSS for both modes at build time. When the user toggles between light and dark mode, code blocks switch palettes automatically. Any installed Rouge theme name works here. If you specify an invalid name, the plugin falls back to `github` / `github.dark` and logs a warning.
 
@@ -1508,6 +1506,8 @@ This renders a title bar above the code block showing the filename, complete wit
 
 ## Titled block examples
 
+**app/tools/weather_tool.rb**
+
 ```ruby
 class WeatherTool
   def call(city:)
@@ -1515,34 +1515,26 @@ class WeatherTool
   end
 end
 ```
-{: data-title=&quot;app/tools/weather_tool.rb&quot;}
+
+**src/utils/date.ts**
 
 ```ts
 export function formatDate(input: string): string {
   return new Date(input).toISOString()
 }
 ```
-{: data-title=&quot;src/utils/date.ts&quot;}
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
   branding:
     site_title: My Docs
 ```
-{: data-title=&quot;_config.yml&quot;}
 
-
-
-
-
-
-&lt;div class=&quot;tip custom-block&quot;&gt;
-  &lt;p class=&quot;custom-block-title&quot;&gt;TIP&lt;/p&gt;
-  &lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{: data-title=&quot;...&quot;}&lt;/code&gt; syntax is a Kramdown feature called an Inline Attribute List (IAL). It must appear on its own line directly after the code fence, with no blank line in between.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
+&gt; **TIP**
+&gt;
+&gt; The `{: data-title=&quot;...&quot;}` syntax is a Kramdown feature called an Inline Attribute List (IAL). It must appear on its own line directly after the code fence, with no blank line in between.
 </textarea>
     
     
@@ -1710,7 +1702,7 @@ jekyll_vitepress:
         
         
           <div class="last-updated">
-            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-13T13:04:33+00:00" lang="en-US" data-vp-last-updated>Oct 13, 2026, 1:04:33 PM</time></p>
+            <p class="VPLastUpdated">Last updated: <time datetime="2026-10-15T00:57:41+00:00" lang="en-US" data-vp-last-updated>Oct 15, 2026, 12:57:41 AM</time></p>
           </div>
         
       </div>

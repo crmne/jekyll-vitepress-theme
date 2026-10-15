@@ -29,11 +29,12 @@
 
 - Ensure the plugin is enabled in `_config.yml`:
 
+**_config.yml**
+
 ```yaml
 plugins:
   - jekyll-vitepress-theme
 ```
-{: data-title="_config.yml"}
 
 - Check that `jekyll_vitepress.last_updated.enabled` is not set to `false`.
 - If a specific page has `jekyll_vitepress.last_updated: false` in its frontmatter, the timestamp is hidden for that page only.

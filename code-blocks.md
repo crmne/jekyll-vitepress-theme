@@ -1,8 +1,5 @@
 # Code Blocks
 
-
-
-
 Code blocks get several VitePress-style enhancements automatically. They are part of [VitePress Parity](/vitepress-parity/), while optional features beyond baseline VitePress are documented in [Extensions to VitePress](/extensions-to-vitepress/). No configuration is needed beyond choosing your syntax themes.
 
 ## What you get for free
@@ -24,13 +21,14 @@ puts "Hello, world!"
 
 Syntax colors come from [Rouge](https://github.com/rouge-ruby/rouge) themes, configured in `_config.yml`:
 
+**_config.yml**
+
 ```yaml
 jekyll_vitepress:
   syntax:
     light_theme: github
     dark_theme: github.dark
 ```
-{: data-title="_config.yml"}
 
 The theme generates scoped CSS for both modes at build time. When the user toggles between light and dark mode, code blocks switch palettes automatically. Any installed Rouge theme name works here. If you specify an invalid name, the plugin falls back to `github` / `github.dark` and logs a warning.
 
@@ -53,6 +51,8 @@ This renders a title bar above the code block showing the filename, complete wit
 
 ## Titled block examples
 
+**app/tools/weather_tool.rb**
+
 ```ruby
 class WeatherTool
   def call(city:)
@@ -60,31 +60,23 @@ class WeatherTool
   end
 end
 ```
-{: data-title="app/tools/weather_tool.rb"}
+
+**src/utils/date.ts**
 
 ```ts
 export function formatDate(input: string): string {
   return new Date(input).toISOString()
 }
 ```
-{: data-title="src/utils/date.ts"}
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
   branding:
     site_title: My Docs
 ```
-{: data-title="_config.yml"}
 
-
-
-
-
-
-<div class="tip custom-block">
-  <p class="custom-block-title">TIP</p>
-  <p>The <code class="language-plaintext highlighter-rouge">{: data-title="..."}</code> syntax is a Kramdown feature called an Inline Attribute List (IAL). It must appear on its own line directly after the code fence, with no blank line in between.</p>
-
-</div>
-
-
+> **TIP**
+>
+> The `{: data-title="..."}` syntax is a Kramdown feature called an Inline Attribute List (IAL). It must appear on its own line directly after the code fence, with no blank line in between.

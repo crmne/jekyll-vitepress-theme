@@ -6,6 +6,8 @@ All theme configuration follows a Jekyll-native pattern: rendering options go in
 
 At minimum, set your site title. You can also configure a logo and syntax highlighting themes:
 
+**_config.yml**
+
 ```yaml
 jekyll_vitepress:
   branding:
@@ -22,13 +24,14 @@ jekyll_vitepress:
     light_theme: github
     dark_theme: github.dark
 ```
-{: data-title="_config.yml"}
 
 The `light_theme` and `dark_theme` values accept any installed [Rouge](https://github.com/rouge-ruby/rouge) theme name. The theme automatically generates scoped CSS for both modes at build time, so your code blocks look right in light and dark mode without any extra work.
 
 ## Typography and tokens
 
 You can customize fonts and override VitePress CSS variables (tokens) for branding:
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
@@ -43,13 +46,14 @@ jekyll_vitepress:
     dark:
       --vp-c-brand-1: "#a8b1ff"
 ```
-{: data-title="_config.yml"}
 
 Set `google_fonts_url: false` to disable external font loading entirely (useful if you want to serve fonts locally or use system fonts).
 
 ## Navigation and sidebar
 
 Navigation links appear in the top navbar. Each link has a `title`, a `url` (where clicking it navigates), and a list of `collections` it "owns". This controls which nav item stays highlighted as the user browses pages within those collections:
+
+**_data/navigation.yml**
 
 ```yaml
 - title: Guide
@@ -59,9 +63,10 @@ Navigation links appear in the top navbar. Each link has a `title`, a `url` (whe
   url: /configuration-reference/
   collections: [reference]
 ```
-{: data-title="_data/navigation.yml"}
 
 Sidebar groups map directly to collections. Documents within each collection are sorted by their `nav_order` frontmatter value:
+
+**_data/sidebar.yml**
 
 ```yaml
 - title: Introduction
@@ -69,11 +74,12 @@ Sidebar groups map directly to collections. Documents within each collection are
 - title: Core Features
   collection: core_features
 ```
-{: data-title="_data/sidebar.yml"}
 
 ## Social links
 
 Social icons appear in the top navbar. Use a built-in icon slug, or provide custom inline SVG:
+
+**_data/social_links.yml**
 
 ```yaml
 - icon: github
@@ -83,13 +89,14 @@ Social icons appear in the top navbar. Use a built-in icon slug, or provide cust
   url: https://x.com/you
   label: X
 ```
-{: data-title="_data/social_links.yml"}
 
 For a full list of built-in icon slugs and custom SVG support, see the [Configuration Reference](/configuration-reference/).
 
 ## Edit link
 
 Point users to the source file on GitHub with an edit link in the doc footer:
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
@@ -98,13 +105,14 @@ jekyll_vitepress:
     pattern: "https://github.com/you/project/edit/main/:path"
     text: Edit this page on GitHub
 ```
-{: data-title="_config.yml"}
 
 The `:path` placeholder is replaced with the source file's path at build time.
 
 ## Version selector
 
 If `_data/versions.yml` exists, the theme renders a version selector dropdown in the navbar:
+
+**_data/versions.yml**
 
 ```yaml
 current: auto
@@ -119,13 +127,14 @@ items:
     url: https://github.com/you/project/releases
     external: true
 ```
-{: data-title="_data/versions.yml"}
 
 Set `current: auto` to automatically resolve to `v#{Jekyll::VitePressTheme::VERSION}` at build time. This is handy if your docs version should track your gem version.
 
 ## GitHub and RubyGems buttons
 
 Show a GitHub star button with live count in the navbar:
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
@@ -135,9 +144,10 @@ jekyll_vitepress:
     text: Star
     show_count: true
 ```
-{: data-title="_config.yml"}
 
 You can also show a GitHub Sponsors button next to it:
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
@@ -146,11 +156,12 @@ jekyll_vitepress:
     user: you
     text: Sponsor
 ```
-{: data-title="_config.yml"}
 
 Use `url` instead of `user` if you want to point to a custom sponsorship page.
 
 Configure RubyGems downloads once if you want to reuse a live downloads button in pages:
+
+**_config.yml**
 
 ```yaml
 jekyll_vitepress:
@@ -162,7 +173,6 @@ jekyll_vitepress:
     label: View gem downloads
     show_count: true
 ```
-{: data-title="_config.yml"}
 
 Then render it anywhere in Markdown:
 
