@@ -258,7 +258,7 @@ If `last_updated.format` is `vitepress`, the static fallback is replaced in the 
 
 - `copy_page.enabled` (defaults to `true`)
 
-Copy page adds a split button to each doc page header. The main button copies the page as raw Markdown. The dropdown includes a "View as Markdown" link that opens the page as a plain `.md` file (generated alongside the HTML at build time). The link is marked `nofollow`, and the generated `robots.txt` excludes `.md` files so search engines favor the canonical HTML pages.
+Copy page adds a split button to each doc page header. The main button copies the page as Markdown, with Liquid rendered and any HTML from the page or its includes converted to Markdown. The dropdown includes a "View as Markdown" link that opens the page as a plain `.md` file (generated alongside the HTML at build time). The link is marked `nofollow`, and the generated `robots.txt` excludes `.md` files so search engines favor the canonical HTML pages.
 
 To disable:
 

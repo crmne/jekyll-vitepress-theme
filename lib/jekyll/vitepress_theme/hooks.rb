@@ -475,6 +475,10 @@ module Jekyll
       end
 
       def resolved_markdown(item, payload)
+        MarkdownExport.convert(rendered_markdown(item, payload))
+      end
+
+      def rendered_markdown(item, payload)
         raw = item.content.to_s
         return raw unless item.respond_to?(:render_with_liquid?) && item.render_with_liquid?
 

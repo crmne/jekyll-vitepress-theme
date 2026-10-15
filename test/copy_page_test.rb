@@ -5,6 +5,7 @@ class CopyPageTest < Minitest::Test
 
   FakeSite = Struct.new(:config)
   FakeItem = Struct.new(:site, :data)
+  FakeDocument = Struct.new(:content)
 
   def site(config = {})
     FakeSite.new(config)
@@ -83,5 +84,11 @@ class CopyPageTest < Minitest::Test
     config = { 'jekyll_vitepress' => { 'copy_page' => { 'enabled' => false } } }
     data = { 'jekyll_vitepress' => { 'copy_page' => true } }
     refute CopyPage.enabled?(item(site_config: config, data: data))
+  end
+
+  def test_resolved_markdown_converts_html_to_markdown
+    document = FakeDocument.new("<p>See <a href=\"/chat/\">the guide</a>.</p>\n\n```html\n<p>kept</p>\n```\n")
+
+    assert_equal "See [the guide](/chat/).\n\n```html\n<p>kept</p>\n```\n", CopyPage.resolved_markdown(document, {})
   end
 end
