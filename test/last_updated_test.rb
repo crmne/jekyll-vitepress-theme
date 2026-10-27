@@ -134,16 +134,32 @@ class LastUpdatedTest < Minitest::Test
       git(repo, 'commit', '-q', '-m', 'Docs', date: FIRST)
       write(repo, 'docs/guide.md', "#{File.read(File.join(docs, 'guide.md'))}\nMore.\n")
       git(repo, 'commit', '-q', '-am', 'Guide', date: SECOND)
+      write(repo, 'docs/draft.md', "---\ntitle: Draft\npermalink: /draft/\n---\n\nDraft.\n")
 
       build(docs) do |destination|
         assert_equal FIRST, last_updated(destination, 'private/index.html')
         assert_equal SECOND, last_updated(destination, 'guide/index.html')
         assert_equal Time.utc(2020, 2, 3, 4, 5, 6), last_updated(destination, 'pinned/index.html')
+
+        sitemap = File.read(File.join(destination, 'sitemap.xml'))
+        assert_sitemap_lastmod sitemap, 'guide/', SECOND.xmlschema
+        assert_sitemap_lastmod sitemap, 'pinned/', '2020-02-03T04:05:06+00:00'
+        assert_includes sitemap, '/draft/</loc>'
+        assert_sitemap_lastmod sitemap, 'draft/', nil
       end
     end
   end
 
   private
+
+  def assert_sitemap_lastmod(sitemap, path, expected)
+    entry = sitemap[%r{<loc>[^<]*/#{Regexp.escape(path)}</loc>\s*<lastmod>([^<]+)</lastmod>}, 1]
+    if expected.nil?
+      assert_nil entry, "sitemap lastmod for /#{path}"
+    else
+      assert_equal expected, entry, "sitemap lastmod for /#{path}"
+    end
+  end
 
   def time_for(site, path)
     Jekyll::VitePressTheme::LastUpdated.source_file_time(site, path)

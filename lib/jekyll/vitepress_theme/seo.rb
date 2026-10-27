@@ -388,7 +388,7 @@ module Jekyll
           metadata = item.data['_seo']
           next unless sitemap_candidate?(item, metadata)
 
-          last_modified = metadata['date_modified']
+          last_modified = metadata['date_modified'] || source_modified(item)
           last_modified ||= metadata['date_published'] if posts_document?(item)
           [metadata['canonical_url'], last_modified]
         end
@@ -406,6 +406,13 @@ module Jekyll
           #{body}
           </urlset>
         XML
+      end
+
+      # Front matter first, then the last commit that touched the page's
+      # source file. Never a build-time file timestamp, which would mark every
+      # page as changed on each build.
+      def source_modified(item)
+        xml_time(item.data['last_updated_at'] || LastUpdated.commit_time(item.site, item.path))
       end
 
       def robots_txt(site, config, site_url)

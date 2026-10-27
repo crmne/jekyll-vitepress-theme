@@ -40,6 +40,14 @@ module Jekyll
         git_index(site).time_for(source_path) || File.mtime(source_path).utc
       end
 
+      # The last commit date alone, or nil where Git cannot date the file.
+      # For uses such as the sitemap, where a build-time file timestamp
+      # would claim a change that never happened.
+      def commit_time(site, path)
+        source_path = resolved_source_path(site, path)
+        source_path && git_index(site).time_for(source_path)
+      end
+
       def resolved_source_path(site, path)
         return nil unless path
 
