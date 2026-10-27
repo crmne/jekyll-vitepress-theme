@@ -50,7 +50,7 @@ These keys can be set in any page's frontmatter to control theme behavior on a p
 - `lang` or `locale`: overrides the page language, HTML `lang`, and Open Graph locale.
 - `robots`: overrides the complete robots directive; `noindex: true` and `nofollow: true` are convenient boolean alternatives.
 - `alternates`: language variants, each with `lang` (or `hreflang`) and `url`.
-- `date_published`, `date_modified`, or `last_modified_at`: explicit structured-data dates. The sitemap uses only explicit modification dates instead of unreliable build-time file timestamps.
+- `date_published`, `date_modified`, or `last_modified_at`: explicit structured-data dates. The sitemap's `lastmod` uses an explicit modification date, or else the last commit that touched the page's source file (build with the full Git history, `fetch-depth: 0` on GitHub Actions). It never uses build-time file timestamps, so a page Git cannot date has no `lastmod`.
 - `seo.title`, `seo.description`, `seo.canonical_url`, `seo.image`, `seo.author`, `seo.robots`, `seo.noindex`, `seo.nofollow`, `seo.type`, and `seo.alternates`: grouped forms of the page-level SEO overrides.
 - `seo: false`: disables theme-owned metadata for the page, so a custom head integration can take over.
 - `sitemap: false`: omits the URL from `sitemap.xml` without changing its robots directive.
