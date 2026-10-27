@@ -15,6 +15,8 @@ on:
       - 'search.json'
       - 'Gemfile'
       - 'Gemfile.lock'
+      - '*.txt'
+      - '.github/scripts/indexnow.rb'
   workflow_dispatch:
 
 permissions:
@@ -53,9 +55,15 @@ jobs:
         env:
           JEKYLL_ENV: production
 
+      - name: Plan IndexNow submission
+        run: ruby .github/scripts/indexnow.rb plan _site "$RUNNER_TEMP/indexnow.json"
+
       - name: Publish docs to gh-pages
         env:
           SITE_ROOT_DIR: _site
         run: |
           export COMMIT_MESSAGE="docs: publish site (${GITHUB_SHA::7})"
           bash scripts/publish_gh_pages.sh single
+
+      - name: Submit changed URLs to IndexNow
+        run: ruby .github/scripts/indexnow.rb submit "$RUNNER_TEMP/indexnow.json"
