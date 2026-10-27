@@ -21,7 +21,7 @@
     "stylelint-config-standard": "^40"
   },
   "overrides": {
-    "katex": "^0.18.2",
+    "katex": "^0.19.0",
     "smol-toml": "^1.9.1"
   }
 }
