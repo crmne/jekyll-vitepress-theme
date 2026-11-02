@@ -65,7 +65,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.4"
+          ruby-version: "4.0"
 
       - name: Check if version needs publishing
         id: check_version
