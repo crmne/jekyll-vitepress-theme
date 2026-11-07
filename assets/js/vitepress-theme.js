@@ -2088,7 +2088,8 @@
   var pendingDocFrameHash = null;
 
   function shouldTargetDocFrameLink(link) {
-    if (!link) {
+    // Pages without a sidebar (the home page) have no content frame to target.
+    if (!link || !document.getElementById('vp-content-frame')) {
       return false;
     }
 
@@ -2321,11 +2322,8 @@
 
       event.preventDefault();
 
-      if (event.detail && typeof event.detail.visit === 'function' && event.detail.response) {
-        event.detail.visit(event.detail.response);
-        return;
-      }
-
+      // Load the page in full. A Turbo Drive visit would swap the body while
+      // this script's listeners stay bound to the old nav and sidebar.
       if (event.detail && event.detail.response && event.detail.response.url) {
         window.location.href = event.detail.response.url;
       }
