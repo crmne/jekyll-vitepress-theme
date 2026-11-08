@@ -26,10 +26,13 @@ Gem::Specification.new do |spec|
     '_includes/**/*',
     '_layouts/**/*',
     'lib/**/*',
+    'exe/*',
     'LICENSE*',
     'README.md'
   ].select { |f| File.file?(f) }
 
+  spec.bindir = 'exe'
+  spec.executables = ['jekyll-vitepress']
   spec.require_paths = ['lib']
 
   spec.add_dependency 'cgi', '>= 0.3', '< 1.0'

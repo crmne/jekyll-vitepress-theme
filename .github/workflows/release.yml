@@ -180,3 +180,19 @@ jobs:
             --target "$release_target" \
             --notes-file "packaging/release-notes/v${VERSION}.md" \
             "${prerelease_args[@]}"
+
+      - name: Point the major-version tag at this release
+        if: steps.check_version.outputs.version_changed == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Docs workflows call publish-docs.yml@v1, so v1 follows the newest
+          # 1.x release. Prereleases leave it alone.
+          if ruby -rrubygems/version -e 'exit Gem::Version.new(ARGV.fetch(0)).prerelease? ? 0 : 1' "$VERSION"; then
+            exit 0
+          fi
+          major="v${VERSION%%.*}"
+          git tag -f "$major" "v${VERSION}^{commit}"
+          git push -f origin "refs/tags/${major}"

@@ -152,6 +152,7 @@ exclude:
   - scripts
   - test
   - lib
+  - exe
   - "*.gem"
   - jekyll-vitepress-theme.gemspec
   - Gemfile

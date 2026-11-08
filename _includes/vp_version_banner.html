@@ -1,0 +1,24 @@
+{%- comment -%}
+  Tells readers of unreleased and older docs which version they are on, and
+  links to the stable docs. `jekyll-vitepress build` sets site.vitepress_version
+  for each version it builds; the stable docs and single builds show nothing.
+{%- endcomment -%}
+{%- assign version = site.vitepress_version -%}
+{%- if version and version.kind and version.kind != 'stable' -%}
+  {%- assign labels = site.jekyll_vitepress.labels -%}
+  {%- assign banner_site = site.title | default: site.jekyll_vitepress.branding.site_title -%}
+  {%- if version.kind == 'next' -%}
+    {%- assign banner_text = labels.version_banner_next | default: "You're reading the docs for unreleased :site from :branch." -%}
+  {%- else -%}
+    {%- assign banner_text = labels.version_banner_older | default: "You're reading the docs for :site :version." -%}
+  {%- endif -%}
+  {%- assign banner_link = labels.version_banner_link | default: 'Read the :stable docs' -%}
+  {%- assign stable_title = version.stable.title | remove: ' (stable)' -%}
+  {%- capture branch_code -%}<code>{{ version.branch | escape }}</code>{%- endcapture -%}
+  <div class="VPVersionBanner" id="vp-version-banner" role="note">
+    <p>
+      {{ banner_text | escape | replace: ':site', banner_site | replace: ':version', version.title | replace: ':branch', branch_code }}
+      <a href="{{ version.stable.url }}">{{ banner_link | replace: ':stable', stable_title | escape }}</a>
+    </p>
+  </div>
+{%- endif -%}

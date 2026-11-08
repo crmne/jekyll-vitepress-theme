@@ -85,9 +85,16 @@ module Jekyll
         site = item.site
         config = config_for(site)
         page_title = clean_text(page_config['title'] || item.data['title'] || site_title(site))
-        full_title = full_title_for(page_title, site_title(site), config)
+        plain_site_title = site_title(site)
+        versioned_site_title = Versions.site_title(site, plain_site_title)
+        full_title = if page_title == plain_site_title
+                       versioned_site_title
+                     else
+                       full_title_for(page_title, versioned_site_title, config)
+                     end
         description = clean_text(page_config['description'] || item.data['description'] || site.config['description'])
-        canonical = canonical_url(site, page_config['canonical_url'] || item.data['canonical_url'] || item.url)
+        canonical_source = page_config['canonical_url'] || item.data['canonical_url'] || item.url
+        canonical = canonical_url(site, Versions.localize_url(site, canonical_source))
         locale = locale_for(item)
         image = image_for(item, page_config, config)
         author = author_for(item, page_config)

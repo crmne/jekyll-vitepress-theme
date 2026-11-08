@@ -1816,10 +1816,12 @@
   function getConfiguredScrollOffset() {
     var bodyScrollOffset = document.body ? document.body.getAttribute('data-vp-scroll-offset') : null;
     var offset = bodyScrollOffset ? parseFloat(bodyScrollOffset) : NaN;
-    if (!Number.isNaN(offset)) {
-      return offset;
+    if (Number.isNaN(offset)) {
+      offset = 134;
     }
-    return 134;
+    // The version banner on unreleased and older docs sits above the nav.
+    var versionBanner = document.getElementById('vp-version-banner');
+    return versionBanner ? offset + versionBanner.offsetHeight : offset;
   }
 
   function getHashTarget(hash) {

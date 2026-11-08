@@ -297,6 +297,8 @@ jekyll_vitepress:
 - `labels.appearance_menu`
 - `labels.switch_to_dark`
 - `labels.switch_to_light`
+- `labels.version_banner_next`, `labels.version_banner_older`, and
+  `labels.version_banner_link` (see [Banner text](/deployment/#banner-text))
 - `behavior.scroll_offset`
 
 ```yaml
@@ -311,6 +313,25 @@ jekyll_vitepress:
     switch_to_light: Switch to light theme
   behavior:
     scroll_offset: 134
+```
+{: data-title="_config.yml"}
+
+### Versions and Build Hooks
+
+`versions` publishes the latest release at `/`, the default branch at
+`/next/`, and any older major versions you keep. `build` runs commands around
+each build. Both are used by `jekyll-vitepress build`; see
+[Deployment](/deployment/) for every key.
+
+```yaml
+jekyll_vitepress:
+  versions:
+    next: true
+    keep:
+      - major: 1
+        redirect_missing: true
+  build:
+    after_build: bin/build-api-docs
 ```
 {: data-title="_config.yml"}
 
@@ -395,7 +416,19 @@ Built-in icon slugs are:
 
 ### Versions (`_data/versions.yml`)
 
-If this file exists, it drives the version selector:
+With [versioned docs](/deployment/#versioned-docs), `jekyll-vitepress build`
+fills in the version selector itself, and keeps any external links from this
+file, such as a changelog:
+
+```yaml
+items:
+  - title: Changelog
+    url: https://github.com/you/project/releases
+    external: true
+```
+{: data-title="_data/versions.yml"}
+
+Without versioned docs, this file drives the selector on its own:
 
 ```yaml
 current: auto
@@ -403,16 +436,15 @@ items:
   - id: v2.0.0
     title: v2.0.0 (latest)
     url: /
-  - id: v1.0.0
-    title: v1.0.0
-    url: /v1.0.0/
   - title: Changelog
     url: https://github.com/you/project/releases
     external: true
 ```
 {: data-title="_data/versions.yml"}
 
-`current: auto` resolves to `v#{Jekyll::VitePressTheme::VERSION}` at build time.
+`current: auto` resolves to the version set under `jekyll_vitepress.version`
+(a `value`, or a `file` holding `VERSION = '...'`), and otherwise to the
+theme's own version.
 
 ## Theme hooks (Jekyll include overrides)
 

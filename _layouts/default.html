@@ -5,7 +5,7 @@
   {% assign behavior = theme.behavior %}
   {% assign page_theme = page.jekyll_vitepress %}
   {% assign scroll_offset = behavior.scroll_offset | default: 134 %}
-  <body data-vp-scroll-offset="{{ scroll_offset }}" style="--vp-scroll-offset: {{ scroll_offset }}px;">
+  <body{% if site.vitepress_version and site.vitepress_version.kind != 'stable' %} class="has-version-banner"{% endif %} data-vp-scroll-offset="{{ scroll_offset }}" style="--vp-scroll-offset: {{ scroll_offset }}px;">
     {% assign is_home = false %}
     {% if page.layout == 'home' or page.url == '/' %}
       {% assign is_home = true %}
@@ -21,6 +21,7 @@
         <span tabindex="-1"></span>
         <a href="#VPContent" class="VPSkipLink visually-hidden">{{ theme.labels.skip_to_content | default: 'Skip to content' }}</a>
 
+        {% include vp_version_banner.html %}
         <div class="VPBackdrop backdrop" id="vp-backdrop"></div>
 
         {% include nav.html has_sidebar=has_sidebar is_home=is_home %}

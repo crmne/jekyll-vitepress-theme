@@ -545,6 +545,7 @@ module Jekyll
 end
 
 Jekyll::Hooks.register :site, :post_read do |site|
+  Jekyll::VitePressTheme::Versions.apply(site)
   Jekyll::VitePressTheme::VersionLabel.apply(site)
   Jekyll::VitePressTheme::RougeStyles.apply(site)
   Jekyll::VitePressTheme::Sidebar.apply(site)

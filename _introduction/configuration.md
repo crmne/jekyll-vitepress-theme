@@ -106,9 +106,23 @@ jekyll_vitepress:
 
 The `:path` placeholder is replaced with the source file's path at build time.
 
-## Version selector
+## Versions
 
-If `_data/versions.yml` exists, the theme renders a version selector dropdown in the navbar:
+To publish the latest release at `/` and the default branch at `/next/`, with
+a version selector and a banner on unreleased docs, turn on versions and build
+with `bundle exec jekyll-vitepress build`:
+
+```yaml
+jekyll_vitepress:
+  versions:
+    next: true
+```
+{: data-title="_config.yml"}
+
+[Deployment]({% link _advanced/deployment.md %}#versioned-docs) covers keeping
+older major versions online, build hooks, and the GitHub Pages workflow.
+
+For a hand-written selector instead, create `_data/versions.yml`:
 
 ```yaml
 current: auto
@@ -116,16 +130,14 @@ items:
   - id: v2.0.0
     title: v2.0.0 (latest)
     url: /
-  - id: v1.0.0
-    title: v1.0.0
-    url: /v1.0.0/
   - title: Changelog
     url: https://github.com/you/project/releases
     external: true
 ```
 {: data-title="_data/versions.yml"}
 
-Set `current: auto` to automatically resolve to `v#{Jekyll::VitePressTheme::VERSION}` at build time. This is handy if your docs version should track your gem version.
+`current: auto` resolves to the version set under `jekyll_vitepress.version`,
+and otherwise to the theme's own version.
 
 ## GitHub and RubyGems buttons
 

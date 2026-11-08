@@ -1312,7 +1312,7 @@ html:not(.dark) .shiki span {
 .vp-doc h4[id],
 .vp-doc h5[id],
 .vp-doc h6[id] {
-  scroll-margin-top: calc(var(--vp-scroll-offset, 134px) - var(--vp-heading-anchor-offset, 0px));
+  scroll-margin-top: calc(var(--vp-scroll-offset, 134px) + var(--vp-layout-top-height, 0px) - var(--vp-heading-anchor-offset, 0px));
 }
 
 .vp-doc h1 {

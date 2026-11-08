@@ -20,7 +20,7 @@ These features are not part of baseline VitePress:
 - **[Just the Docs-style callouts]({% link _core_features/callouts-labels-buttons.md %}#callouts):** kramdown attribute syntax such as `{: .note }` rendered with VitePress-style custom block UI.
 - **[Inline labels]({% link _core_features/callouts-labels-buttons.md %}#inline-labels):** Just the Docs-style labels such as `{: .label .label-green }` rendered as compact badges.
 - **[Local search index]({% link _core_features/search-and-outline.md %}#local-search):** a generated `search.json` index for client-side search across sidebar collection content.
-- **[Version selector]({% link _introduction/configuration.md %}#version-selector):** a data-driven dropdown from `_data/versions.yml`, including `current: auto` support.
+- **[Versioned docs]({% link _advanced/deployment.md %}#versioned-docs):** `jekyll-vitepress build` publishes the latest release at `/`, the default branch at `/next/`, and older major versions you keep, with a version selector, a banner on unreleased docs, and version-labelled titles.
 - **[Copy page]({% link _reference/configuration-reference.md %}#copy-page):** a split button offering "Copy page" and "View as Markdown" for LLM-friendly docs workflows.
 - **[LLM discovery files]({% link _reference/configuration-reference.md %}#llm-discovery):** generated `llms.txt` and `llms-full.txt` files covering canonical pages and documentation collections.
 

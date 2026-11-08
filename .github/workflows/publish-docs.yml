@@ -1,0 +1,152 @@
+name: Publish docs
+
+# Builds a Jekyll VitePress Theme site with `jekyll-vitepress build`, which
+# also builds every version configured under `jekyll_vitepress.versions`, and
+# deploys it to GitHub Pages. Call it from a workflow in the docs repository:
+#
+#   on:
+#     push:
+#       branches: [main]
+#       paths: [docs/**, .github/workflows/docs.yml]
+#     release:
+#       types: [published]
+#     workflow_dispatch:
+#
+#   permissions:
+#     contents: read
+#     pages: write
+#     id-token: write
+#
+#   concurrency:
+#     group: pages
+#     cancel-in-progress: false
+#
+#   jobs:
+#     docs:
+#       uses: crmne/jekyll-vitepress-theme/.github/workflows/publish-docs.yml@v1
+
+on:
+  workflow_call:
+    inputs:
+      docs-directory:
+        description: Directory holding the docs _config.yml and Gemfile.
+        type: string
+        default: docs
+      ruby-version:
+        description: Ruby used to build the docs.
+        type: string
+        default: '4.0'
+      root-bundle:
+        description: Also install the repository root's Gemfile, for build hooks that use it (API docs, for example).
+        type: boolean
+        default: false
+      apt-packages:
+        description: Space-separated Ubuntu packages the build needs, such as libvips-tools.
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      indexnow: ${{ steps.indexnow.outputs.enabled }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Releases trigger a deploy too, but /next/ must still be the
+          # default branch, and every release tag must be there to build.
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+
+      - name: Install system packages
+        if: inputs.apt-packages != ''
+        env:
+          PACKAGES: ${{ inputs.apt-packages }}
+        run: |
+          sudo apt-get update -qq
+          # shellcheck disable=SC2086 # the list is meant to split into words
+          sudo apt-get install -y --no-install-recommends $PACKAGES
+
+      - name: Set up Ruby for the repository
+        if: inputs.root-bundle
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ inputs.ruby-version }}
+          bundler-cache: true
+
+      - name: Set up Ruby for the docs
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ inputs.ruby-version }}
+          bundler-cache: true
+          working-directory: ${{ inputs.docs-directory }}
+
+      - name: Set up Pages
+        id: pages
+        uses: actions/configure-pages@v6
+
+      - name: Build docs
+        working-directory: ${{ inputs.docs-directory }}
+        env:
+          JEKYLL_ENV: production
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: bundle exec jekyll-vitepress build --baseurl "$BASE_PATH" --destination _site
+
+      - name: Check for IndexNow
+        id: indexnow
+        run: |
+          if [ -f .github/scripts/indexnow.rb ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Plan IndexNow submission
+        if: steps.indexnow.outputs.enabled == 'true'
+        env:
+          SITE: ${{ inputs.docs-directory }}/_site
+        run: ruby .github/scripts/indexnow.rb plan "$SITE" "$RUNNER_TEMP/indexnow.json"
+
+      - uses: actions/upload-artifact@v7
+        if: steps.indexnow.outputs.enabled == 'true'
+        with:
+          name: indexnow
+          path: ${{ runner.temp }}/indexnow.json
+          retention-days: 1
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: ${{ inputs.docs-directory }}/_site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
+
+  indexnow:
+    needs: [build, deploy]
+    if: needs.build.outputs.indexnow == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: .github/scripts
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: indexnow
+
+      - name: Submit changed URLs to IndexNow
+        run: ruby .github/scripts/indexnow.rb submit indexnow.json
