@@ -1,5 +1,12 @@
 <!DOCTYPE html>
-<html lang="{{ page._seo.language | default: page.lang | default: page.locale | default: site.lang | default: site.locale | default: 'en-US' }}"{% if page.dir or site.dir %} dir="{{ page.dir | default: site.dir }}"{% endif %}>
+{%- comment -%} Jekyll gives every page a `dir` (its URL directory), so only a real text direction counts. {%- endcomment -%}
+{%- assign html_dir = nil -%}
+{%- if page.dir == 'rtl' or page.dir == 'ltr' or page.dir == 'auto' -%}
+  {%- assign html_dir = page.dir -%}
+{%- elsif site.dir == 'rtl' or site.dir == 'ltr' or site.dir == 'auto' -%}
+  {%- assign html_dir = site.dir -%}
+{%- endif %}
+<html lang="{{ page._seo.language | default: page.lang | default: page.locale | default: site.lang | default: site.locale | default: 'en-US' }}"{% if html_dir %} dir="{{ html_dir }}"{% endif %}>
   {% include head.html %}
   {% assign theme = site.jekyll_vitepress %}
   {% assign behavior = theme.behavior %}
