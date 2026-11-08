@@ -2,68 +2,37 @@ name: Deploy Docs
 
 on:
   push:
-    branches: [main, master]
+    branches: [master]
     paths:
       - '.github/workflows/docs.yml'
+      - '.github/workflows/publish-docs.yml'
       - '_**/**'
       - '_config.yml'
       - 'assets/**'
-      - 'docs/**'
+      - 'exe/**'
       - 'lib/**'
-      - 'scripts/**'
       - '*.md'
       - 'search.json'
       - 'Gemfile'
       - 'Gemfile.lock'
       - '*.txt'
       - '.github/scripts/indexnow.rb'
+  release:
+    types: [published]
+  workflow_call:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
+  id-token: write
 
 concurrency:
-  group: gh-pages-publish
+  group: pages
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '4.0'
-          bundler-cache: true
-
-      - name: Setup Pages metadata
-        id: pages
-        uses: actions/configure-pages@v6
-
-      - name: Build docs
-        run: |
-          bundle exec jekyll build \
-            --baseurl "${{ steps.pages.outputs.base_path }}" \
-            --destination _site
-        env:
-          JEKYLL_ENV: production
-
-      - name: Plan IndexNow submission
-        run: ruby .github/scripts/indexnow.rb plan _site "$RUNNER_TEMP/indexnow.json"
-
-      - name: Publish docs to gh-pages
-        env:
-          SITE_ROOT_DIR: _site
-        run: |
-          export COMMIT_MESSAGE="docs: publish site (${GITHUB_SHA::7})"
-          bash scripts/publish_gh_pages.sh single
-
-      - name: Submit changed URLs to IndexNow
-        run: ruby .github/scripts/indexnow.rb submit "$RUNNER_TEMP/indexnow.json"
+  docs:
+    uses: ./.github/workflows/publish-docs.yml
+    with:
+      docs-directory: .

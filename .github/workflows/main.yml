@@ -8,6 +8,8 @@ on:
       - "_config.yml"
       - "assets/**"
       - "lib/**"
+      - "exe/**"
+      - "test/**"
       - "scripts/**"
       - "*.md"
       - "*.gemspec"
@@ -135,3 +137,13 @@ jobs:
     permissions:
       contents: write
     secrets: inherit
+
+  # A release made with GITHUB_TOKEN does not start other workflows, so the
+  # stable docs are published from here once the release exists.
+  docs:
+    needs: [release]
+    uses: ./.github/workflows/docs.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
