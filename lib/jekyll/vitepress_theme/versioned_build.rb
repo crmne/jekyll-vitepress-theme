@@ -46,12 +46,27 @@ module Jekyll
       end
 
       def run
-        config = site_config
-        settings = config.dig('jekyll_vitepress', 'versions')
-        @hooks = build_hooks(config)
-        @site_url = config['url'].to_s.strip.sub(%r{/+\z}, '')
-        versions = settings.is_a?(Hash) ? plan(settings) : nil
+        versions = planned_versions
         versions ? build_versions(versions) : build_single
+      end
+
+      # Builds every version, serves the site, and rebuilds the checkout's
+      # version whenever a file changes, the way `jekyll serve` does for a
+      # single site. Build hooks run once, in the first build.
+      def serve(host: '127.0.0.1', port: 4000)
+        versions = planned_versions
+        return serve_single(host, port) unless versions
+
+        Dir.mktmpdir('jekyll-vitepress-') do |work|
+          build_versions(versions, work)
+          checkout = versions.find { |version| version.tag.nil? }
+          watcher = checkout && watch(checkout, work)
+          begin
+            serve_directory(host, port)
+          ensure
+            stop(watcher)
+          end
+        end
       end
 
       private
@@ -142,8 +157,18 @@ module Jekyll
         run_hook('after_assemble', version)
       end
 
-      def build_versions(versions)
-        Dir.mktmpdir('jekyll-vitepress-') do |work|
+      def planned_versions
+        config = site_config
+        settings = config.dig('jekyll_vitepress', 'versions')
+        @hooks = build_hooks(config)
+        @site_url = config['url'].to_s.strip.sub(%r{/+\z}, '')
+        settings.is_a?(Hash) ? plan(settings) : nil
+      end
+
+      def build_versions(versions, work = nil)
+        return Dir.mktmpdir('jekyll-vitepress-') { |dir| build_versions(versions, dir) } unless work
+
+        begin
           versions.each do |version|
             prepare_source(version, work)
             build_version(version, versions, work)
@@ -291,6 +316,42 @@ module Jekyll
         raise Error, "Refusing to replace #{destination} with the built site; pass a separate --destination"
       end
 
+      # -- Serving --------------------------------------------------------
+
+      def serve_single(host, port)
+        command = ['bundle', 'exec', 'jekyll', 'serve', '--source', docs, '--destination', destination,
+                   '--baseurl', baseurl, '--host', host, '--port', port.to_s, *@jekyll_args]
+        run!(command, chdir: docs, env: { 'BUNDLE_GEMFILE' => gemfile })
+      end
+
+      def watch(version, work)
+        output = File.join(destination, version.path)
+        configs = config_files(docs) + [File.join(work, "#{version.id}.yml")]
+        command = ['bundle', 'exec', 'jekyll', 'build', '--watch', '--source', docs, '--destination', output,
+                   '--baseurl', version_baseurl(version), '--config', configs.join(','), *@jekyll_args]
+        say("Rebuilding #{version.path} when #{docs} changes")
+        Process.spawn({ 'BUNDLE_GEMFILE' => gemfile }, *command, chdir: docs)
+      end
+
+      def serve_directory(host, port)
+        require 'webrick'
+        server = WEBrick::HTTPServer.new(BindAddress: host, Port: port, AccessLog: [],
+                                         Logger: WEBrick::Log.new(File::NULL))
+        server.mount(baseurl.empty? ? '/' : baseurl, WEBrick::HTTPServlet::FileHandler, destination)
+        %w[INT TERM].each { |signal| trap(signal) { server.shutdown } }
+        say("Serving http://#{host}:#{port}#{baseurl}/")
+        server.start
+      end
+
+      def stop(pid)
+        return unless pid
+
+        Process.kill('TERM', pid)
+        Process.wait(pid)
+      rescue Errno::ESRCH, Errno::ECHILD
+        nil
+      end
+
       # -- Hooks ----------------------------------------------------------
 
       def build_hooks(config)
@@ -301,7 +362,9 @@ module Jekyll
       def run_hook(name, version)
         Array(hooks[name]).each do |command|
           say("Running #{name} for #{version.id}: #{command}")
-          run!(['sh', '-c', command.to_s], chdir: docs, env: hook_env(version))
+          # Hooks get the environment from before `bundle exec`, so a hook
+          # can run the repository's own bundle without inheriting the docs one.
+          with_original_env { run!(['sh', '-c', command.to_s], chdir: docs, env: hook_env(version)) }
         end
       end
 
@@ -336,6 +399,10 @@ module Jekyll
 
       def gemfile
         ENV['BUNDLE_GEMFILE'] || File.join(docs, 'Gemfile')
+      end
+
+      def with_original_env(&)
+        defined?(Bundler) ? Bundler.with_original_env(&) : yield
       end
 
       def remove_worktree(version)

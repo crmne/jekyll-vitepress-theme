@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 require 'fileutils'
+require 'net/http'
 require 'open3'
+require 'socket'
 require 'stringio'
 require 'tmpdir'
 require 'yaml'
@@ -66,6 +68,7 @@ class VersionedBuildTest < Minitest::Test
     assert_includes robots, 'Sitemap: https://docs.example.test/manual/v1/sitemap.xml'
 
     assert_equal(%w[v2.0.0 HEAD v1.1.0], ['', 'next', 'v1'].map { |dir| File.read(File.join(site, dir, 'version.hook')).strip })
+    refute_includes File.read(File.join(site, 'env.hook')), 'bundler/setup', 'hooks run outside the docs bundle'
     assert_equal 1, git('worktree', 'list').lines.size, 'release worktrees are removed'
     assert_includes output, 'Built / = v2.0.0, /next/ = this checkout, /v1/ = v1.1.0'
   end
@@ -92,13 +95,58 @@ class VersionedBuildTest < Minitest::Test
     refute_includes File.read(File.join(site, 'index.html')), 'vp-version-banner'
   end
 
+  def test_serve_builds_every_version_and_rebuilds_the_checkout
+    configure_versions('next' => true)
+    release('v1.0.0')
+    write('index.md', home('Before the edit'))
+    git('commit', '--quiet', '-am', 'Work on main')
+    port = free_port
+    log = File.join(@repo, 'serve.log')
+    pid = Process.spawn(RbConfig.ruby, File.expand_path('../exe/jekyll-vitepress', __dir__), 'serve',
+                        '--source', @docs, '--destination', File.join(@repo, 'site'), '--baseurl', '/manual',
+                        '--port', port.to_s, '--', '--quiet', out: log, err: log)
+    begin
+      assert_includes fetch(port, '/manual/next/', 'Before the edit'), 'vp-version-banner'
+      assert_includes fetch(port, '/manual/', 'Downstream Docs'), '<title>Downstream Docs</title>'
+      write('index.md', home('After the edit'))
+      assert_includes fetch(port, '/manual/next/', 'After the edit'), 'vp-version-banner'
+    ensure
+      Process.kill('INT', pid)
+      Process.wait(pid)
+    end
+  end
+
   private
+
+  def free_port
+    server = TCPServer.new('127.0.0.1', 0)
+    server.addr[1]
+  ensure
+    server&.close
+  end
+
+  # Waits for the served page to contain the text, as builds take a while.
+  def fetch(port, path, text, timeout: 90)
+    deadline = Time.now + timeout
+    body = nil
+    while Time.now < deadline
+      begin
+        body = Net::HTTP.get(URI("http://127.0.0.1:#{port}#{path}"))
+        return body if body.include?(text)
+      rescue Errno::ECONNREFUSED, EOFError
+        nil
+      end
+      sleep 0.5
+    end
+    flunk "#{path} never contained #{text.inspect}:\n#{body}"
+  end
 
   def configure_versions(versions)
     config = YAML.safe_load_file(File.join(@docs, '_config.yml'))
     config['jekyll_vitepress']['versions'] = versions
     config['jekyll_vitepress']['build'] = {
-      'after_build' => 'echo "$VITEPRESS_VERSION_REF" > "$VITEPRESS_VERSION_OUTPUT/version.hook"'
+      'after_build' => 'echo "$VITEPRESS_VERSION_REF" > "$VITEPRESS_VERSION_OUTPUT/version.hook" && ' \
+                       'echo "rubyopt:${RUBYOPT}" > "$VITEPRESS_VERSION_OUTPUT/env.hook"'
     }
     File.write(File.join(@docs, '_config.yml'), YAML.dump(config))
   end

@@ -6,19 +6,25 @@ require_relative '../lib/jekyll/vitepress_theme/versions'
 require_relative '../lib/jekyll/vitepress_theme/versioned_build'
 
 USAGE = <<~TEXT
-  Usage: jekyll-vitepress build [options] [-- extra jekyll build options]
+  Usage: jekyll-vitepress build [options] [-- extra jekyll options]
+         jekyll-vitepress serve [options] [-- extra jekyll options]
 
-  Builds the docs site, and every version of it configured under
-  jekyll_vitepress.versions in _config.yml.
+  build  Builds the docs site, and every version of it configured under
+         jekyll_vitepress.versions in _config.yml.
+  serve  Builds it, serves it, and rebuilds the checkout's version as files
+         change.
 
 TEXT
 
 options = { source: '.', destination: nil, baseurl: ENV.fetch('BASE', '') }
+server = { host: '127.0.0.1', port: 4000 }
 parser = OptionParser.new do |opts|
   opts.banner = USAGE
   opts.on('-s', '--source DIR', 'Docs directory holding _config.yml (default: .)') { |value| options[:source] = value }
   opts.on('-d', '--destination DIR', 'Where the site goes (default: SOURCE/_site)') { |value| options[:destination] = value }
   opts.on('-b', '--baseurl URL', 'Base URL the site is served under, such as /repo') { |value| options[:baseurl] = value }
+  opts.on('-H', '--host HOST', 'Host to serve on (default: 127.0.0.1)') { |value| server[:host] = value }
+  opts.on('-P', '--port PORT', Integer, 'Port to serve on (default: 4000)') { |value| server[:port] = value }
   opts.on('-h', '--help', 'Show this help') do
     puts opts
     exit
@@ -30,13 +36,14 @@ separator = arguments.index('--')
 jekyll_args = separator ? arguments.slice!(separator..)[1..] : []
 command = parser.parse(arguments).first
 
-unless command == 'build'
+unless %w[build serve].include?(command)
   warn parser.help
   exit 1
 end
 
 begin
-  Jekyll::VitePressTheme::VersionedBuild.new(**options, jekyll_args: jekyll_args).run
+  builder = Jekyll::VitePressTheme::VersionedBuild.new(**options, jekyll_args: jekyll_args)
+  command == 'serve' ? builder.serve(**server) : builder.run
 rescue Jekyll::VitePressTheme::VersionedBuild::Error => e
   warn "jekyll-vitepress: #{e.message}"
   exit 1

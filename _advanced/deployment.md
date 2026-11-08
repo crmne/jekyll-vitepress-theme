@@ -22,8 +22,16 @@ under a path, and anything after `--` goes to each `jekyll build`:
 bundle exec jekyll-vitepress build --baseurl /repo -- --trace
 ```
 
-Keep using `bundle exec jekyll serve` while you write: it serves the checkout
-you are editing, as it always has.
+To preview, serve the site instead:
+
+```sh
+bundle exec jekyll-vitepress serve
+```
+
+It builds the same site, serves it at `http://127.0.0.1:4000`, and rebuilds
+the checkout's version when you change a file (`/next/` with versions on).
+`--host` and `--port` choose where it listens. `bundle exec jekyll serve`
+still works too, for the checkout alone.
 
 ## Versioned docs
 
@@ -134,7 +142,10 @@ jekyll_vitepress:
 `before_build` and `after_build` run once per version, and `after_assemble`
 once, after the versions are put together. Each value is a shell command, or a
 list of them, run from the docs directory, and they also run for a site
-without versions. They get these environment variables:
+without versions. Hooks run outside the docs bundle, with the environment
+`bundle exec` started from, so a hook can use the repository's own bundle.
+`serve` runs them in its first build only. They get these environment
+variables:
 
 | Variable | Value |
 | --- | --- |
