@@ -156,3 +156,12 @@ exclude:
   - jekyll-vitepress-theme.gemspec
   - Gemfile
   - Gemfile.lock
+  - AGENTS.md
+  - README.md
+  - Rakefile
+  - packaging
+  - package.json
+  - package-lock.json
+  - renovate.json
+  - eslint.config.mjs
+  - stylelint.config.cjs
