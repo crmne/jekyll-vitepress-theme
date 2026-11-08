@@ -39,6 +39,8 @@ class VersionsTest < Minitest::Test
 
       assert_includes home, '<title>Downstream Docs Next</title>'
       assert_includes guide, '<title>Downstream Docs Next — Public Guide</title>'
+      assert_includes guide, '<meta property="og:title" content="Downstream Docs Next — Public Guide">'
+      assert_includes guide, '<meta name="twitter:title" content="Downstream Docs Next — Public Guide">'
       assert_includes home, '<link rel="canonical" href="https://docs.example.test/manual/next/">'
       assert_includes guide, 'href="https://docs.example.test/manual/next/guide/"'
       assert_includes home, 'class="has-version-banner"'
@@ -65,6 +67,7 @@ class VersionsTest < Minitest::Test
       home = File.read(File.join(site, 'index.html'))
 
       assert_includes home, '<title>Downstream Docs</title>'
+      assert_includes home, '<meta property="og:title" content="Downstream Docs">'
       refute_includes home, 'vp-version-banner'
       refute_includes home, 'has-version-banner'
       assert_includes home, '<span>2.0.0 (stable)</span>'

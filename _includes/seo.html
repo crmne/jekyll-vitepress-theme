@@ -15,7 +15,7 @@
     {% if seo.sitemap_url %}<link rel="sitemap" type="application/xml" href="{{ seo.sitemap_url | escape }}">{% endif %}
 
     <meta property="og:site_name" content="{{ site.title | default: site.jekyll_vitepress.branding.site_title | escape }}">
-    <meta property="og:title" content="{{ seo.page_title | escape }}">
+    <meta property="og:title" content="{{ seo.share_title | default: seo.page_title | escape }}">
     {% if seo.description %}<meta property="og:description" content="{{ seo.description | escape }}">{% endif %}
     {% if seo.canonical_url %}<meta property="og:url" content="{{ seo.canonical_url | escape }}">{% endif %}
     <meta property="og:type" content="{{ seo.og_type }}">
@@ -41,7 +41,7 @@
     {% if seo.facebook.admins %}<meta property="fb:admins" content="{{ seo.facebook.admins | escape }}">{% endif %}
 
     <meta name="twitter:card" content="{{ seo.twitter.card | escape }}">
-    <meta name="twitter:title" content="{{ seo.page_title | escape }}">
+    <meta name="twitter:title" content="{{ seo.share_title | default: seo.page_title | escape }}">
     {% if seo.description %}<meta name="twitter:description" content="{{ seo.description | escape }}">{% endif %}
     {% if seo.image.url %}<meta name="twitter:image" content="{{ seo.image.url | escape }}">{% endif %}
     {% if seo.image.alt %}<meta name="twitter:image:alt" content="{{ seo.image.alt | escape }}">{% endif %}

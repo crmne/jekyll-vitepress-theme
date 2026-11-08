@@ -107,6 +107,9 @@ module Jekyll
         metadata = {
           'title' => full_title,
           'page_title' => page_title,
+          # Link previews show og:title rather than <title>, so outside the
+          # stable docs they get the title that names the version.
+          'share_title' => Versions.stable?(site) ? page_title : full_title,
           'description' => description,
           'canonical_url' => canonical,
           'locale' => locale.tr('-', '_'),
