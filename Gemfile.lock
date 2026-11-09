@@ -110,8 +110,8 @@ GEM
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    overcommit (0.73.0)
-      childprocess (>= 0.6.3, < 6)
+    overcommit (0.75.0)
+      childprocess (>= 5.0.0, < 6)
       iniparse (~> 1.4)
       rexml (>= 3.4.2)
     parallel (2.3.0)
@@ -264,7 +264,7 @@ CHECKSUMS
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
   mercenary (0.4.0) sha256=b25a1e4a59adca88665e08e24acf0af30da5b5d859f7d8f38fba52c28f405138
   minitest (6.0.6) sha256=153ea36d1d987a62942382b61075745042a2b3123b1cd48f4c3675af9cc7d6f1
-  overcommit (0.73.0) sha256=715ed299a3ed4a9439be381f9d48294d976811c6078bd7ba4b6191501e35a934
+  overcommit (0.75.0) sha256=dc0330a76e4c7b11d82e93e6011d181d2f08bc109a3bfbd21f91dea51269e522
   parallel (2.3.0) sha256=f75a3e904101ce6a1ccb6b8dc800cbafd42166d83330192438dcf29395167a6f
   parser (3.3.13.0) sha256=e02f9b63c2fe05b0c68f692ba4df89b3cb113b663964f75d988fbebfd6c3deca
   pathutil (0.16.2) sha256=e43b74365631cab4f6d5e4228f812927efc9cb2c71e62976edcb252ee948d589
