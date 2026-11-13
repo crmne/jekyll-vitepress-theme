@@ -9,8 +9,12 @@
   <link rel="icon" href="{{ logo.default | default: logo.light | default: '/assets/images/theme/vitepress-logo-mini.svg' | relative_url }}">
 
   {% assign typography = theme.typography %}
-  {% assign google_fonts_url = typography.google_fonts_url | default: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap' %}
-  {% if google_fonts_url and google_fonts_url != false and google_fonts_url != '' %}
+  {% assign google_fonts_url = typography.google_fonts_url %}
+  {% if google_fonts_url == nil %}
+    {% comment %}Inter served with the site: preloaded, it is there for the first paint, so text never moves when it arrives.{% endcomment %}
+    <link rel="preload" href="{{ '/assets/fonts/inter/inter-normal-latin.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="{{ '/assets/css/inter.css' | relative_url }}">
+  {% elsif google_fonts_url != false and google_fonts_url != '' %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="{{ google_fonts_url }}">

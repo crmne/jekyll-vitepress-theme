@@ -37,11 +37,12 @@ jekyll_vitepress:
   typography:
     body_font_family: "'Inter', ui-sans-serif, system-ui, sans-serif"
     code_font_family: "'JetBrains Mono', ui-monospace, monospace"
-    google_fonts_url: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
 ```
 {: data-title="_config.yml"}
 
-The `google_fonts_url` is loaded as a stylesheet in `<head>`. Set it to `false` to disable external font loading. This is useful if you're self-hosting fonts or prefer system fonts.
+Inter comes with the theme and is served from your site, so pages make no request to Google. Its Latin face is preloaded, which puts it on the page from the first paint: text never moves when the font arrives, and the page keeps a good Cumulative Layout Shift score.
+
+To load fonts from Google Fonts instead, set `google_fonts_url` to a stylesheet URL, such as `"https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"`. Set it to `false` to load no web font at all, for your own fonts or the system's.
 
 ## Appearance mode
 

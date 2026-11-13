@@ -37,7 +37,6 @@ You can customize fonts and override VitePress CSS variables (tokens) for brandi
 ```yaml
 jekyll_vitepress:
   typography:
-    google_fonts_url: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
     body_font_family: "'Inter', ui-sans-serif, system-ui, sans-serif"
     code_font_family: "'JetBrains Mono', ui-monospace, monospace"
 
@@ -49,7 +48,7 @@ jekyll_vitepress:
 ```
 {: data-title="_config.yml"}
 
-Set `google_fonts_url: false` to disable external font loading entirely (useful if you want to serve fonts locally or use system fonts).
+Inter is served with the theme and preloaded by default. Set `google_fonts_url` to a Google Fonts stylesheet URL to load fonts from Google instead, or to `false` to load no web font (for your own fonts or the system's).
 
 ## Navigation and sidebar
 

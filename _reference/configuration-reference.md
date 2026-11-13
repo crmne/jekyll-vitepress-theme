@@ -65,7 +65,7 @@ jekyll_vitepress:
 
 - `typography.body_font_family`
 - `typography.code_font_family`
-- `typography.google_fonts_url` (`false` disables external font loading)
+- `typography.google_fonts_url` (unset: the bundled Inter, served with the site and preloaded; a URL: that Google Fonts stylesheet; `false`: no web font)
 - `tokens.light`
 - `tokens.dark`
 
@@ -74,7 +74,6 @@ jekyll_vitepress:
   typography:
     body_font_family: "'Inter', ui-sans-serif, system-ui, sans-serif"
     code_font_family: "'JetBrains Mono', ui-monospace, monospace"
-    google_fonts_url: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
   tokens:
     light:
       --vp-c-brand-1: "#3451b2"
