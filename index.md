@@ -3,6 +3,8 @@ layout: home
 title: Jekyll VitePress Theme
 description: VitePress-style documentation theme and plugin for Jekyll sites, with Jekyll-first extensions beyond VitePress.
 permalink: /
+seo:
+  title: Jekyll Documentation Theme
 hero:
   name: Jekyll VitePress Theme
   text: Ruby Deserves Beautiful Documentation

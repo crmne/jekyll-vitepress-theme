@@ -1,6 +1,8 @@
 ---
 title: Deployment
 nav_order: 3
+seo:
+  title: Deploy Jekyll Docs to GitHub Pages
 description: Publish your docs to GitHub Pages, with the latest release at the root, the default branch at /next/, and older major versions kept online.
 ---
 
