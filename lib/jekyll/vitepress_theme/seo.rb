@@ -146,6 +146,7 @@ module Jekyll
       def robots_for(item, page_config, config)
         explicit = page_config['robots'] || item.data['robots']
         return clean_text(explicit) if explicit && explicit != true
+        return 'noindex,follow' if other_version_hidden?(item.site, config)
 
         site_index = !config.is_a?(Hash) || config.fetch('index', true) != false
         noindex = page_config['noindex'] == true || item.data['noindex'] == true || !site_index
@@ -538,6 +539,14 @@ module Jekyll
         uri.to_s
       rescue URI::InvalidURIError
         nil
+      end
+
+      # Next and older versions repeat most of the stable pages, so search
+      # engines should index only the stable docs unless the site opts in.
+      def other_version_hidden?(site, config)
+        return false if Versions.stable?(site)
+
+        !(config.is_a?(Hash) && config['index_versions'] == true)
       end
 
       def sitemap_enabled?(config)

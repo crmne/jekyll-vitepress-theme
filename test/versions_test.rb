@@ -48,7 +48,23 @@ class VersionsTest < Minitest::Test
       assert_includes home, '<a href="/manual/">Read the 2.0.0 docs</a>'
       assert_includes home, '<span>Next (unreleased)</span>'
       assert_includes home, 'href="/manual/v1/"'
-      assert_includes File.read(File.join(site, 'sitemap.xml')), '<loc>https://docs.example.test/manual/next/guide/</loc>'
+      assert_includes home, '<meta name="robots" content="noindex,follow">'
+      refute_includes File.read(File.join(site, 'sitemap.xml')), '<loc>'
+    end
+  end
+
+  def test_other_versions_can_be_indexed_when_the_site_opts_in
+    Dir.mktmpdir('jekyll-vitepress-versions') do |destination|
+      config = Jekyll.configuration(
+        'config' => File.join(FIXTURE, '_config.yml'), 'source' => FIXTURE, 'destination' => destination,
+        'baseurl' => '/manual/next', 'quiet' => true, 'disable_disk_cache' => true,
+        'vitepress_version' => version('next', id: 'next', label: 'Next', title: 'Next (unreleased)')
+      )
+      config['jekyll_vitepress']['seo']['index_versions'] = true
+      Jekyll::Site.new(config).process
+
+      refute_includes File.read(File.join(destination, 'index.html')), 'noindex'
+      assert_includes File.read(File.join(destination, 'sitemap.xml')), '<loc>https://docs.example.test/manual/next/guide/</loc>'
     end
   end
 
@@ -71,6 +87,7 @@ class VersionsTest < Minitest::Test
       refute_includes home, 'vp-version-banner'
       refute_includes home, 'has-version-banner'
       assert_includes home, '<span>2.0.0 (stable)</span>'
+      refute_includes home, 'noindex'
     end
   end
 

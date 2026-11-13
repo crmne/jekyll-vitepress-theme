@@ -67,8 +67,14 @@ Every version gets:
   is on and links to the stable docs;
 - page titles that name the version, such as "Getting Started | MyGem Next",
   so search results and link previews tell the versions apart;
-- canonical URLs, a sitemap, search, `llms.txt`, and Markdown pages of its own.
-  `robots.txt` at the root lists every version's sitemap.
+- canonical URLs, search, and Markdown pages of its own.
+
+Search engines index only the stable docs: pages in `/next/` and older
+versions say `noindex,follow`, their sitemaps and `llms.txt` stay empty, and
+`robots.txt` lists the stable sitemap. Most of their pages repeat the stable
+ones, and indexing them splits a page's ranking across copies. Set
+`seo.index_versions: true` under `jekyll_vitepress` to index them too, which
+also lists their sitemaps in `robots.txt`.
 
 Until the first release tag exists, the command builds the checkout once, at
 the root.

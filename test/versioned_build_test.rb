@@ -64,8 +64,10 @@ class VersionedBuildTest < Minitest::Test
 
     robots = File.read(File.join(site, 'robots.txt'))
     assert_includes robots, 'Sitemap: https://docs.example.test/manual/sitemap.xml'
-    assert_includes robots, 'Sitemap: https://docs.example.test/manual/next/sitemap.xml'
-    assert_includes robots, 'Sitemap: https://docs.example.test/manual/v1/sitemap.xml'
+    refute_includes robots, 'Sitemap: https://docs.example.test/manual/next/sitemap.xml'
+    refute_includes robots, 'Sitemap: https://docs.example.test/manual/v1/sitemap.xml'
+    assert_includes following, '<meta name="robots" content="noindex,follow">'
+    assert_includes older, '<meta name="robots" content="noindex,follow">'
 
     assert_equal(%w[v2.0.0 HEAD v1.1.0], ['', 'next', 'v1'].map { |dir| File.read(File.join(site, dir, 'version.hook')).strip })
     refute_includes File.read(File.join(site, 'env.hook')), 'bundler/setup', 'hooks run outside the docs bundle'

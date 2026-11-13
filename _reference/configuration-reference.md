@@ -115,6 +115,7 @@ Core SEO is enabled by default. The theme generates page metadata, Open Graph an
 - `seo.schema.enabled` (defaults to `true`)
 - `seo.sitemap` and `seo.robots_txt` (both default to `true`)
 - `seo.robots_txt_rules` (optional extra literal rules)
+- `seo.index_versions` (defaults to `false`; `true` lets search engines index `/next/` and older versions built by `jekyll-vitepress build`, which are otherwise `noindex` and left out of the sitemaps)
 
 ```yaml
 title: My Project Docs

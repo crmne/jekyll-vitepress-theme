@@ -296,13 +296,15 @@ module Jekyll
       end
 
       # Search engines find the stable sitemap through robots.txt; the other
-      # versions' sitemaps are listed beside it.
+      # versions' sitemaps are listed beside it when they list any page, which
+      # they only do when `seo.index_versions` lets those versions be indexed.
       def list_sitemaps(versions)
         robots = File.join(destination, 'robots.txt')
         return unless File.file?(robots) && File.read(robots).match?(/^Sitemap:/)
 
         lines = versions.filter_map do |version|
-          next unless File.file?(File.join(version.output, 'sitemap.xml'))
+          sitemap = File.join(version.output, 'sitemap.xml')
+          next unless File.file?(sitemap) && File.read(sitemap).include?('<loc>')
 
           "Sitemap: #{@site_url}#{baseurl}#{version.path}sitemap.xml"
         end
